@@ -9,16 +9,9 @@
 # Version:      1.0
 #
 
-import sys
 import json
 import argparse
-import datetime
-from time import mktime
-from email.utils import formatdate
 import demisto
-
-def format_dt(dt):
-    return dt.strftime('%Y-%m-%dT%H:%M:%S')
 
 def options_handler():
     parser = argparse.ArgumentParser(description='Utility for batch action on incidents')

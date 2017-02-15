@@ -51,14 +51,15 @@ class DemistoClient:
     def Logout(self):
         return self.req("POST", "logout", {})
 
-    def CreateIncident(self, inc_name, inc_type, inc_severity, inc_owner, inc_labels, inc_details, **kwargs ):
+    def CreateIncident(self, inc_name, inc_type, inc_severity, inc_owner, inc_labels, inc_details,custom_fields, **kwargs ):
         data = {"type": inc_type,
                 "name": inc_name,
                 "owner": inc_owner,
                 "severity": inc_severity,
                 "labels": inc_labels,
-                "customFields": {'alertingsource': 'Phone','datetimecreated': dtstr},
+                "customFields": custom_fields,
                 "details": inc_details}
+
         for e in kwargs:
             if e not in data:
                 data[e] = kwargs[e]

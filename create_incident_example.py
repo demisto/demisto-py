@@ -46,10 +46,10 @@ def main():
     c.Login()
 
     labels = None
-    if (options.labels != None) and len(options.labels) > 0 :
+    if (options.labels is not None) and len(options.labels) > 0 :
         labels = json.loads(options.labels)
     fields = None
-    if (options.custom_fields != None) and len(options.custom_fields) > 0 :
+    if (options.custom_fields is not None) and len(options.custom_fields) > 0 :
         fields = json.loads(options.custom_fields)
     r = c.CreateIncident(options.name, options.type, severity_to_number(options.severity), options.owner, labels, options.details, fields)
     print(r)

@@ -1,6 +1,6 @@
 # Demisto SDK for Python
 
-A Python library for the Docker Engine API. It lets you do anything the `docker` command does, but from within Python apps – run containers, manage containers, manage Swarms, etc.
+A Python library for the Demisto API.
 
 ## Usage
 

@@ -26,7 +26,7 @@ def options_handler():
     parser.add_argument('-f', '--filter', help='The filter query to chose the alerts, default is open incidents created in last month', default='(status:=0 or status:=1) and created:>%s' % format_dt(monthAgo))
     parser.add_argument('-m', '--page', help='The page we are working on', default=0, type=int)
     parser.add_argument('-n', '--size', help='The size per page', default=100, type=int)
-    parser.add_argument('-a', '--action', help='The action to perform', default='close', choices=['close', 'playbook', 'type', 'delete', 'entry'])
+    parser.add_argument('-a', '--action', help='The action to perform', default='close', choices=['close'])
     parser.add_argument('--closeReason', help='The close reason')
     parser.add_argument('--closeNotes', help='The close notes')
     parser.add_argument('--customFields', help='The json that includes the values for the custom fields')

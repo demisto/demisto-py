@@ -71,4 +71,4 @@ class DemistoClient:
         r = self.req("POST", "incidents/search", data)
         if r.status_code != 200:
             raise RuntimeError('Error searching incidents - %d (%s)' % (r.status_code, r.reason))
-        return json.loads(r.content)
+        return r.json()

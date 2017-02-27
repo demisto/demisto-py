@@ -35,3 +35,21 @@ client.SearchIncidents(0,100,'name:test')
 
 Will return incidents with name test
 
+* Note - on macOS, the system OpenSSL does not supprot TLSv12 which Demisto server mandates. To run the examples on macOS you will need to install brew and then OpenSSL and Python via brew.
+
+If you don't have brew installed:
+```
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+```
+
+To install Python with new OpenSSL support:
+```
+brew update
+brew install openssl
+brew install python --with-brewed-openssl
+```
+
+To run the examples:
+```
+/usr/local/Cellar/python/2.7.13/bin/python example -param val -param val
+```

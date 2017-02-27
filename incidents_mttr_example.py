@@ -30,6 +30,7 @@ def options_handler():
     parser.add_argument('-s', '--server', help='The server URL to connect to', required=True)
     monthAgo = date.today() - timedelta(days=30)
     parser.add_argument('-f', '--filter', help='The filter query to chose the alerts, default is closed incidents in last month', default='status:=2 and closed:>%s' % format_dt(monthAgo))
+    parser.add_argument('-g', '--group', help='The field to group by to calculate mttr, default is owner', default='owner')
     parser.add_argument('-q', '--quiet', action='store_false', dest='verbose', default=True, help="no extra prints")
     parser.add_argument('-o', '--output', help='The output CSV file', default='mttr.csv')
     options = parser.parse_args()
@@ -51,17 +52,21 @@ def main():
         created = parse_dt(i['created'])
         closed = parse_dt(i['closed'])
         d = closed - created
-        owner = i['owner'] if i['owner'] else 'dbot'
-        if owner in mttr:
-            mttr[owner]['mttr'] = mttr[owner]['mttr'] + d.total_seconds()
-            mttr[owner]['incidents'] = mttr[owner]['incidents'] + 1
+        field = ''
+        if options.group == 'owner':
+            field = i['owner'] if i['owner'] else 'dbot'
         else:
-            mttr[owner] = {'mttr': d.total_seconds(), 'incidents': 1}
+            field = i[options.group]
+        if field in mttr:
+            mttr[field]['mttr'] = mttr[field]['mttr'] + d.total_seconds()
+            mttr[field]['incidents'] = mttr[field]['incidents'] + 1
+        else:
+            mttr[field] = {'mttr': d.total_seconds(), 'incidents': 1}
     with open(options.output, 'w') as csvfile:
-        writer = csv.DictWriter(csvfile, fieldnames=['Analyst', 'Incidents', 'MTTR'])
+        writer = csv.DictWriter(csvfile, fieldnames=['Field', 'Incidents', 'MTTR'])
         writer.writeheader()
-        for analyst in mttr:
-            writer.writerow({'Analyst': analyst, 'Incidents': mttr[analyst]['incidents'], 'MTTR': int(mttr[analyst]['mttr'] / mttr[analyst]['incidents'] / 60)})
+        for f in mttr:
+            writer.writerow({'Field': f, 'Incidents': mttr[f]['incidents'], 'MTTR': int(mttr[f]['mttr'] / mttr[f]['incidents'] / 60)})
 
 if __name__ == '__main__':
     main()

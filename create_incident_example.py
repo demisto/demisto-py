@@ -15,8 +15,7 @@ import demisto
 
 def options_handler():
     parser = argparse.ArgumentParser(description='Utility for batch action on incidents')
-    parser.add_argument('-u', '--user', help='The username for the login', required=True)
-    parser.add_argument('-p', '--password', help='The password for the login', required=True)
+    parser.add_argument('-k', '--key', help='The API key to access the server', required=True)
     parser.add_argument('-s', '--server', help='The server URL to connect to', required=True)
     parser.add_argument('-n', '--name', help='Incident name', required=True)
     parser.add_argument('-t', '--type', help='Incident Type')
@@ -42,9 +41,7 @@ def severity_to_number(severity_str):
 
 def main():
     options = options_handler()
-    c = demisto.DemistoClient(options.user, options.password, options.server)
-    c.Login()
-
+    c = demisto.DemistoClient(options.key, options.server)
     labels = None
     if (options.labels is not None) and len(options.labels) > 0 :
         labels = json.loads(options.labels)

@@ -25,8 +25,7 @@ def p(what):
 
 def options_handler():
     parser = argparse.ArgumentParser(description='Incident MTTR statistics for a time period')
-    parser.add_argument('-u', '--user', help='The username for the login', required=True)
-    parser.add_argument('-p', '--password', help='The password for the login', required=True)
+    parser.add_argument('-k', '--key', help='The API key to access the server', required=True)
     parser.add_argument('-s', '--server', help='The server URL to connect to', required=True)
     monthAgo = date.today() - timedelta(days=30)
     parser.add_argument('-f', '--filter', help='The filter query to chose the alerts, default is closed incidents in last month', default='status:=2 and closed:>%s' % format_dt(monthAgo))
@@ -40,8 +39,7 @@ def options_handler():
 
 def main():
     options = options_handler()
-    c = demisto.DemistoClient(options.user, options.password, options.server)
-    c.Login()
+    c = demisto.DemistoClient(options.key, options.server)
     p('using filter %s' %  options.filter)
     incidents = c.SearchIncidents(0, 10000, options.filter)
     p('Total #incidents: %d' % (incidents['total']))

@@ -19,8 +19,7 @@ def p(what):
 
 def options_handler():
     parser = argparse.ArgumentParser(description='Integrations and commands')
-    parser.add_argument('-u', '--user', help='The username for the login', required=True)
-    parser.add_argument('-p', '--password', help='The password for the login', required=True)
+    parser.add_argument('-k', '--key', help='The API key to access the server', required=True)
     parser.add_argument('-s', '--server', help='The server URL to connect to', required=True)
     parser.add_argument('-q', '--quiet', action='store_false', dest='verbose', default=True, help="no extra prints")
     parser.add_argument('-o', '--output', help='The output CSV file', default='integrations.csv')
@@ -31,8 +30,7 @@ def options_handler():
 
 def main():
     options = options_handler()
-    c = demisto.DemistoClient(options.user, options.password, options.server)
-    c.Login()
+    c = demisto.DemistoClient(options.key, options.server)
     integrationsResponse = c.req('GET', 'settings/integration-commands', None)
     if integrationsResponse.status_code != 200:
         raise RuntimeError('Error getting integration data - %d (%s)' % (integrationsResponse.status_code, integrationsResponse.reason))

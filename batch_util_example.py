@@ -19,8 +19,7 @@ def format_dt(dt):
 
 def options_handler():
     parser = argparse.ArgumentParser(description='Utility for batch action on incidents')
-    parser.add_argument('-u', '--user', help='The username for the login', required=True)
-    parser.add_argument('-p', '--password', help='The password for the login', required=True)
+    parser.add_argument('-k', '--key', help='The API key to access the server', required=True)
     parser.add_argument('-s', '--server', help='The server URL to connect to', required=True)
     monthAgo = date.today() - timedelta(days=30)
     parser.add_argument('-f', '--filter', help='The filter query to chose the alerts, default is open incidents created in last month', default='(status:=0 or status:=1) and created:>%s' % format_dt(monthAgo))
@@ -41,8 +40,7 @@ def options_handler():
 
 def main():
     options = options_handler()
-    c = demisto.DemistoClient(options.user, options.password, options.server)
-    c.Login()
+    c = demisto.DemistoClient(options.key, options.server)
     incidents = c.SearchIncidents(options.page, 0, options.filter)
     print('using filter %s' %  options.filter)
     print('Total #incidents: %d, incidents going to be updated' % (incidents['total']))

@@ -4,6 +4,8 @@ A Python library for the Demisto API.
 
 ## Usage
 
+First, get Demisto api-key. You can generate one via Demisto client - on `settings`->`API keys`.
+
 ```python
 import demisto
 client = demisto.DemistoClient('<your-api-key-goes-here>', 'https://localhost:8443')

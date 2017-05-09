@@ -6,7 +6,7 @@ A Python library for the Demisto API.
 
 ```python
 import demisto
-client = demisto.DemistoClient('admin', 'password', 'https://localhost:8443')
+client = demisto.DemistoClient('<your-api-key-goes-here>', 'https://localhost:8443')
 client.Login()
 ```
 Should return <Response [200]>

@@ -41,10 +41,10 @@ def main():
         for m in integrations:
             if 'commands' in m:
                 for cmd in m['commands']:
-                    writer.writerow({'Category': m['category'], 'Product': m['name'], 'ProductDescription': m['description'].encode('ascii', 'ignore'),
+                    writer.writerow({'Category': m['category'], 'Product': m['display'], 'ProductDescription': m['description'].encode('ascii', 'ignore'),
                         'Command': cmd['name'], 'CommandDescription': cmd['description'].encode('ascii', 'ignore')})
             else:
-                writer.writerow({'Category': m['category'], 'Product': m['name'], 'ProductDescription': m['description'].encode('ascii', 'ignore')})
+                writer.writerow({'Category': m['category'], 'Product': m['display'], 'ProductDescription': m['description'].encode('ascii', 'ignore')})
 
 if __name__ == '__main__':
     main()

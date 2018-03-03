@@ -74,7 +74,8 @@ class DemistoClient:
                 "severity": inc_severity,
                 "labels": inc_labels,
                 "customFields": custom_fields,
-                "details": inc_details}
+                "details": inc_details,
+                "createInvestigation": True}
 
         for e in kwargs:
             if e not in data:

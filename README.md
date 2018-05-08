@@ -6,12 +6,25 @@ A Python library for the Demisto API.
 
 First, get Demisto api-key. You can generate one via Demisto client - on `settings`->`API keys`.
 
+Create demisto client instance with the api-key and server-url:
 ```python
 import demisto
+
+# using api key
 client = demisto.DemistoClient('<your-api-key-goes-here>', 'https://localhost:8443')
-client.Login()
+
 ```
-Should return <Response [200]>
+
+Alternatively, you can login with username and password:
+
+```python
+import demisto
+
+# using username and password
+client = demisto.DemistoClient('', 'https://localhost:8443', '<username>', '<password>')
+client.Login() # Should return <Response [200]>
+
+```
 
 
 You can create incidents:

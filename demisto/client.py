@@ -11,7 +11,7 @@ import json
 from requests import Session
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 from requests.packages.urllib3 import disable_warnings
-import ntpath
+import os.path
 disable_warnings(InsecureRequestWarning)
 
 
@@ -37,18 +37,18 @@ class DemistoClient:
                 response = self.session.get(server, verify=False)
             except InsecureRequestWarning:
                 pass
-            self.token = r.cookies[DemistoClient.XSRF_COOKIE_KEY]
+            self.token = response.cookies[DemistoClient.XSRF_COOKIE_KEY]
             self.username = username
             self.password = password
         else:
             self.xsrf = False
             self.apiKey = apiKey
 
-    def req(self, method, path, data,files=None):
+    def req(self, method, path, data, files=None):
         if files:
             headers = {"Accept": "application/json"}
         else:
-            headers = {"Accept": "application/json","Content-type": "application/json"}
+            headers = {"Accept": "application/json", "Content-type": "application/json"}
 
         if self.xsrf:
             headers[DemistoClient.XSRF_TOKEN_KEY] = self.token
@@ -56,7 +56,7 @@ class DemistoClient:
             headers[DemistoClient.AUTHORIZATION] = self.apiKey
         try:
             if self.session:
-                response = self.session.request(method, self.server+path, headers=headers, verify=False, json=data,files=files)
+                response = self.session.request(method, self.server+path, headers=headers, verify=False, json=data, files=files)
             else:
                 raise RuntimeError("Session not initialized!")
         except InsecureRequestWarning:
@@ -87,14 +87,14 @@ class DemistoClient:
     def SearchIncidents(self, page, size, query):
         data = {'filter': {'page': page, 'size': size, 'query': query, 'sort': [{'field':'id', 'asc': False}]}}
         response = self.req("POST", "incidents/search", data)
-        if response.status_code != 200:
+        if response.status_code != requests.codes.ok:
             raise RuntimeError('Error searching incidents - %d (%s)' % (r.status_code, r.reason))
         return response.json()
 
     def UploadFileToWarroom(self,inc_id,filePath):
         files = None
         with open(filePath,"rb") as fileObject:
-            files = {'file': (ntpath.basename(filePath), fileObject.read(), 'application/octet-stream')}
+            files = {'file': (os.path.basename(filePath), fileObject.read(), 'application/octet-stream')}
 
         if files:
             response = self.req(method="POST", path="entry/upload/{}".format(inc_id), data=None, files=files)

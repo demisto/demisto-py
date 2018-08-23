@@ -1,11 +1,10 @@
 #!/usr/bin/env python2.7
 
 # example
-# An example of helper utility to do stuff on multiple incidents based on filter
+# An example of helper utility to upload files to the war room
 #
-# Stuff can be closing incidents, running a command, changing type or changing playbook
 #
-# Author:       Slavik Markovich
+# Author:       Ronald Eddings
 # Version:      1.0
 #
 
@@ -14,7 +13,7 @@ import argparse
 import demisto
 
 def options_handler():
-    parser = argparse.ArgumentParser(description='Utility for batch action on incidents')
+    parser = argparse.ArgumentParser(description='Utility for uploading files to the war room')
     parser.add_argument('-k', '--key', help='The API key to access the server', required=True)
     parser.add_argument('-s', '--server', help='The server URL to connect to', required=True)
     parser.add_argument('-i', '--id', help='Incident ID', required=True)

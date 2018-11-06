@@ -67,7 +67,7 @@ class DemistoClient:
     def Logout(self):
         return self.req("POST", "logout", {})
 
-    def CreateIncident(self, inc_name, inc_type, inc_severity, inc_owner, inc_labels, inc_details,custom_fields, **kwargs ):
+    def CreateIncident(self, inc_name, inc_type, inc_severity, inc_owner, inc_labels, inc_details, custom_fields, createInvestigation=True, **kwargs):
         data = {"type": inc_type,
                 "name": inc_name,
                 "owner": inc_owner,
@@ -76,9 +76,13 @@ class DemistoClient:
                 "customFields": custom_fields,
                 "details": inc_details}
 
+        if createInvestigation is True:
+            data['createInvestigation'] = True
+
         for e in kwargs:
             if e not in data:
                 data[e] = kwargs[e]
+
         return self.req("POST", "incident", data)
 
     def SearchIncidents(self, page, size, query):

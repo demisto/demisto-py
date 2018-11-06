@@ -32,6 +32,13 @@ client.CreateIncident('incident-name', 'incident-type', 0, 'owner', [{"type": "l
 
 ```
 
+By setting the parameter "createInvestigation" to **True**, the newly created incident will also create an Investigation. This will allow for Playbooks to be triggered automatically for the newly created Incident.
+
+```python
+client.CreateIncident('incident-name', 'incident-type', 0, 'owner', [{"type": "label", "value": "demisto"}], 'details', {"alertsource":"demisto"}, createInvestigation=True)
+
+```
+
 You can search for incidents by filter:
 
 ```python

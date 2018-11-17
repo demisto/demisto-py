@@ -7,7 +7,6 @@
 # Author:       Lior
 # Version:      1.1
 #
-import json
 from requests import Session
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 from requests.packages.urllib3 import disable_warnings
@@ -22,9 +21,11 @@ class DemistoClient:
     # New client that does not do anything yet
     def __init__(self, apiKey, server, username=None, password=None):
         if not ((apiKey or (username and password)) and server):
-            raise ValueError("You must provide server argument and key or user & password")
+            raise ValueError(
+                "You must provide server argument and key or user & password")
         if not server.find('https://') == 0 and not server.find('http://') == 0:
-            raise ValueError("Server must be a url (e.g. 'https://<server>' or 'http://<server>')")
+            raise ValueError(
+                "Server must be a url (e.g. 'https://<server>' or 'http://<server>')")
         if not server[-1] == '/':
             server += '/'
 
@@ -53,7 +54,8 @@ class DemistoClient:
             h[DemistoClient.AUTHORIZATION] = self.apiKey
         try:
             if self.session:
-                r = self.session.request(method, self.server+path, headers=h, verify=False, json=data)
+                r = self.session.request(
+                    method, self.server+path, headers=h, verify=False, json=data)
             else:
                 raise RuntimeError("Session not initialized!")
         except InsecureRequestWarning:
@@ -86,8 +88,10 @@ class DemistoClient:
         return self.req("POST", "incident", data)
 
     def SearchIncidents(self, page, size, query):
-        data = {'filter': {'page': page, 'size': size, 'query': query, 'sort': [{'field':'id', 'asc': False}]}}
+        data = {'filter': {'page': page, 'size': size,
+                           'query': query, 'sort': [{'field': 'id', 'asc': False}]}}
         r = self.req("POST", "incidents/search", data)
         if r.status_code != 200:
-            raise RuntimeError('Error searching incidents - %d (%s)' % (r.status_code, r.reason))
+            raise RuntimeError(
+                'Error searching incidents - %d (%s)' % (r.status_code, r.reason))
         return r.json()

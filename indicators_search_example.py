@@ -25,8 +25,9 @@ def options_handler():
         '-k', '--key', help='The API key to access the server', required=True)
     parser.add_argument(
         '-s', '--server', help='The server URL to connect to', required=True)
-    parser.add_argument('-q', '--quiet', action='store_false',
-                        dest='verbose', default=True, help="no extra prints")
+    parser.add_argument(
+        '-q', '--quiet', action='store_false',
+        dest='verbose', default=True, help="no extra prints")
     parser.add_argument(
         '-o', '--output', help='The output CSV file', default='indicators.csv')
     parser.add_argument(

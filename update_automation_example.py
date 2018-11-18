@@ -7,6 +7,7 @@ import json
 import demisto
 import unittest
 
+
 def options_handler():
     parser = argparse.ArgumentParser(
         description='an example of update automation by demisto.client',
@@ -26,7 +27,7 @@ def options_handler():
     parser.add_argument('-f', '--file', nargs='?', type=argparse.FileType('r'),
                         help='automation script name(.py or .js)',
                         required=False,
-                        default=sys.stdin)    
+                        default=sys.stdin)
     options = parser.parse_args()
     if options.name is None:
         if options.file.name == '<stdin>':
@@ -36,17 +37,20 @@ def options_handler():
                 raise RuntimeError(
                     'Error parsing options - name is required')
         else:
-            options.name = os.path.splitext(os.path.basename(options.file.name))[0]
+            options.name = os.path.splitext(
+                os.path.basename(options.file.name))[0]
     return options
+
 
 class TestAutomation(unittest.TestCase):
     def setUp(self):
         automation = {
-            "name":self.name,
-            "script":"demisto.results('Hello, world!')"
+            "name": self.name,
+            "script": "demisto.results('Hello, world!')"
         }
         automations = self.client.SaveAutomation(automation)
         self.id = automations["scripts"][0]["id"]
+
     def tearDown(self):
         automation = {
             "name": self.name,
@@ -54,46 +58,53 @@ class TestAutomation(unittest.TestCase):
         }
         self.client.DeleteAutomation(automation)
         self.id = None
+
     def test_search(self):
         automations = self.client.SearchAutomation("name:{}".format(self.name))
         self.assertTrue("scripts" in automations)
         self.assertTrue(len(automations["scripts"]) == 1)
         self.assertTrue("id" in automations["scripts"][0])
+
     def test_delete(self):
         automation = {
-            "name":self.name,
-            "id":self.id
+            "name": self.name,
+            "id": self.id
         }
         client.DeleteAutomation(automation)
         automations = self.client.SearchAutomation("name:{}".format(self.name))
         self.assertTrue("scripts" in automations)
         self.assertTrue(len(automations["scripts"]) == 0)
+
     def test_save_new(self):
         automation = {
-            "name":self.name,
-            "id":self.id
+            "name": self.name,
+            "id": self.id
         }
         client.DeleteAutomation(automation)
         automation = {
-            "name":self.name,
-            "script":"demisto.results('Hello, world!')"
+            "name": self.name,
+            "script": "demisto.results('Hello, world!')"
         }
         automations = self.client.SaveAutomation(automation)
         self.assertTrue("scripts" in automations)
         self.assertTrue(len(automations["scripts"]) == 1)
         self.assertTrue("id" in automations["scripts"][0])
         self.id = automations["scripts"][0]["id"]
+
     def test_load(self):
         automation = self.client.LoadAutomation(self.id)
         self.assertTrue("id" in automation)
         self.assertTrue(automation["id"] == self.id)
+
     def test_update(self):
         script = "demisto.results('Hello, world!!!!')"
-        automations = self.client.UpdateAutomation(None, self.name, script=script)
+        automations = self.client.UpdateAutomation(
+            None, self.name, script=script)
         self.assertTrue("scripts" in automations)
         self.assertTrue(len(automations["scripts"]) == 1)
         self.assertTrue("version" in automations["scripts"][0])
         self.assertTrue(automations["scripts"][0]["version"] == 2)
+
 
 if __name__ == '__main__':
     options = options_handler()

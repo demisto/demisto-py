@@ -23,11 +23,13 @@ def options_handler():
         '-u', '--url', help='Base URL of API', required=True)
     parser.add_argument(
         '-t', '--test', help='run unit test instead of updating automation', default=False, action='store_true')
-    parser.add_argument('-n', '--name', default="test", help='automation name')
-    parser.add_argument('-f', '--file', nargs='?', type=argparse.FileType('r'),
-                        help='automation script name(.py or .js)',
-                        required=False,
-                        default=sys.stdin)
+    parser.add_argument(
+        '-n', '--name', default="test", help='automation name')
+    parser.add_argument(
+        '-f', '--file', nargs='?', type=argparse.FileType('r'),
+        help='automation script name(.py or .js)',
+        required=False,
+        default=sys.stdin)
     options = parser.parse_args()
     if options.name is None:
         if options.file.name == '<stdin>':

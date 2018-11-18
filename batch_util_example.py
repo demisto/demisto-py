@@ -57,7 +57,7 @@ def main():
     print('using filter %s' % options.filter)
     print('Total #incidents: %d, incidents going to be updated' %
           (incidents['total']))
-    proceed = input('OK to proceed (type y, yes or leave empty)? ')
+    proceed = raw_input('OK to proceed (type y, yes or leave empty)? ')
     proceed = proceed.lower()
     if proceed == 'y' or proceed == 'yes' or proceed == '':
         if options.action == 'close':

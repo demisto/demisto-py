@@ -99,19 +99,17 @@ class DemistoClient:
     def SearchAutomation(self, query):
         data = {'query':query}
         r = self.req("POST", "automation/search", data)
-        if r.status_code == requests.codes.ok:
-            rj = r.json()
-            if "scripts" not in rj:
-                raise RuntimeError("Error searching automations - scripts attribute is not found in response")
-            return rj
         r.raise_for_status()
+        rj = r.json()
+        if "scripts" not in rj:
+            raise RuntimeError("Error searching automations - scripts attribute is not found in response")
+        return rj
 
     def LoadAutomation(self, automation_id):
         data = {}
         r = self.req("POST", "automation/load/{}".format(automation_id), data)
-        if r.status_code == requests.codes.ok:
-            return r.json()
         r.raise_for_status()
+        return r.json()
     
     def SaveAutomation(self, script, filter={"query":""}, save_password=False):
         filter["query"]="name:{}".format(script["name"])
@@ -121,9 +119,8 @@ class DemistoClient:
             'savePassword': save_password
         }
         r = self.req("POST", "automation", data)
-        if r.status_code == requests.codes.ok:
-            return r.json()
         r.raise_for_status()
+        return r.json()
 
     def DeleteAutomation(self, script, filter={"query":""}):
         data = {
@@ -131,9 +128,8 @@ class DemistoClient:
             'script': script
         }
         r = self.req("POST", "automation/delete", data)
-        if r.status_code == requests.codes.ok:
-            return r.json()
         r.raise_for_status()
+        return r.json()
 
     def UpdateAutomation(self, target_id, target_name, **automation):
         """

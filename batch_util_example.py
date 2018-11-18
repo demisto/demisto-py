@@ -54,9 +54,9 @@ def main():
     options = options_handler()
     c = demisto.DemistoClient(options.key, options.server)
     incidents = c.SearchIncidents(options.page, 0, options.filter)
-    print(('using filter %s' % options.filter))
-    print(('Total #incidents: %d, incidents going to be updated' %
-           (incidents['total'])))
+    print('using filter %s' % options.filter)
+    print('Total #incidents: %d, incidents going to be updated' %
+          (incidents['total']))
     proceed = input('OK to proceed (type y, yes or leave empty)? ')
     proceed = proceed.lower()
     if proceed == 'y' or proceed == 'yes' or proceed == '':
@@ -72,10 +72,10 @@ def main():
                     'Error updating incidents - %d (%s)' % (r.status_code, r.reason))
             rj = json.loads(r.content)
             if rj['notUpdated'] > 0:
-                print(('Updated %d and could not update %d' %
-                       (rj['total']), rj['notUpdated']))
+                print('Updated %d and could not update %d' %
+                       (rj['total'], rj['notUpdated']))
             else:
-                print(('Updated %d incidents' % rj['total']))
+                print('Updated %d incidents' % rj['total'])
 
 
 if __name__ == '__main__':

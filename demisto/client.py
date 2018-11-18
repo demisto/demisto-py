@@ -123,7 +123,6 @@ class DemistoClient:
         r = self.req("POST", "automation", data)
         if r.status_code == requests.codes.ok:
             return r.json()
-        print(data)
         r.raise_for_status()
 
     def DeleteAutomation(self, script, filter={"query":""}):

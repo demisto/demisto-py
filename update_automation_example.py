@@ -62,7 +62,7 @@ class TestAutomation(unittest.TestCase):
     def test_search(self):
         automations = self.client.SearchAutomation("name:{}".format(self.name))
         self.assertTrue("scripts" in automations)
-        self.assertTrue(len(automations["scripts"]) == 1)
+        self.assertEqual(len(automations["scripts"]), 1)
         self.assertTrue("id" in automations["scripts"][0])
 
     def test_delete(self):
@@ -73,7 +73,7 @@ class TestAutomation(unittest.TestCase):
         client.DeleteAutomation(automation)
         automations = self.client.SearchAutomation("name:{}".format(self.name))
         self.assertTrue("scripts" in automations)
-        self.assertTrue(len(automations["scripts"]) == 0)
+        self.assertEqual(len(automations["scripts"]), 0)
 
     def test_save_new(self):
         automation = {
@@ -87,23 +87,23 @@ class TestAutomation(unittest.TestCase):
         }
         automations = self.client.SaveAutomation(automation)
         self.assertTrue("scripts" in automations)
-        self.assertTrue(len(automations["scripts"]) == 1)
+        self.assertEqual(len(automations["scripts"]), 1)
         self.assertTrue("id" in automations["scripts"][0])
         self.id = automations["scripts"][0]["id"]
 
     def test_load(self):
         automation = self.client.LoadAutomation(self.id)
         self.assertTrue("id" in automation)
-        self.assertTrue(automation["id"] == self.id)
+        self.assertEqual(automation["id"], self.id)
 
     def test_update(self):
         script = "demisto.results('Hello, world!!!!')"
         automations = self.client.UpdateAutomation(
             None, self.name, script=script)
         self.assertTrue("scripts" in automations)
-        self.assertTrue(len(automations["scripts"]) == 1)
+        self.assertEqual(len(automations["scripts"]), 1)
         self.assertTrue("version" in automations["scripts"][0])
-        self.assertTrue(automations["scripts"][0]["version"] == 2)
+        self.assertEqual(automations["scripts"][0]["version"], 2)
 
 
 if __name__ == '__main__':

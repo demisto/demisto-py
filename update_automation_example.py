@@ -22,7 +22,7 @@ def options_handler():
     parser.add_argument(
         '-u', '--url', help='Base URL of API', required=True)
     parser.add_argument(
-        '-t', '--test', help='run unit test instead of updating automation', default=False, action='store_true')
+        '-t', '--test', help='run unit test instead of updating automation', action='store_true')
     parser.add_argument(
         '-n', '--name', default="test", help='automation name')
     parser.add_argument(

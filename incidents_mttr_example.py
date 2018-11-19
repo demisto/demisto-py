@@ -41,7 +41,7 @@ def options_handler():
         '-g', '--group', help='The field to group by to calculate mttr, default is owner', default='owner')
     parser.add_argument(
         '-q', '--quiet', action='store_false',
-        dest='verbose', default=True, help="no extra prints")
+        dest='verbose', help="no extra prints")
     parser.add_argument(
         '-o', '--output', help='The output CSV file', default='mttr.csv')
     options = parser.parse_args()

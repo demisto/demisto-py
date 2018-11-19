@@ -43,7 +43,7 @@ def options_handler():
     parser.add_argument('--type', help='The new type')
     parser.add_argument('--entry', help='The new entry data to create')
     parser.add_argument('-q', '--quiet', action='store_false',
-                        dest='verbose', default=True, help="don't use voice")
+                        dest='verbose', help="don't use voice")
     options = parser.parse_args()
     global verbose
     verbose = options.verbose

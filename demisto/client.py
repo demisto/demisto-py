@@ -111,10 +111,10 @@ class DemistoClient:
         r.raise_for_status()
         return r.json()
     
-    def SaveAutomation(self, script, filter={"query":""}, save_password=False):
-        filter["query"]="name:{}".format(script["name"])
+    def SaveAutomation(self, script, search_filter={"query":""}, save_password=False):
+        search_filter["query"]="name:{}".format(script["name"])
         data = {
-            'filter': filter,
+            'filter': search_filter,
             'script': script,
             'savePassword': save_password
         }
@@ -122,9 +122,9 @@ class DemistoClient:
         r.raise_for_status()
         return r.json()
 
-    def DeleteAutomation(self, script, filter={"query":""}):
+    def DeleteAutomation(self, script, search_filter={"query":""}):
         data = {
-            'filter': filter,
+            'filter': search_filter,
             'script': script
         }
         r = self.req("POST", "automation/delete", data)

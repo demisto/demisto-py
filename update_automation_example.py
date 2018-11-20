@@ -4,8 +4,9 @@ import argparse
 import os
 import sys
 import json
-import demisto
 import unittest
+
+import demisto
 
 
 def options_handler():
@@ -24,11 +25,10 @@ def options_handler():
     parser.add_argument(
         '-t', '--test', help='run unit test instead of updating automation', action='store_true')
     parser.add_argument(
-        '-n', '--name', default="test", help='automation name')
+        '-n', '--name', help='automation name')
     parser.add_argument(
         '-f', '--file', nargs='?', type=argparse.FileType('r'),
         help='automation script name(.py or .js)',
-        required=False,
         default=sys.stdin)
     options = parser.parse_args()
     if options.name is None:
@@ -63,9 +63,9 @@ class TestAutomation(unittest.TestCase):
 
     def test_search(self):
         automations = self.client.SearchAutomation("name:{}".format(self.name))
-        self.assertTrue("scripts" in automations)
+        self.assertIn("scripts", automations)
         self.assertEqual(len(automations["scripts"]), 1)
-        self.assertTrue("id" in automations["scripts"][0])
+        self.assertIn("id", automations["scripts"][0])
 
     def test_delete(self):
         automation = {
@@ -74,7 +74,7 @@ class TestAutomation(unittest.TestCase):
         }
         client.DeleteAutomation(automation)
         automations = self.client.SearchAutomation("name:{}".format(self.name))
-        self.assertTrue("scripts" in automations)
+        self.assertIn("scripts", automations)
         self.assertEqual(len(automations["scripts"]), 0)
 
     def test_save_new(self):
@@ -88,23 +88,23 @@ class TestAutomation(unittest.TestCase):
             "script": "demisto.results('Hello, world!')"
         }
         automations = self.client.SaveAutomation(automation)
-        self.assertTrue("scripts" in automations)
+        self.assertIn("scripts", automations)
         self.assertEqual(len(automations["scripts"]), 1)
-        self.assertTrue("id" in automations["scripts"][0])
+        self.assertIn("id", automations["scripts"][0])
         self.id = automations["scripts"][0]["id"]
 
     def test_load(self):
         automation = self.client.LoadAutomation(self.id)
-        self.assertTrue("id" in automation)
+        self.assertIn("id", automation)
         self.assertEqual(automation["id"], self.id)
 
     def test_update(self):
         script = "demisto.results('Hello, world!!!!')"
         automations = self.client.UpdateAutomation(
             None, self.name, script=script)
-        self.assertTrue("scripts" in automations)
+        self.assertIn("scripts", automations)
         self.assertEqual(len(automations["scripts"]), 1)
-        self.assertTrue("version" in automations["scripts"][0])
+        self.assertIn("version", automations["scripts"][0])
         self.assertEqual(automations["scripts"][0]["version"], 2)
 
 
@@ -121,4 +121,3 @@ if __name__ == '__main__':
     script = options.file.read()
     automations = client.UpdateAutomation(None, options.name, script=script)
     print(json.dumps(automations))
-    sys.exit(0)

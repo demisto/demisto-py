@@ -30,9 +30,9 @@ def options_handler():
     parser = argparse.ArgumentParser(
         description='Incident MTTR statistics for a time period')
     parser.add_argument(
-        '-k', '--key', help='The API key to access the server', required=True)
+        'key', help='The API key to access the server')
     parser.add_argument(
-        '-s', '--server', help='The server URL to connect to', required=True)
+        'server', help='The server URL to connect to')
     monthAgo = date.today() - timedelta(days=30)
     parser.add_argument(
         '-f', '--filter', help='The filter query to chose the alerts, default is closed incidents in last month',

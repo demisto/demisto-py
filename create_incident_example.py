@@ -18,19 +18,21 @@ def options_handler():
     parser = argparse.ArgumentParser(
         description='Utility for batch action on incidents')
     parser.add_argument(
-        '-k', '--key', help='The API key to access the server', required=True)
+        'key', help='The API key to access the server')
     parser.add_argument(
-        '-s', '--server', help='The server URL to connect to', required=True)
-    parser.add_argument('-n', '--name', help='Incident name', required=True)
+        'server', help='The server URL to connect to')
+    parser.add_argument('name', help='Incident name')
     parser.add_argument('-t', '--type', help='Incident Type')
-    parser.add_argument('-sev', '--severity', help='Incident Severity', default='Unknown',
-                        choices=['Critical', 'High', 'Medium', 'Low', 'Informational', 'Unknown'])
+    parser.add_argument(
+        '-sev', '--severity', help='Incident Severity', default='Unknown',
+        choices=['Critical', 'High', 'Medium', 'Low', 'Informational', 'Unknown'])
     parser.add_argument('-o', '--owner', help='Incident Owner')
     parser.add_argument('-d', '--details', help='Incident Details')
     parser.add_argument(
         '-l', '--labels', help='Incident Labels, in the format [{"type":"t","value":"v"},{"type":"t2","value":"v2"}]')
-    parser.add_argument('-c', '--custom_fields',
-                        help='The json that includes the values for the custom fields, in the format {\'alertsource\': \'vc\',\'datetimecreated\': \'Wed, 15 Feb 2017 13:05:13 GMT\'}')
+    parser.add_argument(
+        '-c', '--custom_fields',
+        help='The json that includes the values for the custom fields, in the format {\'alertsource\': \'vc\',\'datetimecreated\': \'Wed, 15 Feb 2017 13:05:13 GMT\'}')
     options = parser.parse_args()
 
     return options

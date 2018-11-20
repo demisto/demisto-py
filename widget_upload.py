@@ -21,13 +21,13 @@ def options_handler():
     parser = argparse.ArgumentParser(
         description='Upload a new widget to Demisto')
     parser.add_argument(
-        '-k', '--key', help='The API key to access the server', required=True)
+        'key', help='The API key to access the server')
     parser.add_argument(
-        '-s', '--server', help='The server URL to connect to', required=True)
+        'server', help='The server URL to connect to')
+    parser.add_argument(
+        'widget', help='The new widget JSON file')
     parser.add_argument('-q', '--quiet', action='store_false',
                         dest='verbose', help="no extra prints")
-    parser.add_argument(
-        '-w', '--widget', help='The new widget JSON file', required=True)
     options = parser.parse_args()
     global verbose
     verbose = options.verbose

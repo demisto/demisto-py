@@ -14,14 +14,14 @@ def options_handler():
         description='an example of update automation by demisto.client',
         usage="""
   update automation example:
-    %(prog)s -k $DEMISTO_API_KEY -u https://demisto.example.com/ -f my_automation_script.py [-n automation_name]
+    %(prog)s $DEMISTO_API_KEY https://demisto.example.com/ -f my_automation_script.py [-n automation_name]
   unit test of demisto.client.(Search|Load|Update|Save|Delete)Automation:
-    %(prog)s -t"""
+    %(prog)s $DEMISTO_API_KEY https://demisto.example.com/ -t"""
     )
     parser.add_argument(
-        '-k', '--key', help='The API key to access the server', required=True)
+        'key', help='The API key to access the server')
     parser.add_argument(
-        '-u', '--url', help='Base URL of API', required=True)
+        'url', help='Base URL of API')
     parser.add_argument(
         '-t', '--test', help='run unit test instead of updating automation', action='store_true')
     parser.add_argument(

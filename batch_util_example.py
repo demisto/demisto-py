@@ -23,18 +23,20 @@ def options_handler():
     parser = argparse.ArgumentParser(
         description='Utility for batch action on incidents')
     parser.add_argument(
-        '-k', '--key', help='The API key to access the server', required=True)
+        'key', help='The API key to access the server')
     parser.add_argument(
-        '-s', '--server', help='The server URL to connect to', required=True)
+        'server', help='The server URL to connect to')
     monthAgo = date.today() - timedelta(days=30)
-    parser.add_argument('-f', '--filter', help='The filter query to chose the alerts, default is open incidents created in last month',
-                        default='(status:=0 or status:=1) and created:>%s' % format_dt(monthAgo))
+    parser.add_argument(
+        '-f', '--filter', help='The filter query to chose the alerts, default is open incidents created in last month',
+        default='(status:=0 or status:=1) and created:>%s' % format_dt(monthAgo))
     parser.add_argument(
         '-m', '--page', help='The page we are working on', default=0, type=int)
     parser.add_argument(
         '-n', '--size', help='The size per page', default=100, type=int)
-    parser.add_argument('-a', '--action', help='The action to perform. In this example, only "close" is implemented.',
-                        default='close', choices=['create', 'export', 'close', 'delete'])
+    parser.add_argument(
+        '-a', '--action', help='The action to perform. In this example, only "close" is implemented.',
+        default='close', choices=['create', 'export', 'close', 'delete'])
     parser.add_argument('--closeReason', help='The close reason')
     parser.add_argument('--closeNotes', help='The close notes')
     parser.add_argument(
@@ -42,8 +44,9 @@ def options_handler():
     parser.add_argument('--playbook', help='The new playbook name')
     parser.add_argument('--type', help='The new type')
     parser.add_argument('--entry', help='The new entry data to create')
-    parser.add_argument('-q', '--quiet', action='store_false',
-                        dest='verbose', help="don't use voice")
+    parser.add_argument(
+        '-q', '--quiet', action='store_false',
+        dest='verbose', help="don't use voice")
     options = parser.parse_args()
     global verbose
     verbose = options.verbose

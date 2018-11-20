@@ -21,9 +21,9 @@ def p(what):
 def options_handler():
     parser = argparse.ArgumentParser(description='Integrations and commands')
     parser.add_argument(
-        '-k', '--key', help='The API key to access the server', required=True)
+        'key', help='The API key to access the server')
     parser.add_argument(
-        '-s', '--server', help='The server URL to connect to', required=True)
+        'server', help='The server URL to connect to')
     parser.add_argument(
         '-q', '--quiet', action='store_false',
         dest='verbose', help="no extra prints")

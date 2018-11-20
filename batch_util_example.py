@@ -33,8 +33,8 @@ def options_handler():
         '-m', '--page', help='The page we are working on', default=0, type=int)
     parser.add_argument(
         '-n', '--size', help='The size per page', default=100, type=int)
-    parser.add_argument('-a', '--action', help='The action to perform',
-                        default='close', choices=['close'])
+    parser.add_argument('-a', '--action', help='The action to perform. In this example, only "close" is implemented.',
+                        default='close', choices=['create', 'export', 'close', 'delete'])
     parser.add_argument('--closeReason', help='The close reason')
     parser.add_argument('--closeNotes', help='The close notes')
     parser.add_argument(
@@ -56,7 +56,7 @@ def main():
     incidents = c.SearchIncidents(options.page, 0, options.filter)
     print('using filter %s' % options.filter)
     print('Total #incidents: %d, incidents going to be updated' %
-          (incidents['total']))
+          incidents['total'])
     proceed = raw_input('OK to proceed (type y, yes or leave empty)? ')
     proceed = proceed.lower()
     if proceed == 'y' or proceed == 'yes' or proceed == '':
@@ -76,6 +76,8 @@ def main():
                        (rj['total'], rj['notUpdated']))
             else:
                 print('Updated %d incidents' % rj['total'])
+        else:
+            print('action "%s" is not implemented.' % options.action)
 
 
 if __name__ == '__main__':

@@ -45,6 +45,24 @@ def options_handler():
 
 
 class TestAutomation(unittest.TestCase):
+    """
+    tests for search/delete/update/load/save automation.
+    demisto server is required.
+    if automation cls.name is already exist at setUpClass, this will throw RuntimeError.
+    """
+    @classmethod
+    def setUpClass(cls):
+        automations = cls.client.SearchAutomation("name:{}".format(cls.name))
+        if len(automations["scripts"]) > 0:
+            raise RuntimeError("automation {} is already exist. test is cancelled. use another name, or delete it.")
+
+    @classmethod
+    def tearDownClass(cls):
+        automation = {
+            "name": cls.name
+        }
+        cls.client.DeleteAutomation(automation)
+
     def setUp(self):
         automation = {
             "name": self.name,

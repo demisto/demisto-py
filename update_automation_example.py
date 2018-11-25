@@ -56,13 +56,6 @@ class TestAutomation(unittest.TestCase):
         if len(automations["scripts"]) > 0:
             raise RuntimeError("automation {} is already exist. test is cancelled. use another name, or delete it.")
 
-    @classmethod
-    def tearDownClass(cls):
-        automation = {
-            "name": cls.name
-        }
-        cls.client.DeleteAutomation(automation)
-
     def setUp(self):
         automation = {
             "name": self.name,
@@ -72,12 +65,13 @@ class TestAutomation(unittest.TestCase):
         self.id = automations["scripts"][0]["id"]
 
     def tearDown(self):
-        automation = {
-            "name": self.name,
-            "id": self.id
-        }
-        self.client.DeleteAutomation(automation)
-        self.id = None
+        if self.id:
+            automation = {
+                "name": self.name,
+                "id": self.id
+            }
+            self.client.DeleteAutomation(automation)
+            self.id = None
 
     def test_search(self):
         automations = self.client.SearchAutomation("name:{}".format(self.name))
@@ -91,6 +85,7 @@ class TestAutomation(unittest.TestCase):
             "id": self.id
         }
         client.DeleteAutomation(automation)
+        self.id = None
         automations = self.client.SearchAutomation("name:{}".format(self.name))
         self.assertIn("scripts", automations)
         self.assertEqual(len(automations["scripts"]), 0)

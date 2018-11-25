@@ -7,7 +7,6 @@
 # Author:       Lior
 # Version:      1.1
 #
-import json
 from requests import Session
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 from requests.packages.urllib3 import disable_warnings
@@ -22,9 +21,11 @@ class DemistoClient:
     # New client that does not do anything yet
     def __init__(self, apiKey, server, username=None, password=None):
         if not ((apiKey or (username and password)) and server):
-            raise ValueError("You must provide server argument and key or user & password")
+            raise ValueError(
+                "You must provide server argument and key or user & password")
         if not server.find('https://') == 0 and not server.find('http://') == 0:
-            raise ValueError("Server must be a url (e.g. 'https://<server>' or 'http://<server>')")
+            raise ValueError(
+                "Server must be a url (e.g. 'https://<server>' or 'http://<server>')")
         if not server[-1] == '/':
             server += '/'
 
@@ -53,7 +54,8 @@ class DemistoClient:
             h[DemistoClient.AUTHORIZATION] = self.apiKey
         try:
             if self.session:
-                r = self.session.request(method, self.server+path, headers=h, verify=False, json=data)
+                r = self.session.request(
+                    method, self.server+path, headers=h, verify=False, json=data)
             else:
                 raise RuntimeError("Session not initialized!")
         except InsecureRequestWarning:
@@ -86,8 +88,89 @@ class DemistoClient:
         return self.req("POST", "incident", data)
 
     def SearchIncidents(self, page, size, query):
-        data = {'filter': {'page': page, 'size': size, 'query': query, 'sort': [{'field':'id', 'asc': False}]}}
+        data = {'filter': {'page': page, 'size': size,
+                           'query': query, 'sort': [{'field': 'id', 'asc': False}]}}
         r = self.req("POST", "incidents/search", data)
         if r.status_code != 200:
-            raise RuntimeError('Error searching incidents - %d (%s)' % (r.status_code, r.reason))
+            raise RuntimeError(
+                'Error searching incidents - %d (%s)' % (r.status_code, r.reason))
         return r.json()
+
+    def SearchAutomation(self, query):
+        data = {'query': query}
+        r = self.req("POST", "automation/search", data)
+        r.raise_for_status()
+        rj = r.json()
+        if "scripts" not in rj:
+            raise RuntimeError("Error searching automations - scripts attribute is not found in response")
+        return rj
+
+    def LoadAutomation(self, automation_id):
+        data = {}
+        r = self.req("POST", "automation/load/{}".format(automation_id), data)
+        r.raise_for_status()
+        return r.json()
+
+    def SaveAutomation(self, script, query=None, save_password=False):
+        if query is None:
+            """
+            if query is empty string(""), /automation will return all automations server currently have(huge!).
+            to avoid it, script name is set as default. then only saved automation will be returned.
+            """
+            query = "name:{}".format(script["name"])
+        data = {
+            'filter': {"query": query},
+            'script': script,
+            'savePassword': save_password
+        }
+        r = self.req("POST", "automation", data)
+        r.raise_for_status()
+        return r.json()
+
+    def DeleteAutomation(self, script, query=None):
+        if query is None:
+            """
+            unlike /automation, /automation/delete does not return any automations even if query is empty string("").
+            so the default is "".
+            """
+            query = ""
+        data = {
+            'filter': {"query": query},
+            'script': script
+        }
+        r = self.req("POST", "automation/delete", data)
+        r.raise_for_status()
+        return r.json()
+
+    def UpdateAutomation(self, target_id, target_name, **automation):
+        """
+        update automation based on target_id or target_name.
+        either target_id or target_name must be required, another should be None.
+        if both is specified(not None), target_id will be used.
+        """
+        automations = None
+        if target_id is not None:
+            automations = self.SearchAutomation("id:{}".format(target_id))
+            if "id" not in automation:
+                automation["id"] = target_id
+            elif automation["id"] != target_id:
+                raise RuntimeError("Error updating automations - id specified in automation. id can't be updated.")
+        elif target_name is not None:
+            automations = self.SearchAutomation("name:{}".format(target_name))
+            if "name" not in automation:
+                automation["name"] = target_name
+        else:
+            raise RuntimeError("target_id or target_name must be required.")
+        if len(automations["scripts"]) == 0:
+            automation["name"] = target_name
+            if "id" in automation:
+                # id should be generated by demisto
+                del automation["id"]
+        elif len(automations["scripts"]) == 1:
+            current_automation = automations["scripts"][0]
+            for (key, value) in current_automation.items():
+                if key not in automation:
+                    automation[key] = value
+        else:
+            raise RuntimeError("name search returns multiple({}) automations?? impossible.".format(len(automations)))
+        return self.SaveAutomation(automation)

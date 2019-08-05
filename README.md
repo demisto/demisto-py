@@ -1,3 +1,4 @@
+[![PyPI version](https://badge.fury.io/py/demisto-py.svg)](https://badge.fury.io/py/demisto-py)
 # Demisto SDK for Python
 
 A Python library for the Demisto API.

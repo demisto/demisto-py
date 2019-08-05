@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='demisto-py',
-    version='0.1',
+    version='0.1.1',
     packages=['demisto'],
     url='https://github.com/demisto/demisto-py',
     license='Apache License 2.0',

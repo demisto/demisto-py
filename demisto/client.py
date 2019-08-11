@@ -117,8 +117,8 @@ class DemistoClient:
     def SaveAutomation(self, script, query=None, save_password=False):
         if query is None:
             """
-            if query is empty string(""), /automation will return all automations server 
-            currently have(huge!). To avoid it, script name is set as default. then only saved 
+            if query is empty string(""), /automation will return all automations server
+            currently have(huge!). To avoid it, script name is set as default. then only saved
             automation will be returned.
             """
             query = "name:{}".format(script["name"])
@@ -134,7 +134,7 @@ class DemistoClient:
     def DeleteAutomation(self, script, query=None):
         if query is None:
             """
-            unlike /automation, /automation/delete does not return any automations even if query 
+            unlike /automation, /automation/delete does not return any automations even if query
             is empty string(""). so the default is "".
             """
             query = ""

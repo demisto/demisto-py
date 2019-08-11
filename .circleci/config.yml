@@ -23,4 +23,9 @@ jobs:
           command: |
             . venv/bin/activate
             flake8 demisto/* --statistics --config=.config/flake8
-            pytest -v --cov=demisto
+            pytest -v
+      - run:
+          name: Run Coverage
+          command: |
+            . venv/bin/activate
+            coverage run --source=demisto setup.py test

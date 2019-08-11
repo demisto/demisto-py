@@ -1,3 +1,3 @@
 from .client import DemistoClient
 
-__all__ = ['DemistoClient',]
+__all__ = ['DemistoClient', ]

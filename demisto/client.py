@@ -150,6 +150,7 @@ class DemistoClient:
         either target_id or target_name must be required, another should be None.
         if both is specified(not None), target_id will be used.
         """
+        mypy = {}
         automations = None
         if target_id is not None:
             automations = self.SearchAutomation("id:{}".format(target_id))

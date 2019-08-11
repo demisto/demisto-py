@@ -10,6 +10,7 @@
 from requests import Session
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 from requests.packages.urllib3 import disable_warnings
+
 disable_warnings(InsecureRequestWarning)
 
 
@@ -55,7 +56,7 @@ class DemistoClient:
         try:
             if self.session:
                 r = self.session.request(
-                    method, self.server+path, headers=h, verify=False, json=data)
+                    method, self.server + path, headers=h, verify=False, json=data)
             else:
                 raise RuntimeError("Session not initialized!")
         except InsecureRequestWarning:
@@ -69,7 +70,8 @@ class DemistoClient:
     def Logout(self):
         return self.req("POST", "logout", {})
 
-    def CreateIncident(self, inc_name, inc_type, inc_severity, inc_owner, inc_labels, inc_details, custom_fields, createInvestigation=True, **kwargs):
+    def CreateIncident(self, inc_name, inc_type, inc_severity, inc_owner, inc_labels, inc_details, custom_fields,
+                       createInvestigation=True, **kwargs):
         data = {"type": inc_type,
                 "name": inc_name,
                 "owner": inc_owner,

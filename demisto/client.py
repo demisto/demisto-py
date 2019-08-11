@@ -70,8 +70,8 @@ class DemistoClient:
     def Logout(self):
         return self.req("POST", "logout", {})
 
-    def CreateIncident(self, inc_name, inc_type, inc_severity, inc_owner, inc_labels, inc_details, custom_fields,
-                       createInvestigation=True, **kwargs):
+    def CreateIncident(self, inc_name, inc_type, inc_severity, inc_owner, inc_labels, inc_details,
+                       custom_fields, createInvestigation=True, **kwargs):
         data = {"type": inc_type,
                 "name": inc_name,
                 "owner": inc_owner,
@@ -104,7 +104,8 @@ class DemistoClient:
         r.raise_for_status()
         rj = r.json()
         if "scripts" not in rj:
-            raise RuntimeError("Error searching automations - scripts attribute is not found in response")
+            raise RuntimeError(
+                "Error searching automations - scripts attribute is not found in response")
         return rj
 
     def LoadAutomation(self, automation_id):
@@ -116,8 +117,9 @@ class DemistoClient:
     def SaveAutomation(self, script, query=None, save_password=False):
         if query is None:
             """
-            if query is empty string(""), /automation will return all automations server currently have(huge!).
-            to avoid it, script name is set as default. then only saved automation will be returned.
+            if query is empty string(""), /automation will return all automations server 
+            currently have(huge!). To avoid it, script name is set as default. then only saved 
+            automation will be returned.
             """
             query = "name:{}".format(script["name"])
         data = {
@@ -132,8 +134,8 @@ class DemistoClient:
     def DeleteAutomation(self, script, query=None):
         if query is None:
             """
-            unlike /automation, /automation/delete does not return any automations even if query is empty string("").
-            so the default is "".
+            unlike /automation, /automation/delete does not return any automations even if query 
+            is empty string(""). so the default is "".
             """
             query = ""
         data = {
@@ -156,7 +158,8 @@ class DemistoClient:
             if "id" not in automation:
                 automation["id"] = target_id
             elif automation["id"] != target_id:
-                raise RuntimeError("Error updating automations - id specified in automation. id can't be updated.")
+                raise RuntimeError(
+                    "Error updating automations - id specified in automation. id can't be updated.")
         elif target_name is not None:
             automations = self.SearchAutomation("name:{}".format(target_name))
             if "name" not in automation:
@@ -174,5 +177,6 @@ class DemistoClient:
                 if key not in automation:
                     automation[key] = value
         else:
-            raise RuntimeError("name search returns multiple({}) automations?? impossible.".format(len(automations)))
+            raise RuntimeError("name search returns multiple({}) automations?? impossible.".format(
+                len(automations)))
         return self.SaveAutomation(automation)

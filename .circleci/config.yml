@@ -28,4 +28,4 @@ jobs:
           name: Run Coverage
           command: |
             . venv/bin/activate
-            coverage run --source=demisto setup.py test
+            coverage run --source=demisto client.py test

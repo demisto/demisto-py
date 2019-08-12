@@ -33,10 +33,7 @@ class DemistoClient:
         self.session = Session()
         if not apiKey:
             self.xsrf = True
-            try:
-                r = self.session.get(server, verify=False)
-            except InsecureRequestWarning:
-                pass
+            r = self.session.get(server, verify=False)
             self.token = r.cookies[DemistoClient.XSRF_COOKIE_KEY]
             self.username = username
             self.password = password
@@ -52,14 +49,12 @@ class DemistoClient:
             h[DemistoClient.XSRF_TOKEN_KEY] = self.token
         else:
             h[DemistoClient.AUTHORIZATION] = self.apiKey
-        try:
-            if self.session:
-                r = self.session.request(
-                    method, self.server + path, headers=h, verify=False, json=data)
-            else:
-                raise RuntimeError("Session not initialized!")
-        except InsecureRequestWarning:
-            pass
+        if self.session:
+            r = self.session.request(
+                method, self.server + path, headers=h, verify=False, json=data)
+        else:
+            raise RuntimeError("Session not initialized!")
+
         return r
 
     def Login(self):

@@ -14,6 +14,12 @@ jobs:
         # exit-zero treats all errors as warnings.  The GitHub editor is 127 chars wide      
         - run: flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
         - run: pytest
+        - run: mkdir test-reports
+        - run: coverage report && coverage xml -o test-reports/coverage.xml
+        - store_test_results:
+            path: test-reports
+        - store_artifacts:
+            path: test-reports
   Python_3.6:
       docker:
         - image: circleci/python:3.6
@@ -25,9 +31,3 @@ workflows:
     jobs:
       - Python_2.7
       - Python_3.6
-      - run: mkdir test-reports
-      - run: coverage report && coverage xml -o test-reports/coverage.xml
-      - store_test_results:
-          path: test-reports
-      - store_artifacts:
-          path: test-reports

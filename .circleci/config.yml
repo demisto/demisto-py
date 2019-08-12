@@ -12,8 +12,9 @@ jobs:
         # stop the build if there are Python syntax errors or undefined names
         - run: flake8 demisto/* --count --select=E901,E999,F821,F822,F823 --show-source --statistics
         # exit-zero treats all errors as warnings.  The GitHub editor is 127 chars wide      
-        - run: flake8 demisto/* --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+        - run: flake8 demisto/* --count --exit-zero --max-line-length=127 --statistics
 #        - run: pytest
+        - run: pylint demisto/* -E -f parseable --generated-members=requests.packages.urllib3,requests.codes.ok
         - run: mkdir test-reports
         - run: coverage report && coverage xml -o test-reports/coverage.xml
         - store_test_results:

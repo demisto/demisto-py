@@ -2,3 +2,4 @@ requests
 flake8
 pytest-cov
 pylint
+tox

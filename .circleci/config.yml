@@ -1,32 +1,33 @@
-# Python CircleCI 2.0 configuration file
-version: 2
+version: 2.0
+
 jobs:
+  Python_2.7:
+      docker:
+        - image: circleci/python:2.7
+      steps: &steps
+        - checkout
+        - run: sudo pip install -r requirements.txt
+        - run: sudo pip install coverage flake8 pytest
+        - run: python --version ; pip --version ; pwd ; ls
+        # stop the build if there are Python syntax errors or undefined names
+        - run: flake8 . --count --select=E901,E999,F821,F822,F823 --show-source --statistics
+        # exit-zero treats all errors as warnings.  The GitHub editor is 127 chars wide      
+        - run: flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+        - run: pytest
+  Python_3.6:
+      docker:
+        - image: circleci/python:3.6
+      steps: *steps
+
+workflows:
+  version: 2
   build:
-    docker:
-      - image: circleci/python:3.7
-
-    working_directory: ~/repo
-
-    steps:
-      # Step 1: obtain repo from GitHub
-      - checkout
-      # Step 2: create virtual env and install dependencies
-      - run:
-          name: Install Dependencies
-          command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            pip install -r requirements.txt
-      # Step 3: run linter and tests
-      - run:
-          name: Run Linters
-          command: |
-            . venv/bin/activate
-            flake8 demisto/* --statistics --config=.config/flake8
-            pylint demisto/*
-#            pytest -v
-#      - run:
-#          name: Run Coverage
-#          command: |
-#            . venv/bin/activate
-#            coverage run --source=demisto test
+    jobs:
+      - Python_2.7
+      - Python_3.6
+      - run: mkdir test-reports
+      - run: coverage report && coverage xml -o test-reports/coverage.xml
+      - store_test_results:
+          path: test-reports
+      - store_artifacts:
+          path: test-reports

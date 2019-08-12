@@ -15,7 +15,7 @@ jobs:
         - run: flake8 demisto/* --count --exit-zero --max-line-length=127 --statistics
 #        - run: pytest
         - run: pylint demisto/* -E -f parseable --generated-members=requests.packages.urllib3,requests.codes.ok
-        - run: coverage run demisto/*
+        - run: coverage run demisto/client.py
         - run: mkdir test-reports
         - run: coverage report && coverage xml -o test-reports/coverage.xml
         - store_test_results:

@@ -1,0 +1,3 @@
+[run]
+include = */demisto/*
+omit = *migrations*, *tests*

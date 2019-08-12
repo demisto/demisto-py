@@ -8,6 +8,7 @@
 # Version:      1.1
 #
 import requests
+from requests import Session
 
 requests.packages.urllib3.disable_warnings()
 

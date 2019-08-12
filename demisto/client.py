@@ -7,11 +7,9 @@
 # Author:       Lior
 # Version:      1.1
 #
-from requests import Session
-from requests.packages.urllib3.exceptions import InsecureRequestWarning
-from requests.packages.urllib3 import disable_warnings
+import requests
 
-disable_warnings(InsecureRequestWarning)
+requests.packages.urllib3.disable_warnings()
 
 
 class DemistoClient:

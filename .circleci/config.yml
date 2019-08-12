@@ -6,18 +6,39 @@ jobs:
         - image: circleci/python:2.7
       steps: &steps
         - checkout
-        - run: sudo pip install -r requirements.txt
-        - run: sudo pip install coverage flake8 pytest
-        - run: python --version ; pip --version ; pwd ; ls
-        # stop the build if there are Python syntax errors or undefined names
-        - run: flake8 demisto/* --count --select=E901,E999,F821,F822,F823 --show-source --statistics
-        # exit-zero treats all errors as warnings.  The GitHub editor is 127 chars wide      
-        - run: flake8 demisto/* --count --exit-zero --max-line-length=127 --statistics
-#        - run: pytest
-        - run: pylint demisto/* -E -f parseable --generated-members=requests.packages.urllib3,requests.codes.ok
-        - run: coverage run demisto/client.py
-        - run: mkdir test-reports
-        - run: coverage report && coverage xml -o test-reports/coverage.xml
+        - run:
+            name: Installing Requirements
+            command: |
+              sudo pip install -r requirements.txt
+        - run:
+            name: Install Test Requirements
+            command: |
+              sudo pip install coverage flake8 pytest
+        - run:
+            name: Verify Versioning
+            command: |
+              python --version ; pip --version ; pwd ; ls
+        - run:
+            name: Syntax and Undefined Name Check
+            command: |
+              flake8 demisto/* --count --select=E901,E999,F821,F822,F823 --show-source --statistics
+        - run:
+            name: Flake8 Check for Warnings
+            command: |
+              flake8 demisto/* --count --exit-zero --max-line-length=127 --statistics
+        - run:
+            name: Check PyLint
+            command: |
+              pylint demisto/* -E -f parseable --generated-members=requests.packages.urllib3,requests.codes.ok
+        - run:
+            name: Check coverage
+            command: |
+              coverage run demisto/client.py
+        - run:
+            name: Gather Coverage Report
+            command: |
+              mkdir test-reports
+              coverage report && coverage xml -o test-reports/coverage.xml
         - store_test_results:
             path: test-reports
         - store_artifacts:

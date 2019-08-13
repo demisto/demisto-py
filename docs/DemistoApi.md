@@ -1,4 +1,4 @@
-# swagger_client.DefaultApi
+# demisto.DefaultApi
 
 All URIs are relative to *https://hostname:443*
 
@@ -78,20 +78,20 @@ Add an ad-hoc task to a running playbook
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
 investigation_id = 'investigation_id_example' # str | investigation ID
-inv_playbook_task_data = swagger_client.InvPlaybookTaskData() # InvPlaybookTaskData |  (optional)
+inv_playbook_task_data = demisto.InvPlaybookTaskData() # InvPlaybookTaskData |  (optional)
 
 try:
     # Add ad-hoc task
@@ -134,19 +134,19 @@ Closes an incidents batch To update incident custom fields you should lowercase 
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
-update_data_batch = swagger_client.UpdateDataBatch() # UpdateDataBatch |  (optional)
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+update_data_batch = demisto.UpdateDataBatch() # UpdateDataBatch |  (optional)
 
 try:
     # Batch close incidents
@@ -188,18 +188,18 @@ Complete a task with a file attachment Deprecated - use \"/v2/inv-playbook/task/
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
 investigation_id = 'investigation_id_example' # str | investigation ID
 file_comment = 'file_comment_example' # str | file comment
 task_id = 'task_id_example' # str | Task Id
@@ -254,18 +254,18 @@ Complete a task with command and multiple file attachments
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
 investigation_id = 'investigation_id_example' # str | investigation ID
 task_id = 'task_id_example' # str | Task Id
 task_input = 'task_input_example' # str | Task input
@@ -322,19 +322,19 @@ Copy given automation
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
-automation_script_filter_wrapper = swagger_client.AutomationScriptFilterWrapper() # AutomationScriptFilterWrapper |  (optional)
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+automation_script_filter_wrapper = demisto.AutomationScriptFilterWrapper() # AutomationScriptFilterWrapper |  (optional)
 
 try:
     # Copy automation
@@ -376,19 +376,19 @@ Create an image with a given list of dependencies
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
-new_docker_image = swagger_client.NewDockerImage() # NewDockerImage |  (optional)
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+new_docker_image = demisto.NewDockerImage() # NewDockerImage |  (optional)
 
 try:
     # Create Image
@@ -430,19 +430,19 @@ Create or update incident according to JSON structure. To update incident custom
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
-create_incident_request = swagger_client.CreateIncidentRequest() # CreateIncidentRequest |  (optional)
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+create_incident_request = demisto.CreateIncidentRequest() # CreateIncidentRequest |  (optional)
 
 try:
     # Create single incident
@@ -484,18 +484,18 @@ Create single incident from raw JSON, builds incident according to default mappi
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
 
 try:
     # Create incident from JSON
@@ -534,19 +534,19 @@ Create or update an incidents batch To update incident custom fields you should 
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
-update_data_batch = swagger_client.UpdateDataBatch() # UpdateDataBatch |  (optional)
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+update_data_batch = demisto.UpdateDataBatch() # UpdateDataBatch |  (optional)
 
 try:
     # Batch create incidents
@@ -588,19 +588,19 @@ API to create new Incident Type
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
-incident_type = swagger_client.IncidentType() # IncidentType |  (optional)
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+incident_type = demisto.IncidentType() # IncidentType |  (optional)
 
 try:
     # Create new Incident Type
@@ -642,18 +642,18 @@ Delete an ad-hoc task from a running playbook
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
 investigation_id = 'investigation_id_example' # str | investigation ID
 inv_pb_task_id = 'inv_pb_task_id_example' # str | ad-hoc task ID
 
@@ -698,19 +698,19 @@ Delete a given automation from the system.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
-automation_script_filter_wrapper = swagger_client.AutomationScriptFilterWrapper() # AutomationScriptFilterWrapper |  (optional)
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+automation_script_filter_wrapper = demisto.AutomationScriptFilterWrapper() # AutomationScriptFilterWrapper |  (optional)
 
 try:
     # Delete existing automation
@@ -751,19 +751,19 @@ Delete an evidence entity
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
-delete_evidence_id = swagger_client.DeleteEvidence() # DeleteEvidence |  (optional)
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+delete_evidence_id = demisto.DeleteEvidence() # DeleteEvidence |  (optional)
 
 try:
     # delete evidence
@@ -804,19 +804,19 @@ Deletes an incidents batch
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
-update_data_batch = swagger_client.UpdateDataBatch() # UpdateDataBatch |  (optional)
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+update_data_batch = demisto.UpdateDataBatch() # UpdateDataBatch |  (optional)
 
 try:
     # Batch delete incidents
@@ -858,19 +858,19 @@ Batch whitelist or delete indicators entities In order to delete indicators and 
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
-generic_indicator_update_batch = swagger_client.GenericIndicatorUpdateBatch() # GenericIndicatorUpdateBatch |  (optional)
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+generic_indicator_update_batch = demisto.GenericIndicatorUpdateBatch() # GenericIndicatorUpdateBatch |  (optional)
 
 try:
     # Batch whitelist or delete indicators
@@ -912,18 +912,18 @@ Remove a given widget Id from the system.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
 id = 'id_example' # str | Widget id to remove (returned from widget save or widgets get)
 
 try:
@@ -965,18 +965,18 @@ Get the latest report by its ID
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
 id = 'id_example' # str | the ID of the report to get
 
 try:
@@ -1019,20 +1019,20 @@ Edit an ad-hoc task in a running playbook
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
 investigation_id = 'investigation_id_example' # str | investigation ID
-inv_playbook_task_data = swagger_client.InvPlaybookTaskData() # InvPlaybookTaskData |  (optional)
+inv_playbook_task_data = demisto.InvPlaybookTaskData() # InvPlaybookTaskData |  (optional)
 
 try:
     # Edit ad-hoc task
@@ -1075,19 +1075,19 @@ Export an entry artifact
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
-download_entry = swagger_client.DownloadEntry() # DownloadEntry |  (optional)
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+download_entry = demisto.DownloadEntry() # DownloadEntry |  (optional)
 
 try:
     # Export Artifact
@@ -1128,18 +1128,18 @@ Execute a new report
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
 id = 'id_example' # str | the ID of the report to get
 request_id = 'request_id_example' # str | the ID to register the request under
 
@@ -1183,19 +1183,19 @@ Exports an incidents batch to CSV file (returns file ID)
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
-update_data_batch = swagger_client.UpdateDataBatch() # UpdateDataBatch |  (optional)
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+update_data_batch = demisto.UpdateDataBatch() # UpdateDataBatch |  (optional)
 
 try:
     # Batch export incidents to csv
@@ -1237,19 +1237,19 @@ Exports an indicators batch to CSV file (returns file ID)
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
-generic_indicator_update_batch = swagger_client.GenericIndicatorUpdateBatch() # GenericIndicatorUpdateBatch | Required parameters from `genericIndicatorUpdateBatch`: `columns`, `filter`. You should also include either `all` or `ids`  (optional)
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+generic_indicator_update_batch = demisto.GenericIndicatorUpdateBatch() # GenericIndicatorUpdateBatch | Required parameters from `genericIndicatorUpdateBatch`: `columns`, `filter`. You should also include either `all` or `ids`  (optional)
 
 try:
     # Batch export indicators to csv
@@ -1291,19 +1291,19 @@ Exports an indicators batch to STIX file (returns file ID)
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
-generic_indicator_update_batch = swagger_client.GenericIndicatorUpdateBatch() # GenericIndicatorUpdateBatch |  (optional)
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+generic_indicator_update_batch = demisto.GenericIndicatorUpdateBatch() # GenericIndicatorUpdateBatch |  (optional)
 
 try:
     # Batch export indicators to STIX
@@ -1345,18 +1345,18 @@ Get all of the reports
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
 
 try:
     # Get all reports
@@ -1395,18 +1395,18 @@ Get all widgets
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
 
 try:
     api_response = api_instance.get_all_widgets()
@@ -1444,19 +1444,19 @@ Get audits by filter
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
-filter = swagger_client.GenericStringDateFilter() # GenericStringDateFilter |  (optional)
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+filter = demisto.GenericStringDateFilter() # GenericStringDateFilter |  (optional)
 
 try:
     # Get Audits
@@ -1498,18 +1498,18 @@ Load Automation by ID
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
 id = 'id_example' # str | the ID of the automation to get
 
 try:
@@ -1551,19 +1551,19 @@ Search Automation by filter
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
-automation_script_filter = swagger_client.AutomationScriptFilter() # AutomationScriptFilter |  (optional)
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+automation_script_filter = demisto.AutomationScriptFilter() # AutomationScriptFilter |  (optional)
 
 try:
     # Search Automation (aka scripts)
@@ -1605,18 +1605,18 @@ Get list of all available docker image names
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
 
 try:
     # Get Docker Images
@@ -1655,18 +1655,18 @@ Get the entry artifact file
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
 id = 'id_example' # str | file to fetch (returned from entry export artifact call)
 
 try:
@@ -1709,18 +1709,18 @@ Get an incident CSV file that was exported, by ID
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
 id = 'id_example' # str | CSV file to fetch (returned from batch export to csv call)
 
 try:
@@ -1763,18 +1763,18 @@ Get all incident fields associated with incident type
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
 type = 'type_example' # str | the name (case sensitive) of the incident type
 
 try:
@@ -1817,18 +1817,18 @@ Get an indicators CSV file that was exported, by ID
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
 id = 'id_example' # str | CSV file to fetch (returned from batch export to csv call)
 
 try:
@@ -1871,18 +1871,18 @@ Get an indicators STIX V2 file that was exported, by ID
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
 id = 'id_example' # str | STIX V2 file to fetch (returned from batch export to STIX call)
 
 try:
@@ -1925,18 +1925,18 @@ Get a report by its ID
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
 id = 'id_example' # str | the ID of the report to get
 
 try:
@@ -1979,18 +1979,18 @@ Get a given dashboard statistics result.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
 
 try:
     # Get Dashboard Statistics
@@ -2029,18 +2029,18 @@ Get a given widget object statistics result. Note: This route has many return ty
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
 
 try:
     # Get Widget Statistics
@@ -2079,18 +2079,18 @@ Get a widget object by a given ID.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
 id = 'id_example' # str | The ID of widget to get.
 
 try:
@@ -2133,19 +2133,19 @@ Import a widget to the system, ignoring ID or version, used to import new widget
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
-widget = swagger_client.Widget() # Widget |  (optional)
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+widget = demisto.Widget() # Widget |  (optional)
 
 try:
     # Import a widget
@@ -2187,19 +2187,19 @@ Whitelists or deletes an indicator entity In order to delete an indicator and no
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
-update_indicator_reputation_data = swagger_client.UpdateIndicatorReputationData() # UpdateIndicatorReputationData |  (optional)
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+update_indicator_reputation_data = demisto.UpdateIndicatorReputationData() # UpdateIndicatorReputationData |  (optional)
 
 try:
     # Whitelists or deletes Indicator
@@ -2241,19 +2241,19 @@ Create an indicator entity To update indicator custom fields you should lowercas
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
-ioc_object = swagger_client.IndicatorContext() # IndicatorContext |  (optional)
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+ioc_object = demisto.IndicatorContext() # IndicatorContext |  (optional)
 
 try:
     # Create Indicator
@@ -2295,18 +2295,18 @@ Create indicators from a file
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
 file = '/path/to/file.txt' # file | file
 file_name = 'file_name_example' # str | file name (optional)
 
@@ -2351,19 +2351,19 @@ Edit an indicator entity To update indicator custom fields you should lowercase 
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
-ioc_object = swagger_client.IocObject() # IocObject |  (optional)
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+ioc_object = demisto.IocObject() # IocObject |  (optional)
 
 try:
     # Edit Indicator
@@ -2405,19 +2405,19 @@ Search indicators by filter
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
-indicator_filter = swagger_client.IndicatorFilter() # IndicatorFilter |  (optional)
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+indicator_filter = demisto.IndicatorFilter() # IndicatorFilter |  (optional)
 
 try:
     # Search indicators
@@ -2459,19 +2459,19 @@ API to create an entry (markdown format) in existing investigation Body example:
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
-update_entry = swagger_client.UpdateEntry() # UpdateEntry |  (optional)
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+update_entry = demisto.UpdateEntry() # UpdateEntry |  (optional)
 
 try:
     # Create new entry in existing investigation
@@ -2513,19 +2513,19 @@ API to create a formatted entry (table/json/text/markdown/html) in existing inve
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
-uploaded_entry = swagger_client.UploadedEntry() # UploadedEntry |  (optional)
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+uploaded_entry = demisto.UploadedEntry() # UploadedEntry |  (optional)
 
 try:
     # Create new formatted entry in existing investigation
@@ -2567,18 +2567,18 @@ Revoke API Key for user
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
 username = 'username_example' # str | The username which the API keys assigned to
 
 try:
@@ -2619,19 +2619,19 @@ Save an evidence entity To update evidence custom fields you should lowercase th
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
-evidence = swagger_client.Evidence() # Evidence |  (optional)
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+evidence = demisto.Evidence() # Evidence |  (optional)
 
 try:
     # Save evidence
@@ -2673,19 +2673,19 @@ Create or update a given automation.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
-automation_script_filter_wrapper = swagger_client.AutomationScriptFilterWrapper() # AutomationScriptFilterWrapper |  (optional)
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+automation_script_filter_wrapper = demisto.AutomationScriptFilterWrapper() # AutomationScriptFilterWrapper |  (optional)
 
 try:
     # Create or update automation
@@ -2727,19 +2727,19 @@ Add or update a given widget based on Id.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
-widget = swagger_client.Widget() # Widget |  (optional)
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+widget = demisto.Widget() # Widget |  (optional)
 
 try:
     # Add or update a widget
@@ -2781,19 +2781,19 @@ Search for an evidence entutiy by filter
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
-evidences_filter_wrapper = swagger_client.EvidencesFilterWrapper() # EvidencesFilterWrapper |  (optional)
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+evidences_filter_wrapper = demisto.EvidencesFilterWrapper() # EvidencesFilterWrapper |  (optional)
 
 try:
     # Search evidence
@@ -2835,19 +2835,19 @@ This will search incidents across all indices You can filter by multiple options
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
-filter = swagger_client.SearchIncidentsData() # SearchIncidentsData |  (optional)
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+filter = demisto.SearchIncidentsData() # SearchIncidentsData |  (optional)
 
 try:
     # Search incidents by filter
@@ -2889,19 +2889,19 @@ This will search investigations across all indices You can filter by multiple op
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
-filter = swagger_client.InvestigationFilter() # InvestigationFilter |  (optional)
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+filter = demisto.InvestigationFilter() # InvestigationFilter |  (optional)
 
 try:
     # Search investigations by filter
@@ -2943,19 +2943,19 @@ Complete a task without a file attachment
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
-inv_task_info = swagger_client.InvTaskInfo() # InvTaskInfo |  (optional)
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+inv_task_info = demisto.InvTaskInfo() # InvTaskInfo |  (optional)
 
 try:
     # Complete task simple (no file)
@@ -2997,18 +2997,18 @@ Submit a data collection task with given answers and multiple file attachments
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
 investigation_id = 'investigation_id_example' # str | investigation ID
 task_id = 'task_id_example' # str | Task Id
 answers = '/path/to/file.txt' # file | the answers to the task form. Answers are keyed by numerical question id
@@ -3061,19 +3061,19 @@ Add comment to a task
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
-inv_task_info = swagger_client.InvTaskInfo() # InvTaskInfo |  (optional)
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+inv_task_info = demisto.InvTaskInfo() # InvTaskInfo |  (optional)
 
 try:
     # Task add comment
@@ -3115,19 +3115,19 @@ Assign a task to an owner
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
-inv_playbook_assignee = swagger_client.InvPlaybookAssignee() # InvPlaybookAssignee |  (optional)
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+inv_playbook_assignee = demisto.InvPlaybookAssignee() # InvPlaybookAssignee |  (optional)
 
 try:
     # Assign task
@@ -3169,19 +3169,19 @@ Set the task due date
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
-inv_playbook_due = swagger_client.InvPlaybookDue() # InvPlaybookDue |  (optional)
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+inv_playbook_due = demisto.InvPlaybookDue() # InvPlaybookDue |  (optional)
 
 try:
     # Set task due date
@@ -3223,19 +3223,19 @@ Reopen a closed task and change the status to uncomplete
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
-inv_task_info = swagger_client.InvTaskInfo() # InvTaskInfo |  (optional)
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+inv_task_info = demisto.InvTaskInfo() # InvTaskInfo |  (optional)
 
 try:
     # Un complete a task
@@ -3277,19 +3277,19 @@ API to mark entry as note, can be used also to remove the note Body example: {\"
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
-update_entry = swagger_client.UpdateEntry() # UpdateEntry |  (optional)
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+update_entry = demisto.UpdateEntry() # UpdateEntry |  (optional)
 
 try:
     # Mark entry as note
@@ -3331,19 +3331,19 @@ API to set entry tags Body example: {\"id\":\"1\\@1234\",\"version\":\"-1\",\"in
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import demisto
+from demisto.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: api_key
-configuration = swagger_client.Configuration()
+configuration = demisto.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
-update_entry_tags = swagger_client.UpdateEntryTags() # UpdateEntryTags |  (optional)
+api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+update_entry_tags = demisto.UpdateEntryTags() # UpdateEntryTags |  (optional)
 
 try:
     # Set entry tags

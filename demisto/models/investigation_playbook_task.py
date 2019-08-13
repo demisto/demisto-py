@@ -21,7 +21,6 @@ from demisto.models.data_collection_form import DataCollectionForm  # noqa: F401
 from demisto.models.evidence_data import EvidenceData  # noqa: F401,E501
 from demisto.models.field_mapping import FieldMapping  # noqa: F401,E501
 from demisto.models.inv_playbook_task_complete_data import InvPlaybookTaskCompleteData  # noqa: F401,E501
-from demisto.models.investigation_playbook import InvestigationPlaybook  # noqa: F401,E501
 from demisto.models.notifiable_item import NotifiableItem  # noqa: F401,E501
 from demisto.models.reputation_calc_alg import ReputationCalcAlg  # noqa: F401,E501
 from demisto.models.sla import SLA  # noqa: F401,E501

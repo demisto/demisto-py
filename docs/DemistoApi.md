@@ -1,4 +1,4 @@
-# demisto.DefaultApi
+# demisto.DemistoApi
 
 All URIs are relative to *https://hostname:443*
 
@@ -89,7 +89,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 investigation_id = 'investigation_id_example' # str | investigation ID
 inv_playbook_task_data = demisto.InvPlaybookTaskData() # InvPlaybookTaskData |  (optional)
 
@@ -98,7 +98,7 @@ try:
     api_response = api_instance.add_ad_hoc_task(investigation_id, inv_playbook_task_data=inv_playbook_task_data)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->add_ad_hoc_task: %s\n" % e)
+    print("Exception when calling DemistoApi->add_ad_hoc_task: %s\n" % e)
 ```
 
 ### Parameters
@@ -145,7 +145,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 update_data_batch = demisto.UpdateDataBatch() # UpdateDataBatch |  (optional)
 
 try:
@@ -153,7 +153,7 @@ try:
     api_response = api_instance.close_incidents_batch(update_data_batch=update_data_batch)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->close_incidents_batch: %s\n" % e)
+    print("Exception when calling DemistoApi->close_incidents_batch: %s\n" % e)
 ```
 
 ### Parameters
@@ -199,7 +199,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 investigation_id = 'investigation_id_example' # str | investigation ID
 file_comment = 'file_comment_example' # str | file comment
 task_id = 'task_id_example' # str | Task Id
@@ -213,7 +213,7 @@ try:
     api_response = api_instance.complete_task(investigation_id, file_comment, task_id, task_input, version, file, file_name=file_name)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->complete_task: %s\n" % e)
+    print("Exception when calling DemistoApi->complete_task: %s\n" % e)
 ```
 
 ### Parameters
@@ -265,7 +265,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 investigation_id = 'investigation_id_example' # str | investigation ID
 task_id = 'task_id_example' # str | Task Id
 task_input = 'task_input_example' # str | Task input
@@ -280,7 +280,7 @@ try:
     api_response = api_instance.complete_task_v2(investigation_id, task_id, task_input, version, file, task_comment=task_comment, file_names=file_names, file_comments=file_comments)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->complete_task_v2: %s\n" % e)
+    print("Exception when calling DemistoApi->complete_task_v2: %s\n" % e)
 ```
 
 ### Parameters
@@ -333,7 +333,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 automation_script_filter_wrapper = demisto.AutomationScriptFilterWrapper() # AutomationScriptFilterWrapper |  (optional)
 
 try:
@@ -341,7 +341,7 @@ try:
     api_response = api_instance.copy_script(automation_script_filter_wrapper=automation_script_filter_wrapper)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->copy_script: %s\n" % e)
+    print("Exception when calling DemistoApi->copy_script: %s\n" % e)
 ```
 
 ### Parameters
@@ -387,7 +387,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 new_docker_image = demisto.NewDockerImage() # NewDockerImage |  (optional)
 
 try:
@@ -395,7 +395,7 @@ try:
     api_response = api_instance.create_docker_image(new_docker_image=new_docker_image)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->create_docker_image: %s\n" % e)
+    print("Exception when calling DemistoApi->create_docker_image: %s\n" % e)
 ```
 
 ### Parameters
@@ -441,7 +441,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 create_incident_request = demisto.CreateIncidentRequest() # CreateIncidentRequest |  (optional)
 
 try:
@@ -449,7 +449,7 @@ try:
     api_response = api_instance.create_incident(create_incident_request=create_incident_request)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->create_incident: %s\n" % e)
+    print("Exception when calling DemistoApi->create_incident: %s\n" % e)
 ```
 
 ### Parameters
@@ -495,14 +495,14 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 
 try:
     # Create incident from JSON
     api_response = api_instance.create_incident_json()
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->create_incident_json: %s\n" % e)
+    print("Exception when calling DemistoApi->create_incident_json: %s\n" % e)
 ```
 
 ### Parameters
@@ -545,7 +545,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 update_data_batch = demisto.UpdateDataBatch() # UpdateDataBatch |  (optional)
 
 try:
@@ -553,7 +553,7 @@ try:
     api_response = api_instance.create_incidents_batch(update_data_batch=update_data_batch)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->create_incidents_batch: %s\n" % e)
+    print("Exception when calling DemistoApi->create_incidents_batch: %s\n" % e)
 ```
 
 ### Parameters
@@ -599,7 +599,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 incident_type = demisto.IncidentType() # IncidentType |  (optional)
 
 try:
@@ -607,7 +607,7 @@ try:
     api_response = api_instance.create_or_update_incident_type(incident_type=incident_type)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->create_or_update_incident_type: %s\n" % e)
+    print("Exception when calling DemistoApi->create_or_update_incident_type: %s\n" % e)
 ```
 
 ### Parameters
@@ -653,7 +653,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 investigation_id = 'investigation_id_example' # str | investigation ID
 inv_pb_task_id = 'inv_pb_task_id_example' # str | ad-hoc task ID
 
@@ -662,7 +662,7 @@ try:
     api_response = api_instance.delete_ad_hoc_task(investigation_id, inv_pb_task_id)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->delete_ad_hoc_task: %s\n" % e)
+    print("Exception when calling DemistoApi->delete_ad_hoc_task: %s\n" % e)
 ```
 
 ### Parameters
@@ -709,14 +709,14 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 automation_script_filter_wrapper = demisto.AutomationScriptFilterWrapper() # AutomationScriptFilterWrapper |  (optional)
 
 try:
     # Delete existing automation
     api_instance.delete_automation_script(automation_script_filter_wrapper=automation_script_filter_wrapper)
 except ApiException as e:
-    print("Exception when calling DefaultApi->delete_automation_script: %s\n" % e)
+    print("Exception when calling DemistoApi->delete_automation_script: %s\n" % e)
 ```
 
 ### Parameters
@@ -762,14 +762,14 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 delete_evidence_id = demisto.DeleteEvidence() # DeleteEvidence |  (optional)
 
 try:
     # delete evidence
     api_instance.delete_evidence_op(delete_evidence_id=delete_evidence_id)
 except ApiException as e:
-    print("Exception when calling DefaultApi->delete_evidence_op: %s\n" % e)
+    print("Exception when calling DemistoApi->delete_evidence_op: %s\n" % e)
 ```
 
 ### Parameters
@@ -815,7 +815,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 update_data_batch = demisto.UpdateDataBatch() # UpdateDataBatch |  (optional)
 
 try:
@@ -823,7 +823,7 @@ try:
     api_response = api_instance.delete_incidents_batch(update_data_batch=update_data_batch)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->delete_incidents_batch: %s\n" % e)
+    print("Exception when calling DemistoApi->delete_incidents_batch: %s\n" % e)
 ```
 
 ### Parameters
@@ -869,7 +869,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 generic_indicator_update_batch = demisto.GenericIndicatorUpdateBatch() # GenericIndicatorUpdateBatch |  (optional)
 
 try:
@@ -877,7 +877,7 @@ try:
     api_response = api_instance.delete_indicators_batch(generic_indicator_update_batch=generic_indicator_update_batch)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->delete_indicators_batch: %s\n" % e)
+    print("Exception when calling DemistoApi->delete_indicators_batch: %s\n" % e)
 ```
 
 ### Parameters
@@ -923,7 +923,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 id = 'id_example' # str | Widget id to remove (returned from widget save or widgets get)
 
 try:
@@ -976,7 +976,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 id = 'id_example' # str | the ID of the report to get
 
 try:
@@ -984,7 +984,7 @@ try:
     api_response = api_instance.download_latest_report(id)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->download_latest_report: %s\n" % e)
+    print("Exception when calling DemistoApi->download_latest_report: %s\n" % e)
 ```
 
 ### Parameters
@@ -1030,7 +1030,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 investigation_id = 'investigation_id_example' # str | investigation ID
 inv_playbook_task_data = demisto.InvPlaybookTaskData() # InvPlaybookTaskData |  (optional)
 
@@ -1039,7 +1039,7 @@ try:
     api_response = api_instance.edit_ad_hoc_task(investigation_id, inv_playbook_task_data=inv_playbook_task_data)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->edit_ad_hoc_task: %s\n" % e)
+    print("Exception when calling DemistoApi->edit_ad_hoc_task: %s\n" % e)
 ```
 
 ### Parameters
@@ -1086,14 +1086,14 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 download_entry = demisto.DownloadEntry() # DownloadEntry |  (optional)
 
 try:
     # Export Artifact
     api_instance.entry_export_artifact(download_entry=download_entry)
 except ApiException as e:
-    print("Exception when calling DefaultApi->entry_export_artifact: %s\n" % e)
+    print("Exception when calling DemistoApi->entry_export_artifact: %s\n" % e)
 ```
 
 ### Parameters
@@ -1139,7 +1139,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 id = 'id_example' # str | the ID of the report to get
 request_id = 'request_id_example' # str | the ID to register the request under
 
@@ -1147,7 +1147,7 @@ try:
     # Execute report
     api_instance.execute_report(id, request_id)
 except ApiException as e:
-    print("Exception when calling DefaultApi->execute_report: %s\n" % e)
+    print("Exception when calling DemistoApi->execute_report: %s\n" % e)
 ```
 
 ### Parameters
@@ -1194,7 +1194,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 update_data_batch = demisto.UpdateDataBatch() # UpdateDataBatch |  (optional)
 
 try:
@@ -1202,7 +1202,7 @@ try:
     api_response = api_instance.export_incidents_to_csv_batch(update_data_batch=update_data_batch)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->export_incidents_to_csv_batch: %s\n" % e)
+    print("Exception when calling DemistoApi->export_incidents_to_csv_batch: %s\n" % e)
 ```
 
 ### Parameters
@@ -1248,7 +1248,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 generic_indicator_update_batch = demisto.GenericIndicatorUpdateBatch() # GenericIndicatorUpdateBatch | Required parameters from `genericIndicatorUpdateBatch`: `columns`, `filter`. You should also include either `all` or `ids`  (optional)
 
 try:
@@ -1256,7 +1256,7 @@ try:
     api_response = api_instance.export_indicators_to_csv_batch(generic_indicator_update_batch=generic_indicator_update_batch)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->export_indicators_to_csv_batch: %s\n" % e)
+    print("Exception when calling DemistoApi->export_indicators_to_csv_batch: %s\n" % e)
 ```
 
 ### Parameters
@@ -1302,7 +1302,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 generic_indicator_update_batch = demisto.GenericIndicatorUpdateBatch() # GenericIndicatorUpdateBatch |  (optional)
 
 try:
@@ -1310,7 +1310,7 @@ try:
     api_response = api_instance.export_indicators_to_stix_batch(generic_indicator_update_batch=generic_indicator_update_batch)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->export_indicators_to_stix_batch: %s\n" % e)
+    print("Exception when calling DemistoApi->export_indicators_to_stix_batch: %s\n" % e)
 ```
 
 ### Parameters
@@ -1356,14 +1356,14 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 
 try:
     # Get all reports
     api_response = api_instance.get_all_reports()
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->get_all_reports: %s\n" % e)
+    print("Exception when calling DemistoApi->get_all_reports: %s\n" % e)
 ```
 
 ### Parameters
@@ -1406,13 +1406,13 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 
 try:
     api_response = api_instance.get_all_widgets()
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->get_all_widgets: %s\n" % e)
+    print("Exception when calling DemistoApi->get_all_widgets: %s\n" % e)
 ```
 
 ### Parameters
@@ -1455,7 +1455,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 filter = demisto.GenericStringDateFilter() # GenericStringDateFilter |  (optional)
 
 try:
@@ -1463,7 +1463,7 @@ try:
     api_response = api_instance.get_audits(filter=filter)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->get_audits: %s\n" % e)
+    print("Exception when calling DemistoApi->get_audits: %s\n" % e)
 ```
 
 ### Parameters
@@ -1509,14 +1509,14 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 id = 'id_example' # str | the ID of the automation to get
 
 try:
     # Load Automation
     api_instance.get_automation_script(id)
 except ApiException as e:
-    print("Exception when calling DefaultApi->get_automation_script: %s\n" % e)
+    print("Exception when calling DemistoApi->get_automation_script: %s\n" % e)
 ```
 
 ### Parameters
@@ -1562,7 +1562,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 automation_script_filter = demisto.AutomationScriptFilter() # AutomationScriptFilter |  (optional)
 
 try:
@@ -1570,7 +1570,7 @@ try:
     api_response = api_instance.get_automation_scripts(automation_script_filter=automation_script_filter)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->get_automation_scripts: %s\n" % e)
+    print("Exception when calling DemistoApi->get_automation_scripts: %s\n" % e)
 ```
 
 ### Parameters
@@ -1616,14 +1616,14 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 
 try:
     # Get Docker Images
     api_response = api_instance.get_docker_images()
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->get_docker_images: %s\n" % e)
+    print("Exception when calling DemistoApi->get_docker_images: %s\n" % e)
 ```
 
 ### Parameters
@@ -1666,7 +1666,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 id = 'id_example' # str | file to fetch (returned from entry export artifact call)
 
 try:
@@ -1674,7 +1674,7 @@ try:
     api_response = api_instance.get_entry_artifact(id)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->get_entry_artifact: %s\n" % e)
+    print("Exception when calling DemistoApi->get_entry_artifact: %s\n" % e)
 ```
 
 ### Parameters
@@ -1720,7 +1720,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 id = 'id_example' # str | CSV file to fetch (returned from batch export to csv call)
 
 try:
@@ -1728,7 +1728,7 @@ try:
     api_response = api_instance.get_incident_as_csv(id)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->get_incident_as_csv: %s\n" % e)
+    print("Exception when calling DemistoApi->get_incident_as_csv: %s\n" % e)
 ```
 
 ### Parameters
@@ -1774,7 +1774,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 type = 'type_example' # str | the name (case sensitive) of the incident type
 
 try:
@@ -1782,7 +1782,7 @@ try:
     api_response = api_instance.get_incidents_fields_by_incident_type(type)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->get_incidents_fields_by_incident_type: %s\n" % e)
+    print("Exception when calling DemistoApi->get_incidents_fields_by_incident_type: %s\n" % e)
 ```
 
 ### Parameters
@@ -1828,7 +1828,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 id = 'id_example' # str | CSV file to fetch (returned from batch export to csv call)
 
 try:
@@ -1836,7 +1836,7 @@ try:
     api_response = api_instance.get_indicators_as_csv(id)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->get_indicators_as_csv: %s\n" % e)
+    print("Exception when calling DemistoApi->get_indicators_as_csv: %s\n" % e)
 ```
 
 ### Parameters
@@ -1882,7 +1882,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 id = 'id_example' # str | STIX V2 file to fetch (returned from batch export to STIX call)
 
 try:
@@ -1890,7 +1890,7 @@ try:
     api_response = api_instance.get_indicators_as_stix(id)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->get_indicators_as_stix: %s\n" % e)
+    print("Exception when calling DemistoApi->get_indicators_as_stix: %s\n" % e)
 ```
 
 ### Parameters
@@ -1936,7 +1936,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 id = 'id_example' # str | the ID of the report to get
 
 try:
@@ -1944,7 +1944,7 @@ try:
     api_response = api_instance.get_report_by_id(id)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->get_report_by_id: %s\n" % e)
+    print("Exception when calling DemistoApi->get_report_by_id: %s\n" % e)
 ```
 
 ### Parameters
@@ -1990,14 +1990,14 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 
 try:
     # Get Dashboard Statistics
     api_response = api_instance.get_stats_for_dashboard()
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->get_stats_for_dashboard: %s\n" % e)
+    print("Exception when calling DemistoApi->get_stats_for_dashboard: %s\n" % e)
 ```
 
 ### Parameters
@@ -2040,14 +2040,14 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 
 try:
     # Get Widget Statistics
     api_response = api_instance.get_stats_for_widget()
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->get_stats_for_widget: %s\n" % e)
+    print("Exception when calling DemistoApi->get_stats_for_widget: %s\n" % e)
 ```
 
 ### Parameters
@@ -2090,7 +2090,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 id = 'id_example' # str | The ID of widget to get.
 
 try:
@@ -2098,7 +2098,7 @@ try:
     api_response = api_instance.get_widget(id)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->get_widget: %s\n" % e)
+    print("Exception when calling DemistoApi->get_widget: %s\n" % e)
 ```
 
 ### Parameters
@@ -2144,7 +2144,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 widget = demisto.Widget() # Widget |  (optional)
 
 try:
@@ -2152,7 +2152,7 @@ try:
     api_response = api_instance.import_widget(widget=widget)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->import_widget: %s\n" % e)
+    print("Exception when calling DemistoApi->import_widget: %s\n" % e)
 ```
 
 ### Parameters
@@ -2198,7 +2198,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 update_indicator_reputation_data = demisto.UpdateIndicatorReputationData() # UpdateIndicatorReputationData |  (optional)
 
 try:
@@ -2206,7 +2206,7 @@ try:
     api_response = api_instance.indicator_whitelist(update_indicator_reputation_data=update_indicator_reputation_data)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->indicator_whitelist: %s\n" % e)
+    print("Exception when calling DemistoApi->indicator_whitelist: %s\n" % e)
 ```
 
 ### Parameters
@@ -2252,7 +2252,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 ioc_object = demisto.IndicatorContext() # IndicatorContext |  (optional)
 
 try:
@@ -2260,7 +2260,7 @@ try:
     api_response = api_instance.indicators_create(ioc_object=ioc_object)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->indicators_create: %s\n" % e)
+    print("Exception when calling DemistoApi->indicators_create: %s\n" % e)
 ```
 
 ### Parameters
@@ -2306,7 +2306,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 file = '/path/to/file.txt' # file | file
 file_name = 'file_name_example' # str | file name (optional)
 
@@ -2315,7 +2315,7 @@ try:
     api_response = api_instance.indicators_create_batch(file, file_name=file_name)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->indicators_create_batch: %s\n" % e)
+    print("Exception when calling DemistoApi->indicators_create_batch: %s\n" % e)
 ```
 
 ### Parameters
@@ -2362,7 +2362,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 ioc_object = demisto.IocObject() # IocObject |  (optional)
 
 try:
@@ -2370,7 +2370,7 @@ try:
     api_response = api_instance.indicators_edit(ioc_object=ioc_object)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->indicators_edit: %s\n" % e)
+    print("Exception when calling DemistoApi->indicators_edit: %s\n" % e)
 ```
 
 ### Parameters
@@ -2416,7 +2416,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 indicator_filter = demisto.IndicatorFilter() # IndicatorFilter |  (optional)
 
 try:
@@ -2424,7 +2424,7 @@ try:
     api_response = api_instance.indicators_search(indicator_filter=indicator_filter)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->indicators_search: %s\n" % e)
+    print("Exception when calling DemistoApi->indicators_search: %s\n" % e)
 ```
 
 ### Parameters
@@ -2470,7 +2470,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 update_entry = demisto.UpdateEntry() # UpdateEntry |  (optional)
 
 try:
@@ -2478,7 +2478,7 @@ try:
     api_response = api_instance.investigation_add_entry_handler(update_entry=update_entry)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->investigation_add_entry_handler: %s\n" % e)
+    print("Exception when calling DemistoApi->investigation_add_entry_handler: %s\n" % e)
 ```
 
 ### Parameters
@@ -2524,7 +2524,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 uploaded_entry = demisto.UploadedEntry() # UploadedEntry |  (optional)
 
 try:
@@ -2532,7 +2532,7 @@ try:
     api_response = api_instance.investigation_add_formatted_entry_handler(uploaded_entry=uploaded_entry)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->investigation_add_formatted_entry_handler: %s\n" % e)
+    print("Exception when calling DemistoApi->investigation_add_formatted_entry_handler: %s\n" % e)
 ```
 
 ### Parameters
@@ -2578,13 +2578,13 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 username = 'username_example' # str | The username which the API keys assigned to
 
 try:
     api_instance.revoke_user_api_key(username)
 except ApiException as e:
-    print("Exception when calling DefaultApi->revoke_user_api_key: %s\n" % e)
+    print("Exception when calling DemistoApi->revoke_user_api_key: %s\n" % e)
 ```
 
 ### Parameters
@@ -2630,7 +2630,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 evidence = demisto.Evidence() # Evidence |  (optional)
 
 try:
@@ -2638,7 +2638,7 @@ try:
     api_response = api_instance.save_evidence(evidence=evidence)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->save_evidence: %s\n" % e)
+    print("Exception when calling DemistoApi->save_evidence: %s\n" % e)
 ```
 
 ### Parameters
@@ -2684,7 +2684,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 automation_script_filter_wrapper = demisto.AutomationScriptFilterWrapper() # AutomationScriptFilterWrapper |  (optional)
 
 try:
@@ -2692,7 +2692,7 @@ try:
     api_response = api_instance.save_or_update_script(automation_script_filter_wrapper=automation_script_filter_wrapper)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->save_or_update_script: %s\n" % e)
+    print("Exception when calling DemistoApi->save_or_update_script: %s\n" % e)
 ```
 
 ### Parameters
@@ -2738,7 +2738,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 widget = demisto.Widget() # Widget |  (optional)
 
 try:
@@ -2746,7 +2746,7 @@ try:
     api_response = api_instance.save_widget(widget=widget)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->save_widget: %s\n" % e)
+    print("Exception when calling DemistoApi->save_widget: %s\n" % e)
 ```
 
 ### Parameters
@@ -2792,7 +2792,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 evidences_filter_wrapper = demisto.EvidencesFilterWrapper() # EvidencesFilterWrapper |  (optional)
 
 try:
@@ -2846,7 +2846,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 filter = demisto.SearchIncidentsData() # SearchIncidentsData |  (optional)
 
 try:
@@ -2854,7 +2854,7 @@ try:
     api_response = api_instance.search_incidents(filter=filter)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->search_incidents: %s\n" % e)
+    print("Exception when calling DemistoApi->search_incidents: %s\n" % e)
 ```
 
 ### Parameters
@@ -2900,7 +2900,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 filter = demisto.InvestigationFilter() # InvestigationFilter |  (optional)
 
 try:
@@ -2908,7 +2908,7 @@ try:
     api_response = api_instance.search_investigations(filter=filter)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->search_investigations: %s\n" % e)
+    print("Exception when calling DemistoApi->search_investigations: %s\n" % e)
 ```
 
 ### Parameters
@@ -2954,7 +2954,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 inv_task_info = demisto.InvTaskInfo() # InvTaskInfo |  (optional)
 
 try:
@@ -2962,7 +2962,7 @@ try:
     api_response = api_instance.simple_complete_task(inv_task_info=inv_task_info)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->simple_complete_task: %s\n" % e)
+    print("Exception when calling DemistoApi->simple_complete_task: %s\n" % e)
 ```
 
 ### Parameters
@@ -3008,7 +3008,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 investigation_id = 'investigation_id_example' # str | investigation ID
 task_id = 'task_id_example' # str | Task Id
 answers = '/path/to/file.txt' # file | the answers to the task form. Answers are keyed by numerical question id
@@ -3072,7 +3072,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 inv_task_info = demisto.InvTaskInfo() # InvTaskInfo |  (optional)
 
 try:
@@ -3080,7 +3080,7 @@ try:
     api_response = api_instance.task_add_comment(inv_task_info=inv_task_info)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->task_add_comment: %s\n" % e)
+    print("Exception when calling DemistoApi->task_add_comment: %s\n" % e)
 ```
 
 ### Parameters
@@ -3126,7 +3126,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 inv_playbook_assignee = demisto.InvPlaybookAssignee() # InvPlaybookAssignee |  (optional)
 
 try:
@@ -3134,7 +3134,7 @@ try:
     api_response = api_instance.task_assign(inv_playbook_assignee=inv_playbook_assignee)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->task_assign: %s\n" % e)
+    print("Exception when calling DemistoApi->task_assign: %s\n" % e)
 ```
 
 ### Parameters
@@ -3180,7 +3180,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 inv_playbook_due = demisto.InvPlaybookDue() # InvPlaybookDue |  (optional)
 
 try:
@@ -3188,7 +3188,7 @@ try:
     api_response = api_instance.task_set_due(inv_playbook_due=inv_playbook_due)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->task_set_due: %s\n" % e)
+    print("Exception when calling DemistoApi->task_set_due: %s\n" % e)
 ```
 
 ### Parameters
@@ -3234,7 +3234,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 inv_task_info = demisto.InvTaskInfo() # InvTaskInfo |  (optional)
 
 try:
@@ -3288,7 +3288,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 update_entry = demisto.UpdateEntry() # UpdateEntry |  (optional)
 
 try:
@@ -3296,7 +3296,7 @@ try:
     api_response = api_instance.update_entry_note(update_entry=update_entry)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->update_entry_note: %s\n" % e)
+    print("Exception when calling DemistoApi->update_entry_note: %s\n" % e)
 ```
 
 ### Parameters
@@ -3342,7 +3342,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = demisto.DefaultApi(demisto.ApiClient(configuration))
+api_instance = demisto.DemistoApi(demisto.ApiClient(configuration))
 update_entry_tags = demisto.UpdateEntryTags() # UpdateEntryTags |  (optional)
 
 try:
@@ -3350,7 +3350,7 @@ try:
     api_response = api_instance.update_entry_tags_op(update_entry_tags=update_entry_tags)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->update_entry_tags_op: %s\n" % e)
+    print("Exception when calling DemistoApi->update_entry_tags_op: %s\n" % e)
 ```
 
 ### Parameters

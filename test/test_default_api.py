@@ -20,8 +20,8 @@ from demisto.api.demisto_api import DemistoApi  # noqa: E501
 from demisto.rest import ApiException
 
 
-class TestDefaultApi(unittest.TestCase):
-    """DefaultApi unit test stubs"""
+class TestDemistoApi(unittest.TestCase):
+    """DemistoApi unit test stubs"""
 
     def setUp(self):
         self.api = demisto.api.demisto_api.DemistoApi()  # noqa: E501

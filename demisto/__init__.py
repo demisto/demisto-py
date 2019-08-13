@@ -167,3 +167,16 @@ from demisto.models.uploaded_entry import UploadedEntry
 from demisto.models.widget import Widget
 from demisto.models.widget_cell import WidgetCell
 from demisto.models.widget_cells import WidgetCells
+
+
+def connection(hostname, api_key, username=None, password=None, verify_ssl=True, proxy=None, debug=False):
+    configuration = Configuration()
+    configuration.api_key['Authorization'] = api_key
+    configuration.host = hostname
+    configuration.username = username
+    configuration.password = password
+    configuration.verify_ssl = verify_ssl
+    configuration.proxy = proxy
+    configuration.debug = debug
+    api_instance = DemistoApi(ApiClient(configuration))
+    return api_instance

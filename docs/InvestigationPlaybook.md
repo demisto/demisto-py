@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**dirty** | **bool** |  | [optional] 
+**dirty** | **bool** | Has the investigation playbook been bad? | [optional] 
 **ready_playbook_inputs** | **dict(str, dict(str, object))** |  | [optional] 
 **replaced_playbook** | **bool** | Indicate whether this playbook has new history during this session | [optional] 
 **shard_id** | **int** |  | [optional] 

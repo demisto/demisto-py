@@ -4,14 +4,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **category** | **str** | Category the widget is related to. Used to display in widget library under category or dataType if empty. | [optional] 
-**commit_message** | **str** |  | [optional] 
+**commit_message** | **str** | Summary of changes made to Widget. | [optional] 
 **data_type** | **str** | Data type of the widget. Describes what data does the widget query. supporting data types `incidents`, `messages`, `system`, `entries` ,`tasks`, `audit`. | [optional] 
-**date_range** | [**DateRange**](DateRange.md) |  | [optional] 
-**description** | **str** | The description of the widget&#39;s usage and data representation. | [optional] 
-**id** | **str** |  | [optional] 
+**date_range** | [**DateRange**](DateRange.md) | DateRange object. | [optional] 
+**description** | **str** | The description of the widget's usage and data representation. | [optional] 
+**id** | **str** | ID of the Widget. | [optional] 
 **is_predefined** | **bool** | Is the widget a system widget. | [optional] 
 **locked** | **bool** | Is the widget locked for editing. | [optional] 
-**modified** | **datetime** |  | [optional] 
+**modified** | **datetime** | Datetime object of when Widget was last modified. | [optional] 
 **name** | **str** | Default name of the widget. | 
 **params** | **dict(str, object)** | Additional parameters for this widget, depends on widget type and data. | [optional] 
 **prev_name** | **str** | The previous name of the widget. | [optional] 
@@ -21,8 +21,8 @@ Name | Type | Description | Notes
 **sort** | [**list[Order]**](Order.md) | Sorting array to sort the data received by the given Order parameters. | [optional] 
 **sort_values** | **list[str]** |  | [optional] 
 **vc_should_ignore** | **bool** |  | [optional] 
-**version** | **int** |  | [optional] 
-**widget_type** | **str** | Widget type describes how does the widget should recieve the data, and display it. Supporting types: `bar`, `column`, `pie`, `list`, `number`, `trend`, `text`, `duration`, `image`, `line`, and `table`. | 
+**version** | **int** | Version of Widget. | [optional] 
+**widget_type** | **str** | Widget type describes how does the widget should receive the data, and display it. Supporting types: `bar`, `column`, `pie`, `list`, `number`, `trend`, `text`, `duration`, `image`, `line`, and `table`. | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

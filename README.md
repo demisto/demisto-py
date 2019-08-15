@@ -89,7 +89,7 @@ Class | Method | HTTP request | Description
 *DemistoApi* | [**export_indicators_to_csv_batch**](docs/DemistoApi.md#export_indicators_to_csv_batch) | **POST** /indicators/batch/exportToCsv | Batch export indicators to csv
 *DemistoApi* | [**export_indicators_to_stix_batch**](docs/DemistoApi.md#export_indicators_to_stix_batch) | **POST** /indicators/batch/export/stix | Batch export indicators to STIX
 *DemistoApi* | [**get_all_reports**](docs/DemistoApi.md#get_all_reports) | **GET** /reports | Get all reports
-*DemistoApi* | [**get_all_widgets**](docs/DemistoApi.md#get_all_widgets) | **GET** /widgets | 
+*DemistoApi* | [**get_all_widgets**](docs/DemistoApi.md#get_all_widgets) | **GET** /widgets | Get all Widgets
 *DemistoApi* | [**get_audits**](docs/DemistoApi.md#get_audits) | **POST** /settings/audits | Get Audits
 *DemistoApi* | [**get_automation_script**](docs/DemistoApi.md#get_automation_script) | **POST** /automation/load/{id} | Load Automation
 *DemistoApi* | [**get_automation_scripts**](docs/DemistoApi.md#get_automation_scripts) | **POST** /automation/search | Search Automation (aka scripts)

@@ -5,7 +5,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **category** | **str** | Category the widget is related to. Used to display in widget library under category or dataType if empty. | [optional] 
 **commit_message** | **str** |  | [optional] 
-**data_type** | **str** | Data type of the widget. Describes what data does the widget query. supporting data types \&quot;incidents\&quot;,\&quot;messages\&quot;,\&quot;system\&quot;,\&quot;entries\&quot;,\&quot;tasks\&quot;, \&quot;audit\&quot;. | [optional] 
+**data_type** | **str** | Data type of the widget. Describes what data does the widget query. supporting data types `incidents`, `messages`, `system`, `entries` ,`tasks`, `audit`. | [optional] 
 **date_range** | [**DateRange**](DateRange.md) |  | [optional] 
 **description** | **str** | The description of the widget&#39;s usage and data representation. | [optional] 
 **id** | **str** |  | [optional] 
@@ -22,7 +22,7 @@ Name | Type | Description | Notes
 **sort_values** | **list[str]** |  | [optional] 
 **vc_should_ignore** | **bool** |  | [optional] 
 **version** | **int** |  | [optional] 
-**widget_type** | **str** | Widget type describes how does the widget should recieve the data, and display it. Supporting types: \&quot;bar\&quot;, \&quot;column\&quot;, \&quot;pie\&quot;, \&quot;list\&quot;, \&quot;number\&quot;, \&quot;trend\&quot;, \&quot;text\&quot;, \&quot;duration\&quot;, \&quot;image\&quot;, \&quot;line\&quot;, and \&quot;table\&quot;. | 
+**widget_type** | **str** | Widget type describes how does the widget should recieve the data, and display it. Supporting types: `bar`, `column`, `pie`, `list`, `number`, `trend`, `text`, `duration`, `image`, `line`, and `table`. | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

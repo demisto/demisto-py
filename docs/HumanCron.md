@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **at_time_minute** | **str** |  | [optional] 
 **days** | **list[str]** |  | [optional] 
 **hours_period** | **str** |  | [optional] 
-**scheduling_type** | **str** | the following fields are deprecated. do not use them. | [optional] 
+**scheduling_type** | **str** | the following fields are deprecated. do not use them. | [deprecated] 
 **time_period** | **int** |  | [optional] 
 **time_period_type** | **str** |  | [optional] 
 

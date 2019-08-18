@@ -10,8 +10,7 @@ Name | Type | Description | Notes
 **description** | **str** | A description of the argument. | [optional] 
 **is_array** | **bool** | Indicates that the argument is an array of variables. | [optional] 
 **name** | **str** | Name of the command. | [optional] 
-**predefined** | **list[str]** | Add options separated by a comma to include a dropdown list of options for the argument.
- | [optional] 
+**predefined** | **list[str]** | Add options separated by a comma to include a dropdown list of options for the argument.| [optional] 
 **required** | **bool** | Indicates if the argument is required. | [optional] 
 **secret** | **bool** | If enabled, will prevent command from being logged. | [optional] 
 

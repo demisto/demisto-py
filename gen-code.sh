@@ -19,11 +19,11 @@ mv README.md docs/.
 # TODO: need to fix back links to README.md
 mv README.md.org README.md
 # Not clear why python fails on these imports
-sed -i -e 's/^from demisto_client.demisto_api.models.advance_arg import AdvanceArg/# &/' demisto_client/demisto_api/models/operator_argument.py
-sed -i -e 's/^from demisto_client.demisto_api.models.group import Group/# &/' demisto_client/demisto_api/models/groups.py
-sed -i -e 's/^from demisto_client.demisto_api.models.investigation_playbook import InvestigationPlaybook/# &/' demisto_client/demisto_api/models/investigation_playbook_task.py
+sed -i '' -e 's/^from demisto_client.demisto_api.models.advance_arg import AdvanceArg/# &/' demisto_client/demisto_api/models/operator_argument.py
+sed -i '' -e 's/^from demisto_client.demisto_api.models.group import Group/# &/' demisto_client/demisto_api/models/groups.py
+sed -i '' -e 's/^from demisto_client.demisto_api.models.investigation_playbook import InvestigationPlaybook/# &/' demisto_client/demisto_api/models/investigation_playbook_task.py
 # Update the docs
-sed -i -e '/# demisto-py/,/## Documentation for API Endpoints/d' docs/README.md
+sed -i '' -e '/# demisto-py/,/## Documentation for API Endpoints/d' docs/README.md
 echo '## Documentation for API Endpoints' | cat - docs/README.md > readme.temp && mv readme.temp docs/README.md
-sed -i -e 's#(docs/#(#' docs/*.md
-sed -i -e 's#(../README.md#(README.md#' docs/*.md
+sed -i '' -e 's#(docs/#(#' docs/*.md
+sed -i '' -e 's#(../README.md#(README.md#' docs/*.md

@@ -2,6 +2,8 @@
 
 A Python library for the Demisto API.
 
+**Note:** You are viewing demisto-py 2.x development branch. demisto-py 1.x is officially in maintenance-mode only and can be obtained at: https://github.com/demisto/demisto-py/releases .
+
 ## Usage
 
 First, get Demisto api-key. You can generate one via Demisto client - on `settings`->`API keys`.

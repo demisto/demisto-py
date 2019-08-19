@@ -1,4 +1,4 @@
 {
-    "packageName": "demisto_api",
+    "packageName": "demisto_client.demisto_api",
     "projectName": "demisto-py"
 }

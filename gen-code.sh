@@ -22,6 +22,8 @@ mv README.md.org README.md
 sed -i '' -e 's/^from demisto_client.demisto_api.models.advance_arg import AdvanceArg/# &/' demisto_client/demisto_api/models/operator_argument.py
 sed -i '' -e 's/^from demisto_client.demisto_api.models.group import Group/# &/' demisto_client/demisto_api/models/groups.py
 sed -i '' -e 's/^from demisto_client.demisto_api.models.investigation_playbook import InvestigationPlaybook/# &/' demisto_client/demisto_api/models/investigation_playbook_task.py
+# Some Models return no data if datatype is not set
+sed -i '' -e '171 s/None/response_data/' demisto_client/demisto_api/api_client.py
 # Update the docs
 sed -i '' -e '/# demisto-py/,/## Documentation for API Endpoints/d' docs/README.md
 echo '## Documentation for API Endpoints' | cat - docs/README.md > readme.temp && mv readme.temp docs/README.md

@@ -107,7 +107,8 @@ class ApiClient(object):
             _preload_content=True, _request_timeout=None):
 
         config = self.configuration
-
+        if hasattr(body, "to_dict"):
+            body = body.to_dict()
         # header parameters
         header_params = header_params or {}
         header_params.update(self.default_headers)
@@ -191,9 +192,7 @@ class ApiClient(object):
         :return: The serialized form of data.
         """
         if obj is None:
-            return None
-        if hasattr(obj, "to_dict"):
-            obj = obj.to_dict()
+            return None        
         elif isinstance(obj, self.PRIMITIVE_TYPES):
             return obj
         elif isinstance(obj, list):

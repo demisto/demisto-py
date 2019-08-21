@@ -192,6 +192,8 @@ class ApiClient(object):
         """
         if obj is None:
             return None
+        if hasattr(obj, "to_dict"):
+            obj = obj.to_dict()
         elif isinstance(obj, self.PRIMITIVE_TYPES):
             return obj
         elif isinstance(obj, list):

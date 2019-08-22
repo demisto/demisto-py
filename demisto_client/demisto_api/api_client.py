@@ -169,7 +169,7 @@ class ApiClient(object):
             if response_type:
                 return_data = self.deserialize(response_data, response_type)
             else:
-                return_data = response_data
+                return_data = None
 
         if _return_http_data_only:
             return (return_data)
@@ -192,7 +192,7 @@ class ApiClient(object):
         :return: The serialized form of data.
         """
         if obj is None:
-            return None        
+            return None
         elif isinstance(obj, self.PRIMITIVE_TYPES):
             return obj
         elif isinstance(obj, list):

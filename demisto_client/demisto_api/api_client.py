@@ -106,9 +106,8 @@ class ApiClient(object):
             _return_http_data_only=None, collection_formats=None,
             _preload_content=True, _request_timeout=None):
 
-        config = self.configuration
-        if hasattr(body, "to_dict"):
-            body = body.to_dict()
+        config = self.configuration; body = body.to_dict() if hasattr(body, "to_dict") else body  # noqa: E702
+
         # header parameters
         header_params = header_params or {}
         header_params.update(self.default_headers)

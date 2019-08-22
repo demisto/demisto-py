@@ -109,27 +109,6 @@
         }
       }
     },
-    "/automation/load/{id}": {
-      "post": {
-        "description": "Load Automation by ID",
-        "summary": "Load Automation",
-        "operationId": "getAutomationScript",
-        "parameters": [
-          {
-            "type": "string",
-            "description": "the ID of the automation to get",
-            "name": "id",
-            "in": "path",
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "automation script"
-          }
-        }
-      }
-    },
     "/automation/search": {
       "post": {
         "description": "Search Automation by filter",

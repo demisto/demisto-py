@@ -6,23 +6,29 @@ A Python library for the Demisto API.
 
 ## Usage
 
-First, get Demisto api-key. You can generate one via Demisto client - on `settings`->`API keys`.
+First, you will need to obtain your Demisto API Key. You can generate one via your Demisto UI by navigating to  `settings`->`API keys`.
 
 Create demisto client instance with the api-key and server-url:
 ```python
-import demisto
+import demisto_client
 
-client = demisto.DemistoClient('<your-api-key-goes-here>', 'https://localhost:8443')
+api_key = 'YOUR_API_KEY'
+host = 'YOUR_HOSTNAME'
+
+api_instance = demisto_client.configure(hostname=host, api_key=api_key)
 
 ```
 
 Alternatively, you can login with username and password:
 
 ```python
-import demisto
+import demisto_client
 
-client = demisto.DemistoClient('', 'https://localhost:8443', '<username>', '<password>')
-client.Login() # Should return <Response [200]>
+host = 'YOUR_HOSTNAME'
+username = 'YOUR_USERNAME'
+password = 'YOUR_PASSWORD'
+
+api_instance = demisto_client.configure(hostname=host, username=username, password=password)
 
 ```
 
@@ -30,8 +36,24 @@ client.Login() # Should return <Response [200]>
 You can create incidents:
 
 ```python
-client.CreateIncident('incident-name', 'incident-type', 0, 'owner', [{"type": "label", "value": "demisto"}], 'details', {"alertsource":"demisto"})
+import demisto_client
+from demisto_client.rest import ApiException
+from pprint import pprint
 
+# Configure API key authorization: api_key
+api_key = 'GENERATED_API_TOKEN'
+host = 'DEMISTO_HOSTNAME'
+
+# create an instance of the API class
+api_instance = demisto_client.configure(hostname=host, api_key=api_key)
+create_incident_request = demisto_client.CreateIncidentRequest() # CreateIncidentRequest |  (optional)
+
+try:
+    # Create single incident
+    api_response = api_instance.create_incident(create_incident_request=create_incident_request)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DemistoApi->create_incident: %s\n" % e)
 ```
 
 By setting the parameter "createInvestigation" to **True**, the newly created incident will also create an Investigation. This will allow for Playbooks to be triggered automatically for the newly created Incident.

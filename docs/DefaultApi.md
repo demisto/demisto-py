@@ -30,7 +30,6 @@ Method | HTTP request | Description
 [**get_all_reports**](DefaultApi.md#get_all_reports) | **GET** /reports | Get all reports
 [**get_all_widgets**](DefaultApi.md#get_all_widgets) | **GET** /widgets | 
 [**get_audits**](DefaultApi.md#get_audits) | **POST** /settings/audits | Get Audits
-[**get_automation_script**](DefaultApi.md#get_automation_script) | **POST** /automation/load/{id} | Load Automation
 [**get_automation_scripts**](DefaultApi.md#get_automation_scripts) | **POST** /automation/search | Search Automation (aka scripts)
 [**get_docker_images**](DefaultApi.md#get_docker_images) | **GET** /settings/docker-images | Get Docker Images
 [**get_entry_artifact**](DefaultApi.md#get_entry_artifact) | **GET** /entry/artifact/{id} | Get entry artifact
@@ -1475,59 +1474,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**AuditResult**](AuditResult.md)
-
-### Authorization
-
-[api_key](README.md#api_key)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, application/xml
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **get_automation_script**
-> get_automation_script(id)
-
-Load Automation
-
-Load Automation by ID
-
-### Example
-```python
-from __future__ import print_function
-import time
-import demisto_client.demisto_api
-from demisto_client.demisto_api.rest import ApiException
-from pprint import pprint
-
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
-id = 'id_example' # str | the ID of the automation to get
-
-try:
-    # Load Automation
-    api_instance.get_automation_script(id)
-except ApiException as e:
-    print("Exception when calling DefaultApi->get_automation_script: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **str**| the ID of the automation to get | 
-
-### Return type
-
-void (empty response body)
 
 ### Authorization
 

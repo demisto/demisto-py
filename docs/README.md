@@ -30,7 +30,6 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**get_all_reports**](DefaultApi.md#get_all_reports) | **GET** /reports | Get all reports
 *DefaultApi* | [**get_all_widgets**](DefaultApi.md#get_all_widgets) | **GET** /widgets | 
 *DefaultApi* | [**get_audits**](DefaultApi.md#get_audits) | **POST** /settings/audits | Get Audits
-*DefaultApi* | [**get_automation_script**](DefaultApi.md#get_automation_script) | **POST** /automation/load/{id} | Load Automation
 *DefaultApi* | [**get_automation_scripts**](DefaultApi.md#get_automation_scripts) | **POST** /automation/search | Search Automation (aka scripts)
 *DefaultApi* | [**get_docker_images**](DefaultApi.md#get_docker_images) | **GET** /settings/docker-images | Get Docker Images
 *DefaultApi* | [**get_entry_artifact**](DefaultApi.md#get_entry_artifact) | **GET** /entry/artifact/{id} | Get entry artifact

@@ -64,3 +64,110 @@ def test_create_incident():
     assert responses.calls[0].request.url == '/incident'
     assert responses.calls[0].request.host == 'localhost'
     assert responses.calls[0].request.scheme == 'http'
+
+
+@responses.activate
+def test_get_reports():
+    body = '[{"created_by":"DBot","dashboard":"None","decoder":{},"description":"This report ' \
+           'generates Mean Time to Resolve by Incident type for last 2 Quarters",' \
+           '"id":"MTTRbyIncidentType2Quar","locked":false,"name":"Mean time to Resolve by ' \
+           'Incident Type (Last 2 Quarters)","orientation":"portrait","prev_name":"Mean time to ' \
+           'Resolve by Incident Type (Last 2 Quarters)","prev_type":"pdf","type":"pdf",' \
+           '"version":4}]'
+
+    responses.add('GET', '/reports',
+                  body=body,
+                  status=200,
+                  content_type='application/json')
+
+    api_instance = demisto_client.configure(hostname=host, api_key=api_key, debug=True)
+    api_response = api_instance.get_all_reports()
+
+    print(api_response[0].id)
+
+    assert api_response[0].id == 'MTTRbyIncidentType2Quar'
+    assert api_response[
+               0].description == 'This report generates Mean Time to Resolve by Incident type for ' \
+                                 '' \
+                                 'last 2 Quarters'
+    assert api_response[0].version == 4
+
+    assert len(responses.calls) == 1
+    assert responses.calls[0].request.url == '/reports'
+    assert responses.calls[0].request.host == 'localhost'
+    assert responses.calls[0].request.scheme == 'http'
+
+
+@responses.activate
+def test_indicators_search():
+    body = r'''
+    {
+    "iocObjects": [{
+        "id": "4737",
+        "version": 1,
+        "modified": "2019-07-14T16:54:02.719044+03:00",
+        "account": "",
+        "timestamp": "2019-07-14T16:54:02.718422+03:00",
+        "indicator_type": "IP",
+        "value": "92.63.197.153",
+        "source": "Recorded Future",
+        "investigationIDs": ["1750"],
+        "lastSeen": "2019-07-14T16:54:02.718378+03:00",
+        "firstSeen": "2019-07-14T16:54:02.718378+03:00",
+        "lastSeenEntryID": "API",
+        "firstSeenEntryID": "API",
+        "score": 3,
+        "manualScore": true,
+        "setBy": "DBotWeak",
+        "manualSetTime": "0001-01-01T00:00:00Z",
+        "insightCache": null,
+        "calculatedTime": "2019-07-14T16:54:02.718378+03:00",
+        "lastReputationRun": "0001-01-01T00:00:00Z",
+        "comment": "From Recorded Future risk list, Score - 89",
+        "manuallyEditedFields": null
+    }],
+    "total": 1
+}
+'''
+
+    responses.add('POST', '/indicators/search',
+                  body=body,
+                  status=200,
+                  content_type='application/json')
+    api_instance = demisto_client.configure(hostname=host, api_key=api_key, debug=False)
+    indicator_filter = demisto_client.demisto_api.IndicatorFilter()  # IndicatorFilter |  (optional)
+    indicator_filter.query = 'value:92.63.197.153'
+    api_response = api_instance.indicators_search(indicator_filter=indicator_filter)
+
+    print(api_response)
+    assert api_response.ioc_objects[0].get('comment') == 'From Recorded Future risk list, Score - 89'
+    # assert api_response.type == 'Unclassified'
+    # assert api_response.owner == 'Admin'
+
+    assert len(responses.calls) == 1
+    assert responses.calls[0].request.url == '/indicators/search'
+    assert responses.calls[0].request.host == 'localhost'
+    assert responses.calls[0].request.scheme == 'http'
+
+
+@responses.activate
+def test_export_entry():
+    body = "entry_artifact_6@1770.md"
+    responses.add('POST', '/entry/exportArtifact',
+                  body=body,
+                  status=200,
+                  content_type='application/json')
+    api_instance = demisto_client.configure(hostname=host, api_key=api_key, debug=False)
+    download_entry = demisto_client.demisto_api.DownloadEntry()  # DownloadEntry |  (optional)
+
+    download_entry.id = '6@1770'
+    download_entry.investigation_id = '1770'
+
+    api_result = api_instance.entry_export_artifact(download_entry=download_entry)
+
+    assert api_result == 'entry_artifact_6@1770.md'
+
+    assert len(responses.calls) == 1
+    assert responses.calls[0].request.url == '/entry/exportArtifact'
+    assert responses.calls[0].request.host == 'localhost'
+    assert responses.calls[0].request.scheme == 'http'

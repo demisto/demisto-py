@@ -23,24 +23,28 @@ def configure(hostname, api_key=None, username=None, password=None, verify_ssl=T
 def to_good_dict(o):
     """Returns the model properties as a dict"""
     result = {}
-    o_map = o.attribute_map
 
-    for attr, _ in six.iteritems(o.swagger_types):
-        value = getattr(o, attr)
-        if isinstance(value, list):
-            result[o_map[attr]] = list(map(
-                lambda x: to_good_dict(x) if hasattr(x, "to_dict") else x,
-                value
-            ))
-        elif hasattr(value, "to_dict"):
-            result[o_map[attr]] = to_good_dict(value)
-        elif isinstance(value, dict):
-            result[o_map[attr]] = dict(map(
-                lambda item: (item[0], to_good_dict(item[1]))
-                if hasattr(item[1], "to_dict") else item,
-                value.items()
-            ))
-        else:
-            result[o_map[attr]] = value
+    if hasattr(o, "attribute_map"):
+        o_map = o.attribute_map
 
+        for attr, _ in six.iteritems(o.swagger_types):
+            value = getattr(o, attr)
+            if isinstance(value, list):
+                result[o_map[attr]] = list(map(
+                    lambda x: to_good_dict(x) if hasattr(x, "to_dict") else x,
+                    value
+                ))
+            elif hasattr(value, "to_dict"):
+                result[o_map[attr]] = to_good_dict(value)
+            elif isinstance(value, dict):
+                result[o_map[attr]] = dict(map(
+                    lambda item: (item[0], to_good_dict(item[1]))
+                    if hasattr(item[1], "to_dict") else item,
+                    value.items()
+                ))
+            else:
+                result[o_map[attr]] = value
+    else:
+        o.to_dict() if hasattr(o, "to_dict") else o
+        result = o
     return result

@@ -106,7 +106,7 @@ class ApiClient(object):
             _return_http_data_only=None, collection_formats=None,
             _preload_content=True, _request_timeout=None):
 
-        config = self.configuration; body = body.to_dict() if hasattr(body, "to_dict") else body  # noqa: E702
+        config = self.configuration; body = demisto_client.to_good_dict(body)  # noqa: E702
 
         # header parameters
         header_params = header_params or {}

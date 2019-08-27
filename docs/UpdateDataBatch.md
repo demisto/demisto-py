@@ -16,6 +16,6 @@ Name | Type | Description | Notes
 **original_incident_id** | **str** |  | [optional] 
 **override_investigation** | **bool** |  | [optional] 
 
-[[Back to Model list]](README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+[[Back to Model list]](README.md#documentation-for-models) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to README]](README.md)
 
 

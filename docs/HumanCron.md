@@ -11,6 +11,6 @@ Name | Type | Description | Notes
 **time_period** | **int** |  | [optional] 
 **time_period_type** | **str** |  | [optional] 
 
-[[Back to Model list]](README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+[[Back to Model list]](README.md#documentation-for-models) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to README]](README.md)
 
 

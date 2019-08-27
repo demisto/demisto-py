@@ -120,7 +120,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **close_incidents_batch**
 > IncidentSearchResponseWrapper close_incidents_batch(update_data_batch=update_data_batch)
@@ -174,7 +174,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **complete_task**
 > InvestigationPlaybook complete_task(investigation_id, file_comment, task_id, task_input, version, file, file_name=file_name)
@@ -240,7 +240,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: multipart/form-data
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **complete_task_v2**
 > InvestigationPlaybook complete_task_v2(investigation_id, task_id, task_input, version, file, task_comment=task_comment, file_names=file_names, file_comments=file_comments)
@@ -308,7 +308,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: multipart/form-data
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **copy_script**
 > AutomationScriptResult copy_script(automation_script_filter_wrapper=automation_script_filter_wrapper)
@@ -362,7 +362,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **create_docker_image**
 > NewDockerImageResult create_docker_image(new_docker_image=new_docker_image)
@@ -416,7 +416,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **create_incident**
 > IncidentWrapper create_incident(create_incident_request=create_incident_request)
@@ -470,7 +470,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **create_incident_json**
 > IncidentWrapper create_incident_json()
@@ -520,7 +520,7 @@ This endpoint does not need any parameter.
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **create_incidents_batch**
 > IncidentSearchResponseWrapper create_incidents_batch(update_data_batch=update_data_batch)
@@ -574,7 +574,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **create_or_update_incident_type**
 > IncidentType create_or_update_incident_type(incident_type=incident_type)
@@ -628,7 +628,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **delete_ad_hoc_task**
 > InvestigationPlaybook delete_ad_hoc_task(investigation_id, inv_pb_task_id)
@@ -684,7 +684,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **delete_automation_script**
 > delete_automation_script(automation_script_filter_wrapper=automation_script_filter_wrapper)
@@ -737,7 +737,7 @@ void (empty response body)
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **delete_evidence_op**
 > delete_evidence_op(delete_evidence_id=delete_evidence_id)
@@ -790,7 +790,7 @@ void (empty response body)
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **delete_incidents_batch**
 > IncidentSearchResponseWrapper delete_incidents_batch(update_data_batch=update_data_batch)
@@ -844,7 +844,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **delete_indicators_batch**
 > UpdateResponse delete_indicators_batch(generic_indicator_update_batch=generic_indicator_update_batch)
@@ -898,7 +898,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **delete_widget**
 > delete_widget(id)
@@ -951,7 +951,7 @@ void (empty response body)
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **download_latest_report**
 > file download_latest_report(id)
@@ -1005,7 +1005,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/octet-stream
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **edit_ad_hoc_task**
 > InvestigationPlaybook edit_ad_hoc_task(investigation_id, inv_playbook_task_data=inv_playbook_task_data)
@@ -1061,7 +1061,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **entry_export_artifact**
 > entry_export_artifact(download_entry=download_entry)
@@ -1114,7 +1114,7 @@ void (empty response body)
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **execute_report**
 > execute_report(id, request_id)
@@ -1169,7 +1169,7 @@ void (empty response body)
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **export_incidents_to_csv_batch**
 > str export_incidents_to_csv_batch(update_data_batch=update_data_batch)
@@ -1223,7 +1223,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **export_indicators_to_csv_batch**
 > str export_indicators_to_csv_batch(generic_indicator_update_batch=generic_indicator_update_batch)
@@ -1277,7 +1277,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **export_indicators_to_stix_batch**
 > str export_indicators_to_stix_batch(generic_indicator_update_batch=generic_indicator_update_batch)
@@ -1331,7 +1331,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **get_all_reports**
 > list[Report] get_all_reports()
@@ -1381,7 +1381,7 @@ This endpoint does not need any parameter.
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **get_all_widgets**
 > list[Widget] get_all_widgets()
@@ -1430,7 +1430,7 @@ This endpoint does not need any parameter.
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **get_audits**
 > AuditResult get_audits(filter=filter)
@@ -1484,7 +1484,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **get_automation_scripts**
 > AutomationScriptResult get_automation_scripts(automation_script_filter=automation_script_filter)
@@ -1538,7 +1538,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **get_docker_images**
 > DockerImagesResult get_docker_images()
@@ -1588,7 +1588,7 @@ This endpoint does not need any parameter.
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **get_entry_artifact**
 > file get_entry_artifact(id)
@@ -1642,7 +1642,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/octet-stream
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **get_incident_as_csv**
 > file get_incident_as_csv(id)
@@ -1696,7 +1696,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/octet-stream
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **get_incidents_fields_by_incident_type**
 > list[IncidentField] get_incidents_fields_by_incident_type(type)
@@ -1750,7 +1750,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **get_indicators_as_csv**
 > file get_indicators_as_csv(id)
@@ -1804,7 +1804,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/octet-stream
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **get_indicators_as_stix**
 > file get_indicators_as_stix(id)
@@ -1858,7 +1858,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/octet-stream
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **get_report_by_id**
 > Report get_report_by_id(id)
@@ -1912,7 +1912,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **get_stats_for_dashboard**
 > list[StatsQueryResponse] get_stats_for_dashboard()
@@ -1962,7 +1962,7 @@ This endpoint does not need any parameter.
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **get_stats_for_widget**
 > object get_stats_for_widget()
@@ -2012,7 +2012,7 @@ This endpoint does not need any parameter.
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **get_widget**
 > Widget get_widget(id)
@@ -2066,7 +2066,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **import_widget**
 > Widget import_widget(widget=widget)
@@ -2120,7 +2120,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **indicator_whitelist**
 > UpdateResponse indicator_whitelist(update_indicator_reputation_data=update_indicator_reputation_data)
@@ -2174,7 +2174,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **indicators_create**
 > IocObject indicators_create(ioc_object=ioc_object)
@@ -2228,7 +2228,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **indicators_create_batch**
 > IocObjects indicators_create_batch(file, file_name=file_name)
@@ -2284,7 +2284,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: multipart/form-data
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **indicators_edit**
 > IocObject indicators_edit(ioc_object=ioc_object)
@@ -2338,7 +2338,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **indicators_search**
 > IndicatorResult indicators_search(indicator_filter=indicator_filter)
@@ -2392,7 +2392,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **investigation_add_entry_handler**
 > Entry investigation_add_entry_handler(update_entry=update_entry)
@@ -2446,7 +2446,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **investigation_add_formatted_entry_handler**
 > Entry investigation_add_formatted_entry_handler(uploaded_entry=uploaded_entry)
@@ -2500,7 +2500,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **revoke_user_api_key**
 > revoke_user_api_key(username)
@@ -2552,7 +2552,7 @@ void (empty response body)
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/octet-stream
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **save_evidence**
 > Evidence save_evidence(evidence=evidence)
@@ -2606,7 +2606,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **save_or_update_script**
 > AutomationScriptResult save_or_update_script(automation_script_filter_wrapper=automation_script_filter_wrapper)
@@ -2660,7 +2660,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **save_widget**
 > Widget save_widget(widget=widget)
@@ -2714,7 +2714,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **search_evidence**
 > EvidencesSearchResponse search_evidence(evidences_filter_wrapper=evidences_filter_wrapper)
@@ -2768,7 +2768,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **search_incidents**
 > InlineResponse200 search_incidents(filter=filter)
@@ -2822,7 +2822,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **search_investigations**
 > InvestigationSearchResponse search_investigations(filter=filter)
@@ -2876,7 +2876,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **simple_complete_task**
 > InvestigationPlaybook simple_complete_task(inv_task_info=inv_task_info)
@@ -2930,7 +2930,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **submit_task_form**
 > InvestigationPlaybook submit_task_form(investigation_id, task_id, answers, file, file_names=file_names, file_comments=file_comments)
@@ -2994,7 +2994,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: multipart/form-data
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **task_add_comment**
 > InvestigationPlaybook task_add_comment(inv_task_info=inv_task_info)
@@ -3048,7 +3048,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **task_assign**
 > InvestigationPlaybook task_assign(inv_playbook_assignee=inv_playbook_assignee)
@@ -3102,7 +3102,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **task_set_due**
 > InvestigationPlaybook task_set_due(inv_playbook_due=inv_playbook_due)
@@ -3156,7 +3156,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **task_un_complete**
 > InvestigationPlaybook task_un_complete(inv_task_info=inv_task_info)
@@ -3210,7 +3210,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **update_entry_note**
 > Entry update_entry_note(update_entry=update_entry)
@@ -3264,7 +3264,7 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **update_entry_tags_op**
 > Entry update_entry_tags_op(update_entry_tags=update_entry_tags)
@@ -3318,5 +3318,5 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 

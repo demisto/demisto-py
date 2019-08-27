@@ -24,6 +24,6 @@ Name | Type | Description | Notes
 **version** | **int** |  | [optional] 
 **widget_type** | **str** | Widget type describes how does the widget should recieve the data, and display it. Supporting types: \&quot;bar\&quot;, \&quot;column\&quot;, \&quot;pie\&quot;, \&quot;list\&quot;, \&quot;number\&quot;, \&quot;trend\&quot;, \&quot;text\&quot;, \&quot;duration\&quot;, \&quot;image\&quot;, \&quot;line\&quot;, and \&quot;table\&quot;. | 
 
-[[Back to Model list]](README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+[[Back to Model list]](README.md#documentation-for-models) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to README]](README.md)
 
 

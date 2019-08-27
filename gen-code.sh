@@ -28,4 +28,4 @@ sed -i '' -e 's/config = self.configuration/&; body = body.to_dict() if hasattr(
 sed -i '' -e '/# demisto-py/,/## Documentation for API Endpoints/d' docs/README.md
 echo '## Documentation for API Endpoints' | cat - docs/README.md > readme.temp && mv readme.temp docs/README.md
 sed -i '' -e 's#(docs/#(#' docs/*.md
-sed -i '' -e 's#(../README.md#(README.md#' docs/*.md
+sed -i '' -e 's#(../README.md#(README.md#g' docs/*.md

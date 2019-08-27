@@ -11,6 +11,6 @@ Name | Type | Description | Notes
 **size** | **int** | Size is limited to 1000, if not passed it defaults to 0, and no results will return | [optional] 
 **sort** | [**list[Order]**](Order.md) | The sort order | [optional] 
 
-[[Back to Model list]](README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+[[Back to Model list]](README.md#documentation-for-models) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to README]](README.md)
 
 

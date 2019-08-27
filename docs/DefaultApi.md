@@ -1064,7 +1064,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **entry_export_artifact**
-> entry_export_artifact(download_entry=download_entry)
+> str entry_export_artifact(download_entry=download_entry)
 
 Export Artifact
 
@@ -1090,7 +1090,8 @@ download_entry = demisto_client.demisto_api.DownloadEntry() # DownloadEntry |  (
 
 try:
     # Export Artifact
-    api_instance.entry_export_artifact(download_entry=download_entry)
+    api_response = api_instance.entry_export_artifact(download_entry=download_entry)
+    pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->entry_export_artifact: %s\n" % e)
 ```
@@ -1103,7 +1104,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+**str**
 
 ### Authorization
 

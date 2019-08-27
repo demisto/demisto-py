@@ -74,7 +74,7 @@ class ApiClient(object):
             self.default_headers[header_name] = header_value
         self.cookie = cookie
         # Set default User-Agent.
-        self.user_agent = 'Swagger-Codegen/4.5.0.1/python'
+        self.user_agent = 'Swagger-Codegen/2.0.0/python'
 
     def __del__(self):
         if self._pool is not None:
@@ -106,7 +106,7 @@ class ApiClient(object):
             _return_http_data_only=None, collection_formats=None,
             _preload_content=True, _request_timeout=None):
 
-        config = self.configuration; body = body.to_dict() if hasattr(body, "to_dict") else body  # noqa: E702
+        config = self.configuration; body = demisto_client.to_good_dict(body)  # noqa: E702
 
         # header parameters
         header_params = header_params or {}

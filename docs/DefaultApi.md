@@ -77,18 +77,12 @@ Add an ad-hoc task to a running playbook
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 investigation_id = 'investigation_id_example' # str | investigation ID
 inv_playbook_task_data = demisto_client.demisto_api.InvPlaybookTaskData() # InvPlaybookTaskData |  (optional)
 
@@ -133,18 +127,12 @@ Closes an incidents batch To update incident custom fields you should lowercase 
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 update_data_batch = demisto_client.demisto_api.UpdateDataBatch() # UpdateDataBatch |  (optional)
 
 try:
@@ -187,18 +175,12 @@ Complete a task with a file attachment Deprecated - use \"/v2/inv-playbook/task/
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 investigation_id = 'investigation_id_example' # str | investigation ID
 file_comment = 'file_comment_example' # str | file comment
 task_id = 'task_id_example' # str | Task Id
@@ -253,18 +235,12 @@ Complete a task with command and multiple file attachments
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 investigation_id = 'investigation_id_example' # str | investigation ID
 task_id = 'task_id_example' # str | Task Id
 task_input = 'task_input_example' # str | Task input
@@ -321,18 +297,12 @@ Copy given automation
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 automation_script_filter_wrapper = demisto_client.demisto_api.AutomationScriptFilterWrapper() # AutomationScriptFilterWrapper |  (optional)
 
 try:
@@ -375,18 +345,12 @@ Create an image with a given list of dependencies
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 new_docker_image = demisto_client.demisto_api.NewDockerImage() # NewDockerImage |  (optional)
 
 try:
@@ -429,18 +393,12 @@ Create or update incident according to JSON structure. To update incident custom
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 create_incident_request = demisto_client.demisto_api.CreateIncidentRequest() # CreateIncidentRequest |  (optional)
 
 try:
@@ -483,18 +441,12 @@ Create single incident from raw JSON, builds incident according to default mappi
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 
 try:
     # Create incident from JSON
@@ -533,18 +485,12 @@ Create or update an incidents batch To update incident custom fields you should 
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 update_data_batch = demisto_client.demisto_api.UpdateDataBatch() # UpdateDataBatch |  (optional)
 
 try:
@@ -587,18 +533,12 @@ API to create new Incident Type
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 incident_type = demisto_client.demisto_api.IncidentType() # IncidentType |  (optional)
 
 try:
@@ -641,18 +581,12 @@ Delete an ad-hoc task from a running playbook
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 investigation_id = 'investigation_id_example' # str | investigation ID
 inv_pb_task_id = 'inv_pb_task_id_example' # str | ad-hoc task ID
 
@@ -697,18 +631,12 @@ Delete a given automation from the system.
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 automation_script_filter_wrapper = demisto_client.demisto_api.AutomationScriptFilterWrapper() # AutomationScriptFilterWrapper |  (optional)
 
 try:
@@ -750,18 +678,12 @@ Delete an evidence entity
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 delete_evidence_id = demisto_client.demisto_api.DeleteEvidence() # DeleteEvidence |  (optional)
 
 try:
@@ -803,18 +725,12 @@ Deletes an incidents batch
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 update_data_batch = demisto_client.demisto_api.UpdateDataBatch() # UpdateDataBatch |  (optional)
 
 try:
@@ -857,18 +773,12 @@ Batch whitelist or delete indicators entities In order to delete indicators and 
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 generic_indicator_update_batch = demisto_client.demisto_api.GenericIndicatorUpdateBatch() # GenericIndicatorUpdateBatch |  (optional)
 
 try:
@@ -911,18 +821,12 @@ Remove a given widget Id from the system.
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 id = 'id_example' # str | Widget id to remove (returned from widget save or widgets get)
 
 try:
@@ -964,18 +868,12 @@ Get the latest report by its ID
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 id = 'id_example' # str | the ID of the report to get
 
 try:
@@ -1018,18 +916,12 @@ Edit an ad-hoc task in a running playbook
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 investigation_id = 'investigation_id_example' # str | investigation ID
 inv_playbook_task_data = demisto_client.demisto_api.InvPlaybookTaskData() # InvPlaybookTaskData |  (optional)
 
@@ -1074,18 +966,12 @@ Export an entry artifact
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 download_entry = demisto_client.demisto_api.DownloadEntry() # DownloadEntry |  (optional)
 
 try:
@@ -1128,18 +1014,12 @@ Execute a new report
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 id = 'id_example' # str | the ID of the report to get
 request_id = 'request_id_example' # str | the ID to register the request under
 
@@ -1183,18 +1063,12 @@ Exports an incidents batch to CSV file (returns file ID)
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 update_data_batch = demisto_client.demisto_api.UpdateDataBatch() # UpdateDataBatch |  (optional)
 
 try:
@@ -1237,18 +1111,12 @@ Exports an indicators batch to CSV file (returns file ID)
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 generic_indicator_update_batch = demisto_client.demisto_api.GenericIndicatorUpdateBatch() # GenericIndicatorUpdateBatch | Required parameters from `genericIndicatorUpdateBatch`: `columns`, `filter`. You should also include either `all` or `ids`  (optional)
 
 try:
@@ -1291,18 +1159,12 @@ Exports an indicators batch to STIX file (returns file ID)
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 generic_indicator_update_batch = demisto_client.demisto_api.GenericIndicatorUpdateBatch() # GenericIndicatorUpdateBatch |  (optional)
 
 try:
@@ -1345,18 +1207,12 @@ Get all of the reports
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 
 try:
     # Get all reports
@@ -1395,18 +1251,12 @@ Get all widgets
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 
 try:
     api_response = api_instance.get_all_widgets()
@@ -1444,18 +1294,12 @@ Get audits by filter
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 filter = demisto_client.demisto_api.GenericStringDateFilter() # GenericStringDateFilter |  (optional)
 
 try:
@@ -1498,18 +1342,12 @@ Search Automation by filter
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 automation_script_filter = demisto_client.demisto_api.AutomationScriptFilter() # AutomationScriptFilter |  (optional)
 
 try:
@@ -1552,18 +1390,12 @@ Get list of all available docker image names
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 
 try:
     # Get Docker Images
@@ -1602,18 +1434,12 @@ Get the entry artifact file
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 id = 'id_example' # str | file to fetch (returned from entry export artifact call)
 
 try:
@@ -1656,18 +1482,12 @@ Get an incident CSV file that was exported, by ID
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 id = 'id_example' # str | CSV file to fetch (returned from batch export to csv call)
 
 try:
@@ -1710,18 +1530,12 @@ Get all incident fields associated with incident type
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 type = 'type_example' # str | the name (case sensitive) of the incident type
 
 try:
@@ -1764,18 +1578,12 @@ Get an indicators CSV file that was exported, by ID
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 id = 'id_example' # str | CSV file to fetch (returned from batch export to csv call)
 
 try:
@@ -1818,18 +1626,12 @@ Get an indicators STIX V2 file that was exported, by ID
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 id = 'id_example' # str | STIX V2 file to fetch (returned from batch export to STIX call)
 
 try:
@@ -1872,18 +1674,12 @@ Get a report by its ID
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 id = 'id_example' # str | the ID of the report to get
 
 try:
@@ -1926,18 +1722,12 @@ Get a given dashboard statistics result.
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 
 try:
     # Get Dashboard Statistics
@@ -1976,18 +1766,12 @@ Get a given widget object statistics result. Note: This route has many return ty
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 
 try:
     # Get Widget Statistics
@@ -2026,18 +1810,12 @@ Get a widget object by a given ID.
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 id = 'id_example' # str | The ID of widget to get.
 
 try:
@@ -2080,18 +1858,12 @@ Import a widget to the system, ignoring ID or version, used to import new widget
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 widget = demisto_client.demisto_api.Widget() # Widget |  (optional)
 
 try:
@@ -2134,18 +1906,12 @@ Whitelists or deletes an indicator entity In order to delete an indicator and no
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 update_indicator_reputation_data = demisto_client.demisto_api.UpdateIndicatorReputationData() # UpdateIndicatorReputationData |  (optional)
 
 try:
@@ -2188,18 +1954,12 @@ Create an indicator entity To update indicator custom fields you should lowercas
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 ioc_object = demisto_client.demisto_api.IndicatorContext() # IndicatorContext |  (optional)
 
 try:
@@ -2242,18 +2002,12 @@ Create indicators from a file
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 file = '/path/to/file.txt' # file | file
 file_name = 'file_name_example' # str | file name (optional)
 
@@ -2298,18 +2052,12 @@ Edit an indicator entity To update indicator custom fields you should lowercase 
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 ioc_object = demisto_client.demisto_api.IocObject() # IocObject |  (optional)
 
 try:
@@ -2352,18 +2100,12 @@ Search indicators by filter
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 indicator_filter = demisto_client.demisto_api.IndicatorFilter() # IndicatorFilter |  (optional)
 
 try:
@@ -2406,18 +2148,12 @@ API to create an entry (markdown format) in existing investigation Body example:
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 update_entry = demisto_client.demisto_api.UpdateEntry() # UpdateEntry |  (optional)
 
 try:
@@ -2460,18 +2196,12 @@ API to create a formatted entry (table/json/text/markdown/html) in existing inve
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 uploaded_entry = demisto_client.demisto_api.UploadedEntry() # UploadedEntry |  (optional)
 
 try:
@@ -2514,18 +2244,12 @@ Revoke API Key for user
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 username = 'username_example' # str | The username which the API keys assigned to
 
 try:
@@ -2566,18 +2290,12 @@ Save an evidence entity To update evidence custom fields you should lowercase th
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 evidence = demisto_client.demisto_api.Evidence() # Evidence |  (optional)
 
 try:
@@ -2620,18 +2338,12 @@ Create or update a given automation.
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 automation_script_filter_wrapper = demisto_client.demisto_api.AutomationScriptFilterWrapper() # AutomationScriptFilterWrapper |  (optional)
 
 try:
@@ -2674,18 +2386,12 @@ Add or update a given widget based on Id.
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 widget = demisto_client.demisto_api.Widget() # Widget |  (optional)
 
 try:
@@ -2728,18 +2434,12 @@ Search for an evidence entutiy by filter
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 evidences_filter_wrapper = demisto_client.demisto_api.EvidencesFilterWrapper() # EvidencesFilterWrapper |  (optional)
 
 try:
@@ -2782,18 +2482,12 @@ This will search incidents across all indices You can filter by multiple options
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 filter = demisto_client.demisto_api.SearchIncidentsData() # SearchIncidentsData |  (optional)
 
 try:
@@ -2836,18 +2530,12 @@ This will search investigations across all indices You can filter by multiple op
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 filter = demisto_client.demisto_api.InvestigationFilter() # InvestigationFilter |  (optional)
 
 try:
@@ -2890,18 +2578,12 @@ Complete a task without a file attachment
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 inv_task_info = demisto_client.demisto_api.InvTaskInfo() # InvTaskInfo |  (optional)
 
 try:
@@ -2944,18 +2626,12 @@ Submit a data collection task with given answers and multiple file attachments
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 investigation_id = 'investigation_id_example' # str | investigation ID
 task_id = 'task_id_example' # str | Task Id
 answers = '/path/to/file.txt' # file | the answers to the task form. Answers are keyed by numerical question id
@@ -3008,18 +2684,12 @@ Add comment to a task
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 inv_task_info = demisto_client.demisto_api.InvTaskInfo() # InvTaskInfo |  (optional)
 
 try:
@@ -3062,18 +2732,12 @@ Assign a task to an owner
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 inv_playbook_assignee = demisto_client.demisto_api.InvPlaybookAssignee() # InvPlaybookAssignee |  (optional)
 
 try:
@@ -3116,18 +2780,12 @@ Set the task due date
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 inv_playbook_due = demisto_client.demisto_api.InvPlaybookDue() # InvPlaybookDue |  (optional)
 
 try:
@@ -3170,18 +2828,12 @@ Reopen a closed task and change the status to uncomplete
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 inv_task_info = demisto_client.demisto_api.InvTaskInfo() # InvTaskInfo |  (optional)
 
 try:
@@ -3224,18 +2876,12 @@ API to mark entry as note, can be used also to remove the note Body example: {\"
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 update_entry = demisto_client.demisto_api.UpdateEntry() # UpdateEntry |  (optional)
 
 try:
@@ -3278,18 +2924,12 @@ API to set entry tags Body example: {\"id\":\"1\\@1234\",\"version\":\"-1\",\"in
 ```python
 from __future__ import print_function
 import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: api_key
-configuration = demisto_client.demisto_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = demisto_client.demisto_api.DefaultApi(demisto_client.demisto_api.ApiClient(configuration))
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 update_entry_tags = demisto_client.demisto_api.UpdateEntryTags() # UpdateEntryTags |  (optional)
 
 try:

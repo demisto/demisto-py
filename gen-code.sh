@@ -31,3 +31,8 @@ sed -i '' -e '/# demisto-py/,/## Documentation for API Endpoints/d' docs/README.
 echo '## Documentation for API Endpoints' | cat - docs/README.md > readme.temp && mv readme.temp docs/README.md
 sed -i '' -e 's#(docs/#(#' docs/*.md
 sed -i '' -e 's#(../README.md#(README.md#g' docs/*.md
+sed -i '' -e '/import time/ a\
+import demisto_client' docs/DefaultApi.md
+sed -i '' '/# Configure API key authorization: api_key/,/DefaultApi(demisto_client.demisto_api.ApiClient(configuration))/c\
+api_instance = demisto_client.configure(hostname="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")\
+' docs/DefaultApi.md

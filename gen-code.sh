@@ -23,7 +23,7 @@ sed -i '' -e 's/^from demisto_client.demisto_api.models.advance_arg import Advan
 sed -i '' -e 's/^from demisto_client.demisto_api.models.group import Group/# &/' demisto_client/demisto_api/models/groups.py
 sed -i '' -e 's/^from demisto_client.demisto_api.models.investigation_playbook import InvestigationPlaybook/# &/' demisto_client/demisto_api/models/investigation_playbook_task.py
 # __api_call needs to work with dict objects and not Classes when updating data such as POST requests
-sed -i '' -e 's/config = self.configuration/&; body = demisto_client.to_good_dict(body)  # noqa: E702/' demisto_client/demisto_api/api_client.py
+sed -i '' -e 's/config = self.configuration/&; body = demisto_client.to_extended_dict(body)  # noqa: E702/' demisto_client/demisto_api/api_client.py
 # Spec file specifies 'InlineResponse200' as expected return type. This is incorrect.
 sed -i '' -e 's/InlineResponse200/Incident/g' demisto_client/demisto_api/api/default_api.py
 # Update the docs
@@ -31,3 +31,9 @@ sed -i '' -e '/# demisto-py/,/## Documentation for API Endpoints/d' docs/README.
 echo '## Documentation for API Endpoints' | cat - docs/README.md > readme.temp && mv readme.temp docs/README.md
 sed -i '' -e 's#(docs/#(#' docs/*.md
 sed -i '' -e 's#(../README.md#(README.md#g' docs/*.md
+# add ability for generic requests
+sed -i '' -e 's/import six/import six\
+import demisto_client/g' demisto_client/demisto_api/api/default_api.py
+echo -e "\n    def generic_request(self, path, method, body=None, **kwargs):  # noqa: E501\n        return demisto_client.generic_request_func(self, path, method, body=None, **kwargs)" >> demisto_client/demisto_api/api/default_api.py
+# Change examples to use config wrapper via python script
+python format_docs.py

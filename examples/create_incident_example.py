@@ -1,15 +1,3 @@
-#!/usr/bin/env python2.7
-
-# Create Incident Example
-# This is an example of creating an incident using demisto-py
-#
-# This example in particular demonstrates how to create the api instance and configure various
-# parameters for the request
-#
-# Author:       Andrew Shamah
-# Version:      2.0
-#
-
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 
@@ -17,7 +5,7 @@ from demisto_client.demisto_api.rest import ApiException
 api_key = 'YOUR_API_KEY'
 host = 'YOUR_DEMISTO_HOST'
 
-api_instance = demisto_client.configure(hostname=host, api_key=api_key, debug=False)
+api_instance = demisto_client.configure(base_url=host, api_key=api_key, debug=False)
 create_incident_request = demisto_client.demisto_api.CreateIncidentRequest()
 
 create_incident_request.name = 'Sample Simulation Incident'

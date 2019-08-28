@@ -17,6 +17,7 @@ import re  # noqa: F401
 
 # python 2 and python 3 compatibility library
 import six
+import demisto_client
 
 from demisto_client.demisto_api.api_client import ApiClient
 
@@ -5928,3 +5929,6 @@ class DefaultApi(object):
             _preload_content=params.get('_preload_content', True),
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
+
+    def generic_request(self, path, method, body=None, **kwargs):  # noqa: E501
+        return demisto_client.generic_request_func(self, path, method, body=None, **kwargs)

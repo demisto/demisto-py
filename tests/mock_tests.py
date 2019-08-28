@@ -24,7 +24,7 @@ def test_get_docker_images():
                       content_type='application/json')
 
         # create an instance of the API class
-        api_instance = demisto_client.configure(hostname=host, api_key=api_key)
+        api_instance = demisto_client.configure(base_url=host, api_key=api_key)
         api_response = api_instance.get_docker_images()
 
         assert api_response.images[0].created_at == '2019-08-19 13:34:22 +0300 IDT'
@@ -57,7 +57,7 @@ def test_create_incident():
                       content_type='application/json')
 
         # create an instance of the API class
-        api_instance = demisto_client.configure(hostname=host, api_key=api_key)
+        api_instance = demisto_client.configure(base_url=host, api_key=api_key)
         create_incident_request = demisto_client.demisto_api.CreateIncidentRequest()
         create_incident_request.name = 'Test Incident'
         create_incident_request.type = 'Unclassified'
@@ -94,7 +94,7 @@ def test_get_reports():
                       status=200,
                       content_type='application/json')
 
-        api_instance = demisto_client.configure(hostname=host, api_key=api_key, debug=True)
+        api_instance = demisto_client.configure(base_url=host, api_key=api_key, debug=True)
         api_response = api_instance.get_all_reports()
 
         print(api_response[0].id)
@@ -152,7 +152,7 @@ def test_indicators_search():
                       body=body,
                       status=200,
                       content_type='application/json')
-        api_instance = demisto_client.configure(hostname=host, api_key=api_key, debug=False)
+        api_instance = demisto_client.configure(base_url=host, api_key=api_key, debug=False)
         indicator_filter = demisto_client.demisto_api.IndicatorFilter()  # IndicatorFilter |  (optional)
         indicator_filter.query = 'value:92.63.197.153'
         api_response = api_instance.indicators_search(indicator_filter=indicator_filter)
@@ -179,7 +179,7 @@ def test_export_entry():
                       body=body,
                       status=200,
                       content_type='application/json')
-        api_instance = demisto_client.configure(hostname=host, api_key=api_key, debug=False)
+        api_instance = demisto_client.configure(base_url=host, api_key=api_key, debug=False)
         download_entry = demisto_client.demisto_api.DownloadEntry()  # DownloadEntry |  (optional)
 
         download_entry.id = '6@1770'

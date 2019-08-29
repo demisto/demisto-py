@@ -39,64 +39,24 @@ api_instance = demisto_client.configure(hostname=host, username=username, passwo
 You can create incidents:
 
 ```python
-import demisto_client
-from demisto_client.rest import ApiException
-from pprint import pprint
+import demisto_client.demisto_api
+from demisto_client.demisto_api.rest import ApiException
 
-# Configure API key authorization: api_key
-api_key = 'GENERATED_API_TOKEN'
-host = 'DEMISTO_HOSTNAME'
 
-# create an instance of the API class
-api_instance = demisto_client.configure(hostname=host, api_key=api_key)
-create_incident_request = demisto_client.CreateIncidentRequest() # CreateIncidentRequest |  (optional)
+api_key = 'YOUR_API_KEY'
+host = 'YOUR_DEMISTO_HOST'
+
+api_instance = demisto_client.configure(base_url=host, api_key=api_key, debug=False)
+create_incident_request = demisto_client.demisto_api.CreateIncidentRequest()
+
+create_incident_request.name = 'Sample Simulation Incident'
+create_incident_request.type = 'Simulation'
+create_incident_request.owner = 'Admin'
 
 try:
-    # Create single incident
     api_response = api_instance.create_incident(create_incident_request=create_incident_request)
-    pprint(api_response)
+    print(api_response)
 except ApiException as e:
-    print("Exception when calling DemistoApi->create_incident: %s\n" % e)
-```
+    print("Exception when calling DefaultApi->create_incident: %s\n" % e)
 
-By setting the parameter "createInvestigation" to **True**, the newly created incident will also create an Investigation. This will allow for Playbooks to be triggered automatically for the newly created Incident.
-
-```python
-client.CreateIncident('incident-name', 'incident-type', 0, 'owner', [{"type": "label", "value": "demisto"}], 'details', {"alertsource":"demisto"}, createInvestigation=True)
-
-```
-
-You can search for incidents by filter:
-
-```python
-client.SearchIncidents(0,100,'')
-```
-
-Will return all incidents, with a max limit of 100 incidents to return, and page 0 of it
-
-A bit more complex search:
-
-```python
-client.SearchIncidents(0,100,'name:test')
-```
-
-Will return incidents with name test
-
-* Note - on macOS, the system OpenSSL does not supprot TLSv12 which Demisto server mandates. To run the examples on macOS you will need to install brew and then OpenSSL and Python via brew.
-
-If you don't have brew installed:
-```
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-```
-
-To install Python with new OpenSSL support:
-```
-brew update
-brew install openssl
-brew install python --with-brewed-openssl
-```
-
-To run the examples:
-```
-/usr/local/Cellar/python/2.7.13/bin/python example -param val -param val
 ```

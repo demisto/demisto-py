@@ -92,7 +92,7 @@ def test_get_reports():
                       status=200,
                       content_type='application/json')
 
-        api_instance = demisto_client.configure(base_url=host, api_key=api_key, debug=True)
+        api_instance = demisto_client.configure(base_url=host, api_key=api_key, debug=False)
         api_response = api_instance.get_all_reports()
 
         assert api_response[0].id == 'MTTRbyIncidentType2Quar'

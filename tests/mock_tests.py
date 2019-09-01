@@ -13,6 +13,7 @@ def assert_reset():
 
 
 def test_get_docker_images():
+    '''Check GET docker images.'''
     @responses.activate
     def run():
         body = '{ "images": [{"id": "aae7b8aaba8c", "repository": ' \

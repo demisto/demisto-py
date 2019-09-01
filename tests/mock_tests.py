@@ -64,8 +64,6 @@ def test_create_incident():
         create_incident_request.owner = 'Admin'
         api_response = api_instance.create_incident(create_incident_request=create_incident_request)
 
-        print(api_response)
-
         assert api_response.name == 'Test Incident'
         assert api_response.type == 'Unclassified'
         assert api_response.owner == 'Admin'
@@ -96,8 +94,6 @@ def test_get_reports():
 
         api_instance = demisto_client.configure(base_url=host, api_key=api_key, debug=True)
         api_response = api_instance.get_all_reports()
-
-        print(api_response[0].id)
 
         assert api_response[0].id == 'MTTRbyIncidentType2Quar'
         assert api_response[
@@ -157,7 +153,6 @@ def test_indicators_search():
         indicator_filter.query = 'value:92.63.197.153'
         api_response = api_instance.indicators_search(indicator_filter=indicator_filter)
 
-        print(api_response)
         assert api_response.ioc_objects[0].get('comment') == 'From Recorded Future risk list, Score - 89'
         # assert api_response.type == 'Unclassified'
         # assert api_response.owner == 'Admin'

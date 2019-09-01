@@ -42,6 +42,7 @@ def test_get_docker_images():
 
 
 def test_create_incident():
+    '''Check creating an incident.'''
     @responses.activate
     def run():
         body = '{"name":"Test Incident","owner":"Admin","parent":"","phase":"",' \
@@ -79,6 +80,7 @@ def test_create_incident():
 
 
 def test_get_reports():
+    '''Testing GET all reports.'''
     @responses.activate
     def run():
         body = '[{"created_by":"DBot","dashboard":"None","decoder":{},"description":"This report ' \
@@ -113,6 +115,7 @@ def test_get_reports():
 
 
 def test_indicators_search():
+    '''Testing search for indicator.'''
     @responses.activate
     def run():
         body = r'''
@@ -168,6 +171,7 @@ def test_indicators_search():
 
 
 def test_export_entry():
+    '''Testing export entry artifact.'''
     @responses.activate
     def run():
         body = "entry_artifact_6@1770.md"

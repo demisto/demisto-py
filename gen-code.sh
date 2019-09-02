@@ -40,3 +40,7 @@ import demisto_client' docs/DefaultApi.md
 sed -i '' -e 's/import six/import six\
 import demisto_client/g' demisto_client/demisto_api/api/default_api.py
 echo -e "\n    def generic_request(self, path, method, body=None, **kwargs):  # noqa: E501\n        return demisto_client.generic_request_func(self, path, method, body=None, **kwargs)" >> demisto_client/demisto_api/api/default_api.py
+
+# remove files not used
+rm .travis.yml
+rm git_push.sh

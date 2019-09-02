@@ -87,3 +87,7 @@ ENV/
 
 # Rope project settings
 .ropeproject
+.travis.yml
+git_push.sh 
+.swagger-codegen
+.vscode

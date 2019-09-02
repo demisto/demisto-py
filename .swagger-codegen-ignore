@@ -23,4 +23,5 @@
 #!docs/README.md
 
 .gitignore
-
+tox.ini
+test-requirements.txt

@@ -97,25 +97,27 @@ class DownloadEntry(object):
     def to_dict(self):
         """Returns the model properties as a dict"""
         result = {}
-        o_map = self.attribute_map
 
         for attr, _ in six.iteritems(self.swagger_types):
             value = getattr(self, attr)
             if isinstance(value, list):
-                result[o_map[attr]] = list(map(
-                    lambda x: to_dict(x) if hasattr(x, "to_dict") else x,
+                result[attr] = list(map(
+                    lambda x: x.to_dict() if hasattr(x, "to_dict") else x,
                     value
                 ))
             elif hasattr(value, "to_dict"):
-                result[o_map[attr]] = to_dict(value)
+                result[attr] = value.to_dict()
             elif isinstance(value, dict):
-                result[o_map[attr]] = dict(map(
-                    lambda item: (item[0], to_dict(item[1]))
+                result[attr] = dict(map(
+                    lambda item: (item[0], item[1].to_dict())
                     if hasattr(item[1], "to_dict") else item,
                     value.items()
                 ))
             else:
-                result[o_map[attr]] = value
+                result[attr] = value
+        if issubclass(DownloadEntry, dict):
+            for key, value in self.items():
+                result[key] = value
 
         return result
 

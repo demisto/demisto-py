@@ -40,6 +40,7 @@ setup(
     include_package_data=True,
     long_description=readme,
     long_description_content_type='text/markdown',
+    license='Apache Software License',
     classifiers=[
         'Intended Audience :: Developers',
         'Natural Language :: English',

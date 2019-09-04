@@ -28,7 +28,9 @@ with open('README.md', 'r') as f:
     
 
 setup(
-    use_scm_version=True,
+    use_scm_version={
+        'local_scheme': lambda a: ""
+    },
     setup_requires=['setuptools_scm'],
     name=NAME,
     description="A Python library for the Demisto API",

@@ -2,11 +2,8 @@
 ### This configuration file is used by CircleCI build server
 ### https://circleci.com/docs/config-sample
 ### =============================================================
-
 version: 2
-
 jobs:
-
   # using tox
   toxify:
 
@@ -14,14 +11,19 @@ jobs:
         - image: python:3.6
 
       steps:
-
         - checkout
 
-        - run: pip install tox && tox -q
+        - run: tox build
+          command: |
+            pip install --user tox
+            tox -q
+        
+        - run: deploy
+          command: |
+            ./depoly.sh
 
 workflows:
   version: 2
-
-  myproj:
+  build_and_release:
     jobs:
       - toxify

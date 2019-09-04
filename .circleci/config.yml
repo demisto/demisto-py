@@ -20,7 +20,7 @@ jobs:
         - run: 
             name: deploy
             command: |
-              ./depoly.sh
+              ./deploy.sh
 
 workflows:
   version: 2

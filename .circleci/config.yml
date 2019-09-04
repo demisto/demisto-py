@@ -12,15 +12,15 @@ jobs:
 
       steps:
         - checkout
-
-        - run: tox build
-          command: |
-            pip install --user tox
-            tox -q
-        
-        - run: deploy
-          command: |
-            ./depoly.sh
+        - run:
+            name: tox build
+            command: |
+              pip install --user tox
+              tox -q        
+        - run: 
+            name: deploy
+            command: |
+              ./depoly.sh
 
 workflows:
   version: 2

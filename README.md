@@ -60,3 +60,12 @@ except ApiException as e:
     print("Exception when calling DefaultApi->create_incident: %s\n" % e)
 
 ```
+
+## Code Generation
+Library code was generated using the Demisto Server 4.5.0 Swagger definition. 
+We use a script to generate the code and then modify as needed. 
+If you would like to contribute don't modify the generated code directly. 
+Modify the script. To generate the code run (requires bash, sed and docker):
+```
+./gen-code.sh
+```

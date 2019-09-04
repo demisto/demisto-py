@@ -17,9 +17,9 @@ Create demisto client instance with the api-key and server-url:
 import demisto_client
 
 api_key = 'YOUR_API_KEY'
-host = 'YOUR_HOSTNAME'
+host = 'https://YOUR_DEMISTO_HOST'
 
-api_instance = demisto_client.configure(hostname=host, api_key=api_key)
+api_instance = demisto_client.configure(base_url=host, api_key=api_key)
 
 ```
 
@@ -28,11 +28,11 @@ Alternatively, you can login with username and password:
 ```python
 import demisto_client
 
-host = 'YOUR_HOSTNAME'
+host = 'https://YOUR_DEMISTO_HOST'
 username = 'YOUR_USERNAME'
 password = 'YOUR_PASSWORD'
 
-api_instance = demisto_client.configure(hostname=host, username=username, password=password)
+api_instance = demisto_client.configure(base_url=host, username=username, password=password)
 
 ```
 
@@ -45,7 +45,7 @@ from demisto_client.demisto_api.rest import ApiException
 
 
 api_key = 'YOUR_API_KEY'
-host = 'YOUR_DEMISTO_HOST'
+host = 'https://YOUR_DEMISTO_HOST'
 
 api_instance = demisto_client.configure(base_url=host, api_key=api_key, debug=False)
 create_incident_request = demisto_client.demisto_api.CreateIncidentRequest()

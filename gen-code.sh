@@ -16,7 +16,6 @@ rmdir demisto_client.demisto_api/api
 rmdir demisto_client.demisto_api/models
 rmdir demisto_client.demisto_api
 mv README.md docs/.
-# TODO: need to fix back links to README.md
 mv README.md.org README.md
 # Not clear why python fails on these imports
 sed -i '' -e 's/^from demisto_client.demisto_api.models.advance_arg import AdvanceArg/# &/' demisto_client/demisto_api/models/operator_argument.py

@@ -1,28 +1,38 @@
+[![PyPI version](https://badge.fury.io/py/demisto-py.svg)](https://badge.fury.io/py/demisto-py)
+[![CircleCI](https://circleci.com/gh/demisto/demisto-py/tree/master.svg?style=svg)](https://circleci.com/gh/demisto/demisto-py/tree/master)
 # Demisto SDK for Python
 
 A Python library for the Demisto API.
+
+Version 2.x is compatible with Demisto server version 4.5 and above.
 
 **Note:** You are viewing demisto-py 2.x development branch. demisto-py 1.x is officially in maintenance-mode only and can be obtained at: https://github.com/demisto/demisto-py/releases .
 
 ## Usage
 
-First, get Demisto api-key. You can generate one via Demisto client - on `settings`->`API keys`.
+First, you will need to obtain your Demisto API Key. You can generate one via your Demisto UI by navigating to  `settings`->`API keys`.
 
 Create demisto client instance with the api-key and server-url:
 ```python
-import demisto
+import demisto_client
 
-client = demisto.DemistoClient('<your-api-key-goes-here>', 'https://localhost:8443')
+api_key = 'YOUR_API_KEY'
+host = 'https://YOUR_DEMISTO_HOST'
+
+api_instance = demisto_client.configure(base_url=host, api_key=api_key)
 
 ```
 
 Alternatively, you can login with username and password:
 
 ```python
-import demisto
+import demisto_client
 
-client = demisto.DemistoClient('', 'https://localhost:8443', '<username>', '<password>')
-client.Login() # Should return <Response [200]>
+host = 'https://YOUR_DEMISTO_HOST'
+username = 'YOUR_USERNAME'
+password = 'YOUR_PASSWORD'
+
+api_instance = demisto_client.configure(base_url=host, username=username, password=password)
 
 ```
 
@@ -30,48 +40,33 @@ client.Login() # Should return <Response [200]>
 You can create incidents:
 
 ```python
-client.CreateIncident('incident-name', 'incident-type', 0, 'owner', [{"type": "label", "value": "demisto"}], 'details', {"alertsource":"demisto"})
+import demisto_client.demisto_api
+from demisto_client.demisto_api.rest import ApiException
+
+
+api_key = 'YOUR_API_KEY'
+host = 'https://YOUR_DEMISTO_HOST'
+
+api_instance = demisto_client.configure(base_url=host, api_key=api_key, debug=False)
+create_incident_request = demisto_client.demisto_api.CreateIncidentRequest()
+
+create_incident_request.name = 'Sample Simulation Incident'
+create_incident_request.type = 'Simulation'
+create_incident_request.owner = 'Admin'
+
+try:
+    api_response = api_instance.create_incident(create_incident_request=create_incident_request)
+    print(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->create_incident: %s\n" % e)
 
 ```
 
-By setting the parameter "createInvestigation" to **True**, the newly created incident will also create an Investigation. This will allow for Playbooks to be triggered automatically for the newly created Incident.
-
-```python
-client.CreateIncident('incident-name', 'incident-type', 0, 'owner', [{"type": "label", "value": "demisto"}], 'details', {"alertsource":"demisto"}, createInvestigation=True)
-
+## Code Generation
+Library code was generated using the Demisto Server 4.5.0 Swagger definition. 
+We use a script to generate the code and then modify as needed. 
+If you would like to contribute don't modify the generated code directly. 
+Modify the script. To generate the code run (requires bash, sed and docker):
 ```
-
-You can search for incidents by filter:
-
-```python
-client.SearchIncidents(0,100,'')
-```
-
-Will return all incidents, with a max limit of 100 incidents to return, and page 0 of it
-
-A bit more complex search:
-
-```python
-client.SearchIncidents(0,100,'name:test')
-```
-
-Will return incidents with name test
-
-* Note - on macOS, the system OpenSSL does not supprot TLSv12 which Demisto server mandates. To run the examples on macOS you will need to install brew and then OpenSSL and Python via brew.
-
-If you don't have brew installed:
-```
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-```
-
-To install Python with new OpenSSL support:
-```
-brew update
-brew install openssl
-brew install python --with-brewed-openssl
-```
-
-To run the examples:
-```
-/usr/local/Cellar/python/2.7.13/bin/python example -param val -param val
+./gen-code.sh
 ```

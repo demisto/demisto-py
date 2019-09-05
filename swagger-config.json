@@ -1,0 +1,6 @@
+{
+    "packageName": "demisto_client.demisto_api",
+    "projectName": "demisto-py",
+    "packageVersion": "2.0.0",
+    "packageUrl": "https://github.com/demisto/demisto-py"
+}

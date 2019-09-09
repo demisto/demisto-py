@@ -35,6 +35,11 @@ api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", 
 ' docs/DefaultApi.md
 sed -i '' -e '/import time/ a\
 import demisto_client' docs/DefaultApi.md
+# Remove the class name in the endpoint api table as it doesn't look good on github.com
+sed -i '' -e 's#Class \| ##' docs/README.md
+sed -i '' -e 's#^------------ \| ##' docs/README.md
+sed -i '' -e 's#^\*DefaultApi\* \| ##g' docs/README.md
+sed -i '' -e 's/^## Author//g' docs/README.md
 # add ability for generic requests
 sed -i '' -e 's/import six/import six\
 import demisto_client/g' demisto_client/demisto_api/api/default_api.py

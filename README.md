@@ -62,6 +62,9 @@ except ApiException as e:
 
 ```
 
+## API Documentation
+API Documentation based upon the Demisto Server Swagger API is available [here](docs/README.md)
+
 ## Code Generation
 Library code was generated using the Demisto Server 4.5.0 Swagger definition. 
 We use a script to generate the code and then modify as needed. 
@@ -70,3 +73,6 @@ Modify the script. To generate the code run (requires bash, sed and docker):
 ```
 ./gen-code.sh
 ```
+
+## License
+Apache 2.0 - See [LICENSE](LICENSE) for more information.

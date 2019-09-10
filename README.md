@@ -4,15 +4,19 @@
 
 A Python library for the Demisto API.
 
-Version 2.x is compatible with Demisto server version 4.5 and above.
+Version 2.x is compatible with Demisto server version 4.5 and later.
 
-**Note:** You are viewing demisto-py 2.x development branch. demisto-py 1.x is officially in maintenance-mode only and can be obtained at: https://github.com/demisto/demisto-py/releases .
+**Note:** You are viewing the demisto-py 2.x development branch. demisto-py 1.x is officially deprecated (maintenance-mode only) and can be obtained at: https://github.com/demisto/demisto-py/releases.
 
-## Usage
+## Demisto for Python Usage
+This section covers the steps you need to take to get the SDK configured.
 
-First, you will need to obtain your Demisto API Key. You can generate one via your Demisto UI by navigating to  `settings`->`API keys`.
+### 1. Get a Demisto API Key
+Follow these instructions to generate your Demisto API Key.
+1. In Demisto, navigate to **Settings > API Keys**.
+2. Click the **Generate Your Key** button.
 
-Create demisto client instance with the api-key and server-url:
+### 2. Create a Demisto client instance with the api-key and server-url:
 ```python
 import demisto_client
 
@@ -23,7 +27,7 @@ api_instance = demisto_client.configure(base_url=host, api_key=api_key)
 
 ```
 
-Alternatively, you can login with username and password:
+**Alternatively, you can login with username and password:**
 
 ```python
 import demisto_client
@@ -37,7 +41,7 @@ api_instance = demisto_client.configure(base_url=host, username=username, passwo
 ```
 
 
-You can create incidents:
+### 3. Create incidents
 
 ```python
 import demisto_client.demisto_api
@@ -68,8 +72,8 @@ API Documentation based upon the Demisto Server Swagger API is available [here](
 ## Code Generation
 Library code was generated using the Demisto Server 4.5.0 Swagger definition. 
 We use a script to generate the code and then modify as needed. 
-If you would like to contribute don't modify the generated code directly. 
-Modify the script. To generate the code run (requires bash, sed and docker):
+If you would like to contribute don't modify the generated code directly, modify the script. 
+To generate the code run (requires bash, sed and docker):
 ```
 ./gen-code.sh
 ```

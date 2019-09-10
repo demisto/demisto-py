@@ -5,7 +5,7 @@
 [1]: https://pypi.org/project/demisto-py/#history
 
 ## 2.0.1
-Changelog and documentation improvements.
+Improved the changelog and documentation.
 
 ## 2.0.0
 Initial release of new Swagger based API for Demisto Server 4.5.0 and up.

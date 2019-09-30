@@ -514,6 +514,68 @@
         }
       }
     },
+    "/incident/upload/{id}": {
+      "post": {
+        "description": "Add file attachement to an incidents",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "operationId": "incidentFileUpload",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Incident id to update",
+            "name": "id",
+            "in": "path"
+          },
+          {
+            "type": "string",
+            "description": "file name",
+            "name": "fileName",
+            "in": "formData"
+          },
+          {
+            "type": "string",
+            "description": "file comment",
+            "name": "fileComment",
+            "in": "formData"
+          },
+          {
+            "type": "string",
+            "description": "field name to hold the attachment details. If not specified, `attachment` will be used.",
+            "name": "field",
+            "in": "formData"
+          },
+          {
+            "type": "boolean",
+            "description": "show media file",
+            "name": "showMediaFile",
+            "in": "formData"
+          },
+          {
+            "type": "boolean",
+            "description": "If set to true will create an investigation. Used for uploading after creating incident.",
+            "name": "last",
+            "in": "formData"
+          },
+          {
+            "type": "file",
+            "description": "file",
+            "name": "file",
+            "in": "formData",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "IncidentWrapper",
+            "schema": {
+              "$ref": "#/definitions/IncidentWrapper"
+            }
+          }
+        }
+      }
+    },
     "/incidentfields/associatedTypes/{type}": {
       "get": {
         "description": "Get all incident fields associated with incident type",
@@ -2164,14 +2226,6 @@
           "type": "string",
           "x-go-name": "ActivatingUserID"
         },
-        "attachment": {
-          "description": "Attachments",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Attachment"
-          },
-          "x-go-name": "Attachments"
-        },
         "autime": {
           "description": "AlmostUniqueTime is an attempt to have a unique sortable ID for an incident",
           "type": "integer",
@@ -2426,6 +2480,9 @@
           "type": "integer",
           "format": "int64",
           "x-go-name": "Versn"
+        },
+        "CustomFields": {
+          "$ref": "#/definitions/CustomFields"
         }
       },
       "additionalProperties": {

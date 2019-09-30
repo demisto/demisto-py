@@ -20,6 +20,7 @@ Follow these instructions to generate your Demisto API Key.
 ```python
 import demisto_client
 
+# Also possible to set env variables: DEMISTO_API_KEY and DEMISTO_BASE_URL
 api_key = 'YOUR_API_KEY'
 host = 'https://YOUR_DEMISTO_HOST'
 

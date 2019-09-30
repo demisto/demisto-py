@@ -4,6 +4,11 @@
 
 [1]: https://pypi.org/project/demisto-py/#history
 
+## 2.0.2
+* Support for environment variables when configuring the client.
+* Update `create_incident` with CustomFields and removed invalid `attachment` parameter.
+* Add `incident_file_upload` method for uploading files to an incident.
+
 ## 2.0.1
 Improved the changelog and documentation.
 

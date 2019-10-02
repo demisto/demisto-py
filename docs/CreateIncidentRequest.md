@@ -7,7 +7,6 @@ Name | Type | Description | Notes
 **account** | **str** | Account holds the tenant name so that slicing and dicing on the master can leverage bleve | [optional] 
 **activated** | **datetime** | When was this activated | [optional] 
 **activatinging_user_id** | **str** | The user that activated this investigation | [optional] 
-**attachment** | [**list[Attachment]**](Attachment.md) | Attachments | [optional] 
 **autime** | **int** | AlmostUniqueTime is an attempt to have a unique sortable ID for an incident | [optional] 
 **canvases** | **list[str]** | Canvases of the incident | [optional] 
 **category** | **str** | Category | [optional] 
@@ -56,6 +55,7 @@ Name | Type | Description | Notes
 **status** | [**IncidentStatus**](IncidentStatus.md) |  | [optional] 
 **type** | **str** | Incident type | [optional] 
 **version** | **int** |  | [optional] 
+**custom_fields** | [**CustomFields**](CustomFields.md) |  | [optional] 
 
 [[Back to Model list]](README.md#documentation-for-models) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to README]](README.md)
 

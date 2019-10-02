@@ -42,6 +42,7 @@ Method | HTTP request | Description
 [**get_stats_for_widget**](DefaultApi.md#get_stats_for_widget) | **POST** /statistics/widgets/query | Get Widget Statistics
 [**get_widget**](DefaultApi.md#get_widget) | **GET** /widgets/{id} | Get widget by ID
 [**import_widget**](DefaultApi.md#import_widget) | **POST** /widgets/import | Import a widget
+[**incident_file_upload**](DefaultApi.md#incident_file_upload) | **POST** /incident/upload/{id} | 
 [**indicator_whitelist**](DefaultApi.md#indicator_whitelist) | **POST** /indicator/whitelist | Whitelists or deletes Indicator
 [**indicators_create**](DefaultApi.md#indicators_create) | **POST** /indicator/create | Create Indicator
 [**indicators_create_batch**](DefaultApi.md#indicators_create_batch) | **POST** /indicators/upload | Create indicators

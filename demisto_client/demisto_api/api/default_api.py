@@ -3792,6 +3792,133 @@ class DefaultApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
+    def incident_file_upload(self, id, file, **kwargs):  # noqa: E501
+        """incident_file_upload  # noqa: E501
+
+        Add file attachement to an incidents  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.incident_file_upload(id, file, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param str id: Incident id to update (required)
+        :param file file: file (required)
+        :param str file_name: file name
+        :param str file_comment: file comment
+        :param str field: field name to hold the attachment details. If not sepcified `attachment` will be used.
+        :param bool show_media_file: show media file
+        :param bool last: If set to true will create an investigation. Used for uploading after creating incident.
+        :return: IncidentWrapper
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async_req'):
+            return self.incident_file_upload_with_http_info(id, file, **kwargs)  # noqa: E501
+        else:
+            (data) = self.incident_file_upload_with_http_info(id, file, **kwargs)  # noqa: E501
+            return data
+
+    def incident_file_upload_with_http_info(self, id, file, **kwargs):  # noqa: E501
+        """incident_file_upload  # noqa: E501
+
+        Add file attachement to an incidents  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.incident_file_upload_with_http_info(id, file, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param str id: Incident id to update (required)
+        :param file file: file (required)
+        :param str file_name: file name
+        :param str file_comment: file comment
+        :param str field: field name to hold the attachment details. If not sepcified `attachment` will be used.
+        :param bool show_media_file: show media file
+        :param bool last: If set to true will create an investigation. Used for uploading after creating incident.
+        :return: IncidentWrapper
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['id', 'file', 'file_name', 'file_comment', 'field', 'show_media_file', 'last']  # noqa: E501
+        all_params.append('async_req')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in six.iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method incident_file_upload" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'id' is set
+        if ('id' not in params or
+                params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `incident_file_upload`")  # noqa: E501
+        # verify the required parameter 'file' is set
+        if ('file' not in params or
+                params['file'] is None):
+            raise ValueError("Missing the required parameter `file` when calling `incident_file_upload`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'id' in params:
+            path_params['id'] = params['id']  # noqa: E501
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+        if 'file_name' in params:
+            form_params.append(('fileName', params['file_name']))  # noqa: E501
+        if 'file_comment' in params:
+            form_params.append(('fileComment', params['file_comment']))  # noqa: E501
+        if 'field' in params:
+            form_params.append(('field', params['field']))  # noqa: E501
+        if 'show_media_file' in params:
+            form_params.append(('showMediaFile', params['show_media_file']))  # noqa: E501
+        if 'last' in params:
+            form_params.append(('last', params['last']))  # noqa: E501
+        if 'file' in params:
+            local_var_files['file'] = params['file']  # noqa: E501
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['multipart/form-data'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['api_key']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/incident/upload/{id}', 'POST',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='IncidentWrapper',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=params.get('async_req'),
+            _return_http_data_only=params.get('_return_http_data_only'),
+            _preload_content=params.get('_preload_content', True),
+            _request_timeout=params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
     def indicator_whitelist(self, **kwargs):  # noqa: E501
         """Whitelists or deletes Indicator  # noqa: E501
 

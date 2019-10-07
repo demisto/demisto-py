@@ -1,6 +1,6 @@
 [![PyPI version](https://badge.fury.io/py/demisto-py.svg)](https://badge.fury.io/py/demisto-py)
 [![CircleCI](https://circleci.com/gh/demisto/demisto-py/tree/master.svg?style=svg)](https://circleci.com/gh/demisto/demisto-py/tree/master)
-# Demisto SDK for Python
+# Demisto Client for Python
 
 A Python library for the Demisto API.
 
@@ -9,7 +9,7 @@ Version 2.x is compatible with Demisto server version 4.5 and later.
 **Note:** You are viewing the demisto-py 2.x development branch. demisto-py 1.x is officially deprecated (maintenance-mode only) and can be obtained at: https://github.com/demisto/demisto-py/releases.
 
 ## Demisto for Python Usage
-This section covers the steps you need to take to get the SDK configured.
+This section covers the steps you need to take to get the client configured.
 
 ### 1. Get a Demisto API Key
 Follow these instructions to generate your Demisto API Key.
@@ -69,6 +69,45 @@ except ApiException as e:
 
 ## API Documentation
 API Documentation based upon the Demisto Server Swagger API is available [here](docs/README.md)
+
+## Dev Environment Setup
+We build for both python 2 and 3. We recommend installing both development environments. You can use pyenv to manage multiple python versions (see: https://github.com/pyenv/pyenv)
+
+Install `virtualenv`:
+```
+pip install virtualenv
+```
+Then setup virtual envs for both python 2 and 3 via:
+```
+virtualenv -p python2 venv2
+virtualenv -p python3 venv3
+```
+Activate python 2 env by running:
+```
+. venv2/bin/activate
+```
+Switch to python 3 env by running:
+```
+. venv3/bin/activate
+```
+In each env install requirements:
+```
+pip install -r requirements.txt -r test-requirements.txt
+``` 
+
+## Running Unit Tests
+We use pytest to run unit tests. Inside a virtual env you can run unit test using:
+```
+python -m pytest -v
+```
+Additionally, our build uses tox to run on multiple envs. To use tox to  run on all supported environments (py27, py36, py37), run:
+```
+tox -q  
+```
+To run on a specific environment, you can use:
+```
+tox -q -e py27
+```
 
 ## Code Generation
 Library code was generated using the Demisto Server 4.5.0 Swagger definition. 

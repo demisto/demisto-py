@@ -6058,4 +6058,4 @@ class DefaultApi(object):
             collection_formats=collection_formats)
 
     def generic_request(self, path, method, body=None, **kwargs):  # noqa: E501
-        return demisto_client.generic_request_func(self, path, method, body=None, **kwargs)
+        return demisto_client.generic_request_func(self, path, method, body, **kwargs)

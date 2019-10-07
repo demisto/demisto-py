@@ -203,3 +203,26 @@ def test_export_entry():
 
     run()
     assert_reset()
+
+
+def test_generic_request():
+    '''Testing generic requst.'''
+    @responses.activate
+    def run():
+        responses.add('POST', '/test',
+                      body="all good",
+                      status=200,
+                      content_type='text/plain')
+        api_instance = demisto_client.configure(base_url=host, api_key=api_key, debug=False)
+        (res, code, headers) = api_instance.generic_request('/test', 'POST', body="this is a test", content_type='text/plain', accept='text/plain')
+
+        assert res == 'all good'
+        assert code == 200
+
+        assert len(responses.calls) == 1
+        assert responses.calls[0].request.url == '/test'
+        assert responses.calls[0].request.host == 'localhost'
+        assert responses.calls[0].request.scheme == 'http'
+
+    run()
+    assert_reset()

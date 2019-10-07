@@ -1,5 +1,7 @@
 from urllib3_mock import Responses
 import demisto_client
+from datetime import datetime
+import json
 
 responses = Responses('requests.packages.urllib3')
 
@@ -64,6 +66,7 @@ def test_create_incident():
         create_incident_request.name = 'Test Incident'
         create_incident_request.type = 'Unclassified'
         create_incident_request.owner = 'Admin'
+        create_incident_request.occurred = datetime.now()
         api_response = api_instance.create_incident(create_incident_request=create_incident_request)
 
         assert api_response.name == 'Test Incident'
@@ -71,9 +74,13 @@ def test_create_incident():
         assert api_response.owner == 'Admin'
 
         assert len(responses.calls) == 1
-        assert responses.calls[0].request.url == '/incident'
-        assert responses.calls[0].request.host == 'localhost'
-        assert responses.calls[0].request.scheme == 'http'
+        req = responses.calls[0].request
+        assert req.url == '/incident'
+        assert req.host == 'localhost'
+        assert req.scheme == 'http'
+        # veriy date field occurred according to rfc 3339
+        req_body = json.loads(req.body)
+        assert req_body['occurred'][-6] == '+' or req_body['occurred'][-6] == '-'  # end with +/- offset 
 
     run()
     assert_reset()

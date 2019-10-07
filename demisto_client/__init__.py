@@ -1,6 +1,8 @@
 import demisto_client.demisto_api as demisto_api
 import six
 import os
+import datetime
+import tzlocal
 
 from demisto_client.demisto_api import ApiClient
 from demisto_client.demisto_api.configuration import Configuration
@@ -86,6 +88,10 @@ def to_extended_dict(o):
                     if hasattr(item[1], "to_dict") else item,
                     value.items()
                 ))
+            elif isinstance(value, datetime.datetime):
+                if not value.tzinfo:  # no tz defined -> use machine local
+                    value = tzlocal.get_localzone().localize(value)
+                result[o_map[attr]] = value.isoformat()
             else:
                 result[o_map[attr]] = value
     else:

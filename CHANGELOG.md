@@ -5,7 +5,7 @@
 [1]: https://pypi.org/project/demisto-py/#history
 
 ## 2.0.3
-* Fix issue in `generic_request` where body was being ignored (#20).
+* Fix issue in `generic_request` where body was being ignored ([#20](https://github.com/demisto/demisto-py/issues/20)) .
 * Add `content_type` and `accept` parameters to `generic_request`.
 * Fix `datetime` object formatting to include timezone offset as specified in RFC 3339.
 

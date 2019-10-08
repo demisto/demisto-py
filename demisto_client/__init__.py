@@ -1,6 +1,8 @@
 import demisto_client.demisto_api as demisto_api
 import six
 import os
+import datetime
+import tzlocal
 
 from demisto_client.demisto_api import ApiClient
 from demisto_client.demisto_api.configuration import Configuration
@@ -86,6 +88,10 @@ def to_extended_dict(o):
                     if hasattr(item[1], "to_dict") else item,
                     value.items()
                 ))
+            elif isinstance(value, datetime.datetime):
+                if not value.tzinfo:  # no tz defined -> use machine local
+                    value = tzlocal.get_localzone().localize(value)
+                result[o_map[attr]] = value.isoformat()
             else:
                 result[o_map[attr]] = value
     else:
@@ -101,8 +107,10 @@ def generic_request_func(self, path, method, body=None, **kwargs):
     :param path: str - Path of the endpoint.
     :param method: str - Type of API method to use.
     :param body: dict - Dict object of request body.
+    :param content_type: str - optional content type of body.
+    :param accept: str/list[str] - optional content type to accept.
 
-    :return: Response object.
+    :return: tuple of (response_data, response_code, headers).
     """
 
     all_params = ['']  # noqa: E501
@@ -110,6 +118,8 @@ def generic_request_func(self, path, method, body=None, **kwargs):
     all_params.append('_return_http_data_only')
     all_params.append('_preload_content')
     all_params.append('_request_timeout')
+    all_params.append('content_type')
+    all_params.append('accept')
 
     params = locals()
     for key, val in six.iteritems(params['kwargs']):
@@ -134,12 +144,14 @@ def generic_request_func(self, path, method, body=None, **kwargs):
 
     body_params = body
     # HTTP header `Accept`
-    header_params['Accept'] = self.api_client.select_header_accept(
-        ['application/json'])  # noqa: E501
+    accept = params.get('accept', 'application/json')
+    if not (isinstance(accept, list) or isinstance(accept, tuple)):
+        accept = [accept]
+    header_params['Accept'] = self.api_client.select_header_accept(accept)
 
     # HTTP header `Content-Type`
     header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-        ['application/json', 'application/xml'])  # noqa: E501
+        [params.get('content_type', 'application/json')])  # noqa: E501
 
     # Authentication setting
     auth_settings = ['api_key']  # noqa: E501

@@ -1,5 +1,7 @@
 from urllib3_mock import Responses
 import demisto_client
+from datetime import datetime
+import json
 
 responses = Responses('requests.packages.urllib3')
 
@@ -64,6 +66,7 @@ def test_create_incident():
         create_incident_request.name = 'Test Incident'
         create_incident_request.type = 'Unclassified'
         create_incident_request.owner = 'Admin'
+        create_incident_request.occurred = datetime.now()
         api_response = api_instance.create_incident(create_incident_request=create_incident_request)
 
         assert api_response.name == 'Test Incident'
@@ -71,9 +74,13 @@ def test_create_incident():
         assert api_response.owner == 'Admin'
 
         assert len(responses.calls) == 1
-        assert responses.calls[0].request.url == '/incident'
-        assert responses.calls[0].request.host == 'localhost'
-        assert responses.calls[0].request.scheme == 'http'
+        req = responses.calls[0].request
+        assert req.url == '/incident'
+        assert req.host == 'localhost'
+        assert req.scheme == 'http'
+        # veriy date field occurred according to rfc 3339
+        req_body = json.loads(req.body)
+        assert req_body['occurred'][-6] == '+' or req_body['occurred'][-6] == '-'  # end with +/- offset 
 
     run()
     assert_reset()
@@ -191,6 +198,29 @@ def test_export_entry():
 
         assert len(responses.calls) == 1
         assert responses.calls[0].request.url == '/entry/exportArtifact'
+        assert responses.calls[0].request.host == 'localhost'
+        assert responses.calls[0].request.scheme == 'http'
+
+    run()
+    assert_reset()
+
+
+def test_generic_request():
+    '''Testing generic requst.'''
+    @responses.activate
+    def run():
+        responses.add('POST', '/test',
+                      body="all good",
+                      status=200,
+                      content_type='text/plain')
+        api_instance = demisto_client.configure(base_url=host, api_key=api_key, debug=False)
+        (res, code, headers) = api_instance.generic_request('/test', 'POST', body="this is a test", content_type='text/plain', accept='text/plain')
+
+        assert res == 'all good'
+        assert code == 200
+
+        assert len(responses.calls) == 1
+        assert responses.calls[0].request.url == '/test'
         assert responses.calls[0].request.host == 'localhost'
         assert responses.calls[0].request.scheme == 'http'
 

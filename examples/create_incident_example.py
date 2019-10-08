@@ -14,6 +14,7 @@ create_incident_request.name = 'Sample Malware Incident: {}'.format(datetime.now
 create_incident_request.type = 'Malware'
 create_incident_request.owner = 'admin'
 create_incident_request.severity = 1
+create_incident_request.occurred = datetime.now()
 create_incident_request.create_investigation = False  # we set to false as we still neeed to upload a file
 create_incident_request.playbook_id = 'malware_investigation-_generic'
 # If you want to set source_brand and source_instance it is required to set the `Instance` label

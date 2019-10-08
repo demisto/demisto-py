@@ -79,7 +79,7 @@ celerybeat-schedule
 .env
 
 # virtualenv
-venv/
+venv*/
 ENV/
 
 # Spyder project settings
@@ -91,3 +91,4 @@ ENV/
 git_push.sh 
 .swagger-codegen
 .vscode
+.pytest_cache

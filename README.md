@@ -71,16 +71,20 @@ except ApiException as e:
 API Documentation based upon the Demisto Server Swagger API is available [here](docs/README.md)
 
 ## Dev Environment Setup
-We build for both python 2 and 3. We recommend installing both development environments. You can use pyenv to manage multiple python versions (see: https://github.com/pyenv/pyenv)
+We build for both python 2 and 3. We recommend installing both development environments. You can use pyenv to manage multiple python versions (see: https://github.com/pyenv/pyenv). We use [tox](https://github.com/tox-dev/tox) for managing environments and running unit tests.
 
-Install `virtualenv`:
+Install `tox`:
 ```
-pip install virtualenv
+pip install tox
 ```
-Then setup virtual envs for both python 2 and 3 via:
+List configured environments:
 ```
-virtualenv -p python2 venv2
-virtualenv -p python3 venv3
+tox -l
+```
+Then setup dev virtual envs for both python 2 and 3 (will also install all necessary requirements):
+```
+tox --devenv venv2 --devenv py27
+tox --devenv venv3 --devenv py37
 ```
 Activate python 2 env by running:
 ```
@@ -90,17 +94,13 @@ Switch to python 3 env by running:
 ```
 . venv3/bin/activate
 ```
-In each env install requirements:
-```
-pip install -r requirements.txt -r test-requirements.txt
-``` 
 
 ## Running Unit Tests
 We use pytest to run unit tests. Inside a virtual env you can run unit test using:
 ```
 python -m pytest -v
 ```
-Additionally, our build uses tox to run on multiple envs. To use tox to  run on all supported environments (py27, py36, py37), run:
+Additionally, our build uses tox to run on multiple envs. To use tox to run on all supported environments (py27, py36, py37), run:
 ```
 tox -q  
 ```

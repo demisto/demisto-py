@@ -1,6 +1,14 @@
-# Demisto SDK for Python
+# Demisto Client for Python
 
-A Python library for the Demisto API.
+A Python library for the Demisto API. 
+
+**Note**: This is version 1.x of the library and is officially deprecated (maintenance-mode only). We recommend using version 2.x.
+
+## Installation
+Install via pip:
+```
+pip install git+https://github.com/demisto/demisto-py.git@v1.0.1
+```
 
 ## Usage
 

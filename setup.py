@@ -3,7 +3,7 @@
 from distutils.core import setup
 
 setup(name='demisto',
-      version='1.0',
+      version='1.0.1',
       description='Demisto Client for python',
       author='Slavik Markovich',
       url='https://github.com/demisto/demisto-py',

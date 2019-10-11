@@ -67,6 +67,8 @@ except ApiException as e:
 
 ```
 
+Additional examples available in the [docs](docs/README.md) and under the [examples folder](examples/).
+
 ## API Documentation
 API Documentation based upon the Demisto Server Swagger API is available [here](docs/README.md)
 

@@ -28,20 +28,6 @@ api_instance = demisto_client.configure(base_url=host, api_key=api_key)
 
 ```
 
-**Alternatively, you can login with username and password:**
-
-```python
-import demisto_client
-
-host = 'https://YOUR_DEMISTO_HOST'
-username = 'YOUR_USERNAME'
-password = 'YOUR_PASSWORD'
-
-api_instance = demisto_client.configure(base_url=host, username=username, password=password)
-
-```
-
-
 ### 3. Create incidents
 
 ```python

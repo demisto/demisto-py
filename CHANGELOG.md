@@ -4,6 +4,9 @@
 
 [1]: https://pypi.org/project/demisto-py/#history
 
+## 2.0.5
+Remove unsupported user/password authentication option.
+
 ## 2.0.4
 Fix missing dependency (tzlocal).
 

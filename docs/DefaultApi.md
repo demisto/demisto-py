@@ -1917,7 +1917,7 @@ id = 'id_example' # str | Incident id to update
 file = '/path/to/file.txt' # file | file
 file_name = 'file_name_example' # str | file name (optional)
 file_comment = 'file_comment_example' # str | file comment (optional)
-field = 'field_example' # str | field name to hold the attachment details. If not sepcified `attachment` will be used. (optional)
+field = 'field_example' # str | field name to hold the attachment details. If not specified, `attachment` will be used. (optional)
 show_media_file = true # bool | show media file (optional)
 last = true # bool | If set to true will create an investigation. Used for uploading after creating incident. (optional)
 
@@ -1936,7 +1936,7 @@ Name | Type | Description  | Notes
  **file** | **file**| file | 
  **file_name** | **str**| file name | [optional] 
  **file_comment** | **str**| file comment | [optional] 
- **field** | **str**| field name to hold the attachment details. If not sepcified &#x60;attachment&#x60; will be used. | [optional] 
+ **field** | **str**| field name to hold the attachment details. If not specified, &#x60;attachment&#x60; will be used. | [optional] 
  **show_media_file** | **bool**| show media file | [optional] 
  **last** | **bool**| If set to true will create an investigation. Used for uploading after creating incident. | [optional] 
 

@@ -3806,7 +3806,7 @@ class DefaultApi(object):
         :param file file: file (required)
         :param str file_name: file name
         :param str file_comment: file comment
-        :param str field: field name to hold the attachment details. If not sepcified `attachment` will be used.
+        :param str field: field name to hold the attachment details. If not specified, `attachment` will be used.
         :param bool show_media_file: show media file
         :param bool last: If set to true will create an investigation. Used for uploading after creating incident.
         :return: IncidentWrapper
@@ -3834,7 +3834,7 @@ class DefaultApi(object):
         :param file file: file (required)
         :param str file_name: file name
         :param str file_comment: file comment
-        :param str field: field name to hold the attachment details. If not sepcified `attachment` will be used.
+        :param str field: field name to hold the attachment details. If not specified, `attachment` will be used.
         :param bool show_media_file: show media file
         :param bool last: If set to true will create an investigation. Used for uploading after creating incident.
         :return: IncidentWrapper

@@ -26,4 +26,7 @@ workflows:
   version: 2
   build_and_release:
     jobs:
-      - toxify
+      - toxify:
+          filters:
+            tags:
+              only: /^v\d+\.\d+\.\d+$/

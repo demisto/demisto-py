@@ -42,6 +42,7 @@ Method | HTTP request | Description
 [**get_stats_for_widget**](DefaultApi.md#get_stats_for_widget) | **POST** /statistics/widgets/query | Get Widget Statistics
 [**get_widget**](DefaultApi.md#get_widget) | **GET** /widgets/{id} | Get widget by ID
 [**import_widget**](DefaultApi.md#import_widget) | **POST** /widgets/import | Import a widget
+[**incident_file_upload**](DefaultApi.md#incident_file_upload) | **POST** /incident/upload/{id} | 
 [**indicator_whitelist**](DefaultApi.md#indicator_whitelist) | **POST** /indicator/whitelist | Whitelists or deletes Indicator
 [**indicators_create**](DefaultApi.md#indicators_create) | **POST** /indicator/create | Create Indicator
 [**indicators_create_batch**](DefaultApi.md#indicators_create_batch) | **POST** /indicators/upload | Create indicators
@@ -1891,6 +1892,65 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json, application/xml
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **incident_file_upload**
+> IncidentWrapper incident_file_upload(id, file, file_name=file_name, file_comment=file_comment, field=field, show_media_file=show_media_file, last=last)
+
+
+
+Add file attachement to an incidents
+
+### Example
+```python
+from __future__ import print_function
+import time
+import demisto_client
+import demisto_client.demisto_api
+from demisto_client.demisto_api.rest import ApiException
+from pprint import pprint
+
+api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
+id = 'id_example' # str | Incident id to update
+file = '/path/to/file.txt' # file | file
+file_name = 'file_name_example' # str | file name (optional)
+file_comment = 'file_comment_example' # str | file comment (optional)
+field = 'field_example' # str | field name to hold the attachment details. If not specified, `attachment` will be used. (optional)
+show_media_file = true # bool | show media file (optional)
+last = true # bool | If set to true will create an investigation. Used for uploading after creating incident. (optional)
+
+try:
+    api_response = api_instance.incident_file_upload(id, file, file_name=file_name, file_comment=file_comment, field=field, show_media_file=show_media_file, last=last)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->incident_file_upload: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| Incident id to update | 
+ **file** | **file**| file | 
+ **file_name** | **str**| file name | [optional] 
+ **file_comment** | **str**| file comment | [optional] 
+ **field** | **str**| field name to hold the attachment details. If not specified, &#x60;attachment&#x60; will be used. | [optional] 
+ **show_media_file** | **bool**| show media file | [optional] 
+ **last** | **bool**| If set to true will create an investigation. Used for uploading after creating incident. | [optional] 
+
+### Return type
+
+[**IncidentWrapper**](IncidentWrapper.md)
+
+### Authorization
+
+[api_key](README.md#api_key)
+
+### HTTP request headers
+
+ - **Content-Type**: multipart/form-data
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)

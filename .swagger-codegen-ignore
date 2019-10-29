@@ -26,3 +26,4 @@
 tox.ini
 test-requirements.txt
 setup.py
+requirements.txt

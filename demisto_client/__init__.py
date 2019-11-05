@@ -46,23 +46,32 @@ def configure(base_url=None, api_key=None, verify_ssl=True, proxy=None, username
 
     if not configuration.host:
         raise ValueError('You must specify base_url either as a parameter or via env variable: DEMISTO_BASE_URL')
-    if not configuration.username and not configuration.password:
+    if username is None:
         api_client = ApiClient(configuration)
         api_client.user_agent = 'demisto-py/' + __version__
         api_instance = demisto_api.DefaultApi(api_client)
         return api_instance
     else:
-        api_instance = login(base_url=base_url, username=username, password=password, verify_ssl=verify_ssl, proxy=proxy, debug=debug)
+        api_instance = login(base_url=base_url, username=username, password=password,
+                             verify_ssl=verify_ssl, proxy=proxy, debug=debug)
         return api_instance
 
 
 def login(base_url=None, username=None, password=None, verify_ssl=True, proxy=None, debug=False):
-    api_instance = configure(base_url=base_url, verify_ssl=verify_ssl, proxy=proxy, debug=debug)
+    configuration_orig = Configuration()
+    configuration_orig.host = base_url or os.getenv('DEMISTO_BASE_URL', None)
+    configuration_orig.verify_ssl = verify_ssl
+    configuration_orig.proxy = proxy
+    configuration_orig.debug = debug
+    api_client = ApiClient(configuration_orig)
+    api_client.user_agent = 'demisto-py/' + __version__
+    api_instance = demisto_api.DefaultApi(api_client)
     body = {
         "user": username,
         "password": password
     }
-    res = generic_request_func(self=api_instance, path='/', method='GET', body=body, accept='application/json', content_type='application/json')
+    res = generic_request_func(self=api_instance, path='/', method='GET', body=body,
+                               accept='application/json', content_type='application/json')
     cookies = res[2]['Set-Cookie']
     cookie_jar = cookies.split(';')
     xsrf_token_raw = cookie_jar[0]
@@ -72,11 +81,19 @@ def login(base_url=None, username=None, password=None, verify_ssl=True, proxy=No
     configuration.verify_ssl = verify_ssl
     configuration.proxy = proxy
     configuration.debug = debug
-    api_client = ApiClient(configuration, header_name="X-XSRF-TOKEN", header_value=xsrf_token, cookie=cookies)
+    api_client = ApiClient(configuration, header_name="X-XSRF-TOKEN", header_value=xsrf_token,
+                           cookie=cookies)
     api_client.user_agent = 'demisto-py/' + __version__
-    final_client = demisto_api.DefaultApi(api_client)
-    generic_request_func(self=final_client, path='/login', method='POST', body=body, accept='application/json', content_type='application/json')
-    return final_client
+    mid_client = demisto_api.DefaultApi(api_client)
+    second_call = generic_request_func(self=mid_client, path='/login', method='POST', body=body,
+                                       accept='application/json', content_type='application/json')
+    updated_cookies = cookies + '; ' + second_call[2]['Set-Cookie']
+    mid_api_client = ApiClient(configuration, header_name="X-XSRF-TOKEN", header_value=xsrf_token,
+                               cookie=updated_cookies)
+    mid_api_client.user_agent = 'demisto-py/' + __version__
+    final_api_client = demisto_api.DefaultApi(mid_api_client)
+
+    return final_api_client
 
 
 def to_extended_dict(o):

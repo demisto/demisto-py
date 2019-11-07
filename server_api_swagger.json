@@ -8107,11 +8107,19 @@
       "type": "apiKey",
       "name": "Authorization",
       "in": "header"
+    },
+    "csrf_token": {
+      "type": "apiKey",
+      "name": "X-XSRF-TOKEN",
+      "in": "header"
     }
   },
   "security": [
     {
       "api_key": []
+    },
+    {
+      "csrf_token": []
     }
   ]
 }

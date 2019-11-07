@@ -225,6 +225,12 @@ Method | HTTP request | Description
 - **API key parameter name**: Authorization
 - **Location**: HTTP header
 
+## csrf_token
+
+- **Type**: API key
+- **API key parameter name**: X-XSRF-TOKEN
+- **Location**: HTTP header
+
 
 
 

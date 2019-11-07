@@ -4,21 +4,24 @@
 
 [1]: https://pypi.org/project/demisto-py/#history
 
+## 2.0.6
+Added support for user/password authentication option.
+
 ## 2.0.5
-Remove unsupported user/password authentication option.
+Removed unsupported user/password authentication option.
 
 ## 2.0.4
-Fix missing dependency (tzlocal).
+Fixed missing dependency (tzlocal).
 
 ## 2.0.3
-* Fix issue in `generic_request` where body was being ignored ([#20](https://github.com/demisto/demisto-py/issues/20)) .
-* Add `content_type` and `accept` parameters to `generic_request`.
-* Fix `datetime` object formatting to include timezone offset as specified in RFC 3339.
+* Fixed issue in `generic_request` where body was being ignored ([#20](https://github.com/demisto/demisto-py/issues/20)) .
+* Added `content_type` and `accept` parameters to `generic_request`.
+* Fixed `datetime` object formatting to include timezone offset as specified in RFC 3339.
 
 ## 2.0.2
 * Support for environment variables when configuring the client.
-* Update `create_incident` with CustomFields and removed invalid `attachment` parameter.
-* Add `incident_file_upload` method for uploading files to an incident.
+* Updated `create_incident` with CustomFields and removed invalid `attachment` parameter.
+* Added `incident_file_upload` method for uploading files to an incident.
 
 ## 2.0.1
 Improved the changelog and documentation.

@@ -7,7 +7,7 @@ api_key = 'YOUR API KEY'
 base_url = 'YOUR DEMISTO URL'
 
 # create an instance of the API class
-api_instance = demisto_client.configure(base_url=base_url, api_key=api_key, debug=True)
+api_instance = demisto_client.configure(base_url=base_url, api_key=api_key, debug=False)
 update_data_batch = demisto_client.demisto_api.UpdateDataBatch()
 
 update_data_batch.ids = ['1001', '1002', '1003']

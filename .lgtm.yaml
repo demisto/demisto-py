@@ -1,0 +1,7 @@
+path_classifiers:
+  test:
+    - "/tests"
+  example:
+    - "/examples"
+  generated:
+    - "/demisto_client/demisto_api"

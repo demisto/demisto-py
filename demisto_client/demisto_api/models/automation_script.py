@@ -45,6 +45,7 @@ class AutomationScript(object):
         'context_keys': 'list[str]',
         'depends_on': 'dict(str, list[str])',
         'deprecated': 'bool',
+        'detached': 'bool',
         'docker_image': 'str',
         'enabled': 'bool',
         'has_role': 'bool',
@@ -57,6 +58,7 @@ class AutomationScript(object):
         'outputs': 'list[Output]',
         'prev_name': 'str',
         'previous_roles': 'list[str]',
+        'propagation_labels': 'list[str]',
         'pswd': 'str',
         'raw_tags': 'list[str]',
         'roles': 'list[str]',
@@ -68,6 +70,7 @@ class AutomationScript(object):
         'sensitive': 'bool',
         'should_commit': 'bool',
         'sort_values': 'list[str]',
+        'source_scrip_id': 'str',
         'subtype': 'ScriptSubType',
         'system': 'bool',
         'tags': 'list[str]',
@@ -86,6 +89,7 @@ class AutomationScript(object):
         'context_keys': 'contextKeys',
         'depends_on': 'dependsOn',
         'deprecated': 'deprecated',
+        'detached': 'detached',
         'docker_image': 'dockerImage',
         'enabled': 'enabled',
         'has_role': 'hasRole',
@@ -98,6 +102,7 @@ class AutomationScript(object):
         'outputs': 'outputs',
         'prev_name': 'prevName',
         'previous_roles': 'previousRoles',
+        'propagation_labels': 'propagationLabels',
         'pswd': 'pswd',
         'raw_tags': 'rawTags',
         'roles': 'roles',
@@ -109,6 +114,7 @@ class AutomationScript(object):
         'sensitive': 'sensitive',
         'should_commit': 'shouldCommit',
         'sort_values': 'sortValues',
+        'source_scrip_id': 'sourceScripID',
         'subtype': 'subtype',
         'system': 'system',
         'tags': 'tags',
@@ -120,7 +126,7 @@ class AutomationScript(object):
         'visual_script': 'visualScript'
     }
 
-    def __init__(self, arguments=None, comment=None, commit_message=None, context_keys=None, depends_on=None, deprecated=None, docker_image=None, enabled=None, has_role=None, hidden=None, id=None, important=None, locked=None, modified=None, name=None, outputs=None, prev_name=None, previous_roles=None, pswd=None, raw_tags=None, roles=None, run_as=None, run_once=None, script=None, script_target=None, searchable_name=None, sensitive=None, should_commit=None, sort_values=None, subtype=None, system=None, tags=None, timeout=None, type=None, user=None, vc_should_ignore=None, version=None, visual_script=None):  # noqa: E501
+    def __init__(self, arguments=None, comment=None, commit_message=None, context_keys=None, depends_on=None, deprecated=None, detached=None, docker_image=None, enabled=None, has_role=None, hidden=None, id=None, important=None, locked=None, modified=None, name=None, outputs=None, prev_name=None, previous_roles=None, propagation_labels=None, pswd=None, raw_tags=None, roles=None, run_as=None, run_once=None, script=None, script_target=None, searchable_name=None, sensitive=None, should_commit=None, sort_values=None, source_scrip_id=None, subtype=None, system=None, tags=None, timeout=None, type=None, user=None, vc_should_ignore=None, version=None, visual_script=None):  # noqa: E501
         """AutomationScript - a model defined in Swagger"""  # noqa: E501
 
         self._arguments = None
@@ -129,6 +135,7 @@ class AutomationScript(object):
         self._context_keys = None
         self._depends_on = None
         self._deprecated = None
+        self._detached = None
         self._docker_image = None
         self._enabled = None
         self._has_role = None
@@ -141,6 +148,7 @@ class AutomationScript(object):
         self._outputs = None
         self._prev_name = None
         self._previous_roles = None
+        self._propagation_labels = None
         self._pswd = None
         self._raw_tags = None
         self._roles = None
@@ -152,6 +160,7 @@ class AutomationScript(object):
         self._sensitive = None
         self._should_commit = None
         self._sort_values = None
+        self._source_scrip_id = None
         self._subtype = None
         self._system = None
         self._tags = None
@@ -175,6 +184,8 @@ class AutomationScript(object):
             self.depends_on = depends_on
         if deprecated is not None:
             self.deprecated = deprecated
+        if detached is not None:
+            self.detached = detached
         if docker_image is not None:
             self.docker_image = docker_image
         if enabled is not None:
@@ -199,6 +210,8 @@ class AutomationScript(object):
             self.prev_name = prev_name
         if previous_roles is not None:
             self.previous_roles = previous_roles
+        if propagation_labels is not None:
+            self.propagation_labels = propagation_labels
         if pswd is not None:
             self.pswd = pswd
         if raw_tags is not None:
@@ -221,6 +234,8 @@ class AutomationScript(object):
             self.should_commit = should_commit
         if sort_values is not None:
             self.sort_values = sort_values
+        if source_scrip_id is not None:
+            self.source_scrip_id = source_scrip_id
         if subtype is not None:
             self.subtype = subtype
         if system is not None:
@@ -367,6 +382,27 @@ class AutomationScript(object):
         """
 
         self._deprecated = deprecated
+
+    @property
+    def detached(self):
+        """Gets the detached of this AutomationScript.  # noqa: E501
+
+
+        :return: The detached of this AutomationScript.  # noqa: E501
+        :rtype: bool
+        """
+        return self._detached
+
+    @detached.setter
+    def detached(self, detached):
+        """Sets the detached of this AutomationScript.
+
+
+        :param detached: The detached of this AutomationScript.  # noqa: E501
+        :type: bool
+        """
+
+        self._detached = detached
 
     @property
     def docker_image(self):
@@ -625,6 +661,27 @@ class AutomationScript(object):
         self._previous_roles = previous_roles
 
     @property
+    def propagation_labels(self):
+        """Gets the propagation_labels of this AutomationScript.  # noqa: E501
+
+
+        :return: The propagation_labels of this AutomationScript.  # noqa: E501
+        :rtype: list[str]
+        """
+        return self._propagation_labels
+
+    @propagation_labels.setter
+    def propagation_labels(self, propagation_labels):
+        """Sets the propagation_labels of this AutomationScript.
+
+
+        :param propagation_labels: The propagation_labels of this AutomationScript.  # noqa: E501
+        :type: list[str]
+        """
+
+        self._propagation_labels = propagation_labels
+
+    @property
     def pswd(self):
         """Gets the pswd of this AutomationScript.  # noqa: E501
 
@@ -856,6 +913,27 @@ class AutomationScript(object):
         """
 
         self._sort_values = sort_values
+
+    @property
+    def source_scrip_id(self):
+        """Gets the source_scrip_id of this AutomationScript.  # noqa: E501
+
+
+        :return: The source_scrip_id of this AutomationScript.  # noqa: E501
+        :rtype: str
+        """
+        return self._source_scrip_id
+
+    @source_scrip_id.setter
+    def source_scrip_id(self, source_scrip_id):
+        """Sets the source_scrip_id of this AutomationScript.
+
+
+        :param source_scrip_id: The source_scrip_id of this AutomationScript.  # noqa: E501
+        :type: str
+        """
+
+        self._source_scrip_id = source_scrip_id
 
     @property
     def subtype(self):

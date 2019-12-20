@@ -16,6 +16,7 @@ import re  # noqa: F401
 
 import six
 
+from demisto_client.demisto_api.models.operator_argument import OperatorArgument  # noqa: F401,E501
 from demisto_client.demisto_api.models.transformer_operator_id import TransformerOperatorID  # noqa: F401,E501
 
 
@@ -33,7 +34,7 @@ class ArgTransformer(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'args': 'object',
+        'args': 'dict(str, OperatorArgument)',
         'operator': 'TransformerOperatorID'
     }
 
@@ -60,7 +61,7 @@ class ArgTransformer(object):
 
 
         :return: The args of this ArgTransformer.  # noqa: E501
-        :rtype: object
+        :rtype: dict(str, OperatorArgument)
         """
         return self._args
 
@@ -70,7 +71,7 @@ class ArgTransformer(object):
 
 
         :param args: The args of this ArgTransformer.  # noqa: E501
-        :type: object
+        :type: dict(str, OperatorArgument)
         """
 
         self._args = args

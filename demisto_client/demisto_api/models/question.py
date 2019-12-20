@@ -42,6 +42,7 @@ class Question(object):
         'label_arg': 'AdvanceArg',
         'options': 'list[str]',
         'placeholder': 'str',
+        'read_only': 'bool',
         'required': 'bool',
         'tooltip': 'str',
         'type': 'str'
@@ -56,12 +57,13 @@ class Question(object):
         'label_arg': 'labelArg',
         'options': 'options',
         'placeholder': 'placeholder',
+        'read_only': 'readOnly',
         'required': 'required',
         'tooltip': 'tooltip',
         'type': 'type'
     }
 
-    def __init__(self, columns=None, default_rows=None, field_associated=None, id=None, label=None, label_arg=None, options=None, placeholder=None, required=None, tooltip=None, type=None):  # noqa: E501
+    def __init__(self, columns=None, default_rows=None, field_associated=None, id=None, label=None, label_arg=None, options=None, placeholder=None, read_only=None, required=None, tooltip=None, type=None):  # noqa: E501
         """Question - a model defined in Swagger"""  # noqa: E501
 
         self._columns = None
@@ -72,6 +74,7 @@ class Question(object):
         self._label_arg = None
         self._options = None
         self._placeholder = None
+        self._read_only = None
         self._required = None
         self._tooltip = None
         self._type = None
@@ -93,6 +96,8 @@ class Question(object):
             self.options = options
         if placeholder is not None:
             self.placeholder = placeholder
+        if read_only is not None:
+            self.read_only = read_only
         if required is not None:
             self.required = required
         if tooltip is not None:
@@ -267,6 +272,27 @@ class Question(object):
         """
 
         self._placeholder = placeholder
+
+    @property
+    def read_only(self):
+        """Gets the read_only of this Question.  # noqa: E501
+
+
+        :return: The read_only of this Question.  # noqa: E501
+        :rtype: bool
+        """
+        return self._read_only
+
+    @read_only.setter
+    def read_only(self, read_only):
+        """Sets the read_only of this Question.
+
+
+        :param read_only: The read_only of this Question.  # noqa: E501
+        :type: bool
+        """
+
+        self._read_only = read_only
 
     @property
     def required(self):

@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **closed** | **datetime** | When was this closed | [optional] 
 **closing_user_id** | **str** | The user ID that closed this investigation | [optional] 
 **created** | **datetime** | When was this created | [optional] 
+**dbot_created_by** | **str** | Who has created this event - relevant only for manual incidents | [optional] 
 **details** | **str** | The details of the incident - reason, etc. | [optional] 
 **dropped_count** | **int** | DroppedCount ... | [optional] 
 **due_date** | **datetime** | SLA | [optional] 
@@ -55,6 +56,7 @@ Name | Type | Description | Notes
 **source_brand** | **str** | SourceBrand ... | [optional] 
 **source_instance** | **str** | SourceInstance ... | [optional] 
 **status** | [**IncidentStatus**](IncidentStatus.md) |  | [optional] 
+**todo_task_ids** | **list[str]** | ToDoTaskIDs list of to do task ids | [optional] 
 **type** | **str** | Incident type | [optional] 
 **version** | **int** |  | [optional] 
 

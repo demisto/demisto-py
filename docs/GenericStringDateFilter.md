@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 **cache** | **dict(str, list[str])** | Cache of join functions | [optional] 
 **from_date** | **datetime** |  | [optional] 
 **from_date_license** | **datetime** |  | [optional] 
+**ignore_workers** | **bool** | Do not use workers mechanism while searching bleve | [optional] 
 **page** | **int** | 0-based page | [optional] 
 **period** | [**Period**](Period.md) |  | [optional] 
 **query** | **str** |  | [optional] 

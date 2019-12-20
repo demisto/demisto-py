@@ -45,6 +45,7 @@ class InvestigationFilter(object):
         'from_date_license': 'datetime',
         'id': 'list[str]',
         'ids_only': 'bool',
+        'ignore_workers': 'bool',
         'include_child_inv': 'bool',
         'name': 'list[str]',
         'not_category': 'list[str]',
@@ -73,6 +74,7 @@ class InvestigationFilter(object):
         'from_date_license': 'fromDateLicense',
         'id': 'id',
         'ids_only': 'idsOnly',
+        'ignore_workers': 'ignoreWorkers',
         'include_child_inv': 'includeChildInv',
         'name': 'name',
         'not_category': 'notCategory',
@@ -92,7 +94,7 @@ class InvestigationFilter(object):
         'user': 'user'
     }
 
-    def __init__(self, cache=None, and_op=None, category=None, from_close_date=None, from_date=None, from_date_license=None, id=None, ids_only=None, include_child_inv=None, name=None, not_category=None, not_i_ds=None, page=None, period=None, reason=None, search_after=None, search_before=None, size=None, sort=None, status=None, time_frame=None, to_close_date=None, to_date=None, type=None, user=None):  # noqa: E501
+    def __init__(self, cache=None, and_op=None, category=None, from_close_date=None, from_date=None, from_date_license=None, id=None, ids_only=None, ignore_workers=None, include_child_inv=None, name=None, not_category=None, not_i_ds=None, page=None, period=None, reason=None, search_after=None, search_before=None, size=None, sort=None, status=None, time_frame=None, to_close_date=None, to_date=None, type=None, user=None):  # noqa: E501
         """InvestigationFilter - a model defined in Swagger"""  # noqa: E501
 
         self._cache = None
@@ -103,6 +105,7 @@ class InvestigationFilter(object):
         self._from_date_license = None
         self._id = None
         self._ids_only = None
+        self._ignore_workers = None
         self._include_child_inv = None
         self._name = None
         self._not_category = None
@@ -138,6 +141,8 @@ class InvestigationFilter(object):
             self.id = id
         if ids_only is not None:
             self.ids_only = ids_only
+        if ignore_workers is not None:
+            self.ignore_workers = ignore_workers
         if include_child_inv is not None:
             self.include_child_inv = include_child_inv
         if name is not None:
@@ -342,6 +347,29 @@ class InvestigationFilter(object):
         """
 
         self._ids_only = ids_only
+
+    @property
+    def ignore_workers(self):
+        """Gets the ignore_workers of this InvestigationFilter.  # noqa: E501
+
+        Do not use workers mechanism while searching bleve  # noqa: E501
+
+        :return: The ignore_workers of this InvestigationFilter.  # noqa: E501
+        :rtype: bool
+        """
+        return self._ignore_workers
+
+    @ignore_workers.setter
+    def ignore_workers(self, ignore_workers):
+        """Sets the ignore_workers of this InvestigationFilter.
+
+        Do not use workers mechanism while searching bleve  # noqa: E501
+
+        :param ignore_workers: The ignore_workers of this InvestigationFilter.  # noqa: E501
+        :type: bool
+        """
+
+        self._ignore_workers = ignore_workers
 
     @property
     def include_child_inv(self):

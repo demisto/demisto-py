@@ -43,7 +43,8 @@ class InvPlaybookTaskCompleteData(object):
         'playbook_inputs': 'dict(str, object)',
         'start_date': 'datetime',
         'state': 'TaskState',
-        'will_not_execute_count': 'int'
+        'will_not_execute_count': 'int',
+        'will_not_execute_reason': 'str'
     }
 
     attribute_map = {
@@ -57,10 +58,11 @@ class InvPlaybookTaskCompleteData(object):
         'playbook_inputs': 'playbookInputs',
         'start_date': 'startDate',
         'state': 'state',
-        'will_not_execute_count': 'willNotExecuteCount'
+        'will_not_execute_count': 'willNotExecuteCount',
+        'will_not_execute_reason': 'willNotExecuteReason'
     }
 
-    def __init__(self, arguments=None, completed_by=None, completed_count=None, completed_date=None, entries=None, input=None, outputs=None, playbook_inputs=None, start_date=None, state=None, will_not_execute_count=None):  # noqa: E501
+    def __init__(self, arguments=None, completed_by=None, completed_count=None, completed_date=None, entries=None, input=None, outputs=None, playbook_inputs=None, start_date=None, state=None, will_not_execute_count=None, will_not_execute_reason=None):  # noqa: E501
         """InvPlaybookTaskCompleteData - a model defined in Swagger"""  # noqa: E501
 
         self._arguments = None
@@ -74,6 +76,7 @@ class InvPlaybookTaskCompleteData(object):
         self._start_date = None
         self._state = None
         self._will_not_execute_count = None
+        self._will_not_execute_reason = None
         self.discriminator = None
 
         if arguments is not None:
@@ -98,6 +101,8 @@ class InvPlaybookTaskCompleteData(object):
             self.state = state
         if will_not_execute_count is not None:
             self.will_not_execute_count = will_not_execute_count
+        if will_not_execute_reason is not None:
+            self.will_not_execute_reason = will_not_execute_reason
 
     @property
     def arguments(self):
@@ -329,6 +334,27 @@ class InvPlaybookTaskCompleteData(object):
         """
 
         self._will_not_execute_count = will_not_execute_count
+
+    @property
+    def will_not_execute_reason(self):
+        """Gets the will_not_execute_reason of this InvPlaybookTaskCompleteData.  # noqa: E501
+
+
+        :return: The will_not_execute_reason of this InvPlaybookTaskCompleteData.  # noqa: E501
+        :rtype: str
+        """
+        return self._will_not_execute_reason
+
+    @will_not_execute_reason.setter
+    def will_not_execute_reason(self, will_not_execute_reason):
+        """Sets the will_not_execute_reason of this InvPlaybookTaskCompleteData.
+
+
+        :param will_not_execute_reason: The will_not_execute_reason of this InvPlaybookTaskCompleteData.  # noqa: E501
+        :type: str
+        """
+
+        self._will_not_execute_reason = will_not_execute_reason
 
     def to_dict(self):
         """Returns the model properties as a dict"""

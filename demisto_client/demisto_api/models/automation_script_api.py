@@ -41,6 +41,7 @@ class AutomationScriptAPI(object):
         'context_keys': 'list[str]',
         'depends_on': 'dict(str, list[str])',
         'deprecated': 'bool',
+        'detached': 'bool',
         'docker_image': 'str',
         'enabled': 'bool',
         'hidden': 'bool',
@@ -66,6 +67,7 @@ class AutomationScriptAPI(object):
         'context_keys': 'contextKeys',
         'depends_on': 'dependsOn',
         'deprecated': 'deprecated',
+        'detached': 'detached',
         'docker_image': 'dockerImage',
         'enabled': 'enabled',
         'hidden': 'hidden',
@@ -85,7 +87,7 @@ class AutomationScriptAPI(object):
         'version': 'version'
     }
 
-    def __init__(self, arguments=None, comment=None, context_keys=None, depends_on=None, deprecated=None, docker_image=None, enabled=None, hidden=None, id=None, locked=None, modified=None, name=None, outputs=None, permitted=None, roles=None, run_as=None, script_target=None, system=None, tags=None, type=None, user=None, version=None):  # noqa: E501
+    def __init__(self, arguments=None, comment=None, context_keys=None, depends_on=None, deprecated=None, detached=None, docker_image=None, enabled=None, hidden=None, id=None, locked=None, modified=None, name=None, outputs=None, permitted=None, roles=None, run_as=None, script_target=None, system=None, tags=None, type=None, user=None, version=None):  # noqa: E501
         """AutomationScriptAPI - a model defined in Swagger"""  # noqa: E501
 
         self._arguments = None
@@ -93,6 +95,7 @@ class AutomationScriptAPI(object):
         self._context_keys = None
         self._depends_on = None
         self._deprecated = None
+        self._detached = None
         self._docker_image = None
         self._enabled = None
         self._hidden = None
@@ -122,6 +125,8 @@ class AutomationScriptAPI(object):
             self.depends_on = depends_on
         if deprecated is not None:
             self.deprecated = deprecated
+        if detached is not None:
+            self.detached = detached
         if docker_image is not None:
             self.docker_image = docker_image
         if enabled is not None:
@@ -261,6 +266,27 @@ class AutomationScriptAPI(object):
         """
 
         self._deprecated = deprecated
+
+    @property
+    def detached(self):
+        """Gets the detached of this AutomationScriptAPI.  # noqa: E501
+
+
+        :return: The detached of this AutomationScriptAPI.  # noqa: E501
+        :rtype: bool
+        """
+        return self._detached
+
+    @detached.setter
+    def detached(self, detached):
+        """Sets the detached of this AutomationScriptAPI.
+
+
+        :param detached: The detached of this AutomationScriptAPI.  # noqa: E501
+        :type: bool
+        """
+
+        self._detached = detached
 
     @property
     def docker_image(self):

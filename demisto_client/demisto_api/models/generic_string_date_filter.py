@@ -38,6 +38,7 @@ class GenericStringDateFilter(object):
         'cache': 'dict(str, list[str])',
         'from_date': 'datetime',
         'from_date_license': 'datetime',
+        'ignore_workers': 'bool',
         'page': 'int',
         'period': 'Period',
         'query': 'str',
@@ -53,6 +54,7 @@ class GenericStringDateFilter(object):
         'cache': 'Cache',
         'from_date': 'fromDate',
         'from_date_license': 'fromDateLicense',
+        'ignore_workers': 'ignoreWorkers',
         'page': 'page',
         'period': 'period',
         'query': 'query',
@@ -64,12 +66,13 @@ class GenericStringDateFilter(object):
         'to_date': 'toDate'
     }
 
-    def __init__(self, cache=None, from_date=None, from_date_license=None, page=None, period=None, query=None, search_after=None, search_before=None, size=None, sort=None, time_frame=None, to_date=None):  # noqa: E501
+    def __init__(self, cache=None, from_date=None, from_date_license=None, ignore_workers=None, page=None, period=None, query=None, search_after=None, search_before=None, size=None, sort=None, time_frame=None, to_date=None):  # noqa: E501
         """GenericStringDateFilter - a model defined in Swagger"""  # noqa: E501
 
         self._cache = None
         self._from_date = None
         self._from_date_license = None
+        self._ignore_workers = None
         self._page = None
         self._period = None
         self._query = None
@@ -87,6 +90,8 @@ class GenericStringDateFilter(object):
             self.from_date = from_date
         if from_date_license is not None:
             self.from_date_license = from_date_license
+        if ignore_workers is not None:
+            self.ignore_workers = ignore_workers
         if page is not None:
             self.page = page
         if period is not None:
@@ -170,6 +175,29 @@ class GenericStringDateFilter(object):
         """
 
         self._from_date_license = from_date_license
+
+    @property
+    def ignore_workers(self):
+        """Gets the ignore_workers of this GenericStringDateFilter.  # noqa: E501
+
+        Do not use workers mechanism while searching bleve  # noqa: E501
+
+        :return: The ignore_workers of this GenericStringDateFilter.  # noqa: E501
+        :rtype: bool
+        """
+        return self._ignore_workers
+
+    @ignore_workers.setter
+    def ignore_workers(self, ignore_workers):
+        """Sets the ignore_workers of this GenericStringDateFilter.
+
+        Do not use workers mechanism while searching bleve  # noqa: E501
+
+        :param ignore_workers: The ignore_workers of this GenericStringDateFilter.  # noqa: E501
+        :type: bool
+        """
+
+        self._ignore_workers = ignore_workers
 
     @property
     def page(self):

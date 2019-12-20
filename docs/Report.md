@@ -27,6 +27,7 @@ Name | Type | Description | Notes
 **paper_size** | **str** |  | [optional] 
 **prev_name** | **str** |  | [optional] 
 **prev_type** | **str** |  | [optional] 
+**propagation_labels** | **list[str]** |  | [optional] 
 **recipients** | **list[str]** |  | [optional] 
 **recurrent** | **bool** |  | [optional] 
 **report_type** | **str** |  | [optional] 

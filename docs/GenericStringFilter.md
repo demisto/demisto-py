@@ -4,6 +4,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **cache** | **dict(str, list[str])** | Cache of join functions | [optional] 
+**ignore_workers** | **bool** | Do not use workers mechanism while searching bleve | [optional] 
 **page** | **int** | 0-based page | [optional] 
 **query** | **str** |  | [optional] 
 **search_after** | **list[str]** | Efficient next page, pass max sort value from previous page | [optional] 

@@ -61,6 +61,7 @@ class Report(object):
         'paper_size': 'str',
         'prev_name': 'str',
         'prev_type': 'str',
+        'propagation_labels': 'list[str]',
         'recipients': 'list[str]',
         'recurrent': 'bool',
         'report_type': 'str',
@@ -108,6 +109,7 @@ class Report(object):
         'paper_size': 'paperSize',
         'prev_name': 'prevName',
         'prev_type': 'prevType',
+        'propagation_labels': 'propagationLabels',
         'recipients': 'recipients',
         'recurrent': 'recurrent',
         'report_type': 'reportType',
@@ -130,7 +132,7 @@ class Report(object):
         'version': 'version'
     }
 
-    def __init__(self, commit_message=None, created_by=None, cron=None, cron_view=None, dashboard=None, decoder=None, description=None, disable_header=None, ending_date=None, ending_type=None, human_cron=None, id=None, latest_report_name=None, latest_report_time=None, latest_report_username=None, latest_scheduled_report_time=None, locked=None, modified=None, name=None, next_scheduled_time=None, orientation=None, paper_size=None, prev_name=None, prev_type=None, recipients=None, recurrent=None, report_type=None, run_once=None, running_user=None, scheduled=None, sections=None, sensitive=None, should_commit=None, sort_values=None, start_date=None, system=None, tags=None, times=None, timezone_offset=None, type=None, user_api_key=None, user_api_key_id=None, vc_should_ignore=None, version=None):  # noqa: E501
+    def __init__(self, commit_message=None, created_by=None, cron=None, cron_view=None, dashboard=None, decoder=None, description=None, disable_header=None, ending_date=None, ending_type=None, human_cron=None, id=None, latest_report_name=None, latest_report_time=None, latest_report_username=None, latest_scheduled_report_time=None, locked=None, modified=None, name=None, next_scheduled_time=None, orientation=None, paper_size=None, prev_name=None, prev_type=None, propagation_labels=None, recipients=None, recurrent=None, report_type=None, run_once=None, running_user=None, scheduled=None, sections=None, sensitive=None, should_commit=None, sort_values=None, start_date=None, system=None, tags=None, times=None, timezone_offset=None, type=None, user_api_key=None, user_api_key_id=None, vc_should_ignore=None, version=None):  # noqa: E501
         """Report - a model defined in Swagger"""  # noqa: E501
 
         self._commit_message = None
@@ -157,6 +159,7 @@ class Report(object):
         self._paper_size = None
         self._prev_name = None
         self._prev_type = None
+        self._propagation_labels = None
         self._recipients = None
         self._recurrent = None
         self._report_type = None
@@ -227,6 +230,8 @@ class Report(object):
             self.prev_name = prev_name
         if prev_type is not None:
             self.prev_type = prev_type
+        if propagation_labels is not None:
+            self.propagation_labels = propagation_labels
         if recipients is not None:
             self.recipients = recipients
         if recurrent is not None:
@@ -771,6 +776,27 @@ class Report(object):
         """
 
         self._prev_type = prev_type
+
+    @property
+    def propagation_labels(self):
+        """Gets the propagation_labels of this Report.  # noqa: E501
+
+
+        :return: The propagation_labels of this Report.  # noqa: E501
+        :rtype: list[str]
+        """
+        return self._propagation_labels
+
+    @propagation_labels.setter
+    def propagation_labels(self, propagation_labels):
+        """Sets the propagation_labels of this Report.
+
+
+        :param propagation_labels: The propagation_labels of this Report.  # noqa: E501
+        :type: list[str]
+        """
+
+        self._propagation_labels = propagation_labels
 
     @property
     def recipients(self):

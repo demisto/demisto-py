@@ -39,8 +39,10 @@ class TaskLoop(object):
         'exit_condition': 'str',
         'for_each': 'bool',
         'is_command': 'bool',
+        'max': 'int',
         'script_arguments': 'dict(str, AdvanceArg)',
         'script_id': 'str',
+        'script_name': 'str',
         'wait': 'int'
     }
 
@@ -50,12 +52,14 @@ class TaskLoop(object):
         'exit_condition': 'exitCondition',
         'for_each': 'forEach',
         'is_command': 'isCommand',
+        'max': 'max',
         'script_arguments': 'scriptArguments',
         'script_id': 'scriptId',
+        'script_name': 'scriptName',
         'wait': 'wait'
     }
 
-    def __init__(self, brand=None, builtin_condition=None, exit_condition=None, for_each=None, is_command=None, script_arguments=None, script_id=None, wait=None):  # noqa: E501
+    def __init__(self, brand=None, builtin_condition=None, exit_condition=None, for_each=None, is_command=None, max=None, script_arguments=None, script_id=None, script_name=None, wait=None):  # noqa: E501
         """TaskLoop - a model defined in Swagger"""  # noqa: E501
 
         self._brand = None
@@ -63,8 +67,10 @@ class TaskLoop(object):
         self._exit_condition = None
         self._for_each = None
         self._is_command = None
+        self._max = None
         self._script_arguments = None
         self._script_id = None
+        self._script_name = None
         self._wait = None
         self.discriminator = None
 
@@ -78,10 +84,14 @@ class TaskLoop(object):
             self.for_each = for_each
         if is_command is not None:
             self.is_command = is_command
+        if max is not None:
+            self.max = max
         if script_arguments is not None:
             self.script_arguments = script_arguments
         if script_id is not None:
             self.script_id = script_id
+        if script_name is not None:
+            self.script_name = script_name
         if wait is not None:
             self.wait = wait
 
@@ -191,6 +201,27 @@ class TaskLoop(object):
         self._is_command = is_command
 
     @property
+    def max(self):
+        """Gets the max of this TaskLoop.  # noqa: E501
+
+
+        :return: The max of this TaskLoop.  # noqa: E501
+        :rtype: int
+        """
+        return self._max
+
+    @max.setter
+    def max(self, max):
+        """Sets the max of this TaskLoop.
+
+
+        :param max: The max of this TaskLoop.  # noqa: E501
+        :type: int
+        """
+
+        self._max = max
+
+    @property
     def script_arguments(self):
         """Gets the script_arguments of this TaskLoop.  # noqa: E501
 
@@ -231,6 +262,27 @@ class TaskLoop(object):
         """
 
         self._script_id = script_id
+
+    @property
+    def script_name(self):
+        """Gets the script_name of this TaskLoop.  # noqa: E501
+
+
+        :return: The script_name of this TaskLoop.  # noqa: E501
+        :rtype: str
+        """
+        return self._script_name
+
+    @script_name.setter
+    def script_name(self, script_name):
+        """Sets the script_name of this TaskLoop.
+
+
+        :param script_name: The script_name of this TaskLoop.  # noqa: E501
+        :type: str
+        """
+
+        self._script_name = script_name
 
     @property
     def wait(self):

@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **closing_user_id** | **str** | The user ID that closed this investigation | [optional] 
 **create_investigation** | **bool** |  | [optional] 
 **created** | **datetime** | When was this created | [optional] 
+**dbot_created_by** | **str** | Who has created this event - relevant only for manual incidents | [optional] 
 **details** | **str** | The details of the incident - reason, etc. | [optional] 
 **dropped_count** | **int** | DroppedCount ... | [optional] 
 **due_date** | **datetime** | SLA | [optional] 
@@ -53,9 +54,9 @@ Name | Type | Description | Notes
 **source_brand** | **str** | SourceBrand ... | [optional] 
 **source_instance** | **str** | SourceInstance ... | [optional] 
 **status** | [**IncidentStatus**](IncidentStatus.md) |  | [optional] 
+**todo_task_ids** | **list[str]** | ToDoTaskIDs list of to do task ids | [optional] 
 **type** | **str** | Incident type | [optional] 
 **version** | **int** |  | [optional] 
-**custom_fields** | [**CustomFields**](CustomFields.md) |  | [optional] 
 
 [[Back to Model list]](README.md#documentation-for-models) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to README]](README.md)
 

@@ -31,6 +31,7 @@ Name | Type | Description | Notes
 **input** | **str** |  | [optional] 
 **loop** | [**TaskLoop**](TaskLoop.md) |  | [optional] 
 **message** | [**NotifiableItem**](NotifiableItem.md) |  | [optional] 
+**missing_content_item** | **str** | content item which caused task to skip | [optional] 
 **next_tasks** | **dict(str, list[str])** |  | [optional] 
 **note** | **bool** |  | [optional] 
 **outputs** | **dict(str, object)** |  | [optional] 
@@ -44,6 +45,8 @@ Name | Type | Description | Notes
 **restricted_completion** | **bool** |  | [optional] 
 **script_arguments** | [**dict(str, AdvanceArg)**](AdvanceArg.md) |  | [optional] 
 **separate_context** | **bool** |  | [optional] 
+**skip** | **bool** | Skip - if true then this task will be skipped and all the tasks which comes after this task and depend on it will skip (WillNotExecute) | [optional] 
+**skip_unavailable** | **bool** | SkipUnavailable if true then will check if automation exists, integration of that command is installed and active or sub playbook exists in Demisto | [optional] 
 **sla** | [**SLA**](SLA.md) |  | [optional] 
 **sla_reminder** | [**SLA**](SLA.md) |  | [optional] 
 **start_date** | **datetime** |  | [optional] 
@@ -56,6 +59,7 @@ Name | Type | Description | Notes
 **type** | [**TaskType**](TaskType.md) |  | [optional] 
 **view** | [**TaskView**](TaskView.md) |  | [optional] 
 **will_not_execute_count** | **int** |  | [optional] 
+**will_not_execute_reason** | **str** |  | [optional] 
 
 [[Back to Model list]](README.md#documentation-for-models) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to README]](README.md)
 

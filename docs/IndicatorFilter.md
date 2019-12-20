@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **first_seen** | [**DateRangeFilter**](DateRangeFilter.md) |  | [optional] 
 **from_date** | **datetime** |  | [optional] 
 **from_date_license** | **datetime** |  | [optional] 
+**ignore_workers** | **bool** | Do not use workers mechanism while searching bleve | [optional] 
 **last_seen** | [**DateRangeFilter**](DateRangeFilter.md) |  | [optional] 
 **later_time_in_page** | **datetime** |  | [optional] 
 **page** | **int** | 0-based page | [optional] 

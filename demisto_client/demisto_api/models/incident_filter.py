@@ -18,7 +18,6 @@ import six
 
 from demisto_client.demisto_api.models.duration import Duration  # noqa: F401,E501
 from demisto_client.demisto_api.models.incident_status import IncidentStatus  # noqa: F401,E501
-from demisto_client.demisto_api.models.incident_wrapper import IncidentWrapper  # noqa: F401,E501
 from demisto_client.demisto_api.models.order import Order  # noqa: F401,E501
 from demisto_client.demisto_api.models.period import Period  # noqa: F401,E501
 from demisto_client.demisto_api.models.severity import Severity  # noqa: F401,E501
@@ -43,7 +42,6 @@ class IncidentFilter(object):
         'category': 'list[str]',
         'details': 'str',
         'files': 'list[str]',
-        'first_incident_in_page': 'IncidentWrapper',
         'from_activated_date': 'datetime',
         'from_closed_date': 'datetime',
         'from_date': 'datetime',
@@ -51,12 +49,11 @@ class IncidentFilter(object):
         'from_due_date': 'datetime',
         'from_reminder': 'datetime',
         'id': 'list[str]',
+        'ignore_workers': 'bool',
         'include_tmp': 'bool',
         'investigation': 'list[str]',
-        'last_incident_in_page': 'IncidentWrapper',
         'level': 'list[Severity]',
         'name': 'list[str]',
-        'next_page': 'bool',
         'not_category': 'list[str]',
         'not_investigation': 'list[str]',
         'not_status': 'list[IncidentStatus]',
@@ -67,7 +64,6 @@ class IncidentFilter(object):
         'reason': 'list[str]',
         'search_after': 'list[str]',
         'search_before': 'list[str]',
-        'sequential_pages_search': 'bool',
         'size': 'int',
         'sort': 'list[Order]',
         'status': 'list[IncidentStatus]',
@@ -90,7 +86,6 @@ class IncidentFilter(object):
         'category': 'category',
         'details': 'details',
         'files': 'files',
-        'first_incident_in_page': 'firstIncidentInPage',
         'from_activated_date': 'fromActivatedDate',
         'from_closed_date': 'fromClosedDate',
         'from_date': 'fromDate',
@@ -98,12 +93,11 @@ class IncidentFilter(object):
         'from_due_date': 'fromDueDate',
         'from_reminder': 'fromReminder',
         'id': 'id',
+        'ignore_workers': 'ignoreWorkers',
         'include_tmp': 'includeTmp',
         'investigation': 'investigation',
-        'last_incident_in_page': 'lastIncidentInPage',
         'level': 'level',
         'name': 'name',
-        'next_page': 'nextPage',
         'not_category': 'notCategory',
         'not_investigation': 'notInvestigation',
         'not_status': 'notStatus',
@@ -114,7 +108,6 @@ class IncidentFilter(object):
         'reason': 'reason',
         'search_after': 'searchAfter',
         'search_before': 'searchBefore',
-        'sequential_pages_search': 'sequentialPagesSearch',
         'size': 'size',
         'sort': 'sort',
         'status': 'status',
@@ -131,7 +124,7 @@ class IncidentFilter(object):
         'users': 'users'
     }
 
-    def __init__(self, cache=None, and_op=None, category=None, details=None, files=None, first_incident_in_page=None, from_activated_date=None, from_closed_date=None, from_date=None, from_date_license=None, from_due_date=None, from_reminder=None, id=None, include_tmp=None, investigation=None, last_incident_in_page=None, level=None, name=None, next_page=None, not_category=None, not_investigation=None, not_status=None, page=None, parent=None, period=None, query=None, reason=None, search_after=None, search_before=None, sequential_pages_search=None, size=None, sort=None, status=None, systems=None, time_frame=None, to_activated_date=None, to_closed_date=None, to_date=None, to_due_date=None, to_reminder=None, total_only=None, type=None, urls=None, users=None):  # noqa: E501
+    def __init__(self, cache=None, and_op=None, category=None, details=None, files=None, from_activated_date=None, from_closed_date=None, from_date=None, from_date_license=None, from_due_date=None, from_reminder=None, id=None, ignore_workers=None, include_tmp=None, investigation=None, level=None, name=None, not_category=None, not_investigation=None, not_status=None, page=None, parent=None, period=None, query=None, reason=None, search_after=None, search_before=None, size=None, sort=None, status=None, systems=None, time_frame=None, to_activated_date=None, to_closed_date=None, to_date=None, to_due_date=None, to_reminder=None, total_only=None, type=None, urls=None, users=None):  # noqa: E501
         """IncidentFilter - a model defined in Swagger"""  # noqa: E501
 
         self._cache = None
@@ -139,7 +132,6 @@ class IncidentFilter(object):
         self._category = None
         self._details = None
         self._files = None
-        self._first_incident_in_page = None
         self._from_activated_date = None
         self._from_closed_date = None
         self._from_date = None
@@ -147,12 +139,11 @@ class IncidentFilter(object):
         self._from_due_date = None
         self._from_reminder = None
         self._id = None
+        self._ignore_workers = None
         self._include_tmp = None
         self._investigation = None
-        self._last_incident_in_page = None
         self._level = None
         self._name = None
-        self._next_page = None
         self._not_category = None
         self._not_investigation = None
         self._not_status = None
@@ -163,7 +154,6 @@ class IncidentFilter(object):
         self._reason = None
         self._search_after = None
         self._search_before = None
-        self._sequential_pages_search = None
         self._size = None
         self._sort = None
         self._status = None
@@ -190,8 +180,6 @@ class IncidentFilter(object):
             self.details = details
         if files is not None:
             self.files = files
-        if first_incident_in_page is not None:
-            self.first_incident_in_page = first_incident_in_page
         if from_activated_date is not None:
             self.from_activated_date = from_activated_date
         if from_closed_date is not None:
@@ -206,18 +194,16 @@ class IncidentFilter(object):
             self.from_reminder = from_reminder
         if id is not None:
             self.id = id
+        if ignore_workers is not None:
+            self.ignore_workers = ignore_workers
         if include_tmp is not None:
             self.include_tmp = include_tmp
         if investigation is not None:
             self.investigation = investigation
-        if last_incident_in_page is not None:
-            self.last_incident_in_page = last_incident_in_page
         if level is not None:
             self.level = level
         if name is not None:
             self.name = name
-        if next_page is not None:
-            self.next_page = next_page
         if not_category is not None:
             self.not_category = not_category
         if not_investigation is not None:
@@ -238,8 +224,6 @@ class IncidentFilter(object):
             self.search_after = search_after
         if search_before is not None:
             self.search_before = search_before
-        if sequential_pages_search is not None:
-            self.sequential_pages_search = sequential_pages_search
         if size is not None:
             self.size = size
         if sort is not None:
@@ -375,27 +359,6 @@ class IncidentFilter(object):
         """
 
         self._files = files
-
-    @property
-    def first_incident_in_page(self):
-        """Gets the first_incident_in_page of this IncidentFilter.  # noqa: E501
-
-
-        :return: The first_incident_in_page of this IncidentFilter.  # noqa: E501
-        :rtype: IncidentWrapper
-        """
-        return self._first_incident_in_page
-
-    @first_incident_in_page.setter
-    def first_incident_in_page(self, first_incident_in_page):
-        """Sets the first_incident_in_page of this IncidentFilter.
-
-
-        :param first_incident_in_page: The first_incident_in_page of this IncidentFilter.  # noqa: E501
-        :type: IncidentWrapper
-        """
-
-        self._first_incident_in_page = first_incident_in_page
 
     @property
     def from_activated_date(self):
@@ -545,6 +508,29 @@ class IncidentFilter(object):
         self._id = id
 
     @property
+    def ignore_workers(self):
+        """Gets the ignore_workers of this IncidentFilter.  # noqa: E501
+
+        Do not use workers mechanism while searching bleve  # noqa: E501
+
+        :return: The ignore_workers of this IncidentFilter.  # noqa: E501
+        :rtype: bool
+        """
+        return self._ignore_workers
+
+    @ignore_workers.setter
+    def ignore_workers(self, ignore_workers):
+        """Sets the ignore_workers of this IncidentFilter.
+
+        Do not use workers mechanism while searching bleve  # noqa: E501
+
+        :param ignore_workers: The ignore_workers of this IncidentFilter.  # noqa: E501
+        :type: bool
+        """
+
+        self._ignore_workers = ignore_workers
+
+    @property
     def include_tmp(self):
         """Gets the include_tmp of this IncidentFilter.  # noqa: E501
 
@@ -587,27 +573,6 @@ class IncidentFilter(object):
         self._investigation = investigation
 
     @property
-    def last_incident_in_page(self):
-        """Gets the last_incident_in_page of this IncidentFilter.  # noqa: E501
-
-
-        :return: The last_incident_in_page of this IncidentFilter.  # noqa: E501
-        :rtype: IncidentWrapper
-        """
-        return self._last_incident_in_page
-
-    @last_incident_in_page.setter
-    def last_incident_in_page(self, last_incident_in_page):
-        """Sets the last_incident_in_page of this IncidentFilter.
-
-
-        :param last_incident_in_page: The last_incident_in_page of this IncidentFilter.  # noqa: E501
-        :type: IncidentWrapper
-        """
-
-        self._last_incident_in_page = last_incident_in_page
-
-    @property
     def level(self):
         """Gets the level of this IncidentFilter.  # noqa: E501
 
@@ -648,27 +613,6 @@ class IncidentFilter(object):
         """
 
         self._name = name
-
-    @property
-    def next_page(self):
-        """Gets the next_page of this IncidentFilter.  # noqa: E501
-
-
-        :return: The next_page of this IncidentFilter.  # noqa: E501
-        :rtype: bool
-        """
-        return self._next_page
-
-    @next_page.setter
-    def next_page(self, next_page):
-        """Sets the next_page of this IncidentFilter.
-
-
-        :param next_page: The next_page of this IncidentFilter.  # noqa: E501
-        :type: bool
-        """
-
-        self._next_page = next_page
 
     @property
     def not_category(self):
@@ -885,27 +829,6 @@ class IncidentFilter(object):
         """
 
         self._search_before = search_before
-
-    @property
-    def sequential_pages_search(self):
-        """Gets the sequential_pages_search of this IncidentFilter.  # noqa: E501
-
-
-        :return: The sequential_pages_search of this IncidentFilter.  # noqa: E501
-        :rtype: bool
-        """
-        return self._sequential_pages_search
-
-    @sequential_pages_search.setter
-    def sequential_pages_search(self, sequential_pages_search):
-        """Sets the sequential_pages_search of this IncidentFilter.
-
-
-        :param sequential_pages_search: The sequential_pages_search of this IncidentFilter.  # noqa: E501
-        :type: bool
-        """
-
-        self._sequential_pages_search = sequential_pages_search
 
     @property
     def size(self):

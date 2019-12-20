@@ -34,6 +34,7 @@ class GenericStringFilter(object):
     """
     swagger_types = {
         'cache': 'dict(str, list[str])',
+        'ignore_workers': 'bool',
         'page': 'int',
         'query': 'str',
         'search_after': 'list[str]',
@@ -44,6 +45,7 @@ class GenericStringFilter(object):
 
     attribute_map = {
         'cache': 'Cache',
+        'ignore_workers': 'ignoreWorkers',
         'page': 'page',
         'query': 'query',
         'search_after': 'searchAfter',
@@ -52,10 +54,11 @@ class GenericStringFilter(object):
         'sort': 'sort'
     }
 
-    def __init__(self, cache=None, page=None, query=None, search_after=None, search_before=None, size=None, sort=None):  # noqa: E501
+    def __init__(self, cache=None, ignore_workers=None, page=None, query=None, search_after=None, search_before=None, size=None, sort=None):  # noqa: E501
         """GenericStringFilter - a model defined in Swagger"""  # noqa: E501
 
         self._cache = None
+        self._ignore_workers = None
         self._page = None
         self._query = None
         self._search_after = None
@@ -66,6 +69,8 @@ class GenericStringFilter(object):
 
         if cache is not None:
             self.cache = cache
+        if ignore_workers is not None:
+            self.ignore_workers = ignore_workers
         if page is not None:
             self.page = page
         if query is not None:
@@ -101,6 +106,29 @@ class GenericStringFilter(object):
         """
 
         self._cache = cache
+
+    @property
+    def ignore_workers(self):
+        """Gets the ignore_workers of this GenericStringFilter.  # noqa: E501
+
+        Do not use workers mechanism while searching bleve  # noqa: E501
+
+        :return: The ignore_workers of this GenericStringFilter.  # noqa: E501
+        :rtype: bool
+        """
+        return self._ignore_workers
+
+    @ignore_workers.setter
+    def ignore_workers(self, ignore_workers):
+        """Sets the ignore_workers of this GenericStringFilter.
+
+        Do not use workers mechanism while searching bleve  # noqa: E501
+
+        :param ignore_workers: The ignore_workers of this GenericStringFilter.  # noqa: E501
+        :type: bool
+        """
+
+        self._ignore_workers = ignore_workers
 
     @property
     def page(self):

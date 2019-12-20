@@ -76,6 +76,7 @@ class InvestigationPlaybookTask(object):
         'input': 'str',
         'loop': 'TaskLoop',
         'message': 'NotifiableItem',
+        'missing_content_item': 'str',
         'next_tasks': 'dict(str, list[str])',
         'note': 'bool',
         'outputs': 'dict(str, object)',
@@ -89,6 +90,8 @@ class InvestigationPlaybookTask(object):
         'restricted_completion': 'bool',
         'script_arguments': 'dict(str, AdvanceArg)',
         'separate_context': 'bool',
+        'skip': 'bool',
+        'skip_unavailable': 'bool',
         'sla': 'SLA',
         'sla_reminder': 'SLA',
         'start_date': 'datetime',
@@ -100,7 +103,8 @@ class InvestigationPlaybookTask(object):
         'timer_triggers': 'list[TimerTrigger]',
         'type': 'TaskType',
         'view': 'TaskView',
-        'will_not_execute_count': 'int'
+        'will_not_execute_count': 'int',
+        'will_not_execute_reason': 'str'
     }
 
     attribute_map = {
@@ -132,6 +136,7 @@ class InvestigationPlaybookTask(object):
         'input': 'input',
         'loop': 'loop',
         'message': 'message',
+        'missing_content_item': 'missingContentItem',
         'next_tasks': 'nextTasks',
         'note': 'note',
         'outputs': 'outputs',
@@ -145,6 +150,8 @@ class InvestigationPlaybookTask(object):
         'restricted_completion': 'restrictedCompletion',
         'script_arguments': 'scriptArguments',
         'separate_context': 'separateContext',
+        'skip': 'skip',
+        'skip_unavailable': 'skipUnavailable',
         'sla': 'sla',
         'sla_reminder': 'slaReminder',
         'start_date': 'startDate',
@@ -156,10 +163,11 @@ class InvestigationPlaybookTask(object):
         'timer_triggers': 'timerTriggers',
         'type': 'type',
         'view': 'view',
-        'will_not_execute_count': 'willNotExecuteCount'
+        'will_not_execute_count': 'willNotExecuteCount',
+        'will_not_execute_reason': 'willNotExecuteReason'
     }
 
-    def __init__(self, arguments=None, assignee=None, assignee_set=None, blocking_tasks=None, comments=None, completed_by=None, completed_count=None, completed_date=None, conditions=None, continue_on_error=None, default_assignee=None, default_assignee_complex=None, default_reminder=None, due_date=None, due_date_set=None, entries=None, evidence_data=None, execution_count=None, field_mapping=None, for_each_index=None, for_each_inputs=None, form=None, id=None, ignore_worker=None, indent=None, input=None, loop=None, message=None, next_tasks=None, note=None, outputs=None, parent_block_count=None, parent_playbook_id=None, patched=None, playbook_inputs=None, previous_tasks=None, reminder=None, reputation_calc=None, restricted_completion=None, script_arguments=None, separate_context=None, sla=None, sla_reminder=None, start_date=None, state=None, sub_playbook=None, task=None, task_complete_data=None, task_id=None, timer_triggers=None, type=None, view=None, will_not_execute_count=None):  # noqa: E501
+    def __init__(self, arguments=None, assignee=None, assignee_set=None, blocking_tasks=None, comments=None, completed_by=None, completed_count=None, completed_date=None, conditions=None, continue_on_error=None, default_assignee=None, default_assignee_complex=None, default_reminder=None, due_date=None, due_date_set=None, entries=None, evidence_data=None, execution_count=None, field_mapping=None, for_each_index=None, for_each_inputs=None, form=None, id=None, ignore_worker=None, indent=None, input=None, loop=None, message=None, missing_content_item=None, next_tasks=None, note=None, outputs=None, parent_block_count=None, parent_playbook_id=None, patched=None, playbook_inputs=None, previous_tasks=None, reminder=None, reputation_calc=None, restricted_completion=None, script_arguments=None, separate_context=None, skip=None, skip_unavailable=None, sla=None, sla_reminder=None, start_date=None, state=None, sub_playbook=None, task=None, task_complete_data=None, task_id=None, timer_triggers=None, type=None, view=None, will_not_execute_count=None, will_not_execute_reason=None):  # noqa: E501
         """InvestigationPlaybookTask - a model defined in Swagger"""  # noqa: E501
 
         self._arguments = None
@@ -190,6 +198,7 @@ class InvestigationPlaybookTask(object):
         self._input = None
         self._loop = None
         self._message = None
+        self._missing_content_item = None
         self._next_tasks = None
         self._note = None
         self._outputs = None
@@ -203,6 +212,8 @@ class InvestigationPlaybookTask(object):
         self._restricted_completion = None
         self._script_arguments = None
         self._separate_context = None
+        self._skip = None
+        self._skip_unavailable = None
         self._sla = None
         self._sla_reminder = None
         self._start_date = None
@@ -215,6 +226,7 @@ class InvestigationPlaybookTask(object):
         self._type = None
         self._view = None
         self._will_not_execute_count = None
+        self._will_not_execute_reason = None
         self.discriminator = None
 
         if arguments is not None:
@@ -273,6 +285,8 @@ class InvestigationPlaybookTask(object):
             self.loop = loop
         if message is not None:
             self.message = message
+        if missing_content_item is not None:
+            self.missing_content_item = missing_content_item
         if next_tasks is not None:
             self.next_tasks = next_tasks
         if note is not None:
@@ -299,6 +313,10 @@ class InvestigationPlaybookTask(object):
             self.script_arguments = script_arguments
         if separate_context is not None:
             self.separate_context = separate_context
+        if skip is not None:
+            self.skip = skip
+        if skip_unavailable is not None:
+            self.skip_unavailable = skip_unavailable
         if sla is not None:
             self.sla = sla
         if sla_reminder is not None:
@@ -323,6 +341,8 @@ class InvestigationPlaybookTask(object):
             self.view = view
         if will_not_execute_count is not None:
             self.will_not_execute_count = will_not_execute_count
+        if will_not_execute_reason is not None:
+            self.will_not_execute_reason = will_not_execute_reason
 
     @property
     def arguments(self):
@@ -921,6 +941,29 @@ class InvestigationPlaybookTask(object):
         self._message = message
 
     @property
+    def missing_content_item(self):
+        """Gets the missing_content_item of this InvestigationPlaybookTask.  # noqa: E501
+
+        content item which caused task to skip  # noqa: E501
+
+        :return: The missing_content_item of this InvestigationPlaybookTask.  # noqa: E501
+        :rtype: str
+        """
+        return self._missing_content_item
+
+    @missing_content_item.setter
+    def missing_content_item(self, missing_content_item):
+        """Sets the missing_content_item of this InvestigationPlaybookTask.
+
+        content item which caused task to skip  # noqa: E501
+
+        :param missing_content_item: The missing_content_item of this InvestigationPlaybookTask.  # noqa: E501
+        :type: str
+        """
+
+        self._missing_content_item = missing_content_item
+
+    @property
     def next_tasks(self):
         """Gets the next_tasks of this InvestigationPlaybookTask.  # noqa: E501
 
@@ -1200,6 +1243,52 @@ class InvestigationPlaybookTask(object):
         self._separate_context = separate_context
 
     @property
+    def skip(self):
+        """Gets the skip of this InvestigationPlaybookTask.  # noqa: E501
+
+        Skip - if true then this task will be skipped and all the tasks which comes after this task and depend on it will skip (WillNotExecute)  # noqa: E501
+
+        :return: The skip of this InvestigationPlaybookTask.  # noqa: E501
+        :rtype: bool
+        """
+        return self._skip
+
+    @skip.setter
+    def skip(self, skip):
+        """Sets the skip of this InvestigationPlaybookTask.
+
+        Skip - if true then this task will be skipped and all the tasks which comes after this task and depend on it will skip (WillNotExecute)  # noqa: E501
+
+        :param skip: The skip of this InvestigationPlaybookTask.  # noqa: E501
+        :type: bool
+        """
+
+        self._skip = skip
+
+    @property
+    def skip_unavailable(self):
+        """Gets the skip_unavailable of this InvestigationPlaybookTask.  # noqa: E501
+
+        SkipUnavailable if true then will check if automation exists, integration of that command is installed and active or sub playbook exists in Demisto  # noqa: E501
+
+        :return: The skip_unavailable of this InvestigationPlaybookTask.  # noqa: E501
+        :rtype: bool
+        """
+        return self._skip_unavailable
+
+    @skip_unavailable.setter
+    def skip_unavailable(self, skip_unavailable):
+        """Sets the skip_unavailable of this InvestigationPlaybookTask.
+
+        SkipUnavailable if true then will check if automation exists, integration of that command is installed and active or sub playbook exists in Demisto  # noqa: E501
+
+        :param skip_unavailable: The skip_unavailable of this InvestigationPlaybookTask.  # noqa: E501
+        :type: bool
+        """
+
+        self._skip_unavailable = skip_unavailable
+
+    @property
     def sla(self):
         """Gets the sla of this InvestigationPlaybookTask.  # noqa: E501
 
@@ -1454,6 +1543,27 @@ class InvestigationPlaybookTask(object):
         """
 
         self._will_not_execute_count = will_not_execute_count
+
+    @property
+    def will_not_execute_reason(self):
+        """Gets the will_not_execute_reason of this InvestigationPlaybookTask.  # noqa: E501
+
+
+        :return: The will_not_execute_reason of this InvestigationPlaybookTask.  # noqa: E501
+        :rtype: str
+        """
+        return self._will_not_execute_reason
+
+    @will_not_execute_reason.setter
+    def will_not_execute_reason(self, will_not_execute_reason):
+        """Sets the will_not_execute_reason of this InvestigationPlaybookTask.
+
+
+        :param will_not_execute_reason: The will_not_execute_reason of this InvestigationPlaybookTask.  # noqa: E501
+        :type: str
+        """
+
+        self._will_not_execute_reason = will_not_execute_reason
 
     def to_dict(self):
         """Returns the model properties as a dict"""

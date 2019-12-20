@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **context_keys** | **list[str]** |  | [optional] 
 **depends_on** | **dict(str, list[str])** |  | [optional] 
 **deprecated** | **bool** |  | [optional] 
+**detached** | **bool** |  | [optional] 
 **docker_image** | **str** |  | [optional] 
 **enabled** | **bool** |  | [optional] 
 **hidden** | **bool** |  | [optional] 

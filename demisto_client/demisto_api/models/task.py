@@ -46,6 +46,7 @@ class Task(object):
         'modified': 'datetime',
         'name': 'str',
         'playbook_id': 'str',
+        'playbook_name': 'str',
         'script_id': 'str',
         'sort_values': 'list[str]',
         'tags': 'list[str]',
@@ -67,6 +68,7 @@ class Task(object):
         'modified': 'modified',
         'name': 'name',
         'playbook_id': 'playbookId',
+        'playbook_name': 'playbookName',
         'script_id': 'scriptId',
         'sort_values': 'sortValues',
         'tags': 'tags',
@@ -74,7 +76,7 @@ class Task(object):
         'version': 'version'
     }
 
-    def __init__(self, brand=None, cloned_from=None, comment=None, conditions=None, description=None, id=None, is_command=None, is_locked=None, is_system_task=None, is_title_task=None, modified=None, name=None, playbook_id=None, script_id=None, sort_values=None, tags=None, type=None, version=None):  # noqa: E501
+    def __init__(self, brand=None, cloned_from=None, comment=None, conditions=None, description=None, id=None, is_command=None, is_locked=None, is_system_task=None, is_title_task=None, modified=None, name=None, playbook_id=None, playbook_name=None, script_id=None, sort_values=None, tags=None, type=None, version=None):  # noqa: E501
         """Task - a model defined in Swagger"""  # noqa: E501
 
         self._brand = None
@@ -90,6 +92,7 @@ class Task(object):
         self._modified = None
         self._name = None
         self._playbook_id = None
+        self._playbook_name = None
         self._script_id = None
         self._sort_values = None
         self._tags = None
@@ -123,6 +126,8 @@ class Task(object):
             self.name = name
         if playbook_id is not None:
             self.playbook_id = playbook_id
+        if playbook_name is not None:
+            self.playbook_name = playbook_name
         if script_id is not None:
             self.script_id = script_id
         if sort_values is not None:
@@ -406,6 +411,27 @@ class Task(object):
         """
 
         self._playbook_id = playbook_id
+
+    @property
+    def playbook_name(self):
+        """Gets the playbook_name of this Task.  # noqa: E501
+
+
+        :return: The playbook_name of this Task.  # noqa: E501
+        :rtype: str
+        """
+        return self._playbook_name
+
+    @playbook_name.setter
+    def playbook_name(self, playbook_name):
+        """Sets the playbook_name of this Task.
+
+
+        :param playbook_name: The playbook_name of this Task.  # noqa: E501
+        :type: str
+        """
+
+        self._playbook_name = playbook_name
 
     @property
     def script_id(self):

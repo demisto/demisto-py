@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **label_arg** | [**AdvanceArg**](AdvanceArg.md) |  | [optional] 
 **options** | **list[str]** |  | [optional] 
 **placeholder** | **str** |  | [optional] 
+**read_only** | **bool** |  | [optional] 
 **required** | **bool** |  | [optional] 
 **tooltip** | **str** |  | [optional] 
 **type** | **str** |  | [optional] 

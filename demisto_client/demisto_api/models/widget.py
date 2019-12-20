@@ -46,6 +46,7 @@ class Widget(object):
         'name': 'str',
         'params': 'dict(str, object)',
         'prev_name': 'str',
+        'propagation_labels': 'list[str]',
         'query': 'str',
         'should_commit': 'bool',
         'size': 'int',
@@ -69,6 +70,7 @@ class Widget(object):
         'name': 'name',
         'params': 'params',
         'prev_name': 'prevName',
+        'propagation_labels': 'propagationLabels',
         'query': 'query',
         'should_commit': 'shouldCommit',
         'size': 'size',
@@ -79,7 +81,7 @@ class Widget(object):
         'widget_type': 'widgetType'
     }
 
-    def __init__(self, category=None, commit_message=None, data_type=None, date_range=None, description=None, id=None, is_predefined=None, locked=None, modified=None, name=None, params=None, prev_name=None, query=None, should_commit=None, size=None, sort=None, sort_values=None, vc_should_ignore=None, version=None, widget_type=None):  # noqa: E501
+    def __init__(self, category=None, commit_message=None, data_type=None, date_range=None, description=None, id=None, is_predefined=None, locked=None, modified=None, name=None, params=None, prev_name=None, propagation_labels=None, query=None, should_commit=None, size=None, sort=None, sort_values=None, vc_should_ignore=None, version=None, widget_type=None):  # noqa: E501
         """Widget - a model defined in Swagger"""  # noqa: E501
 
         self._category = None
@@ -94,6 +96,7 @@ class Widget(object):
         self._name = None
         self._params = None
         self._prev_name = None
+        self._propagation_labels = None
         self._query = None
         self._should_commit = None
         self._size = None
@@ -127,6 +130,8 @@ class Widget(object):
             self.params = params
         if prev_name is not None:
             self.prev_name = prev_name
+        if propagation_labels is not None:
+            self.propagation_labels = propagation_labels
         if query is not None:
             self.query = query
         if should_commit is not None:
@@ -412,6 +417,27 @@ class Widget(object):
         """
 
         self._prev_name = prev_name
+
+    @property
+    def propagation_labels(self):
+        """Gets the propagation_labels of this Widget.  # noqa: E501
+
+
+        :return: The propagation_labels of this Widget.  # noqa: E501
+        :rtype: list[str]
+        """
+        return self._propagation_labels
+
+    @propagation_labels.setter
+    def propagation_labels(self, propagation_labels):
+        """Sets the propagation_labels of this Widget.
+
+
+        :param propagation_labels: The propagation_labels of this Widget.  # noqa: E501
+        :type: list[str]
+        """
+
+        self._propagation_labels = propagation_labels
 
     @property
     def query(self):

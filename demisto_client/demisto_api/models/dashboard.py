@@ -45,6 +45,7 @@ class Dashboard(object):
         'owner': 'str',
         'period': 'Period',
         'prev_name': 'str',
+        'propagation_labels': 'list[str]',
         'shared': 'bool',
         'should_commit': 'bool',
         'sort_values': 'list[str]',
@@ -66,6 +67,7 @@ class Dashboard(object):
         'owner': 'owner',
         'period': 'period',
         'prev_name': 'prevName',
+        'propagation_labels': 'propagationLabels',
         'shared': 'shared',
         'should_commit': 'shouldCommit',
         'sort_values': 'sortValues',
@@ -75,7 +77,7 @@ class Dashboard(object):
         'version': 'version'
     }
 
-    def __init__(self, commit_message=None, from_date=None, from_date_license=None, id=None, is_common=None, layout=None, modified=None, name=None, owner=None, period=None, prev_name=None, shared=None, should_commit=None, sort_values=None, system=None, to_date=None, vc_should_ignore=None, version=None):  # noqa: E501
+    def __init__(self, commit_message=None, from_date=None, from_date_license=None, id=None, is_common=None, layout=None, modified=None, name=None, owner=None, period=None, prev_name=None, propagation_labels=None, shared=None, should_commit=None, sort_values=None, system=None, to_date=None, vc_should_ignore=None, version=None):  # noqa: E501
         """Dashboard - a model defined in Swagger"""  # noqa: E501
 
         self._commit_message = None
@@ -89,6 +91,7 @@ class Dashboard(object):
         self._owner = None
         self._period = None
         self._prev_name = None
+        self._propagation_labels = None
         self._shared = None
         self._should_commit = None
         self._sort_values = None
@@ -120,6 +123,8 @@ class Dashboard(object):
             self.period = period
         if prev_name is not None:
             self.prev_name = prev_name
+        if propagation_labels is not None:
+            self.propagation_labels = propagation_labels
         if shared is not None:
             self.shared = shared
         if should_commit is not None:
@@ -365,6 +370,27 @@ class Dashboard(object):
         """
 
         self._prev_name = prev_name
+
+    @property
+    def propagation_labels(self):
+        """Gets the propagation_labels of this Dashboard.  # noqa: E501
+
+
+        :return: The propagation_labels of this Dashboard.  # noqa: E501
+        :rtype: list[str]
+        """
+        return self._propagation_labels
+
+    @propagation_labels.setter
+    def propagation_labels(self, propagation_labels):
+        """Sets the propagation_labels of this Dashboard.
+
+
+        :param propagation_labels: The propagation_labels of this Dashboard.  # noqa: E501
+        :type: list[str]
+        """
+
+        self._propagation_labels = propagation_labels
 
     @property
     def shared(self):

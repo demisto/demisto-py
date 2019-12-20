@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **owner** | **str** |  | [optional] 
 **period** | [**Period**](Period.md) |  | [optional] 
 **prev_name** | **str** |  | [optional] 
+**propagation_labels** | **list[str]** |  | [optional] 
 **shared** | **bool** |  | [optional] 
 **should_commit** | **bool** |  | [optional] 
 **sort_values** | **list[str]** |  | [optional] 

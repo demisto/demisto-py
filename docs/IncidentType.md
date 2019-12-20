@@ -20,6 +20,7 @@ Name | Type | Description | Notes
 **playbook_id** | **str** |  | [optional] 
 **pre_processing_script** | **str** |  | [optional] 
 **prev_name** | **str** |  | [optional] 
+**propagation_labels** | **list[str]** |  | [optional] 
 **readonly** | **bool** |  | [optional] 
 **reputation_calc** | [**ReputationCalcAlg**](ReputationCalcAlg.md) |  | [optional] 
 **should_commit** | **bool** |  | [optional] 

@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **modified** | **datetime** |  | [optional] 
 **name** | **str** |  | [optional] 
 **playbook_id** | **str** |  | [optional] 
+**playbook_name** | **str** |  | [optional] 
 **script_id** | **str** |  | [optional] 
 **sort_values** | **list[str]** |  | [optional] 
 **tags** | **list[str]** |  | [optional] 

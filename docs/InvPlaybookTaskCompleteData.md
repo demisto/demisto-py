@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **start_date** | **datetime** |  | [optional] 
 **state** | [**TaskState**](TaskState.md) |  | [optional] 
 **will_not_execute_count** | **int** |  | [optional] 
+**will_not_execute_reason** | **str** |  | [optional] 
 
 [[Back to Model list]](README.md#documentation-for-models) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to README]](README.md)
 

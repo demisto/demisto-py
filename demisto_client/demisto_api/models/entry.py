@@ -49,6 +49,8 @@ class Entry(object):
         'cron': 'str',
         'cron_view': 'bool',
         'deleted': 'bool',
+        'deleted_by': 'str',
+        'deleted_from_fs': 'bool',
         'ending_date': 'datetime',
         'ending_type': 'EndingType',
         'entry_task': 'EntryTask',
@@ -63,6 +65,7 @@ class Entry(object):
         'id': 'str',
         'instance': 'str',
         'investigation_id': 'str',
+        'is_todo': 'bool',
         'modified': 'datetime',
         'note': 'bool',
         'parent_content': 'object',
@@ -75,6 +78,7 @@ class Entry(object):
         'recurrent': 'bool',
         'reputation_size': 'int',
         'reputations': 'list[EntryReputation]',
+        'retry_time': 'datetime',
         'roles': 'list[str]',
         'scheduled': 'bool',
         'sort_values': 'list[str]',
@@ -100,6 +104,8 @@ class Entry(object):
         'cron': 'cron',
         'cron_view': 'cronView',
         'deleted': 'deleted',
+        'deleted_by': 'deletedBy',
+        'deleted_from_fs': 'deletedFromFS',
         'ending_date': 'endingDate',
         'ending_type': 'endingType',
         'entry_task': 'entryTask',
@@ -114,6 +120,7 @@ class Entry(object):
         'id': 'id',
         'instance': 'instance',
         'investigation_id': 'investigationId',
+        'is_todo': 'isTodo',
         'modified': 'modified',
         'note': 'note',
         'parent_content': 'parentContent',
@@ -126,6 +133,7 @@ class Entry(object):
         'recurrent': 'recurrent',
         'reputation_size': 'reputationSize',
         'reputations': 'reputations',
+        'retry_time': 'retryTime',
         'roles': 'roles',
         'scheduled': 'scheduled',
         'sort_values': 'sortValues',
@@ -141,7 +149,7 @@ class Entry(object):
         'version': 'version'
     }
 
-    def __init__(self, shard_id=None, brand=None, category=None, contents=None, contents_size=None, created=None, cron=None, cron_view=None, deleted=None, ending_date=None, ending_type=None, entry_task=None, error_source=None, file=None, file_id=None, file_metadata=None, format=None, has_role=None, history=None, human_cron=None, id=None, instance=None, investigation_id=None, modified=None, note=None, parent_content=None, parent_entry_truncated=None, parent_id=None, pinned=None, playbook_id=None, previous_roles=None, read_only=None, recurrent=None, reputation_size=None, reputations=None, roles=None, scheduled=None, sort_values=None, start_date=None, system=None, tags=None, tags_raw=None, task_id=None, times=None, timezone_offset=None, type=None, user=None, version=None):  # noqa: E501
+    def __init__(self, shard_id=None, brand=None, category=None, contents=None, contents_size=None, created=None, cron=None, cron_view=None, deleted=None, deleted_by=None, deleted_from_fs=None, ending_date=None, ending_type=None, entry_task=None, error_source=None, file=None, file_id=None, file_metadata=None, format=None, has_role=None, history=None, human_cron=None, id=None, instance=None, investigation_id=None, is_todo=None, modified=None, note=None, parent_content=None, parent_entry_truncated=None, parent_id=None, pinned=None, playbook_id=None, previous_roles=None, read_only=None, recurrent=None, reputation_size=None, reputations=None, retry_time=None, roles=None, scheduled=None, sort_values=None, start_date=None, system=None, tags=None, tags_raw=None, task_id=None, times=None, timezone_offset=None, type=None, user=None, version=None):  # noqa: E501
         """Entry - a model defined in Swagger"""  # noqa: E501
 
         self._shard_id = None
@@ -153,6 +161,8 @@ class Entry(object):
         self._cron = None
         self._cron_view = None
         self._deleted = None
+        self._deleted_by = None
+        self._deleted_from_fs = None
         self._ending_date = None
         self._ending_type = None
         self._entry_task = None
@@ -167,6 +177,7 @@ class Entry(object):
         self._id = None
         self._instance = None
         self._investigation_id = None
+        self._is_todo = None
         self._modified = None
         self._note = None
         self._parent_content = None
@@ -179,6 +190,7 @@ class Entry(object):
         self._recurrent = None
         self._reputation_size = None
         self._reputations = None
+        self._retry_time = None
         self._roles = None
         self._scheduled = None
         self._sort_values = None
@@ -212,6 +224,10 @@ class Entry(object):
             self.cron_view = cron_view
         if deleted is not None:
             self.deleted = deleted
+        if deleted_by is not None:
+            self.deleted_by = deleted_by
+        if deleted_from_fs is not None:
+            self.deleted_from_fs = deleted_from_fs
         if ending_date is not None:
             self.ending_date = ending_date
         if ending_type is not None:
@@ -240,6 +256,8 @@ class Entry(object):
             self.instance = instance
         if investigation_id is not None:
             self.investigation_id = investigation_id
+        if is_todo is not None:
+            self.is_todo = is_todo
         if modified is not None:
             self.modified = modified
         if note is not None:
@@ -264,6 +282,8 @@ class Entry(object):
             self.reputation_size = reputation_size
         if reputations is not None:
             self.reputations = reputations
+        if retry_time is not None:
+            self.retry_time = retry_time
         if roles is not None:
             self.roles = roles
         if scheduled is not None:
@@ -485,6 +505,48 @@ class Entry(object):
         """
 
         self._deleted = deleted
+
+    @property
+    def deleted_by(self):
+        """Gets the deleted_by of this Entry.  # noqa: E501
+
+
+        :return: The deleted_by of this Entry.  # noqa: E501
+        :rtype: str
+        """
+        return self._deleted_by
+
+    @deleted_by.setter
+    def deleted_by(self, deleted_by):
+        """Sets the deleted_by of this Entry.
+
+
+        :param deleted_by: The deleted_by of this Entry.  # noqa: E501
+        :type: str
+        """
+
+        self._deleted_by = deleted_by
+
+    @property
+    def deleted_from_fs(self):
+        """Gets the deleted_from_fs of this Entry.  # noqa: E501
+
+
+        :return: The deleted_from_fs of this Entry.  # noqa: E501
+        :rtype: bool
+        """
+        return self._deleted_from_fs
+
+    @deleted_from_fs.setter
+    def deleted_from_fs(self, deleted_from_fs):
+        """Sets the deleted_from_fs of this Entry.
+
+
+        :param deleted_from_fs: The deleted_from_fs of this Entry.  # noqa: E501
+        :type: bool
+        """
+
+        self._deleted_from_fs = deleted_from_fs
 
     @property
     def ending_date(self):
@@ -795,6 +857,29 @@ class Entry(object):
         self._investigation_id = investigation_id
 
     @property
+    def is_todo(self):
+        """Gets the is_todo of this Entry.  # noqa: E501
+
+        IsTodo  # noqa: E501
+
+        :return: The is_todo of this Entry.  # noqa: E501
+        :rtype: bool
+        """
+        return self._is_todo
+
+    @is_todo.setter
+    def is_todo(self, is_todo):
+        """Sets the is_todo of this Entry.
+
+        IsTodo  # noqa: E501
+
+        :param is_todo: The is_todo of this Entry.  # noqa: E501
+        :type: bool
+        """
+
+        self._is_todo = is_todo
+
+    @property
     def modified(self):
         """Gets the modified of this Entry.  # noqa: E501
 
@@ -1065,6 +1150,29 @@ class Entry(object):
         """
 
         self._reputations = reputations
+
+    @property
+    def retry_time(self):
+        """Gets the retry_time of this Entry.  # noqa: E501
+
+        When retry took place  # noqa: E501
+
+        :return: The retry_time of this Entry.  # noqa: E501
+        :rtype: datetime
+        """
+        return self._retry_time
+
+    @retry_time.setter
+    def retry_time(self, retry_time):
+        """Sets the retry_time of this Entry.
+
+        When retry took place  # noqa: E501
+
+        :param retry_time: The retry_time of this Entry.  # noqa: E501
+        :type: datetime
+        """
+
+        self._retry_time = retry_time
 
     @property
     def roles(self):

@@ -17,6 +17,7 @@ import re  # noqa: F401
 import six
 
 from demisto_client.demisto_api.models.field_group import FieldGroup  # noqa: F401,E501
+from demisto_client.demisto_api.models.field_merge_strategy import FieldMergeStrategy  # noqa: F401,E501
 from demisto_client.demisto_api.models.grid_column import GridColumn  # noqa: F401,E501
 
 
@@ -52,12 +53,14 @@ class IncidentField(object):
         'id': 'str',
         'is_read_only': 'bool',
         'locked': 'bool',
+        'merge_strategy': 'FieldMergeStrategy',
         'modified': 'datetime',
         'name': 'str',
         'never_set_as_required': 'bool',
         'owner_only': 'bool',
         'placeholder': 'str',
         'prev_name': 'str',
+        'propagation_labels': 'list[str]',
         'required': 'bool',
         'script': 'str',
         'select_values': 'list[str]',
@@ -96,12 +99,14 @@ class IncidentField(object):
         'id': 'id',
         'is_read_only': 'isReadOnly',
         'locked': 'locked',
+        'merge_strategy': 'mergeStrategy',
         'modified': 'modified',
         'name': 'name',
         'never_set_as_required': 'neverSetAsRequired',
         'owner_only': 'ownerOnly',
         'placeholder': 'placeholder',
         'prev_name': 'prevName',
+        'propagation_labels': 'propagationLabels',
         'required': 'required',
         'script': 'script',
         'select_values': 'selectValues',
@@ -121,7 +126,7 @@ class IncidentField(object):
         'version': 'version'
     }
 
-    def __init__(self, associated_to_all=None, associated_types=None, breach_script=None, case_insensitive=None, cli_name=None, close_form=None, columns=None, commit_message=None, content=None, default_rows=None, description=None, edit_form=None, field_calc_script=None, group=None, hidden=None, id=None, is_read_only=None, locked=None, modified=None, name=None, never_set_as_required=None, owner_only=None, placeholder=None, prev_name=None, required=None, script=None, select_values=None, should_commit=None, sla=None, sort_values=None, system=None, system_associated_types=None, threshold=None, type=None, unmapped=None, unsearchable=None, use_as_kpi=None, validated_error=None, validation_regex=None, vc_should_ignore=None, version=None):  # noqa: E501
+    def __init__(self, associated_to_all=None, associated_types=None, breach_script=None, case_insensitive=None, cli_name=None, close_form=None, columns=None, commit_message=None, content=None, default_rows=None, description=None, edit_form=None, field_calc_script=None, group=None, hidden=None, id=None, is_read_only=None, locked=None, merge_strategy=None, modified=None, name=None, never_set_as_required=None, owner_only=None, placeholder=None, prev_name=None, propagation_labels=None, required=None, script=None, select_values=None, should_commit=None, sla=None, sort_values=None, system=None, system_associated_types=None, threshold=None, type=None, unmapped=None, unsearchable=None, use_as_kpi=None, validated_error=None, validation_regex=None, vc_should_ignore=None, version=None):  # noqa: E501
         """IncidentField - a model defined in Swagger"""  # noqa: E501
 
         self._associated_to_all = None
@@ -142,12 +147,14 @@ class IncidentField(object):
         self._id = None
         self._is_read_only = None
         self._locked = None
+        self._merge_strategy = None
         self._modified = None
         self._name = None
         self._never_set_as_required = None
         self._owner_only = None
         self._placeholder = None
         self._prev_name = None
+        self._propagation_labels = None
         self._required = None
         self._script = None
         self._select_values = None
@@ -203,6 +210,8 @@ class IncidentField(object):
             self.is_read_only = is_read_only
         if locked is not None:
             self.locked = locked
+        if merge_strategy is not None:
+            self.merge_strategy = merge_strategy
         if modified is not None:
             self.modified = modified
         if name is not None:
@@ -215,6 +224,8 @@ class IncidentField(object):
             self.placeholder = placeholder
         if prev_name is not None:
             self.prev_name = prev_name
+        if propagation_labels is not None:
+            self.propagation_labels = propagation_labels
         if required is not None:
             self.required = required
         if script is not None:
@@ -631,6 +642,27 @@ class IncidentField(object):
         self._locked = locked
 
     @property
+    def merge_strategy(self):
+        """Gets the merge_strategy of this IncidentField.  # noqa: E501
+
+
+        :return: The merge_strategy of this IncidentField.  # noqa: E501
+        :rtype: FieldMergeStrategy
+        """
+        return self._merge_strategy
+
+    @merge_strategy.setter
+    def merge_strategy(self, merge_strategy):
+        """Sets the merge_strategy of this IncidentField.
+
+
+        :param merge_strategy: The merge_strategy of this IncidentField.  # noqa: E501
+        :type: FieldMergeStrategy
+        """
+
+        self._merge_strategy = merge_strategy
+
+    @property
     def modified(self):
         """Gets the modified of this IncidentField.  # noqa: E501
 
@@ -755,6 +787,27 @@ class IncidentField(object):
         """
 
         self._prev_name = prev_name
+
+    @property
+    def propagation_labels(self):
+        """Gets the propagation_labels of this IncidentField.  # noqa: E501
+
+
+        :return: The propagation_labels of this IncidentField.  # noqa: E501
+        :rtype: list[str]
+        """
+        return self._propagation_labels
+
+    @propagation_labels.setter
+    def propagation_labels(self, propagation_labels):
+        """Sets the propagation_labels of this IncidentField.
+
+
+        :param propagation_labels: The propagation_labels of this IncidentField.  # noqa: E501
+        :type: list[str]
+        """
+
+        self._propagation_labels = propagation_labels
 
     @property
     def required(self):

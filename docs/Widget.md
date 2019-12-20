@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **name** | **str** | Default name of the widget. | 
 **params** | **dict(str, object)** | Additional parameters for this widget, depends on widget type and data. | [optional] 
 **prev_name** | **str** | The previous name of the widget. | [optional] 
+**propagation_labels** | **list[str]** |  | [optional] 
 **query** | **str** | Query to search on the dataType. | [optional] 
 **should_commit** | **bool** |  | [optional] 
 **size** | **int** | Maximum size for this widget data returned. | [optional] 

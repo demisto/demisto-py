@@ -16,7 +16,9 @@ import re  # noqa: F401
 
 import six
 
+from demisto_client.demisto_api.models.comments import Comments  # noqa: F401,E501
 from demisto_client.demisto_api.models.custom_fields import CustomFields  # noqa: F401,E501
+from demisto_client.demisto_api.models.feed_indicator import FeedIndicator  # noqa: F401,E501
 from demisto_client.demisto_api.models.insight_cache import InsightCache  # noqa: F401,E501
 
 
@@ -38,6 +40,7 @@ class IocObject(object):
         'account': 'str',
         'calculated_time': 'datetime',
         'comment': 'str',
+        'comments': 'Comments',
         'first_seen': 'datetime',
         'first_seen_entry_id': 'str',
         'id': 'str',
@@ -51,10 +54,14 @@ class IocObject(object):
         'manual_set_time': 'datetime',
         'manually_edited_fields': 'list[str]',
         'modified': 'datetime',
+        'modified_time': 'datetime',
+        'module_to_feed_map': 'dict(str, FeedIndicator)',
         'score': 'int',
         'set_by': 'str',
         'sort_values': 'list[str]',
         'source': 'str',
+        'source_brands': 'list[str]',
+        'source_instances': 'list[str]',
         'timestamp': 'datetime',
         'value': 'str',
         'version': 'int'
@@ -65,6 +72,7 @@ class IocObject(object):
         'account': 'account',
         'calculated_time': 'calculatedTime',
         'comment': 'comment',
+        'comments': 'comments',
         'first_seen': 'firstSeen',
         'first_seen_entry_id': 'firstSeenEntryID',
         'id': 'id',
@@ -78,22 +86,27 @@ class IocObject(object):
         'manual_set_time': 'manualSetTime',
         'manually_edited_fields': 'manuallyEditedFields',
         'modified': 'modified',
+        'modified_time': 'modifiedTime',
+        'module_to_feed_map': 'moduleToFeedMap',
         'score': 'score',
         'set_by': 'setBy',
         'sort_values': 'sortValues',
         'source': 'source',
+        'source_brands': 'sourceBrands',
+        'source_instances': 'sourceInstances',
         'timestamp': 'timestamp',
         'value': 'value',
         'version': 'version'
     }
 
-    def __init__(self, custom_fields=None, account=None, calculated_time=None, comment=None, first_seen=None, first_seen_entry_id=None, id=None, indicator_type=None, insight_cache=None, investigation_i_ds=None, last_reputation_run=None, last_seen=None, last_seen_entry_id=None, manual_score=None, manual_set_time=None, manually_edited_fields=None, modified=None, score=None, set_by=None, sort_values=None, source=None, timestamp=None, value=None, version=None):  # noqa: E501
+    def __init__(self, custom_fields=None, account=None, calculated_time=None, comment=None, comments=None, first_seen=None, first_seen_entry_id=None, id=None, indicator_type=None, insight_cache=None, investigation_i_ds=None, last_reputation_run=None, last_seen=None, last_seen_entry_id=None, manual_score=None, manual_set_time=None, manually_edited_fields=None, modified=None, modified_time=None, module_to_feed_map=None, score=None, set_by=None, sort_values=None, source=None, source_brands=None, source_instances=None, timestamp=None, value=None, version=None):  # noqa: E501
         """IocObject - a model defined in Swagger"""  # noqa: E501
 
         self._custom_fields = None
         self._account = None
         self._calculated_time = None
         self._comment = None
+        self._comments = None
         self._first_seen = None
         self._first_seen_entry_id = None
         self._id = None
@@ -107,10 +120,14 @@ class IocObject(object):
         self._manual_set_time = None
         self._manually_edited_fields = None
         self._modified = None
+        self._modified_time = None
+        self._module_to_feed_map = None
         self._score = None
         self._set_by = None
         self._sort_values = None
         self._source = None
+        self._source_brands = None
+        self._source_instances = None
         self._timestamp = None
         self._value = None
         self._version = None
@@ -124,6 +141,8 @@ class IocObject(object):
             self.calculated_time = calculated_time
         if comment is not None:
             self.comment = comment
+        if comments is not None:
+            self.comments = comments
         if first_seen is not None:
             self.first_seen = first_seen
         if first_seen_entry_id is not None:
@@ -150,6 +169,10 @@ class IocObject(object):
             self.manually_edited_fields = manually_edited_fields
         if modified is not None:
             self.modified = modified
+        if modified_time is not None:
+            self.modified_time = modified_time
+        if module_to_feed_map is not None:
+            self.module_to_feed_map = module_to_feed_map
         if score is not None:
             self.score = score
         if set_by is not None:
@@ -158,6 +181,10 @@ class IocObject(object):
             self.sort_values = sort_values
         if source is not None:
             self.source = source
+        if source_brands is not None:
+            self.source_brands = source_brands
+        if source_instances is not None:
+            self.source_instances = source_instances
         if timestamp is not None:
             self.timestamp = timestamp
         if value is not None:
@@ -250,6 +277,27 @@ class IocObject(object):
         """
 
         self._comment = comment
+
+    @property
+    def comments(self):
+        """Gets the comments of this IocObject.  # noqa: E501
+
+
+        :return: The comments of this IocObject.  # noqa: E501
+        :rtype: Comments
+        """
+        return self._comments
+
+    @comments.setter
+    def comments(self, comments):
+        """Sets the comments of this IocObject.
+
+
+        :param comments: The comments of this IocObject.  # noqa: E501
+        :type: Comments
+        """
+
+        self._comments = comments
 
     @property
     def first_seen(self):
@@ -525,6 +573,48 @@ class IocObject(object):
         self._modified = modified
 
     @property
+    def modified_time(self):
+        """Gets the modified_time of this IocObject.  # noqa: E501
+
+
+        :return: The modified_time of this IocObject.  # noqa: E501
+        :rtype: datetime
+        """
+        return self._modified_time
+
+    @modified_time.setter
+    def modified_time(self, modified_time):
+        """Sets the modified_time of this IocObject.
+
+
+        :param modified_time: The modified_time of this IocObject.  # noqa: E501
+        :type: datetime
+        """
+
+        self._modified_time = modified_time
+
+    @property
+    def module_to_feed_map(self):
+        """Gets the module_to_feed_map of this IocObject.  # noqa: E501
+
+
+        :return: The module_to_feed_map of this IocObject.  # noqa: E501
+        :rtype: dict(str, FeedIndicator)
+        """
+        return self._module_to_feed_map
+
+    @module_to_feed_map.setter
+    def module_to_feed_map(self, module_to_feed_map):
+        """Sets the module_to_feed_map of this IocObject.
+
+
+        :param module_to_feed_map: The module_to_feed_map of this IocObject.  # noqa: E501
+        :type: dict(str, FeedIndicator)
+        """
+
+        self._module_to_feed_map = module_to_feed_map
+
+    @property
     def score(self):
         """Gets the score of this IocObject.  # noqa: E501
 
@@ -607,6 +697,48 @@ class IocObject(object):
         """
 
         self._source = source
+
+    @property
+    def source_brands(self):
+        """Gets the source_brands of this IocObject.  # noqa: E501
+
+
+        :return: The source_brands of this IocObject.  # noqa: E501
+        :rtype: list[str]
+        """
+        return self._source_brands
+
+    @source_brands.setter
+    def source_brands(self, source_brands):
+        """Sets the source_brands of this IocObject.
+
+
+        :param source_brands: The source_brands of this IocObject.  # noqa: E501
+        :type: list[str]
+        """
+
+        self._source_brands = source_brands
+
+    @property
+    def source_instances(self):
+        """Gets the source_instances of this IocObject.  # noqa: E501
+
+
+        :return: The source_instances of this IocObject.  # noqa: E501
+        :rtype: list[str]
+        """
+        return self._source_instances
+
+    @source_instances.setter
+    def source_instances(self, source_instances):
+        """Sets the source_instances of this IocObject.
+
+
+        :param source_instances: The source_instances of this IocObject.  # noqa: E501
+        :type: list[str]
+        """
+
+        self._source_instances = source_instances
 
     @property
     def timestamp(self):

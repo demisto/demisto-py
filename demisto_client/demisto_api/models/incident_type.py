@@ -50,6 +50,7 @@ class IncidentType(object):
         'playbook_id': 'str',
         'pre_processing_script': 'str',
         'prev_name': 'str',
+        'propagation_labels': 'list[str]',
         'readonly': 'bool',
         'reputation_calc': 'ReputationCalcAlg',
         'should_commit': 'bool',
@@ -81,6 +82,7 @@ class IncidentType(object):
         'playbook_id': 'playbookId',
         'pre_processing_script': 'preProcessingScript',
         'prev_name': 'prevName',
+        'propagation_labels': 'propagationLabels',
         'readonly': 'readonly',
         'reputation_calc': 'reputationCalc',
         'should_commit': 'shouldCommit',
@@ -94,7 +96,7 @@ class IncidentType(object):
         'weeks_r': 'weeksR'
     }
 
-    def __init__(self, autorun=None, closure_script=None, color=None, commit_message=None, days=None, days_r=None, default=None, disabled=None, hours=None, hours_r=None, id=None, locked=None, modified=None, name=None, playbook_id=None, pre_processing_script=None, prev_name=None, readonly=None, reputation_calc=None, should_commit=None, sla=None, sla_reminder=None, sort_values=None, system=None, vc_should_ignore=None, version=None, weeks=None, weeks_r=None):  # noqa: E501
+    def __init__(self, autorun=None, closure_script=None, color=None, commit_message=None, days=None, days_r=None, default=None, disabled=None, hours=None, hours_r=None, id=None, locked=None, modified=None, name=None, playbook_id=None, pre_processing_script=None, prev_name=None, propagation_labels=None, readonly=None, reputation_calc=None, should_commit=None, sla=None, sla_reminder=None, sort_values=None, system=None, vc_should_ignore=None, version=None, weeks=None, weeks_r=None):  # noqa: E501
         """IncidentType - a model defined in Swagger"""  # noqa: E501
 
         self._autorun = None
@@ -114,6 +116,7 @@ class IncidentType(object):
         self._playbook_id = None
         self._pre_processing_script = None
         self._prev_name = None
+        self._propagation_labels = None
         self._readonly = None
         self._reputation_calc = None
         self._should_commit = None
@@ -161,6 +164,8 @@ class IncidentType(object):
             self.pre_processing_script = pre_processing_script
         if prev_name is not None:
             self.prev_name = prev_name
+        if propagation_labels is not None:
+            self.propagation_labels = propagation_labels
         if readonly is not None:
             self.readonly = readonly
         if reputation_calc is not None:
@@ -540,6 +545,27 @@ class IncidentType(object):
         """
 
         self._prev_name = prev_name
+
+    @property
+    def propagation_labels(self):
+        """Gets the propagation_labels of this IncidentType.  # noqa: E501
+
+
+        :return: The propagation_labels of this IncidentType.  # noqa: E501
+        :rtype: list[str]
+        """
+        return self._propagation_labels
+
+    @propagation_labels.setter
+    def propagation_labels(self, propagation_labels):
+        """Sets the propagation_labels of this IncidentType.
+
+
+        :param propagation_labels: The propagation_labels of this IncidentType.  # noqa: E501
+        :type: list[str]
+        """
+
+        self._propagation_labels = propagation_labels
 
     @property
     def readonly(self):

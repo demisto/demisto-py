@@ -41,6 +41,7 @@ class IndicatorFilter(object):
         'first_seen': 'DateRangeFilter',
         'from_date': 'datetime',
         'from_date_license': 'datetime',
+        'ignore_workers': 'bool',
         'last_seen': 'DateRangeFilter',
         'later_time_in_page': 'datetime',
         'page': 'int',
@@ -61,6 +62,7 @@ class IndicatorFilter(object):
         'first_seen': 'firstSeen',
         'from_date': 'fromDate',
         'from_date_license': 'fromDateLicense',
+        'ignore_workers': 'ignoreWorkers',
         'last_seen': 'lastSeen',
         'later_time_in_page': 'laterTimeInPage',
         'page': 'page',
@@ -75,7 +77,7 @@ class IndicatorFilter(object):
         'to_date': 'toDate'
     }
 
-    def __init__(self, cache=None, early_time_in_page=None, first_seen=None, from_date=None, from_date_license=None, last_seen=None, later_time_in_page=None, page=None, period=None, prev_page=None, query=None, search_after=None, search_before=None, size=None, sort=None, time_frame=None, to_date=None):  # noqa: E501
+    def __init__(self, cache=None, early_time_in_page=None, first_seen=None, from_date=None, from_date_license=None, ignore_workers=None, last_seen=None, later_time_in_page=None, page=None, period=None, prev_page=None, query=None, search_after=None, search_before=None, size=None, sort=None, time_frame=None, to_date=None):  # noqa: E501
         """IndicatorFilter - a model defined in Swagger"""  # noqa: E501
 
         self._cache = None
@@ -83,6 +85,7 @@ class IndicatorFilter(object):
         self._first_seen = None
         self._from_date = None
         self._from_date_license = None
+        self._ignore_workers = None
         self._last_seen = None
         self._later_time_in_page = None
         self._page = None
@@ -107,6 +110,8 @@ class IndicatorFilter(object):
             self.from_date = from_date
         if from_date_license is not None:
             self.from_date_license = from_date_license
+        if ignore_workers is not None:
+            self.ignore_workers = ignore_workers
         if last_seen is not None:
             self.last_seen = last_seen
         if later_time_in_page is not None:
@@ -238,6 +243,29 @@ class IndicatorFilter(object):
         """
 
         self._from_date_license = from_date_license
+
+    @property
+    def ignore_workers(self):
+        """Gets the ignore_workers of this IndicatorFilter.  # noqa: E501
+
+        Do not use workers mechanism while searching bleve  # noqa: E501
+
+        :return: The ignore_workers of this IndicatorFilter.  # noqa: E501
+        :rtype: bool
+        """
+        return self._ignore_workers
+
+    @ignore_workers.setter
+    def ignore_workers(self, ignore_workers):
+        """Sets the ignore_workers of this IndicatorFilter.
+
+        Do not use workers mechanism while searching bleve  # noqa: E501
+
+        :param ignore_workers: The ignore_workers of this IndicatorFilter.  # noqa: E501
+        :type: bool
+        """
+
+        self._ignore_workers = ignore_workers
 
     @property
     def last_seen(self):

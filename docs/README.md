@@ -20,6 +20,7 @@ Method | HTTP request | Description
 [**delete_incidents_batch**](DefaultApi.md#delete_incidents_batch) | **POST** /incident/batchDelete | Batch delete incidents
 [**delete_indicators_batch**](DefaultApi.md#delete_indicators_batch) | **POST** /indicators/batchDelete | Batch whitelist or delete indicators
 [**delete_widget**](DefaultApi.md#delete_widget) | **DELETE** /widgets/{id} | Remove existing widget
+[**download_file**](DefaultApi.md#download_file) | **GET** /entry/download/{entryid} | Download file
 [**download_latest_report**](DefaultApi.md#download_latest_report) | **GET** /reports/{id}/latest | Get latest report by ID
 [**edit_ad_hoc_task**](DefaultApi.md#edit_ad_hoc_task) | **POST** /inv-playbook/task/edit/{investigationId} | Edit ad-hoc task
 [**entry_export_artifact**](DefaultApi.md#entry_export_artifact) | **POST** /entry/exportArtifact | Export Artifact
@@ -41,6 +42,7 @@ Method | HTTP request | Description
 [**get_stats_for_dashboard**](DefaultApi.md#get_stats_for_dashboard) | **POST** /statistics/dashboards/query | Get Dashboard Statistics
 [**get_stats_for_widget**](DefaultApi.md#get_stats_for_widget) | **POST** /statistics/widgets/query | Get Widget Statistics
 [**get_widget**](DefaultApi.md#get_widget) | **GET** /widgets/{id} | Get widget by ID
+[**health_handler**](DefaultApi.md#health_handler) | **GET** /health | Check if Demisto server is available
 [**import_widget**](DefaultApi.md#import_widget) | **POST** /widgets/import | Import a widget
 [**incident_file_upload**](DefaultApi.md#incident_file_upload) | **POST** /incident/upload/{id} | 
 [**indicator_whitelist**](DefaultApi.md#indicator_whitelist) | **POST** /indicator/whitelist | Whitelists or deletes Indicator
@@ -48,8 +50,13 @@ Method | HTTP request | Description
 [**indicators_create_batch**](DefaultApi.md#indicators_create_batch) | **POST** /indicators/upload | Create indicators
 [**indicators_edit**](DefaultApi.md#indicators_edit) | **POST** /indicator/edit | Edit Indicator
 [**indicators_search**](DefaultApi.md#indicators_search) | **POST** /indicators/search | Search indicators
+[**integration_upload**](DefaultApi.md#integration_upload) | **POST** /settings/integration-conf/upload | Upload an integration
 [**investigation_add_entry_handler**](DefaultApi.md#investigation_add_entry_handler) | **POST** /entry | Create new entry in existing investigation
 [**investigation_add_formatted_entry_handler**](DefaultApi.md#investigation_add_formatted_entry_handler) | **POST** /entry/formatted | Create new formatted entry in existing investigation
+[**logout_myself_handler**](DefaultApi.md#logout_myself_handler) | **POST** /logout/myself | Sign out all my open sessions
+[**logout_myself_other_sessions_handler**](DefaultApi.md#logout_myself_other_sessions_handler) | **POST** /logout/myself/other | Sign out all my other open sessions
+[**logout_user_sessions_handler**](DefaultApi.md#logout_user_sessions_handler) | **POST** /logout/user/{username} | Sign out all sessions of the provided username
+[**logouta_everyone_handler**](DefaultApi.md#logouta_everyone_handler) | **POST** /logout/everyone | Sign out all open users sessions
 [**revoke_user_api_key**](DefaultApi.md#revoke_user_api_key) | **POST** /apikeys/revoke/user/{username} | 
 [**save_evidence**](DefaultApi.md#save_evidence) | **POST** /evidence | Save evidence
 [**save_or_update_script**](DefaultApi.md#save_or_update_script) | **POST** /automation | Create or update automation
@@ -65,6 +72,7 @@ Method | HTTP request | Description
 [**task_un_complete**](DefaultApi.md#task_un_complete) | **POST** /inv-playbook/task/uncomplete | Un complete a task
 [**update_entry_note**](DefaultApi.md#update_entry_note) | **POST** /entry/note | Mark entry as note
 [**update_entry_tags_op**](DefaultApi.md#update_entry_tags_op) | **POST** /entry/tags | Set entry tags
+[**workers_status_handler**](DefaultApi.md#workers_status_handler) | **GET** /workers/status | Get workers status
 
 
 ## Documentation For Models
@@ -83,7 +91,14 @@ Method | HTTP request | Description
  - [AutomationScriptFilter](AutomationScriptFilter.md)
  - [AutomationScriptFilterWrapper](AutomationScriptFilterWrapper.md)
  - [AutomationScriptResult](AutomationScriptResult.md)
+ - [Command](Command.md)
+ - [Comment](Comment.md)
+ - [CommentUpdate](CommentUpdate.md)
+ - [Comments](Comments.md)
+ - [CommonFields](CommonFields.md)
  - [ComplexArg](ComplexArg.md)
+ - [ConfigDataType](ConfigDataType.md)
+ - [ConfigField](ConfigField.md)
  - [CreateIncidentRequest](CreateIncidentRequest.md)
  - [CustomFields](CustomFields.md)
  - [DBotScore](DBotScore.md)
@@ -108,11 +123,13 @@ Method | HTTP request | Description
  - [Evidences](Evidences.md)
  - [EvidencesFilterWrapper](EvidencesFilterWrapper.md)
  - [EvidencesSearchResponse](EvidencesSearchResponse.md)
+ - [ExpirationPolicy](ExpirationPolicy.md)
+ - [FeedIndicator](FeedIndicator.md)
  - [FieldGroup](FieldGroup.md)
  - [FieldMapping](FieldMapping.md)
+ - [FieldMergeStrategy](FieldMergeStrategy.md)
  - [FieldTermLocationMap](FieldTermLocationMap.md)
  - [FileMetadata](FileMetadata.md)
- - [FilterCache](FilterCache.md)
  - [FilterOperatorID](FilterOperatorID.md)
  - [GenericIndicatorUpdateBatch](GenericIndicatorUpdateBatch.md)
  - [GenericStringDateFilter](GenericStringDateFilter.md)
@@ -125,15 +142,16 @@ Method | HTTP request | Description
  - [Incident](Incident.md)
  - [IncidentField](IncidentField.md)
  - [IncidentFilter](IncidentFilter.md)
- - [IncidentSearchResponseWrapper](IncidentSearchResponseWrapper.md)
  - [IncidentStatus](IncidentStatus.md)
  - [IncidentType](IncidentType.md)
  - [IncidentWrapper](IncidentWrapper.md)
  - [IndicatorContext](IndicatorContext.md)
  - [IndicatorFilter](IndicatorFilter.md)
  - [IndicatorResult](IndicatorResult.md)
+ - [Info](Info.md)
  - [InlineResponse200](InlineResponse200.md)
  - [InsightCache](InsightCache.md)
+ - [IntegrationScript](IntegrationScript.md)
  - [InvPlaybookAssignee](InvPlaybookAssignee.md)
  - [InvPlaybookDue](InvPlaybookDue.md)
  - [InvPlaybookTaskCompleteData](InvPlaybookTaskCompleteData.md)
@@ -145,7 +163,6 @@ Method | HTTP request | Description
  - [InvestigationPlaybookData](InvestigationPlaybookData.md)
  - [InvestigationPlaybookState](InvestigationPlaybookState.md)
  - [InvestigationPlaybookTask](InvestigationPlaybookTask.md)
- - [InvestigationPlaybookTasksAPI](InvestigationPlaybookTasksAPI.md)
  - [InvestigationSearchResponse](InvestigationSearchResponse.md)
  - [InvestigationStatus](InvestigationStatus.md)
  - [InvestigationType](InvestigationType.md)
@@ -156,6 +173,7 @@ Method | HTTP request | Description
  - [Location](Location.md)
  - [Locations](Locations.md)
  - [ModuleArgs](ModuleArgs.md)
+ - [ModuleConfiguration](ModuleConfiguration.md)
  - [NewDockerImage](NewDockerImage.md)
  - [NewDockerImageResult](NewDockerImageResult.md)
  - [NotifiableItem](NotifiableItem.md)
@@ -171,8 +189,9 @@ Method | HTTP request | Description
  - [PlaybookOutputs](PlaybookOutputs.md)
  - [PlaybookView](PlaybookView.md)
  - [Question](Question.md)
+ - [RBAC](RBAC.md)
  - [RawMessage](RawMessage.md)
- - [RemoteRepos](RemoteRepos.md)
+ - [Reliability](Reliability.md)
  - [Report](Report.md)
  - [ReportAutomation](ReportAutomation.md)
  - [ReportFieldsDecoder](ReportFieldsDecoder.md)
@@ -185,9 +204,7 @@ Method | HTTP request | Description
  - [ScriptSubType](ScriptSubType.md)
  - [ScriptTarget](ScriptTarget.md)
  - [ScriptType](ScriptType.md)
- - [SearchIncidentsData](SearchIncidentsData.md)
  - [Section](Section.md)
- - [SectionItem](SectionItem.md)
  - [Severity](Severity.md)
  - [StatsQueryResponse](StatsQueryResponse.md)
  - [StatsTextResponse](StatsTextResponse.md)
@@ -208,8 +225,6 @@ Method | HTTP request | Description
  - [UpdateDataBatch](UpdateDataBatch.md)
  - [UpdateEntry](UpdateEntry.md)
  - [UpdateEntryTags](UpdateEntryTags.md)
- - [UpdateIndicatorReputationData](UpdateIndicatorReputationData.md)
- - [UpdateResponse](UpdateResponse.md)
  - [UploadedEntry](UploadedEntry.md)
  - [Widget](Widget.md)
  - [WidgetCell](WidgetCell.md)
@@ -223,12 +238,6 @@ Method | HTTP request | Description
 
 - **Type**: API key
 - **API key parameter name**: Authorization
-- **Location**: HTTP header
-
-## csrf_token
-
-- **Type**: API key
-- **API key parameter name**: X-XSRF-TOKEN
 - **Location**: HTTP header
 
 

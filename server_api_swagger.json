@@ -187,6 +187,33 @@
         }
       }
     },
+    "/entry/download/{entryid}": {
+      "get": {
+        "description": "Download file from Demisto by entry ID",
+        "produces": [
+          "application/octet-stream"
+        ],
+        "summary": "Download file",
+        "operationId": "downloadFile",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Entry ID",
+            "name": "entryid",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return the entry",
+            "schema": {
+              "type": "file"
+            }
+          }
+        }
+      }
+    },
     "/entry/exportArtifact": {
       "post": {
         "description": "Export an entry artifact",
@@ -203,10 +230,7 @@
         ],
         "responses": {
           "200": {
-            "description": "created file name",
-            "schema": {
-              "type": "string"
-            }
+            "description": "created file name"
           }
         }
       }
@@ -347,6 +371,21 @@
             "description": "EvidencesSearchResponse",
             "schema": {
               "$ref": "#/definitions/EvidencesSearchResponse"
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "description": "Check if Demisto server is available",
+        "summary": "Check if Demisto server is available",
+        "operationId": "healthHandler",
+        "responses": {
+          "200": {
+            "description": "OK status",
+            "schema": {
+              "type": "string"
             }
           }
         }
@@ -526,7 +565,8 @@
             "type": "string",
             "description": "Incident id to update",
             "name": "id",
-            "in": "path"
+            "in": "path",
+            "required": true
           },
           {
             "type": "string",
@@ -1223,6 +1263,38 @@
         }
       }
     },
+    "/logout/everyone": {
+      "post": {
+        "description": "Sign out all open users sessions",
+        "summary": "Sign out all open users sessions",
+        "operationId": "logoutaEveryoneHandler",
+        "responses": {}
+      }
+    },
+    "/logout/myself": {
+      "post": {
+        "description": "Sign out all my open sessions",
+        "summary": "Sign out all my open sessions",
+        "operationId": "logoutMyselfHandler",
+        "responses": {}
+      }
+    },
+    "/logout/myself/other": {
+      "post": {
+        "description": "Sign out all my other open sessions",
+        "summary": "Sign out all my other open sessions",
+        "operationId": "logoutMyselfOtherSessionsHandler",
+        "responses": {}
+      }
+    },
+    "/logout/user/{username}": {
+      "post": {
+        "description": "Sign out all sessions of the provided username",
+        "summary": "Sign out all sessions of the provided username",
+        "operationId": "logoutUserSessionsHandler",
+        "responses": {}
+      }
+    },
     "/report/{id}/{requestId}/execute": {
       "post": {
         "description": "Execute a new report",
@@ -1376,6 +1448,36 @@
             "description": "newDockerImageResult",
             "schema": {
               "$ref": "#/definitions/newDockerImageResult"
+            }
+          }
+        }
+      }
+    },
+    "/settings/integration-conf/upload": {
+      "post": {
+        "description": "Upload an integration to Demisto",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "Upload an integration",
+        "operationId": "integrationUpload",
+        "parameters": [
+          {
+            "name": "ModuleConfiguration",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/ModuleConfiguration"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The saved configuration",
+            "schema": {
+              "$ref": "#/definitions/ModuleConfiguration"
             }
           }
         }
@@ -1664,6 +1766,21 @@
           }
         }
       }
+    },
+    "/workers/status": {
+      "get": {
+        "description": "Get workers status",
+        "summary": "Get workers status",
+        "operationId": "workersStatusHandler",
+        "responses": {
+          "200": {
+            "description": "Workers status",
+            "schema": {
+              "$ref": "#/definitions/Info"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -1719,6 +1836,10 @@
       "title": "ArgTransformer ...",
       "properties": {
         "args": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/OperatorArgument"
+          },
           "x-go-name": "Args"
         },
         "operator": {
@@ -1783,7 +1904,7 @@
         "type": "integer",
         "format": "uint64"
       },
-      "x-go-package": "github.com/demisto/server/vendor/github.com/blevesearch/bleve/search"
+      "x-go-package": "github.com/blevesearch/bleve/search"
     },
     "Attachment": {
       "type": "object",
@@ -1904,6 +2025,10 @@
           "type": "boolean",
           "x-go-name": "Deprecated"
         },
+        "detached": {
+          "type": "boolean",
+          "x-go-name": "Detached"
+        },
         "dockerImage": {
           "type": "string",
           "x-go-name": "DockerImage"
@@ -1964,6 +2089,13 @@
           },
           "x-go-name": "PreviousRoleName"
         },
+        "propagationLabels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "PropagationLabels"
+        },
         "pswd": {
           "type": "string",
           "x-go-name": "Password"
@@ -2016,6 +2148,10 @@
             "type": "string"
           },
           "x-go-name": "SortValues"
+        },
+        "sourceScripID": {
+          "type": "string",
+          "x-go-name": "SourceScripID"
         },
         "subtype": {
           "$ref": "#/definitions/ScriptSubType"
@@ -2092,6 +2228,10 @@
         "deprecated": {
           "type": "boolean",
           "x-go-name": "Deprecated"
+        },
+        "detached": {
+          "type": "boolean",
+          "x-go-name": "Detached"
         },
         "dockerImage": {
           "type": "string",
@@ -2171,7 +2311,164 @@
           "x-go-name": "Version"
         }
       },
-      "x-go-package": "github.com/demisto/server/services"
+      "x-go-package": "github.com/demisto/server/services/ifaces"
+    },
+    "Command": {
+      "description": "Command supported by a module",
+      "type": "object",
+      "properties": {
+        "arguments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Argument"
+          },
+          "x-go-name": "Arguments"
+        },
+        "cartesian": {
+          "type": "boolean",
+          "x-go-name": "Cartesian"
+        },
+        "deprecated": {
+          "type": "boolean",
+          "x-go-name": "Deprecated"
+        },
+        "description": {
+          "type": "string",
+          "x-go-name": "Description"
+        },
+        "execution": {
+          "type": "boolean",
+          "x-go-name": "Execution"
+        },
+        "hidden": {
+          "type": "boolean",
+          "x-go-name": "Hidden"
+        },
+        "important": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Important"
+          },
+          "x-go-name": "Important"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "outputs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Output"
+          },
+          "x-go-name": "Outputs"
+        },
+        "permitted": {
+          "type": "boolean",
+          "x-go-name": "Permitted"
+        },
+        "sensitive": {
+          "type": "boolean",
+          "x-go-name": "Sensitive"
+        },
+        "timeout": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Timeout"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/domain"
+    },
+    "Comment": {
+      "type": "object",
+      "title": "Comment ...",
+      "properties": {
+        "content": {
+          "type": "string",
+          "x-go-name": "Content"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "Created"
+        },
+        "id": {
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "modified": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "Modified"
+        },
+        "sortValues": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "SortValues"
+        },
+        "user": {
+          "type": "string",
+          "x-go-name": "User"
+        },
+        "version": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Versn"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/domain"
+    },
+    "CommentUpdate": {
+      "type": "object",
+      "title": "CommentUpdate ...",
+      "properties": {
+        "content": {
+          "type": "string",
+          "x-go-name": "Content"
+        },
+        "indicatorId": {
+          "type": "string",
+          "x-go-name": "IndicatorID"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/web"
+    },
+    "Comments": {
+      "type": "array",
+      "title": "Comments ...",
+      "items": {
+        "$ref": "#/definitions/Comment"
+      },
+      "x-go-package": "github.com/demisto/server/domain"
+    },
+    "CommonFields": {
+      "description": "CommonFields holds the common fields to all entities",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "modified": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "Modified"
+        },
+        "sortValues": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "SortValues"
+        },
+        "version": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Versn"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/domain"
     },
     "ComplexArg": {
       "description": "ComplexArg - all info that is necessary to compute argument value from context\nRoot - the root slice (or object) from to work against\nFilters - a slice of filters to apply to the root object, one after another (e.i. with AND condition between each one)\nAccessor - the key to access to each result after filter\nTransformers - a slice to transformers to apply on the result of the accessed key from each result\ne.g. if user want to take from context all File.DisplayName where File.Extension is 'EXE', and the result in uppercase than:\nRoot: is \"File\"\nFilters: will hold the \"File.DisplayName where File.Extension is 'EXE'\" query\nAccessor: is \"DisplayName\"\nTransformers: will hold the uppercase transformation",
@@ -2198,6 +2495,53 @@
             "$ref": "#/definitions/ArgTransformer"
           },
           "x-go-name": "Transformers"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/domain"
+    },
+    "ConfigDataType": {
+      "description": "ConfigDataType holds the type of a configuration field or command argument",
+      "type": "number",
+      "format": "double",
+      "x-go-package": "github.com/demisto/server/domain"
+    },
+    "ConfigField": {
+      "description": "ConfigField holds a configuration field",
+      "type": "object",
+      "properties": {
+        "defaultValue": {
+          "type": "string",
+          "x-go-name": "DefaultValue"
+        },
+        "display": {
+          "type": "string",
+          "x-go-name": "Display"
+        },
+        "hidden": {
+          "type": "boolean",
+          "x-go-name": "Hidden"
+        },
+        "info": {
+          "type": "string",
+          "x-go-name": "AdditionalInfo"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "Options"
+        },
+        "required": {
+          "type": "boolean",
+          "x-go-name": "Required"
+        },
+        "type": {
+          "$ref": "#/definitions/ConfigDataType"
         }
       },
       "x-go-package": "github.com/demisto/server/domain"
@@ -2275,6 +2619,11 @@
           "type": "string",
           "format": "date-time",
           "x-go-name": "Created"
+        },
+        "dbotCreatedBy": {
+          "description": "Who has created this event - relevant only for manual incidents",
+          "type": "string",
+          "x-go-name": "CreatedBy"
         },
         "details": {
           "description": "The details of the incident - reason, etc.",
@@ -2471,6 +2820,14 @@
         "status": {
           "$ref": "#/definitions/IncidentStatus"
         },
+        "todoTaskIds": {
+          "description": "ToDoTaskIDs list of to do task ids",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "ToDoTaskIDs"
+        },
         "type": {
           "description": "Incident type",
           "type": "string",
@@ -2480,13 +2837,7 @@
           "type": "integer",
           "format": "int64",
           "x-go-name": "Versn"
-        },
-        "CustomFields": {
-          "$ref": "#/definitions/CustomFields"
         }
-      },
-      "additionalProperties": {
-        "type": "object"
       },
       "x-go-package": "github.com/demisto/server/domain"
     },
@@ -2593,6 +2944,13 @@
         "prevName": {
           "type": "string",
           "x-go-name": "PrevName"
+        },
+        "propagationLabels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "PropagationLabels"
         },
         "shared": {
           "type": "boolean",
@@ -2788,6 +3146,14 @@
           "type": "boolean",
           "x-go-name": "Deleted"
         },
+        "deletedBy": {
+          "type": "string",
+          "x-go-name": "DeletedBy"
+        },
+        "deletedFromFS": {
+          "type": "boolean",
+          "x-go-name": "DeletedFromFS"
+        },
         "endingDate": {
           "type": "string",
           "format": "date-time",
@@ -2850,6 +3216,11 @@
           "description": "The id of the investigation it belongs to",
           "type": "string",
           "x-go-name": "InvestigationID"
+        },
+        "isTodo": {
+          "description": "IsTodo",
+          "type": "boolean",
+          "x-go-name": "IsTodo"
         },
         "modified": {
           "type": "string",
@@ -2916,6 +3287,12 @@
             "$ref": "#/definitions/EntryReputation"
           },
           "x-go-name": "EntryReputations"
+        },
+        "retryTime": {
+          "description": "When retry took place",
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "RetryTime"
         },
         "roles": {
           "description": "The role assigned to this investigation",
@@ -3179,9 +3556,6 @@
           "x-go-name": "Versn"
         }
       },
-      "additionalProperties": {
-        "type": "object"
-      },
       "x-go-package": "github.com/demisto/server/domain"
     },
     "EvidenceData": {
@@ -3231,6 +3605,99 @@
       },
       "x-go-package": "github.com/demisto/server/repo/entities"
     },
+    "ExpirationPolicy": {
+      "type": "string",
+      "title": "ExpirationPolicy ...",
+      "x-go-package": "github.com/demisto/server/domain"
+    },
+    "FeedIndicator": {
+      "type": "object",
+      "title": "FeedIndicator ...",
+      "properties": {
+        "CustomFields": {
+          "$ref": "#/definitions/CustomFields"
+        },
+        "comment": {
+          "type": "string",
+          "x-go-name": "Comment"
+        },
+        "expirationInterval": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "ExpirationInterval"
+        },
+        "expirationPolicy": {
+          "$ref": "#/definitions/ExpirationPolicy"
+        },
+        "fetchTime": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "FetchTime"
+        },
+        "firstSeen": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "FirstSeen"
+        },
+        "lastSeen": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "LastSeen"
+        },
+        "modifiedTime": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "ModifiedTime"
+        },
+        "rawJSON": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          },
+          "x-go-name": "RawJSON"
+        },
+        "reliability": {
+          "$ref": "#/definitions/Reliability"
+        },
+        "score": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Score"
+        },
+        "source": {
+          "$ref": "#/definitions/DBotScore"
+        },
+        "sourceBrand": {
+          "type": "string",
+          "x-go-name": "Brand"
+        },
+        "sourceInstance": {
+          "type": "string",
+          "x-go-name": "Instance"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "TimeStamp"
+        },
+        "ttl": {
+          "description": "Feed data",
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "TTL"
+        },
+        "type": {
+          "description": "indicator fields",
+          "type": "string",
+          "x-go-name": "Type"
+        },
+        "value": {
+          "type": "string",
+          "x-go-name": "Value"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/domain"
+    },
     "FieldGroup": {
       "description": "FieldGroup is the field group",
       "type": "number",
@@ -3251,12 +3718,17 @@
       },
       "x-go-package": "github.com/demisto/server/domain"
     },
+    "FieldMergeStrategy": {
+      "description": "FieldMergeStrategy strategy for merging of indicator fields",
+      "type": "string",
+      "x-go-package": "github.com/demisto/server/domain"
+    },
     "FieldTermLocationMap": {
       "type": "object",
       "additionalProperties": {
         "$ref": "#/definitions/TermLocationMap"
       },
-      "x-go-package": "github.com/demisto/server/vendor/github.com/blevesearch/bleve/search"
+      "x-go-package": "github.com/blevesearch/bleve/search"
     },
     "FileMetadata": {
       "type": "object",
@@ -3302,11 +3774,6 @@
       },
       "x-go-package": "github.com/demisto/server/domain"
     },
-    "FilterCache": {
-      "type": "object",
-      "title": "FilterCache ...",
-      "x-go-package": "github.com/demisto/server/repo/entities"
-    },
     "FilterOperatorID": {
       "type": "string",
       "title": "FilterOperatorID ...",
@@ -3335,6 +3802,11 @@
           "type": "string",
           "format": "date-time",
           "x-go-name": "FromDateLicenseVal"
+        },
+        "ignoreWorkers": {
+          "description": "Do not use workers mechanism while searching bleve",
+          "type": "boolean",
+          "x-go-name": "IgnoreWorkers"
         },
         "page": {
           "description": "0-based page",
@@ -3403,6 +3875,11 @@
               "type": "string"
             }
           }
+        },
+        "ignoreWorkers": {
+          "description": "Do not use workers mechanism while searching bleve",
+          "type": "boolean",
+          "x-go-name": "IgnoreWorkers"
         },
         "page": {
           "description": "0-based page",
@@ -3669,6 +4146,11 @@
           "format": "date-time",
           "x-go-name": "Created"
         },
+        "dbotCreatedBy": {
+          "description": "Who has created this event - relevant only for manual incidents",
+          "type": "string",
+          "x-go-name": "CreatedBy"
+        },
         "details": {
           "description": "The details of the incident - reason, etc.",
           "type": "string",
@@ -3864,6 +4346,14 @@
         "status": {
           "$ref": "#/definitions/IncidentStatus"
         },
+        "todoTaskIds": {
+          "description": "ToDoTaskIDs list of to do task ids",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "ToDoTaskIDs"
+        },
         "type": {
           "description": "Incident type",
           "type": "string",
@@ -3874,9 +4364,6 @@
           "format": "int64",
           "x-go-name": "Versn"
         }
-      },
-      "additionalProperties": {
-        "type": "object"
       },
       "x-go-package": "github.com/demisto/server/domain"
     },
@@ -3968,6 +4455,9 @@
           "type": "boolean",
           "x-go-name": "Locked"
         },
+        "mergeStrategy": {
+          "$ref": "#/definitions/FieldMergeStrategy"
+        },
         "modified": {
           "type": "string",
           "format": "date-time",
@@ -3992,6 +4482,13 @@
         "prevName": {
           "type": "string",
           "x-go-name": "PrevName"
+        },
+        "propagationLabels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "PropagationLabels"
         },
         "required": {
           "type": "boolean",
@@ -4112,9 +4609,6 @@
           },
           "x-go-name": "Files"
         },
-        "firstIncidentInPage": {
-          "$ref": "#/definitions/IncidentWrapper"
-        },
         "fromActivatedDate": {
           "type": "string",
           "format": "date-time",
@@ -4152,6 +4646,11 @@
           },
           "x-go-name": "ID"
         },
+        "ignoreWorkers": {
+          "description": "Do not use workers mechanism while searching bleve",
+          "type": "boolean",
+          "x-go-name": "IgnoreWorkers"
+        },
         "includeTmp": {
           "type": "boolean",
           "x-go-name": "IncludeTmp"
@@ -4162,9 +4661,6 @@
             "type": "string"
           },
           "x-go-name": "Investigation"
-        },
-        "lastIncidentInPage": {
-          "$ref": "#/definitions/IncidentWrapper"
         },
         "level": {
           "type": "array",
@@ -4179,10 +4675,6 @@
             "type": "string"
           },
           "x-go-name": "Name"
-        },
-        "nextPage": {
-          "type": "boolean",
-          "x-go-name": "NextPage"
         },
         "notCategory": {
           "type": "array",
@@ -4247,10 +4739,6 @@
             "type": "string"
           },
           "x-go-name": "SearchBefore"
-        },
-        "sequentialPagesSearch": {
-          "type": "boolean",
-          "x-go-name": "SequentialPagesSearch"
         },
         "size": {
           "description": "Size is limited to 1000, if not passed it defaults to 0, and no results will return",
@@ -4336,31 +4824,6 @@
       },
       "x-go-package": "github.com/demisto/server/repo/entities"
     },
-    "IncidentSearchResponseWrapper": {
-      "description": "IncidentSearchResponseWrapper is an extension for the IncidentSearchResponse type, which holds list of IncidentWrapper(s)",
-      "type": "object",
-      "properties": {
-        "data": {
-          "description": "in: body",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/IncidentWrapper"
-          },
-          "x-go-name": "Data"
-        },
-        "notUpdated": {
-          "type": "integer",
-          "format": "uint64",
-          "x-go-name": "NotUpdated"
-        },
-        "total": {
-          "type": "integer",
-          "format": "int64",
-          "x-go-name": "Total"
-        }
-      },
-      "x-go-package": "github.com/demisto/server/domain"
-    },
     "IncidentStatus": {
       "description": "IncidentStatus is the status of the incident",
       "type": "number",
@@ -4443,6 +4906,13 @@
         "prevName": {
           "type": "string",
           "x-go-name": "PrevName"
+        },
+        "propagationLabels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "PropagationLabels"
         },
         "readonly": {
           "type": "boolean",
@@ -4579,6 +5049,11 @@
           "type": "string",
           "format": "date-time",
           "x-go-name": "Created"
+        },
+        "dbotCreatedBy": {
+          "description": "Who has created this event - relevant only for manual incidents",
+          "type": "string",
+          "x-go-name": "CreatedBy"
         },
         "details": {
           "description": "The details of the incident - reason, etc.",
@@ -4780,6 +5255,14 @@
         "status": {
           "$ref": "#/definitions/IncidentStatus"
         },
+        "todoTaskIds": {
+          "description": "ToDoTaskIDs list of to do task ids",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "ToDoTaskIDs"
+        },
         "type": {
           "description": "Incident type",
           "type": "string",
@@ -4790,9 +5273,6 @@
           "format": "int64",
           "x-go-name": "Versn"
         }
-      },
-      "additionalProperties": {
-        "type": "object"
       },
       "x-go-package": "github.com/demisto/server/domain"
     },
@@ -4827,6 +5307,11 @@
           "type": "string",
           "format": "date-time",
           "x-go-name": "FromDateLicenseVal"
+        },
+        "ignoreWorkers": {
+          "description": "Do not use workers mechanism while searching bleve",
+          "type": "boolean",
+          "x-go-name": "IgnoreWorkers"
         },
         "lastSeen": {
           "$ref": "#/definitions/DateRangeFilter"
@@ -4910,6 +5395,32 @@
       },
       "x-go-package": "github.com/demisto/server/web"
     },
+    "Info": {
+      "description": "Info - holds all workers status",
+      "type": "object",
+      "properties": {
+        "Available": {
+          "type": "number",
+          "format": "double"
+        },
+        "BufferSpace": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Busy": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "Total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/services/workers/workersInfo"
+    },
     "InsightCache": {
       "description": "InsightCache - map insight name to all its metadata, name will be case insensitive",
       "type": "object",
@@ -4941,6 +5452,58 @@
           "type": "integer",
           "format": "int64",
           "x-go-name": "Versn"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/domain"
+    },
+    "IntegrationScript": {
+      "type": "object",
+      "title": "IntegrationScript ...",
+      "properties": {
+        "commands": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Command"
+          },
+          "x-go-name": "Commands"
+        },
+        "dockerImage": {
+          "type": "string",
+          "x-go-name": "DockerImage"
+        },
+        "feed": {
+          "type": "boolean",
+          "x-go-name": "Feed"
+        },
+        "isFetch": {
+          "type": "boolean",
+          "x-go-name": "IsFetch"
+        },
+        "isFetchCredentials": {
+          "type": "boolean",
+          "x-go-name": "IsFetchCredentials"
+        },
+        "longRunning": {
+          "type": "boolean",
+          "x-go-name": "LongRunning"
+        },
+        "longRunningPortMapping": {
+          "type": "boolean",
+          "x-go-name": "LongRunningPort"
+        },
+        "runOnce": {
+          "type": "boolean",
+          "x-go-name": "RunOnce"
+        },
+        "script": {
+          "type": "string",
+          "x-go-name": "Script"
+        },
+        "subtype": {
+          "$ref": "#/definitions/ScriptSubType"
+        },
+        "type": {
+          "$ref": "#/definitions/ScriptType"
         }
       },
       "x-go-package": "github.com/demisto/server/domain"
@@ -5007,6 +5570,10 @@
           "type": "integer",
           "format": "int64",
           "x-go-name": "WillNotExecuteCount"
+        },
+        "willNotExecuteReason": {
+          "type": "string",
+          "x-go-name": "WillNotExecuteReason"
         }
       },
       "x-go-package": "github.com/demisto/server/domain"
@@ -5317,6 +5884,11 @@
         "idsOnly": {
           "type": "boolean",
           "x-go-name": "IdsOnly"
+        },
+        "ignoreWorkers": {
+          "description": "Do not use workers mechanism while searching bleve",
+          "type": "boolean",
+          "x-go-name": "IgnoreWorkers"
         },
         "includeChildInv": {
           "type": "boolean",
@@ -5802,6 +6374,11 @@
         "message": {
           "$ref": "#/definitions/NotifiableItem"
         },
+        "missingContentItem": {
+          "description": "content item which caused task to skip",
+          "type": "string",
+          "x-go-name": "MissingContentItem"
+        },
         "nextTasks": {
           "type": "object",
           "additionalProperties": {
@@ -5879,6 +6456,16 @@
           "type": "boolean",
           "x-go-name": "SeparateContext"
         },
+        "skip": {
+          "description": "Skip - if true then this task will be skipped and all the tasks which comes after this task and depend on it\nwill skip (WillNotExecute)",
+          "type": "boolean",
+          "x-go-name": "Skip"
+        },
+        "skipUnavailable": {
+          "description": "SkipUnavailable if true then will check if automation exists, integration of that command is installed and\nactive or sub playbook exists in Demisto",
+          "type": "boolean",
+          "x-go-name": "SkipUnavailable"
+        },
         "sla": {
           "$ref": "#/definitions/SLA"
         },
@@ -5929,34 +6516,10 @@
           "type": "integer",
           "format": "int64",
           "x-go-name": "WillNotExecuteCount"
-        }
-      },
-      "x-go-package": "github.com/demisto/server/domain"
-    },
-    "InvestigationPlaybookTasksAPI": {
-      "description": "InvestigationPlaybookTasksAPI is the wrapper around an investigation task and it's parent inv id",
-      "type": "object",
-      "properties": {
-        "ancestors": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "x-go-name": "PlaybookAncestorNames"
         },
-        "incSeverity": {
-          "$ref": "#/definitions/Severity"
-        },
-        "invId": {
+        "willNotExecuteReason": {
           "type": "string",
-          "x-go-name": "InvestigationID"
-        },
-        "invName": {
-          "type": "string",
-          "x-go-name": "InvestigationName"
-        },
-        "task": {
-          "$ref": "#/definitions/InvestigationPlaybookTask"
+          "x-go-name": "WillNotExecuteReason"
         }
       },
       "x-go-package": "github.com/demisto/server/domain"
@@ -6022,6 +6585,9 @@
           "type": "string",
           "x-go-name": "Comment"
         },
+        "comments": {
+          "$ref": "#/definitions/Comments"
+        },
         "firstSeen": {
           "type": "string",
           "format": "date-time",
@@ -6084,6 +6650,18 @@
           "format": "date-time",
           "x-go-name": "Modified"
         },
+        "modifiedTime": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "ModifiedTime"
+        },
+        "moduleToFeedMap": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/FeedIndicator"
+          },
+          "x-go-name": "ModuleToFeedMap"
+        },
         "score": {
           "type": "integer",
           "format": "int64",
@@ -6103,6 +6681,20 @@
         "source": {
           "type": "string",
           "x-go-name": "Source"
+        },
+        "sourceBrands": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "SourceBrands"
+        },
+        "sourceInstances": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "SourceInstances"
         },
         "timestamp": {
           "type": "string",
@@ -6168,20 +6760,169 @@
           "x-go-name": "Start"
         }
       },
-      "x-go-package": "github.com/demisto/server/vendor/github.com/blevesearch/bleve/search"
+      "x-go-package": "github.com/blevesearch/bleve/search"
     },
     "Locations": {
       "type": "array",
       "items": {
         "$ref": "#/definitions/Location"
       },
-      "x-go-package": "github.com/demisto/server/vendor/github.com/blevesearch/bleve/search"
+      "x-go-package": "github.com/blevesearch/bleve/search"
     },
     "ModuleArgs": {
       "description": "ModuleArgs represents module args",
       "type": "object",
       "additionalProperties": {
         "type": "object"
+      },
+      "x-go-package": "github.com/demisto/server/domain"
+    },
+    "ModuleConfiguration": {
+      "description": "ModuleConfiguration is the configuration parameters for a module",
+      "type": "object",
+      "properties": {
+        "beta": {
+          "type": "boolean",
+          "x-go-name": "Beta"
+        },
+        "brand": {
+          "type": "string",
+          "x-go-name": "Brand"
+        },
+        "canGetSamples": {
+          "type": "boolean",
+          "x-go-name": "CanGetSamples"
+        },
+        "category": {
+          "type": "string",
+          "x-go-name": "Category"
+        },
+        "cmdline": {
+          "type": "string",
+          "x-go-name": "Cmdline"
+        },
+        "commitMessage": {
+          "type": "string",
+          "x-go-name": "CommitMessage"
+        },
+        "configuration": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ConfigField"
+          },
+          "x-go-name": "Configuration"
+        },
+        "deprecated": {
+          "type": "boolean",
+          "x-go-name": "Deprecated"
+        },
+        "description": {
+          "type": "string",
+          "x-go-name": "Description"
+        },
+        "detailedDescription": {
+          "type": "string",
+          "x-go-name": "DetailedDescription"
+        },
+        "display": {
+          "type": "string",
+          "x-go-name": "Display"
+        },
+        "executable": {
+          "type": "string",
+          "x-go-name": "Executable"
+        },
+        "hidden": {
+          "type": "boolean",
+          "x-go-name": "Hidden"
+        },
+        "hideEngines": {
+          "type": "boolean",
+          "x-go-name": "HideEngines"
+        },
+        "icon": {
+          "type": "string",
+          "x-go-name": "Icon"
+        },
+        "id": {
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "image": {
+          "type": "string",
+          "x-go-name": "Image"
+        },
+        "integrationScript": {
+          "$ref": "#/definitions/IntegrationScript"
+        },
+        "isPasswordProtected": {
+          "type": "boolean",
+          "x-go-name": "IsPasswordProtected"
+        },
+        "locked": {
+          "type": "boolean",
+          "x-go-name": "Locked"
+        },
+        "modified": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "Modified"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "path": {
+          "type": "string",
+          "x-go-name": "Path"
+        },
+        "prevName": {
+          "type": "string",
+          "x-go-name": "PrevName"
+        },
+        "propagationLabels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "PropagationLabels"
+        },
+        "readonly": {
+          "type": "boolean",
+          "x-go-name": "ReadOnly"
+        },
+        "scriptNotVisible": {
+          "type": "boolean",
+          "x-go-name": "ScriptNotVisible"
+        },
+        "shouldCommit": {
+          "type": "boolean",
+          "x-go-name": "ShouldCommit"
+        },
+        "sortValues": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "SortValues"
+        },
+        "sourceModuleID": {
+          "type": "string",
+          "x-go-name": "SourceModuleID"
+        },
+        "system": {
+          "type": "boolean",
+          "x-go-name": "System"
+        },
+        "vcShouldIgnore": {
+          "type": "boolean",
+          "x-go-name": "VCShouldIgnore"
+        },
+        "version": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Versn"
+        }
       },
       "x-go-package": "github.com/demisto/server/domain"
     },
@@ -6457,6 +7198,10 @@
           "type": "string",
           "x-go-name": "Placeholder"
         },
+        "readOnly": {
+          "type": "boolean",
+          "x-go-name": "ReadOnly"
+        },
         "required": {
           "type": "boolean",
           "x-go-name": "Required"
@@ -6472,6 +7217,34 @@
       },
       "x-go-package": "github.com/demisto/server/domain"
     },
+    "RBAC": {
+      "description": "RBAC holds roles data for domain entities",
+      "type": "object",
+      "properties": {
+        "hasRole": {
+          "description": "Internal field to make queries on role faster",
+          "type": "boolean",
+          "x-go-name": "HasRole"
+        },
+        "previousRoles": {
+          "description": "PreviousRoleName - do not change this field manually",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "PreviousRoleName"
+        },
+        "roles": {
+          "description": "The role assigned to this investigation",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "RoleName"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/domain"
+    },
     "RawMessage": {
       "description": "It implements Marshaler and Unmarshaler and can\nbe used to delay JSON decoding or precompute a JSON encoding.",
       "type": "array",
@@ -6481,6 +7254,11 @@
         "format": "uint8"
       },
       "x-go-package": "encoding/json"
+    },
+    "Reliability": {
+      "type": "string",
+      "title": "Reliability ...",
+      "x-go-package": "github.com/demisto/server/domain"
     },
     "Report": {
       "description": "Report - represents report",
@@ -6586,6 +7364,13 @@
         "prevType": {
           "type": "string",
           "x-go-name": "PrevType"
+        },
+        "propagationLabels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "PropagationLabels"
         },
         "recipients": {
           "type": "array",
@@ -6831,20 +7616,6 @@
       "type": "string",
       "x-go-package": "github.com/demisto/server/domain"
     },
-    "SearchIncidentsData": {
-      "type": "object",
-      "title": "SearchIncidentsData ...",
-      "properties": {
-        "filter": {
-          "$ref": "#/definitions/IncidentFilter"
-        },
-        "userFilter": {
-          "type": "boolean",
-          "x-go-name": "FilterByUser"
-        }
-      },
-      "x-go-package": "github.com/demisto/server/web"
-    },
     "Section": {
       "type": "object",
       "title": "Section ...",
@@ -6897,52 +7668,6 @@
         "type": {
           "type": "string",
           "x-go-name": "Type"
-        }
-      },
-      "x-go-package": "github.com/demisto/server/domain"
-    },
-    "SectionItem": {
-      "type": "object",
-      "title": "SectionItem ...",
-      "properties": {
-        "data": {
-          "type": "object",
-          "x-go-name": "Data"
-        },
-        "displayType": {
-          "type": "string",
-          "x-go-name": "DisplayType"
-        },
-        "endCol": {
-          "type": "integer",
-          "format": "int64",
-          "x-go-name": "EndCol"
-        },
-        "fieldId": {
-          "type": "string",
-          "x-go-name": "FieldID"
-        },
-        "fieldName": {
-          "type": "string",
-          "x-go-name": "FieldName"
-        },
-        "fieldType": {
-          "type": "string",
-          "x-go-name": "FieldType"
-        },
-        "headerStyle": {
-          "type": "object",
-          "x-go-name": "HeaderStyle"
-        },
-        "index": {
-          "type": "integer",
-          "format": "int64",
-          "x-go-name": "Index"
-        },
-        "startCol": {
-          "type": "integer",
-          "format": "int64",
-          "x-go-name": "StartCol"
         }
       },
       "x-go-package": "github.com/demisto/server/domain"
@@ -7159,6 +7884,10 @@
           "type": "string",
           "x-go-name": "PlaybookID"
         },
+        "playbookName": {
+          "type": "string",
+          "x-go-name": "PlaybookName"
+        },
         "scriptId": {
           "type": "string",
           "x-go-name": "AutomationScriptID"
@@ -7233,6 +7962,11 @@
           "type": "boolean",
           "x-go-name": "IsCommand"
         },
+        "max": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "MaxIterations"
+        },
         "scriptArguments": {
           "type": "object",
           "additionalProperties": {
@@ -7243,6 +7977,10 @@
         "scriptId": {
           "type": "string",
           "x-go-name": "AutomationScriptID"
+        },
+        "scriptName": {
+          "type": "string",
+          "x-go-name": "AutomationScriptName"
         },
         "wait": {
           "type": "integer",
@@ -7272,7 +8010,7 @@
       "additionalProperties": {
         "$ref": "#/definitions/Locations"
       },
-      "x-go-package": "github.com/demisto/server/vendor/github.com/blevesearch/bleve/search"
+      "x-go-package": "github.com/blevesearch/bleve/search"
     },
     "TerminalOptions": {
       "description": "TerminalOptions - terminal options to use in case of using pty",
@@ -7396,25 +8134,6 @@
       },
       "x-go-package": "github.com/demisto/server/web"
     },
-    "UpdateResponse": {
-      "type": "object",
-      "title": "UpdateResponse ...",
-      "properties": {
-        "notUpdated": {
-          "type": "integer",
-          "format": "int64",
-          "x-go-name": "NotUpdated"
-        },
-        "updatedIds": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "x-go-name": "UpdatedIds"
-        }
-      },
-      "x-go-package": "github.com/demisto/server/repo/entities"
-    },
     "Widget": {
       "description": "Widget describe a widget component used to get statistics requests, based on parameters such as\ndataType and widgetType. A widget can be a part of widgets collection inside a dashboard.",
       "type": "object",
@@ -7481,6 +8200,13 @@
           "description": "The previous name of the widget.",
           "type": "string",
           "x-go-name": "PrevName"
+        },
+        "propagationLabels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "PropagationLabels"
         },
         "query": {
           "description": "Query to search on the dataType.",
@@ -7610,6 +8336,11 @@
               "type": "string"
             }
           }
+        },
+        "ignoreWorkers": {
+          "description": "Do not use workers mechanism while searching bleve",
+          "type": "boolean",
+          "x-go-name": "IgnoreWorkers"
         },
         "page": {
           "description": "0-based page",
@@ -7977,10 +8708,6 @@
       },
       "x-go-package": "github.com/demisto/server/web"
     },
-    "remoteRepos": {
-      "type": "object",
-      "x-go-package": "github.com/demisto/server/web"
-    },
     "updateEntry": {
       "type": "object",
       "properties": {
@@ -8041,48 +8768,6 @@
       },
       "x-go-package": "github.com/demisto/server/web"
     },
-    "updateIndicatorReputationData": {
-      "type": "object",
-      "properties": {
-        "InvestigationId": {
-          "type": "string",
-          "x-go-name": "InvID"
-        },
-        "doNotWhitelist": {
-          "type": "boolean",
-          "x-go-name": "DoNotWhitelist"
-        },
-        "entryId": {
-          "type": "string",
-          "x-go-name": "EntryID"
-        },
-        "manualScore": {
-          "type": "boolean",
-          "x-go-name": "ManualScore"
-        },
-        "reason": {
-          "type": "string",
-          "x-go-name": "Reason"
-        },
-        "reputation": {
-          "type": "integer",
-          "format": "int64",
-          "x-go-name": "Reputation"
-        },
-        "reputations": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "x-go-name": "Reputations"
-        },
-        "value": {
-          "type": "string",
-          "x-go-name": "Value"
-        }
-      },
-      "x-go-package": "github.com/demisto/server/web"
-    },
     "uploadedEntry": {
       "type": "object",
       "properties": {
@@ -8107,19 +8792,11 @@
       "type": "apiKey",
       "name": "Authorization",
       "in": "header"
-    },
-    "csrf_token": {
-      "type": "apiKey",
-      "name": "X-XSRF-TOKEN",
-      "in": "header"
     }
   },
   "security": [
     {
       "api_key": []
-    },
-    {
-      "csrf_token": []
     }
   ]
 }

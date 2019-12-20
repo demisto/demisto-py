@@ -109,6 +109,7 @@ from demisto_client.demisto_api.models.label import Label
 from demisto_client.demisto_api.models.location import Location
 from demisto_client.demisto_api.models.locations import Locations
 from demisto_client.demisto_api.models.module_args import ModuleArgs
+from demisto_client.demisto_api.models.module_configuration import ModuleConfiguration
 from demisto_client.demisto_api.models.new_docker_image import NewDockerImage
 from demisto_client.demisto_api.models.new_docker_image_result import NewDockerImageResult
 from demisto_client.demisto_api.models.notifiable_item import NotifiableItem

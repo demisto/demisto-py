@@ -1670,6 +1670,105 @@ class DefaultApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
+    def download_file(self, entryid, **kwargs):  # noqa: E501
+        """Download file  # noqa: E501
+
+        Download file from Demisto by entry ID  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.download_file(entryid, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param str entryid: Entry ID (required)
+        :return: file
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async_req'):
+            return self.download_file_with_http_info(entryid, **kwargs)  # noqa: E501
+        else:
+            (data) = self.download_file_with_http_info(entryid, **kwargs)  # noqa: E501
+            return data
+
+    def download_file_with_http_info(self, entryid, **kwargs):  # noqa: E501
+        """Download file  # noqa: E501
+
+        Download file from Demisto by entry ID  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.download_file_with_http_info(entryid, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param str entryid: Entry ID (required)
+        :return: file
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['entryid']  # noqa: E501
+        all_params.append('async_req')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in six.iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method download_file" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'entryid' is set
+        if ('entryid' not in params or
+                params['entryid'] is None):
+            raise ValueError("Missing the required parameter `entryid` when calling `download_file`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'entryid' in params:
+            path_params['entryid'] = params['entryid']  # noqa: E501
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/octet-stream'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['application/json', 'application/xml'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/entry/download/{entryid}', 'GET',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='file',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=params.get('async_req'),
+            _return_http_data_only=params.get('_return_http_data_only'),
+            _preload_content=params.get('_preload_content', True),
+            _request_timeout=params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
     def download_latest_report(self, id, **kwargs):  # noqa: E501
         """Get latest report by ID  # noqa: E501
 
@@ -4395,6 +4494,101 @@ class DefaultApi(object):
             post_params=form_params,
             files=local_var_files,
             response_type='IndicatorResult',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=params.get('async_req'),
+            _return_http_data_only=params.get('_return_http_data_only'),
+            _preload_content=params.get('_preload_content', True),
+            _request_timeout=params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def integration_upload(self, **kwargs):  # noqa: E501
+        """Upload an integration  # noqa: E501
+
+        Upload an integration to Demisto  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.integration_upload(async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param ModuleConfiguration module_configuration:
+        :return: ModuleConfiguration
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async_req'):
+            return self.integration_upload_with_http_info(**kwargs)  # noqa: E501
+        else:
+            (data) = self.integration_upload_with_http_info(**kwargs)  # noqa: E501
+            return data
+
+    def integration_upload_with_http_info(self, **kwargs):  # noqa: E501
+        """Upload an integration  # noqa: E501
+
+        Upload an integration to Demisto  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.integration_upload_with_http_info(async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param ModuleConfiguration module_configuration:
+        :return: ModuleConfiguration
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['module_configuration']  # noqa: E501
+        all_params.append('async_req')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in six.iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method integration_upload" % key
+                )
+            params[key] = val
+        del params['kwargs']
+
+        collection_formats = {}
+
+        path_params = {}
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        if 'module_configuration' in params:
+            body_params = params['module_configuration']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['multipart/form-data'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/settings/integration-conf/upload', 'POST',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='ModuleConfiguration',  # noqa: E501
             auth_settings=auth_settings,
             async_req=params.get('async_req'),
             _return_http_data_only=params.get('_return_http_data_only'),

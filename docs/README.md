@@ -88,6 +88,8 @@ Method | HTTP request | Description
  - [Command](Command.md)
  - [CommonFields](CommonFields.md)
  - [ComplexArg](ComplexArg.md)
+ - [ConfigDataType](ConfigDataType.md)
+ - [ConfigField](ConfigField.md)
  - [CreateIncidentRequest](CreateIncidentRequest.md)
  - [CustomFields](CustomFields.md)
  - [DBotScore](DBotScore.md)

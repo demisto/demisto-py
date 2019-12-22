@@ -2352,6 +2352,53 @@
         },
         "x-go-package": "github.com/demisto/server/domain"
       },
+      "ConfigDataType": {
+        "description": "ConfigDataType holds the type of a configuration field or command argument",
+        "type": "number",
+        "format": "double",
+        "x-go-package": "github.com/demisto/server/domain"
+      },
+      "ConfigField": {
+        "description": "ConfigField holds a configuration field",
+        "type": "object",
+        "properties": {
+          "defaultValue": {
+            "type": "string",
+            "x-go-name": "DefaultValue"
+          },
+          "display": {
+            "type": "string",
+            "x-go-name": "Display"
+          },
+          "hidden": {
+            "type": "boolean",
+            "x-go-name": "Hidden"
+          },
+          "info": {
+            "type": "string",
+            "x-go-name": "AdditionalInfo"
+          },
+          "name": {
+            "type": "string",
+            "x-go-name": "Name"
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "x-go-name": "Options"
+          },
+          "required": {
+            "type": "boolean",
+            "x-go-name": "Required"
+          },
+          "type": {
+            "$ref": "#/definitions/ConfigDataType"
+          }
+        },
+        "x-go-package": "github.com/demisto/server/domain"
+      },
       "CreateIncidentRequest": {
         "description": "CreateIncidentRequest is an extension for Incident entity, with additional field of changed-status for the web client",
         "type": "object",

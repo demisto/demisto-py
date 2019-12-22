@@ -32,6 +32,8 @@ from demisto_client.demisto_api.models.automation_script_result import Automatio
 from demisto_client.demisto_api.models.command import Command
 from demisto_client.demisto_api.models.common_fields import CommonFields
 from demisto_client.demisto_api.models.complex_arg import ComplexArg
+from demisto_client.demisto_api.models.config_data_type import ConfigDataType
+from demisto_client.demisto_api.models.config_field import ConfigField
 from demisto_client.demisto_api.models.create_incident_request import CreateIncidentRequest
 from demisto_client.demisto_api.models.custom_fields import CustomFields
 from demisto_client.demisto_api.models.d_bot_score import DBotScore

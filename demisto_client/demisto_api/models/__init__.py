@@ -29,6 +29,8 @@ from demisto_client.demisto_api.models.automation_script_api import AutomationSc
 from demisto_client.demisto_api.models.automation_script_filter import AutomationScriptFilter
 from demisto_client.demisto_api.models.automation_script_filter_wrapper import AutomationScriptFilterWrapper
 from demisto_client.demisto_api.models.automation_script_result import AutomationScriptResult
+from demisto_client.demisto_api.models.command import Command
+from demisto_client.demisto_api.models.common_fields import CommonFields
 from demisto_client.demisto_api.models.complex_arg import ComplexArg
 from demisto_client.demisto_api.models.create_incident_request import CreateIncidentRequest
 from demisto_client.demisto_api.models.custom_fields import CustomFields
@@ -80,6 +82,7 @@ from demisto_client.demisto_api.models.indicator_filter import IndicatorFilter
 from demisto_client.demisto_api.models.indicator_result import IndicatorResult
 from demisto_client.demisto_api.models.inline_response200 import InlineResponse200
 from demisto_client.demisto_api.models.insight_cache import InsightCache
+from demisto_client.demisto_api.models.integration_script import IntegrationScript
 from demisto_client.demisto_api.models.inv_playbook_assignee import InvPlaybookAssignee
 from demisto_client.demisto_api.models.inv_playbook_due import InvPlaybookDue
 from demisto_client.demisto_api.models.inv_playbook_task_complete_data import InvPlaybookTaskCompleteData

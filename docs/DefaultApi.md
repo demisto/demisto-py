@@ -2248,7 +2248,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **integration_upload**
-> ModuleConfiguration integration_upload(module_configuration=module_configuration)
+> ModuleConfiguration integration_upload(file=file)
 
 Upload an integration
 
@@ -2264,11 +2264,11 @@ from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
 api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
-module_configuration = demisto_client.demisto_api.ModuleConfiguration() # ModuleConfiguration |  (optional)
+file = demisto_client.demisto_api.ModuleConfiguration() # ModuleConfiguration |  (optional)
 
 try:
     # Upload an integration
-    api_response = api_instance.integration_upload(module_configuration=module_configuration)
+    api_response = api_instance.integration_upload(file=file)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->integration_upload: %s\n" % e)
@@ -2278,7 +2278,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **module_configuration** | [**ModuleConfiguration**](ModuleConfiguration.md)|  | [optional] 
+ **file** | [**ModuleConfiguration**](ModuleConfiguration.md)|  | [optional] 
 
 ### Return type
 

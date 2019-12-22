@@ -1421,7 +1421,7 @@
           "operationId": "integrationUpload",
           "parameters": [
             {
-              "name": "ModuleConfiguration",
+              "name": "file",
               "in": "body",
               "schema": {
                 "$ref": "#/definitions/ModuleConfiguration"
@@ -2229,6 +2229,99 @@
           }
         },
         "x-go-package": "github.com/demisto/server/services"
+      },
+      "Command": {
+        "description": "Command supported by a module",
+        "type": "object",
+        "properties": {
+          "arguments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/Argument"
+            },
+            "x-go-name": "Arguments"
+          },
+          "cartesian": {
+            "type": "boolean",
+            "x-go-name": "Cartesian"
+          },
+          "deprecated": {
+            "type": "boolean",
+            "x-go-name": "Deprecated"
+          },
+          "description": {
+            "type": "string",
+            "x-go-name": "Description"
+          },
+          "execution": {
+            "type": "boolean",
+            "x-go-name": "Execution"
+          },
+          "hidden": {
+            "type": "boolean",
+            "x-go-name": "Hidden"
+          },
+          "important": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/Important"
+            },
+            "x-go-name": "Important"
+          },
+          "name": {
+            "type": "string",
+            "x-go-name": "Name"
+          },
+          "outputs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/Output"
+            },
+            "x-go-name": "Outputs"
+          },
+          "permitted": {
+            "type": "boolean",
+            "x-go-name": "Permitted"
+          },
+          "sensitive": {
+            "type": "boolean",
+            "x-go-name": "Sensitive"
+          },
+          "timeout": {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "Timeout"
+          }
+        },
+        "x-go-package": "github.com/demisto/server/domain"
+      },
+      "CommonFields": {
+        "description": "CommonFields holds the common fields to all entities",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "x-go-name": "ID"
+          },
+          "modified": {
+            "type": "string",
+            "format": "date-time",
+            "x-go-name": "Modified"
+          },
+          "sortValues": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "x-go-name": "SortValues"
+          },
+          "version": {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "Versn"
+          }
+        },
+        "x-go-package": "github.com/demisto/server/domain"
       },
       "ComplexArg": {
         "description": "ComplexArg - all info that is necessary to compute argument value from context\nRoot - the root slice (or object) from to work against\nFilters - a slice of filters to apply to the root object, one after another (e.i. with AND condition between each one)\nAccessor - the key to access to each result after filter\nTransformers - a slice to transformers to apply on the result of the accessed key from each result\ne.g. if user want to take from context all File.DisplayName where File.Extension is 'EXE', and the result in uppercase than:\nRoot: is \"File\"\nFilters: will hold the \"File.DisplayName where File.Extension is 'EXE'\" query\nAccessor: is \"DisplayName\"\nTransformers: will hold the uppercase transformation",
@@ -4998,6 +5091,58 @@
             "type": "integer",
             "format": "int64",
             "x-go-name": "Versn"
+          }
+        },
+        "x-go-package": "github.com/demisto/server/domain"
+      },
+      "IntegrationScript": {
+        "type": "object",
+        "title": "IntegrationScript ...",
+        "properties": {
+          "commands": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/Command"
+            },
+            "x-go-name": "Commands"
+          },
+          "dockerImage": {
+            "type": "string",
+            "x-go-name": "DockerImage"
+          },
+          "feed": {
+            "type": "boolean",
+            "x-go-name": "Feed"
+          },
+          "isFetch": {
+            "type": "boolean",
+            "x-go-name": "IsFetch"
+          },
+          "isFetchCredentials": {
+            "type": "boolean",
+            "x-go-name": "IsFetchCredentials"
+          },
+          "longRunning": {
+            "type": "boolean",
+            "x-go-name": "LongRunning"
+          },
+          "longRunningPortMapping": {
+            "type": "boolean",
+            "x-go-name": "LongRunningPort"
+          },
+          "runOnce": {
+            "type": "boolean",
+            "x-go-name": "RunOnce"
+          },
+          "script": {
+            "type": "string",
+            "x-go-name": "Script"
+          },
+          "subtype": {
+            "$ref": "#/definitions/ScriptSubType"
+          },
+          "type": {
+            "$ref": "#/definitions/ScriptType"
           }
         },
         "x-go-package": "github.com/demisto/server/domain"

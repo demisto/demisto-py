@@ -4511,7 +4511,7 @@ class DefaultApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param ModuleConfiguration module_configuration:
+        :param ModuleConfiguration file:
         :return: ModuleConfiguration
                  If the method is called asynchronously,
                  returns the request thread.
@@ -4533,13 +4533,13 @@ class DefaultApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param ModuleConfiguration module_configuration:
+        :param ModuleConfiguration file:
         :return: ModuleConfiguration
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['module_configuration']  # noqa: E501
+        all_params = ['file']  # noqa: E501
         all_params.append('async_req')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -4567,8 +4567,8 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
-        if 'module_configuration' in params:
-            body_params = params['module_configuration']
+        if 'file' in params:
+            body_params = params['file']
         # HTTP header `Accept`
         header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501

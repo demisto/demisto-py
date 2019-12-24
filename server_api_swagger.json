@@ -187,6 +187,33 @@
         }
       }
     },
+    "/entry/download/{entryid}": {
+      "get": {
+        "description": "Download file from Demisto by entry ID",
+        "produces": [
+          "application/octet-stream"
+        ],
+        "summary": "Download file",
+        "operationId": "downloadFile",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Entry ID",
+            "name": "entryid",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return the entry",
+            "schema": {
+              "type": "file"
+            }
+          }
+        }
+      }
+    },
     "/entry/exportArtifact": {
       "post": {
         "description": "Export an entry artifact",
@@ -1381,6 +1408,36 @@
         }
       }
     },
+    "/settings/integration-conf/upload": {
+      "post": {
+        "description": "Upload an integration to Demisto",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "Upload an integration",
+        "operationId": "integrationUpload",
+        "parameters": [
+          {
+            "name": "file",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/ModuleConfiguration"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The saved configuration",
+            "schema": {
+              "$ref": "#/definitions/ModuleConfiguration"
+            }
+          }
+        }
+      }
+    },
     "/statistics/dashboards/query": {
       "post": {
         "description": "Get a given dashboard statistics result.",
@@ -2173,6 +2230,99 @@
       },
       "x-go-package": "github.com/demisto/server/services"
     },
+    "Command": {
+      "description": "Command supported by a module",
+      "type": "object",
+      "properties": {
+        "arguments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Argument"
+          },
+          "x-go-name": "Arguments"
+        },
+        "cartesian": {
+          "type": "boolean",
+          "x-go-name": "Cartesian"
+        },
+        "deprecated": {
+          "type": "boolean",
+          "x-go-name": "Deprecated"
+        },
+        "description": {
+          "type": "string",
+          "x-go-name": "Description"
+        },
+        "execution": {
+          "type": "boolean",
+          "x-go-name": "Execution"
+        },
+        "hidden": {
+          "type": "boolean",
+          "x-go-name": "Hidden"
+        },
+        "important": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Important"
+          },
+          "x-go-name": "Important"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "outputs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Output"
+          },
+          "x-go-name": "Outputs"
+        },
+        "permitted": {
+          "type": "boolean",
+          "x-go-name": "Permitted"
+        },
+        "sensitive": {
+          "type": "boolean",
+          "x-go-name": "Sensitive"
+        },
+        "timeout": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Timeout"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/domain"
+    },
+    "CommonFields": {
+      "description": "CommonFields holds the common fields to all entities",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "modified": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "Modified"
+        },
+        "sortValues": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "SortValues"
+        },
+        "version": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Versn"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/domain"
+    },
     "ComplexArg": {
       "description": "ComplexArg - all info that is necessary to compute argument value from context\nRoot - the root slice (or object) from to work against\nFilters - a slice of filters to apply to the root object, one after another (e.i. with AND condition between each one)\nAccessor - the key to access to each result after filter\nTransformers - a slice to transformers to apply on the result of the accessed key from each result\ne.g. if user want to take from context all File.DisplayName where File.Extension is 'EXE', and the result in uppercase than:\nRoot: is \"File\"\nFilters: will hold the \"File.DisplayName where File.Extension is 'EXE'\" query\nAccessor: is \"DisplayName\"\nTransformers: will hold the uppercase transformation",
       "type": "object",
@@ -2198,6 +2348,53 @@
             "$ref": "#/definitions/ArgTransformer"
           },
           "x-go-name": "Transformers"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/domain"
+    },
+    "ConfigDataType": {
+      "description": "ConfigDataType holds the type of a configuration field or command argument",
+      "type": "number",
+      "format": "double",
+      "x-go-package": "github.com/demisto/server/domain"
+    },
+    "ConfigField": {
+      "description": "ConfigField holds a configuration field",
+      "type": "object",
+      "properties": {
+        "defaultValue": {
+          "type": "string",
+          "x-go-name": "DefaultValue"
+        },
+        "display": {
+          "type": "string",
+          "x-go-name": "Display"
+        },
+        "hidden": {
+          "type": "boolean",
+          "x-go-name": "Hidden"
+        },
+        "info": {
+          "type": "string",
+          "x-go-name": "AdditionalInfo"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "Options"
+        },
+        "required": {
+          "type": "boolean",
+          "x-go-name": "Required"
+        },
+        "type": {
+          "$ref": "#/definitions/ConfigDataType"
         }
       },
       "x-go-package": "github.com/demisto/server/domain"
@@ -4945,6 +5142,58 @@
       },
       "x-go-package": "github.com/demisto/server/domain"
     },
+    "IntegrationScript": {
+      "type": "object",
+      "title": "IntegrationScript ...",
+      "properties": {
+        "commands": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Command"
+          },
+          "x-go-name": "Commands"
+        },
+        "dockerImage": {
+          "type": "string",
+          "x-go-name": "DockerImage"
+        },
+        "feed": {
+          "type": "boolean",
+          "x-go-name": "Feed"
+        },
+        "isFetch": {
+          "type": "boolean",
+          "x-go-name": "IsFetch"
+        },
+        "isFetchCredentials": {
+          "type": "boolean",
+          "x-go-name": "IsFetchCredentials"
+        },
+        "longRunning": {
+          "type": "boolean",
+          "x-go-name": "LongRunning"
+        },
+        "longRunningPortMapping": {
+          "type": "boolean",
+          "x-go-name": "LongRunningPort"
+        },
+        "runOnce": {
+          "type": "boolean",
+          "x-go-name": "RunOnce"
+        },
+        "script": {
+          "type": "string",
+          "x-go-name": "Script"
+        },
+        "subtype": {
+          "$ref": "#/definitions/ScriptSubType"
+        },
+        "type": {
+          "$ref": "#/definitions/ScriptType"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/domain"
+    },
     "InvPlaybookTaskCompleteData": {
       "type": "object",
       "title": "InvPlaybookTaskCompleteData ...",
@@ -6182,6 +6431,155 @@
       "type": "object",
       "additionalProperties": {
         "type": "object"
+      },
+      "x-go-package": "github.com/demisto/server/domain"
+    },
+    "ModuleConfiguration": {
+      "description": "ModuleConfiguration is the configuration parameters for a module",
+      "type": "object",
+      "properties": {
+        "beta": {
+          "type": "boolean",
+          "x-go-name": "Beta"
+        },
+        "brand": {
+          "type": "string",
+          "x-go-name": "Brand"
+        },
+        "canGetSamples": {
+          "type": "boolean",
+          "x-go-name": "CanGetSamples"
+        },
+        "category": {
+          "type": "string",
+          "x-go-name": "Category"
+        },
+        "cmdline": {
+          "type": "string",
+          "x-go-name": "Cmdline"
+        },
+        "commitMessage": {
+          "type": "string",
+          "x-go-name": "CommitMessage"
+        },
+        "configuration": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ConfigField"
+          },
+          "x-go-name": "Configuration"
+        },
+        "deprecated": {
+          "type": "boolean",
+          "x-go-name": "Deprecated"
+        },
+        "description": {
+          "type": "string",
+          "x-go-name": "Description"
+        },
+        "detailedDescription": {
+          "type": "string",
+          "x-go-name": "DetailedDescription"
+        },
+        "display": {
+          "type": "string",
+          "x-go-name": "Display"
+        },
+        "executable": {
+          "type": "string",
+          "x-go-name": "Executable"
+        },
+        "hidden": {
+          "type": "boolean",
+          "x-go-name": "Hidden"
+        },
+        "hideEngines": {
+          "type": "boolean",
+          "x-go-name": "HideEngines"
+        },
+        "icon": {
+          "type": "string",
+          "x-go-name": "Icon"
+        },
+        "id": {
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "image": {
+          "type": "string",
+          "x-go-name": "Image"
+        },
+        "integrationScript": {
+          "$ref": "#/definitions/IntegrationScript"
+        },
+        "isPasswordProtected": {
+          "type": "boolean",
+          "x-go-name": "IsPasswordProtected"
+        },
+        "locked": {
+          "type": "boolean",
+          "x-go-name": "Locked"
+        },
+        "modified": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "Modified"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "path": {
+          "type": "string",
+          "x-go-name": "Path"
+        },
+        "prevName": {
+          "type": "string",
+          "x-go-name": "PrevName"
+        },
+        "propagationLabels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "PropagationLabels"
+        },
+        "readonly": {
+          "type": "boolean",
+          "x-go-name": "ReadOnly"
+        },
+        "scriptNotVisible": {
+          "type": "boolean",
+          "x-go-name": "ScriptNotVisible"
+        },
+        "shouldCommit": {
+          "type": "boolean",
+          "x-go-name": "ShouldCommit"
+        },
+        "sortValues": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "SortValues"
+        },
+        "sourceModuleID": {
+          "type": "string",
+          "x-go-name": "SourceModuleID"
+        },
+        "system": {
+          "type": "boolean",
+          "x-go-name": "System"
+        },
+        "vcShouldIgnore": {
+          "type": "boolean",
+          "x-go-name": "VCShouldIgnore"
+        },
+        "version": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Versn"
+        }
       },
       "x-go-package": "github.com/demisto/server/domain"
     },

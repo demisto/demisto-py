@@ -36,7 +36,11 @@ from demisto_client.demisto_api.models.automation_script_api import AutomationSc
 from demisto_client.demisto_api.models.automation_script_filter import AutomationScriptFilter
 from demisto_client.demisto_api.models.automation_script_filter_wrapper import AutomationScriptFilterWrapper
 from demisto_client.demisto_api.models.automation_script_result import AutomationScriptResult
+from demisto_client.demisto_api.models.command import Command
+from demisto_client.demisto_api.models.common_fields import CommonFields
 from demisto_client.demisto_api.models.complex_arg import ComplexArg
+from demisto_client.demisto_api.models.config_data_type import ConfigDataType
+from demisto_client.demisto_api.models.config_field import ConfigField
 from demisto_client.demisto_api.models.create_incident_request import CreateIncidentRequest
 from demisto_client.demisto_api.models.custom_fields import CustomFields
 from demisto_client.demisto_api.models.d_bot_score import DBotScore
@@ -87,6 +91,7 @@ from demisto_client.demisto_api.models.indicator_filter import IndicatorFilter
 from demisto_client.demisto_api.models.indicator_result import IndicatorResult
 from demisto_client.demisto_api.models.inline_response200 import InlineResponse200
 from demisto_client.demisto_api.models.insight_cache import InsightCache
+from demisto_client.demisto_api.models.integration_script import IntegrationScript
 from demisto_client.demisto_api.models.inv_playbook_assignee import InvPlaybookAssignee
 from demisto_client.demisto_api.models.inv_playbook_due import InvPlaybookDue
 from demisto_client.demisto_api.models.inv_playbook_task_complete_data import InvPlaybookTaskCompleteData
@@ -109,6 +114,7 @@ from demisto_client.demisto_api.models.label import Label
 from demisto_client.demisto_api.models.location import Location
 from demisto_client.demisto_api.models.locations import Locations
 from demisto_client.demisto_api.models.module_args import ModuleArgs
+from demisto_client.demisto_api.models.module_configuration import ModuleConfiguration
 from demisto_client.demisto_api.models.new_docker_image import NewDockerImage
 from demisto_client.demisto_api.models.new_docker_image_result import NewDockerImageResult
 from demisto_client.demisto_api.models.notifiable_item import NotifiableItem

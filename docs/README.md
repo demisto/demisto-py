@@ -20,6 +20,7 @@ Method | HTTP request | Description
 [**delete_incidents_batch**](DefaultApi.md#delete_incidents_batch) | **POST** /incident/batchDelete | Batch delete incidents
 [**delete_indicators_batch**](DefaultApi.md#delete_indicators_batch) | **POST** /indicators/batchDelete | Batch whitelist or delete indicators
 [**delete_widget**](DefaultApi.md#delete_widget) | **DELETE** /widgets/{id} | Remove existing widget
+[**download_file**](DefaultApi.md#download_file) | **GET** /entry/download/{entryid} | Download file
 [**download_latest_report**](DefaultApi.md#download_latest_report) | **GET** /reports/{id}/latest | Get latest report by ID
 [**edit_ad_hoc_task**](DefaultApi.md#edit_ad_hoc_task) | **POST** /inv-playbook/task/edit/{investigationId} | Edit ad-hoc task
 [**entry_export_artifact**](DefaultApi.md#entry_export_artifact) | **POST** /entry/exportArtifact | Export Artifact
@@ -48,6 +49,7 @@ Method | HTTP request | Description
 [**indicators_create_batch**](DefaultApi.md#indicators_create_batch) | **POST** /indicators/upload | Create indicators
 [**indicators_edit**](DefaultApi.md#indicators_edit) | **POST** /indicator/edit | Edit Indicator
 [**indicators_search**](DefaultApi.md#indicators_search) | **POST** /indicators/search | Search indicators
+[**integration_upload**](DefaultApi.md#integration_upload) | **POST** /settings/integration-conf/upload | Upload an integration
 [**investigation_add_entry_handler**](DefaultApi.md#investigation_add_entry_handler) | **POST** /entry | Create new entry in existing investigation
 [**investigation_add_formatted_entry_handler**](DefaultApi.md#investigation_add_formatted_entry_handler) | **POST** /entry/formatted | Create new formatted entry in existing investigation
 [**revoke_user_api_key**](DefaultApi.md#revoke_user_api_key) | **POST** /apikeys/revoke/user/{username} | 
@@ -83,7 +85,11 @@ Method | HTTP request | Description
  - [AutomationScriptFilter](AutomationScriptFilter.md)
  - [AutomationScriptFilterWrapper](AutomationScriptFilterWrapper.md)
  - [AutomationScriptResult](AutomationScriptResult.md)
+ - [Command](Command.md)
+ - [CommonFields](CommonFields.md)
  - [ComplexArg](ComplexArg.md)
+ - [ConfigDataType](ConfigDataType.md)
+ - [ConfigField](ConfigField.md)
  - [CreateIncidentRequest](CreateIncidentRequest.md)
  - [CustomFields](CustomFields.md)
  - [DBotScore](DBotScore.md)
@@ -134,6 +140,7 @@ Method | HTTP request | Description
  - [IndicatorResult](IndicatorResult.md)
  - [InlineResponse200](InlineResponse200.md)
  - [InsightCache](InsightCache.md)
+ - [IntegrationScript](IntegrationScript.md)
  - [InvPlaybookAssignee](InvPlaybookAssignee.md)
  - [InvPlaybookDue](InvPlaybookDue.md)
  - [InvPlaybookTaskCompleteData](InvPlaybookTaskCompleteData.md)
@@ -156,6 +163,7 @@ Method | HTTP request | Description
  - [Location](Location.md)
  - [Locations](Locations.md)
  - [ModuleArgs](ModuleArgs.md)
+ - [ModuleConfiguration](ModuleConfiguration.md)
  - [NewDockerImage](NewDockerImage.md)
  - [NewDockerImageResult](NewDockerImageResult.md)
  - [NotifiableItem](NotifiableItem.md)

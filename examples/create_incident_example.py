@@ -3,6 +3,7 @@ from demisto_client.demisto_api.rest import ApiException
 from datetime import datetime
 import tempfile
 import os
+import time
 
 api_key = None  # set to your 'YOUR_API_KEY' or set environment variable: DEMISTO_API_KEY
 base_url = None  # set to your 'http://DEMISTO_HOST' or set environment variable: DEMISTO_BASE_URL
@@ -40,6 +41,11 @@ try:
     res_upload = api_instance.incident_file_upload(id=api_response.id, file=tf.name, file_name="test-report.txt", 
                                                    file_comment='Test report file', last='true')
     print("Upload file to incident response: {}".format(res_upload))
+    # the uploaded file will be the 3rd entry. Let's download it
+    print('sleeping 10 seconds before download....')
+    time.sleep(10)  # sleep a few seconds to allow server to fully index
+    res_download = api_instance.download_file('3@{}'.format(api_response.id))
+    print("Download file result: {}".format(res_download))
 except ApiException as e:
     print("Exception when calling DefaultApi->create_incident: %s\n" % e)
 finally:

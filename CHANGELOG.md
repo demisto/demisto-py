@@ -4,6 +4,10 @@
 
 [1]: https://pypi.org/project/demisto-py/#history
 
+## 2.0.7
+* Added `download_file` method for downloading files by entry id.
+* Added `integration_upload` method for uploading integrations to Demisto.
+
 ## 2.0.6
 Added support for user/password authentication option.
 

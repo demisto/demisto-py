@@ -214,6 +214,36 @@
         }
       }
     },
+    "/entry/execute/sync": {
+      "post": {
+        "description": "API to create an entry (markdown format) in existing investigation\nBody example: {\"investigationId\":\"1234\",\"data\":\"entry content…\"}",
+        "summary": "Create new entry in existing investigation",
+        "operationId": "investigationAddEntriesSyncHandler",
+        "parameters": [
+          {
+            "name": "updateEntry",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/updateEntry"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "An array of the children entries of the executed entry.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Entry"
+              }
+            }
+          },
+          "412": {
+            "description": "In case of closed investigation"
+          }
+        }
+      }
+    },
     "/entry/exportArtifact": {
       "post": {
         "description": "Export an entry artifact",
@@ -1421,11 +1451,11 @@
         "operationId": "integrationUpload",
         "parameters": [
           {
+            "type": "file",
+            "description": "file",
             "name": "file",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/ModuleConfiguration"
-            }
+            "in": "formData",
+            "required": true
           }
         ],
         "responses": {
@@ -8521,3 +8551,4 @@
     }
   ]
 }
+

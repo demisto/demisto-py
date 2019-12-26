@@ -5,7 +5,7 @@
 [1]: https://pypi.org/project/demisto-py/#history
 
 ## 2.0.7
-* Added `investigation_add_entries_sync_handler` method creating a new entry in existing investigation.
+* Added `investigation_add_entries_sync_handler` method for creating a new entry in existing investigation.
 * Added `download_file` method for downloading files by entry id.
 * Added `integration_upload` method for uploading integrations to Demisto.
 

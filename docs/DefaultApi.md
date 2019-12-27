@@ -50,6 +50,7 @@ Method | HTTP request | Description
 [**indicators_edit**](DefaultApi.md#indicators_edit) | **POST** /indicator/edit | Edit Indicator
 [**indicators_search**](DefaultApi.md#indicators_search) | **POST** /indicators/search | Search indicators
 [**integration_upload**](DefaultApi.md#integration_upload) | **POST** /settings/integration-conf/upload | Upload an integration
+[**investigation_add_entries_sync**](DefaultApi.md#investigation_add_entries_sync) | **POST** /entry/execute/sync | Create new entry in existing investigation
 [**investigation_add_entry_handler**](DefaultApi.md#investigation_add_entry_handler) | **POST** /entry | Create new entry in existing investigation
 [**investigation_add_formatted_entry_handler**](DefaultApi.md#investigation_add_formatted_entry_handler) | **POST** /entry/formatted | Create new formatted entry in existing investigation
 [**revoke_user_api_key**](DefaultApi.md#revoke_user_api_key) | **POST** /apikeys/revoke/user/{username} | 
@@ -2248,7 +2249,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **integration_upload**
-> ModuleConfiguration integration_upload(file=file)
+> ModuleConfiguration integration_upload(file)
 
 Upload an integration
 
@@ -2264,11 +2265,11 @@ from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
 api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
-file = demisto_client.demisto_api.ModuleConfiguration() # ModuleConfiguration |  (optional)
+file = '/path/to/file.txt' # file | file
 
 try:
     # Upload an integration
-    api_response = api_instance.integration_upload(file=file)
+    api_response = api_instance.integration_upload(file)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->integration_upload: %s\n" % e)
@@ -2278,7 +2279,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **file** | [**ModuleConfiguration**](ModuleConfiguration.md)|  | [optional] 
+ **file** | **file**| file | 
 
 ### Return type
 
@@ -2291,6 +2292,54 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: multipart/form-data
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **investigation_add_entries_sync**
+> list[Entry] investigation_add_entries_sync(update_entry=update_entry)
+
+Create new entry in existing investigation
+
+API to create an entry (markdown format) in existing investigation Body example: {\"investigationId\":\"1234\",\"data\":\"entry content…\"}
+
+### Example
+```python
+from __future__ import print_function
+import time
+import demisto_client
+import demisto_client.demisto_api
+from demisto_client.demisto_api.rest import ApiException
+from pprint import pprint
+
+api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
+update_entry = demisto_client.demisto_api.UpdateEntry() # UpdateEntry |  (optional)
+
+try:
+    # Create new entry in existing investigation
+    api_response = api_instance.investigation_add_entries_sync(update_entry=update_entry)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->investigation_add_entries_sync: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **update_entry** | [**UpdateEntry**](UpdateEntry.md)|  | [optional] 
+
+### Return type
+
+[**list[Entry]**](Entry.md)
+
+### Authorization
+
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)

@@ -4600,13 +4600,13 @@ class DefaultApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def investigation_add_entries_sync_handler(self, **kwargs):  # noqa: E501
+    def investigation_add_entries_sync(self, **kwargs):  # noqa: E501
         """Create new entry in existing investigation  # noqa: E501
 
         API to create an entry (markdown format) in existing investigation Body example: {\"investigationId\":\"1234\",\"data\":\"entry content…\"}  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.investigation_add_entries_sync_handler(async_req=True)
+        >>> thread = api.investigation_add_entries_sync(async_req=True)
         >>> result = thread.get()
 
         :param async_req bool
@@ -4617,18 +4617,18 @@ class DefaultApi(object):
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async_req'):
-            return self.investigation_add_entries_sync_handler_with_http_info(**kwargs)  # noqa: E501
+            return self.investigation_add_entries_sync_with_http_info(**kwargs)  # noqa: E501
         else:
-            (data) = self.investigation_add_entries_sync_handler_with_http_info(**kwargs)  # noqa: E501
+            (data) = self.investigation_add_entries_sync_with_http_info(**kwargs)  # noqa: E501
             return data
 
-    def investigation_add_entries_sync_handler_with_http_info(self, **kwargs):  # noqa: E501
+    def investigation_add_entries_sync_with_http_info(self, **kwargs):  # noqa: E501
         """Create new entry in existing investigation  # noqa: E501
 
         API to create an entry (markdown format) in existing investigation Body example: {\"investigationId\":\"1234\",\"data\":\"entry content…\"}  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.investigation_add_entries_sync_handler_with_http_info(async_req=True)
+        >>> thread = api.investigation_add_entries_sync_with_http_info(async_req=True)
         >>> result = thread.get()
 
         :param async_req bool
@@ -4649,7 +4649,7 @@ class DefaultApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method investigation_add_entries_sync_handler" % key
+                    " to method investigation_add_entries_sync" % key
                 )
             params[key] = val
         del params['kwargs']

@@ -218,7 +218,7 @@
       "post": {
         "description": "API to create an entry (markdown format) in existing investigation\nBody example: {\"investigationId\":\"1234\",\"data\":\"entry content…\"}",
         "summary": "Create new entry in existing investigation",
-        "operationId": "investigationAddEntriesSyncHandler",
+        "operationId": "investigationAddEntriesSync",
         "parameters": [
           {
             "name": "updateEntry",

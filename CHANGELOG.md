@@ -3,6 +3,11 @@
 [PyPI History][1]
 
 [1]: https://pypi.org/project/demisto-py/#history
+## 2.0.8
+* Added `ssl_ca_cert` configuration option to specify an alternate certificate bundle.
+* Added support for additional configuration environment variables:
+  * `DEMISTO_VERIFY_SSL`
+  * `SSL_CERT_FILE`
 
 ## 2.0.7
 * Added `investigation_add_entries_sync` method creating a new entry in existing investigation.

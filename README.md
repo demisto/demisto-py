@@ -16,6 +16,16 @@ Follow these instructions to generate your Demisto API Key.
 1. In Demisto, navigate to **Settings > API Keys**.
 2. Click the **Generate Your Key** button.
 
+To avoid hard coding configurations in your code, it is possible to specify configruation params
+as the following environment variables (env variables will be used if parameters are not specified):
+
+ * DEMISTO_BASE_URL
+ * DEMISTO_API_KEY
+ * DEMISTO_USERNAME
+ * DEMISTO_PASSWORD
+ * DEMISTO_VERIFY_SSL (true/false. Default: true)
+ * SSL_CERT_FILE (specify an alternate certificate bundle)
+
 ### 2. Create a Demisto client instance with the api-key and server-url:
 ```python
 import demisto_client

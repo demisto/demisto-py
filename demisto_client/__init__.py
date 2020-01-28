@@ -68,7 +68,11 @@ def configure(base_url=None, api_key=None, verify_ssl=None, proxy=None, username
     if not configuration.host:
         raise ValueError('You must specify base_url either as a parameter or via env variable: DEMISTO_BASE_URL')
     if not api_key and not username:
-        raise ValueError('You must specify either api_key or username/password either as parameters or env variables')
+        raise ValueError('You must specify either api_key or username/password either as parameters or use env variables:\n'
+                         '* DEMISTO_API_KEY\n'
+                         '* DEMISTO_USERNAME\n'
+                         '* DEMISTO_PASSWORD'  
+                         )
     if username is None:
         api_client = ApiClient(configuration)
         api_client.user_agent = 'demisto-py/' + __version__

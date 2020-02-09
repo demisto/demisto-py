@@ -59,7 +59,7 @@ def configure(base_url=None, api_key=None, verify_ssl=None, proxy=None, username
             verify_ssl = True
     configuration = Configuration()
     configuration.api_key['Authorization'] = api_key
-    configuration.host = base_url or os.getenv('DEMISTO_BASE_URL', None)
+    configuration.host = os.path.join(base_url or os.getenv('DEMISTO_BASE_URL', None), '')
     configuration.verify_ssl = verify_ssl
     configuration.proxy = proxy
     configuration.debug = debug

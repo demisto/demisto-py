@@ -60,6 +60,8 @@ def configure(base_url=None, api_key=None, verify_ssl=None, proxy=None, username
     configuration = Configuration()
     configuration.api_key['Authorization'] = api_key
     configuration.host = base_url or os.getenv('DEMISTO_BASE_URL', None)
+    if isinstance(configuration.host, str):
+        configuration.host = configuration.host.rstrip('/')
     configuration.verify_ssl = verify_ssl
     configuration.proxy = proxy
     configuration.debug = debug
@@ -87,6 +89,8 @@ def configure(base_url=None, api_key=None, verify_ssl=None, proxy=None, username
 def login(base_url=None, username=None, password=None, verify_ssl=True, proxy=None, debug=False):
     configuration_orig = Configuration()
     configuration_orig.host = base_url or os.getenv('DEMISTO_BASE_URL', None)
+    if isinstance(configuration_orig.host, str):
+        configuration_orig.host = configuration_orig.host.rstrip('/')
     configuration_orig.verify_ssl = verify_ssl
     configuration_orig.proxy = proxy
     configuration_orig.debug = debug
@@ -105,6 +109,8 @@ def login(base_url=None, username=None, password=None, verify_ssl=True, proxy=No
     xsrf_token = xsrf_token_raw.replace('XSRF-TOKEN=', '')
     configuration = Configuration()
     configuration.host = base_url or os.getenv('DEMISTO_BASE_URL', None)
+    if isinstance(configuration.host, str):
+        configuration.host = configuration.host.rstrip('/')
     configuration.verify_ssl = verify_ssl
     configuration.proxy = proxy
     configuration.debug = debug
@@ -177,6 +183,8 @@ def generic_request_func(self, path, method, body=None, **kwargs):
 
     :return: tuple of (response_data, response_code, headers).
     """
+    if not path.startswith('/'):
+        path = '/' + path
 
     all_params = ['']  # noqa: E501
     all_params.append('async_req')

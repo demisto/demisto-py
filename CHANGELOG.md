@@ -4,7 +4,7 @@
 
 [1]: https://pypi.org/project/demisto-py/#history
 ## 2.0.10
-* fix configuration.host slash inconsistency
+* Enabled host and path parameters to function with trailing or leading slashes.
 
 ## 2.0.9
 * Improved error message when missing authentication parameters.

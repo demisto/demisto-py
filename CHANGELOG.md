@@ -3,9 +3,11 @@
 [PyPI History][1]
 
 [1]: https://pypi.org/project/demisto-py/#history
+## 2.0.10
+* fix configuration.host slash inconsistency
+
 ## 2.0.9
 * Improved error message when missing authentication parameters.
-* fix base_url slash inconsistency
 
 ## 2.0.8
 * Added `ssl_ca_cert` configuration option to specify an alternate certificate bundle.

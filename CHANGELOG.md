@@ -3,8 +3,11 @@
 [PyPI History][1]
 
 [1]: https://pypi.org/project/demisto-py/#history
+## 2.0.10
+* Enabled host and path parameters to function with trailing or leading slashes.
+
 ## 2.0.9
-Improved error message when missing authentication parameters.
+* Improved error message when missing authentication parameters.
 
 ## 2.0.8
 * Added `ssl_ca_cert` configuration option to specify an alternate certificate bundle.

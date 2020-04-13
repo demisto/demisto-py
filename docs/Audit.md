@@ -8,6 +8,8 @@ Name | Type | Description | Notes
 **identifier** | **str** |  | [optional] 
 **modified** | **datetime** |  | [optional] 
 **object** | **str** |  | [optional] 
+**primary_term** | **int** |  | [optional] 
+**sequence_number** | **int** |  | [optional] 
 **sort_values** | **list[str]** |  | [optional] 
 **type** | **str** |  | [optional] 
 **user** | **str** |  | [optional] 

@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    Demisto API
+    Cortex XSOAR API
 
-    This is the public REST API to integrate with the demisto server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Demisto web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Demisto REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Demisto server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Demisto has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Demisto will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
+    This is the public REST API to integrate with the Cortex XSOAR server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Cortex XSOAR web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Cortex XSOAR REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Cortex XSOAR server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Cortex XSOAR has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Cortex XSOAR will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
 
     OpenAPI spec version: 2.0.0
     
@@ -17,6 +17,7 @@ import re  # noqa: F401
 import six
 
 from demisto_client.demisto_api.models.advance_arg import AdvanceArg  # noqa: F401,E501
+from demisto_client.demisto_api.models.playbook_input_query import PlaybookInputQuery  # noqa: F401,E501
 
 
 class PlaybookInput(object):
@@ -35,6 +36,7 @@ class PlaybookInput(object):
     swagger_types = {
         'description': 'str',
         'key': 'str',
+        'playbook_input_query': 'PlaybookInputQuery',
         'required': 'bool',
         'value': 'AdvanceArg'
     }
@@ -42,15 +44,17 @@ class PlaybookInput(object):
     attribute_map = {
         'description': 'description',
         'key': 'key',
+        'playbook_input_query': 'playbookInputQuery',
         'required': 'required',
         'value': 'value'
     }
 
-    def __init__(self, description=None, key=None, required=None, value=None):  # noqa: E501
+    def __init__(self, description=None, key=None, playbook_input_query=None, required=None, value=None):  # noqa: E501
         """PlaybookInput - a model defined in Swagger"""  # noqa: E501
 
         self._description = None
         self._key = None
+        self._playbook_input_query = None
         self._required = None
         self._value = None
         self.discriminator = None
@@ -59,6 +63,8 @@ class PlaybookInput(object):
             self.description = description
         if key is not None:
             self.key = key
+        if playbook_input_query is not None:
+            self.playbook_input_query = playbook_input_query
         if required is not None:
             self.required = required
         if value is not None:
@@ -105,6 +111,27 @@ class PlaybookInput(object):
         """
 
         self._key = key
+
+    @property
+    def playbook_input_query(self):
+        """Gets the playbook_input_query of this PlaybookInput.  # noqa: E501
+
+
+        :return: The playbook_input_query of this PlaybookInput.  # noqa: E501
+        :rtype: PlaybookInputQuery
+        """
+        return self._playbook_input_query
+
+    @playbook_input_query.setter
+    def playbook_input_query(self, playbook_input_query):
+        """Sets the playbook_input_query of this PlaybookInput.
+
+
+        :param playbook_input_query: The playbook_input_query of this PlaybookInput.  # noqa: E501
+        :type: PlaybookInputQuery
+        """
+
+        self._playbook_input_query = playbook_input_query
 
     @property
     def required(self):

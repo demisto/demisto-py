@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    Demisto API
+    Cortex XSOAR API
 
-    This is the public REST API to integrate with the demisto server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Demisto web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Demisto REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Demisto server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Demisto has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Demisto will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
+    This is the public REST API to integrate with the Cortex XSOAR server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Cortex XSOAR web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Cortex XSOAR REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Cortex XSOAR server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Cortex XSOAR has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Cortex XSOAR will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
 
     OpenAPI spec version: 2.0.0
     
@@ -34,7 +34,6 @@ class HumanCron(object):
         'at_time_hour': 'str',
         'at_time_minute': 'str',
         'days': 'list[str]',
-        'hours_period': 'str',
         'scheduling_type': 'str',
         'time_period': 'int',
         'time_period_type': 'str'
@@ -44,19 +43,17 @@ class HumanCron(object):
         'at_time_hour': 'atTimeHour',
         'at_time_minute': 'atTimeMinute',
         'days': 'days',
-        'hours_period': 'hoursPeriod',
         'scheduling_type': 'schedulingType',
         'time_period': 'timePeriod',
         'time_period_type': 'timePeriodType'
     }
 
-    def __init__(self, at_time_hour=None, at_time_minute=None, days=None, hours_period=None, scheduling_type=None, time_period=None, time_period_type=None):  # noqa: E501
+    def __init__(self, at_time_hour=None, at_time_minute=None, days=None, scheduling_type=None, time_period=None, time_period_type=None):  # noqa: E501
         """HumanCron - a model defined in Swagger"""  # noqa: E501
 
         self._at_time_hour = None
         self._at_time_minute = None
         self._days = None
-        self._hours_period = None
         self._scheduling_type = None
         self._time_period = None
         self._time_period_type = None
@@ -68,8 +65,6 @@ class HumanCron(object):
             self.at_time_minute = at_time_minute
         if days is not None:
             self.days = days
-        if hours_period is not None:
-            self.hours_period = hours_period
         if scheduling_type is not None:
             self.scheduling_type = scheduling_type
         if time_period is not None:
@@ -139,27 +134,6 @@ class HumanCron(object):
         """
 
         self._days = days
-
-    @property
-    def hours_period(self):
-        """Gets the hours_period of this HumanCron.  # noqa: E501
-
-
-        :return: The hours_period of this HumanCron.  # noqa: E501
-        :rtype: str
-        """
-        return self._hours_period
-
-    @hours_period.setter
-    def hours_period(self, hours_period):
-        """Sets the hours_period of this HumanCron.
-
-
-        :param hours_period: The hours_period of this HumanCron.  # noqa: E501
-        :type: str
-        """
-
-        self._hours_period = hours_period
 
     @property
     def scheduling_type(self):

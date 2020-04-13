@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    Demisto API
+    Cortex XSOAR API
 
-    This is the public REST API to integrate with the demisto server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Demisto web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Demisto REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Demisto server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Demisto has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Demisto will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
+    This is the public REST API to integrate with the Cortex XSOAR server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Cortex XSOAR web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Cortex XSOAR REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Cortex XSOAR server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Cortex XSOAR has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Cortex XSOAR will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
 
     OpenAPI spec version: 2.0.0
     
@@ -20,9 +20,11 @@ from demisto_client.demisto_api.models.advance_arg import AdvanceArg  # noqa: F4
 from demisto_client.demisto_api.models.data_collection_form import DataCollectionForm  # noqa: F401,E501
 from demisto_client.demisto_api.models.evidence_data import EvidenceData  # noqa: F401,E501
 from demisto_client.demisto_api.models.field_mapping import FieldMapping  # noqa: F401,E501
+from demisto_client.demisto_api.models.form_display import FormDisplay  # noqa: F401,E501
 from demisto_client.demisto_api.models.inv_playbook_task_complete_data import InvPlaybookTaskCompleteData  # noqa: F401,E501
 # from demisto_client.demisto_api.models.investigation_playbook import InvestigationPlaybook  # noqa: F401,E501
 from demisto_client.demisto_api.models.notifiable_item import NotifiableItem  # noqa: F401,E501
+from demisto_client.demisto_api.models.quiet_mode import QuietMode  # noqa: F401,E501
 from demisto_client.demisto_api.models.reputation_calc_alg import ReputationCalcAlg  # noqa: F401,E501
 from demisto_client.demisto_api.models.sla import SLA  # noqa: F401,E501
 from demisto_client.demisto_api.models.task import Task  # noqa: F401,E501
@@ -52,6 +54,8 @@ class InvestigationPlaybookTask(object):
         'assignee': 'str',
         'assignee_set': 'bool',
         'blocking_tasks': 'list[str]',
+        'calculated_description': 'str',
+        'calculated_task_name': 'str',
         'comments': 'bool',
         'completed_by': 'str',
         'completed_count': 'int',
@@ -61,6 +65,7 @@ class InvestigationPlaybookTask(object):
         'default_assignee': 'str',
         'default_assignee_complex': 'AdvanceArg',
         'default_reminder': 'int',
+        'do_not_save_task_history': 'bool',
         'due_date': 'datetime',
         'due_date_set': 'bool',
         'entries': 'list[str]',
@@ -70,12 +75,14 @@ class InvestigationPlaybookTask(object):
         'for_each_index': 'int',
         'for_each_inputs': 'dict(str, list[object])',
         'form': 'DataCollectionForm',
+        'form_display': 'FormDisplay',
         'id': 'str',
         'ignore_worker': 'bool',
         'indent': 'int',
         'input': 'str',
         'loop': 'TaskLoop',
         'message': 'NotifiableItem',
+        'missing_content_item': 'str',
         'next_tasks': 'dict(str, list[str])',
         'note': 'bool',
         'outputs': 'dict(str, object)',
@@ -84,11 +91,14 @@ class InvestigationPlaybookTask(object):
         'patched': 'bool',
         'playbook_inputs': 'dict(str, object)',
         'previous_tasks': 'dict(str, list[str])',
+        'quiet_mode': 'QuietMode',
         'reminder': 'int',
         'reputation_calc': 'ReputationCalcAlg',
         'restricted_completion': 'bool',
         'script_arguments': 'dict(str, AdvanceArg)',
         'separate_context': 'bool',
+        'skip': 'bool',
+        'skip_unavailable': 'bool',
         'sla': 'SLA',
         'sla_reminder': 'SLA',
         'start_date': 'datetime',
@@ -100,7 +110,8 @@ class InvestigationPlaybookTask(object):
         'timer_triggers': 'list[TimerTrigger]',
         'type': 'TaskType',
         'view': 'TaskView',
-        'will_not_execute_count': 'int'
+        'will_not_execute_count': 'int',
+        'will_not_execute_reason': 'str'
     }
 
     attribute_map = {
@@ -108,6 +119,8 @@ class InvestigationPlaybookTask(object):
         'assignee': 'assignee',
         'assignee_set': 'assigneeSet',
         'blocking_tasks': 'blockingTasks',
+        'calculated_description': 'calculatedDescription',
+        'calculated_task_name': 'calculatedTaskName',
         'comments': 'comments',
         'completed_by': 'completedBy',
         'completed_count': 'completedCount',
@@ -117,6 +130,7 @@ class InvestigationPlaybookTask(object):
         'default_assignee': 'defaultAssignee',
         'default_assignee_complex': 'defaultAssigneeComplex',
         'default_reminder': 'defaultReminder',
+        'do_not_save_task_history': 'doNotSaveTaskHistory',
         'due_date': 'dueDate',
         'due_date_set': 'dueDateSet',
         'entries': 'entries',
@@ -126,12 +140,14 @@ class InvestigationPlaybookTask(object):
         'for_each_index': 'forEachIndex',
         'for_each_inputs': 'forEachInputs',
         'form': 'form',
+        'form_display': 'formDisplay',
         'id': 'id',
         'ignore_worker': 'ignoreWorker',
         'indent': 'indent',
         'input': 'input',
         'loop': 'loop',
         'message': 'message',
+        'missing_content_item': 'missingContentItem',
         'next_tasks': 'nextTasks',
         'note': 'note',
         'outputs': 'outputs',
@@ -140,11 +156,14 @@ class InvestigationPlaybookTask(object):
         'patched': 'patched',
         'playbook_inputs': 'playbookInputs',
         'previous_tasks': 'previousTasks',
+        'quiet_mode': 'quietMode',
         'reminder': 'reminder',
         'reputation_calc': 'reputationCalc',
         'restricted_completion': 'restrictedCompletion',
         'script_arguments': 'scriptArguments',
         'separate_context': 'separateContext',
+        'skip': 'skip',
+        'skip_unavailable': 'skipUnavailable',
         'sla': 'sla',
         'sla_reminder': 'slaReminder',
         'start_date': 'startDate',
@@ -156,16 +175,19 @@ class InvestigationPlaybookTask(object):
         'timer_triggers': 'timerTriggers',
         'type': 'type',
         'view': 'view',
-        'will_not_execute_count': 'willNotExecuteCount'
+        'will_not_execute_count': 'willNotExecuteCount',
+        'will_not_execute_reason': 'willNotExecuteReason'
     }
 
-    def __init__(self, arguments=None, assignee=None, assignee_set=None, blocking_tasks=None, comments=None, completed_by=None, completed_count=None, completed_date=None, conditions=None, continue_on_error=None, default_assignee=None, default_assignee_complex=None, default_reminder=None, due_date=None, due_date_set=None, entries=None, evidence_data=None, execution_count=None, field_mapping=None, for_each_index=None, for_each_inputs=None, form=None, id=None, ignore_worker=None, indent=None, input=None, loop=None, message=None, next_tasks=None, note=None, outputs=None, parent_block_count=None, parent_playbook_id=None, patched=None, playbook_inputs=None, previous_tasks=None, reminder=None, reputation_calc=None, restricted_completion=None, script_arguments=None, separate_context=None, sla=None, sla_reminder=None, start_date=None, state=None, sub_playbook=None, task=None, task_complete_data=None, task_id=None, timer_triggers=None, type=None, view=None, will_not_execute_count=None):  # noqa: E501
+    def __init__(self, arguments=None, assignee=None, assignee_set=None, blocking_tasks=None, calculated_description=None, calculated_task_name=None, comments=None, completed_by=None, completed_count=None, completed_date=None, conditions=None, continue_on_error=None, default_assignee=None, default_assignee_complex=None, default_reminder=None, do_not_save_task_history=None, due_date=None, due_date_set=None, entries=None, evidence_data=None, execution_count=None, field_mapping=None, for_each_index=None, for_each_inputs=None, form=None, form_display=None, id=None, ignore_worker=None, indent=None, input=None, loop=None, message=None, missing_content_item=None, next_tasks=None, note=None, outputs=None, parent_block_count=None, parent_playbook_id=None, patched=None, playbook_inputs=None, previous_tasks=None, quiet_mode=None, reminder=None, reputation_calc=None, restricted_completion=None, script_arguments=None, separate_context=None, skip=None, skip_unavailable=None, sla=None, sla_reminder=None, start_date=None, state=None, sub_playbook=None, task=None, task_complete_data=None, task_id=None, timer_triggers=None, type=None, view=None, will_not_execute_count=None, will_not_execute_reason=None):  # noqa: E501
         """InvestigationPlaybookTask - a model defined in Swagger"""  # noqa: E501
 
         self._arguments = None
         self._assignee = None
         self._assignee_set = None
         self._blocking_tasks = None
+        self._calculated_description = None
+        self._calculated_task_name = None
         self._comments = None
         self._completed_by = None
         self._completed_count = None
@@ -175,6 +197,7 @@ class InvestigationPlaybookTask(object):
         self._default_assignee = None
         self._default_assignee_complex = None
         self._default_reminder = None
+        self._do_not_save_task_history = None
         self._due_date = None
         self._due_date_set = None
         self._entries = None
@@ -184,12 +207,14 @@ class InvestigationPlaybookTask(object):
         self._for_each_index = None
         self._for_each_inputs = None
         self._form = None
+        self._form_display = None
         self._id = None
         self._ignore_worker = None
         self._indent = None
         self._input = None
         self._loop = None
         self._message = None
+        self._missing_content_item = None
         self._next_tasks = None
         self._note = None
         self._outputs = None
@@ -198,11 +223,14 @@ class InvestigationPlaybookTask(object):
         self._patched = None
         self._playbook_inputs = None
         self._previous_tasks = None
+        self._quiet_mode = None
         self._reminder = None
         self._reputation_calc = None
         self._restricted_completion = None
         self._script_arguments = None
         self._separate_context = None
+        self._skip = None
+        self._skip_unavailable = None
         self._sla = None
         self._sla_reminder = None
         self._start_date = None
@@ -215,6 +243,7 @@ class InvestigationPlaybookTask(object):
         self._type = None
         self._view = None
         self._will_not_execute_count = None
+        self._will_not_execute_reason = None
         self.discriminator = None
 
         if arguments is not None:
@@ -225,6 +254,10 @@ class InvestigationPlaybookTask(object):
             self.assignee_set = assignee_set
         if blocking_tasks is not None:
             self.blocking_tasks = blocking_tasks
+        if calculated_description is not None:
+            self.calculated_description = calculated_description
+        if calculated_task_name is not None:
+            self.calculated_task_name = calculated_task_name
         if comments is not None:
             self.comments = comments
         if completed_by is not None:
@@ -243,6 +276,8 @@ class InvestigationPlaybookTask(object):
             self.default_assignee_complex = default_assignee_complex
         if default_reminder is not None:
             self.default_reminder = default_reminder
+        if do_not_save_task_history is not None:
+            self.do_not_save_task_history = do_not_save_task_history
         if due_date is not None:
             self.due_date = due_date
         if due_date_set is not None:
@@ -261,6 +296,8 @@ class InvestigationPlaybookTask(object):
             self.for_each_inputs = for_each_inputs
         if form is not None:
             self.form = form
+        if form_display is not None:
+            self.form_display = form_display
         if id is not None:
             self.id = id
         if ignore_worker is not None:
@@ -273,6 +310,8 @@ class InvestigationPlaybookTask(object):
             self.loop = loop
         if message is not None:
             self.message = message
+        if missing_content_item is not None:
+            self.missing_content_item = missing_content_item
         if next_tasks is not None:
             self.next_tasks = next_tasks
         if note is not None:
@@ -289,6 +328,8 @@ class InvestigationPlaybookTask(object):
             self.playbook_inputs = playbook_inputs
         if previous_tasks is not None:
             self.previous_tasks = previous_tasks
+        if quiet_mode is not None:
+            self.quiet_mode = quiet_mode
         if reminder is not None:
             self.reminder = reminder
         if reputation_calc is not None:
@@ -299,6 +340,10 @@ class InvestigationPlaybookTask(object):
             self.script_arguments = script_arguments
         if separate_context is not None:
             self.separate_context = separate_context
+        if skip is not None:
+            self.skip = skip
+        if skip_unavailable is not None:
+            self.skip_unavailable = skip_unavailable
         if sla is not None:
             self.sla = sla
         if sla_reminder is not None:
@@ -323,6 +368,8 @@ class InvestigationPlaybookTask(object):
             self.view = view
         if will_not_execute_count is not None:
             self.will_not_execute_count = will_not_execute_count
+        if will_not_execute_reason is not None:
+            self.will_not_execute_reason = will_not_execute_reason
 
     @property
     def arguments(self):
@@ -407,6 +454,48 @@ class InvestigationPlaybookTask(object):
         """
 
         self._blocking_tasks = blocking_tasks
+
+    @property
+    def calculated_description(self):
+        """Gets the calculated_description of this InvestigationPlaybookTask.  # noqa: E501
+
+
+        :return: The calculated_description of this InvestigationPlaybookTask.  # noqa: E501
+        :rtype: str
+        """
+        return self._calculated_description
+
+    @calculated_description.setter
+    def calculated_description(self, calculated_description):
+        """Sets the calculated_description of this InvestigationPlaybookTask.
+
+
+        :param calculated_description: The calculated_description of this InvestigationPlaybookTask.  # noqa: E501
+        :type: str
+        """
+
+        self._calculated_description = calculated_description
+
+    @property
+    def calculated_task_name(self):
+        """Gets the calculated_task_name of this InvestigationPlaybookTask.  # noqa: E501
+
+
+        :return: The calculated_task_name of this InvestigationPlaybookTask.  # noqa: E501
+        :rtype: str
+        """
+        return self._calculated_task_name
+
+    @calculated_task_name.setter
+    def calculated_task_name(self, calculated_task_name):
+        """Sets the calculated_task_name of this InvestigationPlaybookTask.
+
+
+        :param calculated_task_name: The calculated_task_name of this InvestigationPlaybookTask.  # noqa: E501
+        :type: str
+        """
+
+        self._calculated_task_name = calculated_task_name
 
     @property
     def comments(self):
@@ -602,6 +691,27 @@ class InvestigationPlaybookTask(object):
         self._default_reminder = default_reminder
 
     @property
+    def do_not_save_task_history(self):
+        """Gets the do_not_save_task_history of this InvestigationPlaybookTask.  # noqa: E501
+
+
+        :return: The do_not_save_task_history of this InvestigationPlaybookTask.  # noqa: E501
+        :rtype: bool
+        """
+        return self._do_not_save_task_history
+
+    @do_not_save_task_history.setter
+    def do_not_save_task_history(self, do_not_save_task_history):
+        """Sets the do_not_save_task_history of this InvestigationPlaybookTask.
+
+
+        :param do_not_save_task_history: The do_not_save_task_history of this InvestigationPlaybookTask.  # noqa: E501
+        :type: bool
+        """
+
+        self._do_not_save_task_history = do_not_save_task_history
+
+    @property
     def due_date(self):
         """Gets the due_date of this InvestigationPlaybookTask.  # noqa: E501
 
@@ -793,6 +903,27 @@ class InvestigationPlaybookTask(object):
         self._form = form
 
     @property
+    def form_display(self):
+        """Gets the form_display of this InvestigationPlaybookTask.  # noqa: E501
+
+
+        :return: The form_display of this InvestigationPlaybookTask.  # noqa: E501
+        :rtype: FormDisplay
+        """
+        return self._form_display
+
+    @form_display.setter
+    def form_display(self, form_display):
+        """Sets the form_display of this InvestigationPlaybookTask.
+
+
+        :param form_display: The form_display of this InvestigationPlaybookTask.  # noqa: E501
+        :type: FormDisplay
+        """
+
+        self._form_display = form_display
+
+    @property
     def id(self):
         """Gets the id of this InvestigationPlaybookTask.  # noqa: E501
 
@@ -919,6 +1050,29 @@ class InvestigationPlaybookTask(object):
         """
 
         self._message = message
+
+    @property
+    def missing_content_item(self):
+        """Gets the missing_content_item of this InvestigationPlaybookTask.  # noqa: E501
+
+        content item which caused task to skip  # noqa: E501
+
+        :return: The missing_content_item of this InvestigationPlaybookTask.  # noqa: E501
+        :rtype: str
+        """
+        return self._missing_content_item
+
+    @missing_content_item.setter
+    def missing_content_item(self, missing_content_item):
+        """Sets the missing_content_item of this InvestigationPlaybookTask.
+
+        content item which caused task to skip  # noqa: E501
+
+        :param missing_content_item: The missing_content_item of this InvestigationPlaybookTask.  # noqa: E501
+        :type: str
+        """
+
+        self._missing_content_item = missing_content_item
 
     @property
     def next_tasks(self):
@@ -1093,6 +1247,27 @@ class InvestigationPlaybookTask(object):
         self._previous_tasks = previous_tasks
 
     @property
+    def quiet_mode(self):
+        """Gets the quiet_mode of this InvestigationPlaybookTask.  # noqa: E501
+
+
+        :return: The quiet_mode of this InvestigationPlaybookTask.  # noqa: E501
+        :rtype: QuietMode
+        """
+        return self._quiet_mode
+
+    @quiet_mode.setter
+    def quiet_mode(self, quiet_mode):
+        """Sets the quiet_mode of this InvestigationPlaybookTask.
+
+
+        :param quiet_mode: The quiet_mode of this InvestigationPlaybookTask.  # noqa: E501
+        :type: QuietMode
+        """
+
+        self._quiet_mode = quiet_mode
+
+    @property
     def reminder(self):
         """Gets the reminder of this InvestigationPlaybookTask.  # noqa: E501
 
@@ -1198,6 +1373,52 @@ class InvestigationPlaybookTask(object):
         """
 
         self._separate_context = separate_context
+
+    @property
+    def skip(self):
+        """Gets the skip of this InvestigationPlaybookTask.  # noqa: E501
+
+        Skip - if true then this task will be skipped and all the tasks which comes after this task and depend on it will skip (WillNotExecute)  # noqa: E501
+
+        :return: The skip of this InvestigationPlaybookTask.  # noqa: E501
+        :rtype: bool
+        """
+        return self._skip
+
+    @skip.setter
+    def skip(self, skip):
+        """Sets the skip of this InvestigationPlaybookTask.
+
+        Skip - if true then this task will be skipped and all the tasks which comes after this task and depend on it will skip (WillNotExecute)  # noqa: E501
+
+        :param skip: The skip of this InvestigationPlaybookTask.  # noqa: E501
+        :type: bool
+        """
+
+        self._skip = skip
+
+    @property
+    def skip_unavailable(self):
+        """Gets the skip_unavailable of this InvestigationPlaybookTask.  # noqa: E501
+
+        SkipUnavailable if true then will check if automation exists, integration of that command is installed and active or sub playbook exists in Demisto  # noqa: E501
+
+        :return: The skip_unavailable of this InvestigationPlaybookTask.  # noqa: E501
+        :rtype: bool
+        """
+        return self._skip_unavailable
+
+    @skip_unavailable.setter
+    def skip_unavailable(self, skip_unavailable):
+        """Sets the skip_unavailable of this InvestigationPlaybookTask.
+
+        SkipUnavailable if true then will check if automation exists, integration of that command is installed and active or sub playbook exists in Demisto  # noqa: E501
+
+        :param skip_unavailable: The skip_unavailable of this InvestigationPlaybookTask.  # noqa: E501
+        :type: bool
+        """
+
+        self._skip_unavailable = skip_unavailable
 
     @property
     def sla(self):
@@ -1454,6 +1675,27 @@ class InvestigationPlaybookTask(object):
         """
 
         self._will_not_execute_count = will_not_execute_count
+
+    @property
+    def will_not_execute_reason(self):
+        """Gets the will_not_execute_reason of this InvestigationPlaybookTask.  # noqa: E501
+
+
+        :return: The will_not_execute_reason of this InvestigationPlaybookTask.  # noqa: E501
+        :rtype: str
+        """
+        return self._will_not_execute_reason
+
+    @will_not_execute_reason.setter
+    def will_not_execute_reason(self, will_not_execute_reason):
+        """Sets the will_not_execute_reason of this InvestigationPlaybookTask.
+
+
+        :param will_not_execute_reason: The will_not_execute_reason of this InvestigationPlaybookTask.  # noqa: E501
+        :type: str
+        """
+
+        self._will_not_execute_reason = will_not_execute_reason
 
     def to_dict(self):
         """Returns the model properties as a dict"""

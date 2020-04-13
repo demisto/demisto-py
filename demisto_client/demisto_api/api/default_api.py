@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    Demisto API
+    Cortex XSOAR API
 
-    This is the public REST API to integrate with the demisto server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Demisto web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Demisto REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Demisto server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Demisto has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Demisto will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
+    This is the public REST API to integrate with the Cortex XSOAR server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Cortex XSOAR web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Cortex XSOAR REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Cortex XSOAR server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Cortex XSOAR has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Cortex XSOAR will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
 
     OpenAPI spec version: 2.0.0
     
@@ -119,7 +119,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/inv-playbook/task/add/{investigationId}', 'POST',
@@ -140,7 +140,7 @@ class DefaultApi(object):
     def close_incidents_batch(self, **kwargs):  # noqa: E501
         """Batch close incidents  # noqa: E501
 
-        Closes an incidents batch To update incident custom fields you should lowercase them and remove all spaces. For example: Scan IP -> scanip To get the actual key name you can also go to Demisto CLI and run /incident_add and look for the key that you would like to update  # noqa: E501
+        Closes an incidents batch To update incident custom fields you should lowercase them and remove all spaces. For example: Scan IP -> scanip To get the actual key name you can also go to Cortex XSOAR CLI and run /incident_add and look for the key that you would like to update  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
         >>> thread = api.close_incidents_batch(async_req=True)
@@ -162,7 +162,7 @@ class DefaultApi(object):
     def close_incidents_batch_with_http_info(self, **kwargs):  # noqa: E501
         """Batch close incidents  # noqa: E501
 
-        Closes an incidents batch To update incident custom fields you should lowercase them and remove all spaces. For example: Scan IP -> scanip To get the actual key name you can also go to Demisto CLI and run /incident_add and look for the key that you would like to update  # noqa: E501
+        Closes an incidents batch To update incident custom fields you should lowercase them and remove all spaces. For example: Scan IP -> scanip To get the actual key name you can also go to Cortex XSOAR CLI and run /incident_add and look for the key that you would like to update  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
         >>> thread = api.close_incidents_batch_with_http_info(async_req=True)
@@ -214,7 +214,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/incident/batchClose', 'POST',
@@ -357,7 +357,7 @@ class DefaultApi(object):
             ['multipart/form-data'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/inv-playbook/task/complete', 'POST',
@@ -500,7 +500,7 @@ class DefaultApi(object):
             ['multipart/form-data'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/v2/inv-playbook/task/complete', 'POST',
@@ -595,7 +595,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/automation/copy', 'POST',
@@ -690,7 +690,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/settings/docker-images', 'POST',
@@ -708,10 +708,109 @@ class DefaultApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
+    def create_feed_indicators_json(self, feed_indicators_request, **kwargs):  # noqa: E501
+        """Create feed indicators from JSON  # noqa: E501
+
+        Create indicators from raw JSON (similar to ingesting from a feed). Builds indicators according to the specified feed classifier, or uses the default one if not specified. Indicator properties (all optional except for value): **value** (string, required) | **type** (string) | **score** (number, 0-3, default `0`, where `0` means None, `1` Good, `2` Suspicious, and `3` Bad) | **sourceBrand** (string, default `\"External\"`) | **sourceInstance** (string, default `\"External\"`) | **reliability** (string, one of `\"A - Completely reliable\"`, `\"B - Usually reliable\"`, `\"C - Fairly reliable\"`, `\"D - Not usually reliable\"`, `\"E - Unreliable\"`, `\"F - Reliability cannot be judged\"`) | **expirationPolicy** (string, one of `\"never\"`, `\"interval\"`, `\"indicatorType\"`) | **expirationInterval** (number, in minutes)  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.create_feed_indicators_json(feed_indicators_request, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param FeedIndicatorsRequest feed_indicators_request: (required)
+        :return: None
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async_req'):
+            return self.create_feed_indicators_json_with_http_info(feed_indicators_request, **kwargs)  # noqa: E501
+        else:
+            (data) = self.create_feed_indicators_json_with_http_info(feed_indicators_request, **kwargs)  # noqa: E501
+            return data
+
+    def create_feed_indicators_json_with_http_info(self, feed_indicators_request, **kwargs):  # noqa: E501
+        """Create feed indicators from JSON  # noqa: E501
+
+        Create indicators from raw JSON (similar to ingesting from a feed). Builds indicators according to the specified feed classifier, or uses the default one if not specified. Indicator properties (all optional except for value): **value** (string, required) | **type** (string) | **score** (number, 0-3, default `0`, where `0` means None, `1` Good, `2` Suspicious, and `3` Bad) | **sourceBrand** (string, default `\"External\"`) | **sourceInstance** (string, default `\"External\"`) | **reliability** (string, one of `\"A - Completely reliable\"`, `\"B - Usually reliable\"`, `\"C - Fairly reliable\"`, `\"D - Not usually reliable\"`, `\"E - Unreliable\"`, `\"F - Reliability cannot be judged\"`) | **expirationPolicy** (string, one of `\"never\"`, `\"interval\"`, `\"indicatorType\"`) | **expirationInterval** (number, in minutes)  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.create_feed_indicators_json_with_http_info(feed_indicators_request, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param FeedIndicatorsRequest feed_indicators_request: (required)
+        :return: None
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['feed_indicators_request']  # noqa: E501
+        all_params.append('async_req')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in six.iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method create_feed_indicators_json" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'feed_indicators_request' is set
+        if ('feed_indicators_request' not in params or
+                params['feed_indicators_request'] is None):
+            raise ValueError("Missing the required parameter `feed_indicators_request` when calling `create_feed_indicators_json`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        if 'feed_indicators_request' in params:
+            body_params = params['feed_indicators_request']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['application/json', 'application/xml'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['api_key']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/indicators/feed/json', 'POST',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type=None,  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=params.get('async_req'),
+            _return_http_data_only=params.get('_return_http_data_only'),
+            _preload_content=params.get('_preload_content', True),
+            _request_timeout=params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
     def create_incident(self, **kwargs):  # noqa: E501
         """Create single incident  # noqa: E501
 
-        Create or update incident according to JSON structure. To update incident custom fields you should lowercase them and remove all spaces. For example: Scan IP -> scanip To get the actual key name you can also go to Demisto CLI and run /incident_add and look for the key that you would like to update  Use the 'createInvestigation\\: True' to start the investigation process automatically. (by running a playbook based on incident type.)  # noqa: E501
+        Create or update incident according to JSON structure. To update incident custom fields you should lowercase them and remove all spaces. For example: Scan IP -> scanip To get the actual key name you can also go to Cortex XSOAR CLI and run /incident_add and look for the key that you would like to update  Use the 'createInvestigation\\: True' to start the investigation process automatically. (by running a playbook based on incident type.)  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
         >>> thread = api.create_incident(async_req=True)
@@ -733,7 +832,7 @@ class DefaultApi(object):
     def create_incident_with_http_info(self, **kwargs):  # noqa: E501
         """Create single incident  # noqa: E501
 
-        Create or update incident according to JSON structure. To update incident custom fields you should lowercase them and remove all spaces. For example: Scan IP -> scanip To get the actual key name you can also go to Demisto CLI and run /incident_add and look for the key that you would like to update  Use the 'createInvestigation\\: True' to start the investigation process automatically. (by running a playbook based on incident type.)  # noqa: E501
+        Create or update incident according to JSON structure. To update incident custom fields you should lowercase them and remove all spaces. For example: Scan IP -> scanip To get the actual key name you can also go to Cortex XSOAR CLI and run /incident_add and look for the key that you would like to update  Use the 'createInvestigation\\: True' to start the investigation process automatically. (by running a playbook based on incident type.)  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
         >>> thread = api.create_incident_with_http_info(async_req=True)
@@ -785,7 +884,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/incident', 'POST',
@@ -876,7 +975,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/incident/json', 'POST',
@@ -897,7 +996,7 @@ class DefaultApi(object):
     def create_incidents_batch(self, **kwargs):  # noqa: E501
         """Batch create incidents  # noqa: E501
 
-        Create or update an incidents batch To update incident custom fields you should lowercase them and remove all spaces. For example: Scan IP -> scanip To get the actual key name you can also go to Demisto CLI and run /incident_add and look for the key that you would like to update  # noqa: E501
+        Create or update an incidents batch To update incident custom fields you should lowercase them and remove all spaces. For example: Scan IP -> scanip To get the actual key name you can also go to Cortex XSOAR CLI and run /incident_add and look for the key that you would like to update  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
         >>> thread = api.create_incidents_batch(async_req=True)
@@ -919,7 +1018,7 @@ class DefaultApi(object):
     def create_incidents_batch_with_http_info(self, **kwargs):  # noqa: E501
         """Batch create incidents  # noqa: E501
 
-        Create or update an incidents batch To update incident custom fields you should lowercase them and remove all spaces. For example: Scan IP -> scanip To get the actual key name you can also go to Demisto CLI and run /incident_add and look for the key that you would like to update  # noqa: E501
+        Create or update an incidents batch To update incident custom fields you should lowercase them and remove all spaces. For example: Scan IP -> scanip To get the actual key name you can also go to Cortex XSOAR CLI and run /incident_add and look for the key that you would like to update  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
         >>> thread = api.create_incidents_batch_with_http_info(async_req=True)
@@ -971,7 +1070,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/incident/batch', 'POST',
@@ -1066,7 +1165,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/incidenttype', 'POST',
@@ -1173,7 +1272,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/inv-playbook/task/delete/{investigationId}/{invPBTaskId}', 'POST',
@@ -1268,7 +1367,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/automation/delete', 'POST',
@@ -1363,7 +1462,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/evidence/delete', 'POST',
@@ -1458,7 +1557,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/incident/batchDelete', 'POST',
@@ -1553,7 +1652,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/indicators/batchDelete', 'POST',
@@ -1652,7 +1751,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/widgets/{id}', 'DELETE',
@@ -1673,7 +1772,7 @@ class DefaultApi(object):
     def download_file(self, entryid, **kwargs):  # noqa: E501
         """Download file  # noqa: E501
 
-        Download file from Demisto by entry ID  # noqa: E501
+        Download file from Cortex XSOAR by entry ID  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
         >>> thread = api.download_file(entryid, async_req=True)
@@ -1695,7 +1794,7 @@ class DefaultApi(object):
     def download_file_with_http_info(self, entryid, **kwargs):  # noqa: E501
         """Download file  # noqa: E501
 
-        Download file from Demisto by entry ID  # noqa: E501
+        Download file from Cortex XSOAR by entry ID  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
         >>> thread = api.download_file_with_http_info(entryid, async_req=True)
@@ -1751,7 +1850,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/entry/download/{entryid}', 'GET',
@@ -1850,7 +1949,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/reports/{id}/latest', 'GET',
@@ -1953,7 +2052,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/inv-playbook/task/edit/{investigationId}', 'POST',
@@ -1982,7 +2081,7 @@ class DefaultApi(object):
 
         :param async_req bool
         :param DownloadEntry download_entry:
-        :return: str
+        :return: None
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -2004,7 +2103,7 @@ class DefaultApi(object):
 
         :param async_req bool
         :param DownloadEntry download_entry:
-        :return: str
+        :return: None
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -2048,7 +2147,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/entry/exportArtifact', 'POST',
@@ -2058,7 +2157,7 @@ class DefaultApi(object):
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='str',  # noqa: E501
+            response_type=None,  # noqa: E501
             auth_settings=auth_settings,
             async_req=params.get('async_req'),
             _return_http_data_only=params.get('_return_http_data_only'),
@@ -2155,7 +2254,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/report/{id}/{requestId}/execute', 'POST',
@@ -2250,7 +2349,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/incident/batch/exportToCsv', 'POST',
@@ -2345,7 +2444,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/indicators/batch/exportToCsv', 'POST',
@@ -2440,7 +2539,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/indicators/batch/export/stix', 'POST',
@@ -2531,7 +2630,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/reports', 'GET',
@@ -2622,7 +2721,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/widgets', 'GET',
@@ -2717,7 +2816,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/settings/audits', 'POST',
@@ -2812,7 +2911,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/automation/search', 'POST',
@@ -2823,6 +2922,97 @@ class DefaultApi(object):
             post_params=form_params,
             files=local_var_files,
             response_type='AutomationScriptResult',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=params.get('async_req'),
+            _return_http_data_only=params.get('_return_http_data_only'),
+            _preload_content=params.get('_preload_content', True),
+            _request_timeout=params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def get_containers(self, **kwargs):  # noqa: E501
+        """Get health containers  # noqa: E501
+
+        Gets info on the containers - amount of running, inactive and total containers  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.get_containers(async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :return: ContainersInfo
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async_req'):
+            return self.get_containers_with_http_info(**kwargs)  # noqa: E501
+        else:
+            (data) = self.get_containers_with_http_info(**kwargs)  # noqa: E501
+            return data
+
+    def get_containers_with_http_info(self, **kwargs):  # noqa: E501
+        """Get health containers  # noqa: E501
+
+        Gets info on the containers - amount of running, inactive and total containers  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.get_containers_with_http_info(async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :return: ContainersInfo
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = []  # noqa: E501
+        all_params.append('async_req')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in six.iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method get_containers" % key
+                )
+            params[key] = val
+        del params['kwargs']
+
+        collection_formats = {}
+
+        path_params = {}
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['application/json', 'application/xml'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['api_key']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/health/containers', 'GET',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='ContainersInfo',  # noqa: E501
             auth_settings=auth_settings,
             async_req=params.get('async_req'),
             _return_http_data_only=params.get('_return_http_data_only'),
@@ -2903,7 +3093,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/settings/docker-images', 'GET',
@@ -3002,7 +3192,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/entry/artifact/{id}', 'GET',
@@ -3101,7 +3291,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/incident/csv/{id}', 'GET',
@@ -3200,7 +3390,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/incidentfields/associatedTypes/{type}', 'GET',
@@ -3299,7 +3489,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/indicators/csv/{id}', 'GET',
@@ -3398,7 +3588,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/indicators/stix/v2/{id}', 'GET',
@@ -3497,7 +3687,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/reports/{id}', 'GET',
@@ -3588,7 +3778,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/statistics/dashboards/query', 'POST',
@@ -3679,7 +3869,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/statistics/widgets/query', 'POST',
@@ -3778,7 +3968,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/widgets/{id}', 'GET',
@@ -3789,6 +3979,196 @@ class DefaultApi(object):
             post_params=form_params,
             files=local_var_files,
             response_type='Widget',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=params.get('async_req'),
+            _return_http_data_only=params.get('_return_http_data_only'),
+            _preload_content=params.get('_preload_content', True),
+            _request_timeout=params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def health_handler(self, **kwargs):  # noqa: E501
+        """Check if Cortex XSOAR server is available  # noqa: E501
+
+        Check if Cortex XSOAR server is available  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.health_handler(async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :return: str
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async_req'):
+            return self.health_handler_with_http_info(**kwargs)  # noqa: E501
+        else:
+            (data) = self.health_handler_with_http_info(**kwargs)  # noqa: E501
+            return data
+
+    def health_handler_with_http_info(self, **kwargs):  # noqa: E501
+        """Check if Cortex XSOAR server is available  # noqa: E501
+
+        Check if Cortex XSOAR server is available  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.health_handler_with_http_info(async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :return: str
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = []  # noqa: E501
+        all_params.append('async_req')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in six.iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method health_handler" % key
+                )
+            params[key] = val
+        del params['kwargs']
+
+        collection_formats = {}
+
+        path_params = {}
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['application/json', 'application/xml'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['api_key']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/health', 'GET',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='str',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=params.get('async_req'),
+            _return_http_data_only=params.get('_return_http_data_only'),
+            _preload_content=params.get('_preload_content', True),
+            _request_timeout=params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def import_script(self, file, **kwargs):  # noqa: E501
+        """Upload an automation  # noqa: E501
+
+        Upload an automation to Cortex XSOAR  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.import_script(file, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param file file: file (required)
+        :return: ModuleConfiguration
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async_req'):
+            return self.import_script_with_http_info(file, **kwargs)  # noqa: E501
+        else:
+            (data) = self.import_script_with_http_info(file, **kwargs)  # noqa: E501
+            return data
+
+    def import_script_with_http_info(self, file, **kwargs):  # noqa: E501
+        """Upload an automation  # noqa: E501
+
+        Upload an automation to Cortex XSOAR  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.import_script_with_http_info(file, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param file file: file (required)
+        :return: ModuleConfiguration
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['file']  # noqa: E501
+        all_params.append('async_req')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in six.iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method import_script" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'file' is set
+        if ('file' not in params or
+                params['file'] is None):
+            raise ValueError("Missing the required parameter `file` when calling `import_script`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+        if 'file' in params:
+            local_var_files['file'] = params['file']  # noqa: E501
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['multipart/form-data'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['api_key']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/automation/import', 'POST',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='ModuleConfiguration',  # noqa: E501
             auth_settings=auth_settings,
             async_req=params.get('async_req'),
             _return_http_data_only=params.get('_return_http_data_only'),
@@ -3873,7 +4253,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/widgets/import', 'POST',
@@ -4000,7 +4380,7 @@ class DefaultApi(object):
             ['multipart/form-data'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/incident/upload/{id}', 'POST',
@@ -4095,7 +4475,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/indicator/whitelist', 'POST',
@@ -4190,7 +4570,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/indicator/create', 'POST',
@@ -4293,7 +4673,7 @@ class DefaultApi(object):
             ['multipart/form-data'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/indicators/upload', 'POST',
@@ -4388,7 +4768,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/indicator/edit', 'POST',
@@ -4483,7 +4863,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/indicators/search', 'POST',
@@ -4501,10 +4881,105 @@ class DefaultApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
+    def indicators_timeline_delete(self, **kwargs):  # noqa: E501
+        """Delete indicators timeline  # noqa: E501
+
+        Delete indicators timeline by filter  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.indicators_timeline_delete(async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param IndicatorFilter indicator_filter:
+        :return: IndicatorEditBulkResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async_req'):
+            return self.indicators_timeline_delete_with_http_info(**kwargs)  # noqa: E501
+        else:
+            (data) = self.indicators_timeline_delete_with_http_info(**kwargs)  # noqa: E501
+            return data
+
+    def indicators_timeline_delete_with_http_info(self, **kwargs):  # noqa: E501
+        """Delete indicators timeline  # noqa: E501
+
+        Delete indicators timeline by filter  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.indicators_timeline_delete_with_http_info(async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param IndicatorFilter indicator_filter:
+        :return: IndicatorEditBulkResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['indicator_filter']  # noqa: E501
+        all_params.append('async_req')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in six.iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method indicators_timeline_delete" % key
+                )
+            params[key] = val
+        del params['kwargs']
+
+        collection_formats = {}
+
+        path_params = {}
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        if 'indicator_filter' in params:
+            body_params = params['indicator_filter']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['application/json', 'application/xml'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['api_key']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/indicators/timeline/delete', 'POST',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='IndicatorEditBulkResponse',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=params.get('async_req'),
+            _return_http_data_only=params.get('_return_http_data_only'),
+            _preload_content=params.get('_preload_content', True),
+            _request_timeout=params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
     def integration_upload(self, file, **kwargs):  # noqa: E501
         """Upload an integration  # noqa: E501
 
-        Upload an integration to Demisto  # noqa: E501
+        Upload an integration to Cortex XSOAR  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
         >>> thread = api.integration_upload(file, async_req=True)
@@ -4526,7 +5001,7 @@ class DefaultApi(object):
     def integration_upload_with_http_info(self, file, **kwargs):  # noqa: E501
         """Upload an integration  # noqa: E501
 
-        Upload an integration to Demisto  # noqa: E501
+        Upload an integration to Cortex XSOAR  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
         >>> thread = api.integration_upload_with_http_info(file, async_req=True)
@@ -4582,7 +5057,7 @@ class DefaultApi(object):
             ['multipart/form-data'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/settings/integration-conf/upload', 'POST',
@@ -4677,7 +5152,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/entry/execute/sync', 'POST',
@@ -4772,7 +5247,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/entry', 'POST',
@@ -4867,7 +5342,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/entry/formatted', 'POST',
@@ -4878,6 +5353,370 @@ class DefaultApi(object):
             post_params=form_params,
             files=local_var_files,
             response_type='Entry',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=params.get('async_req'),
+            _return_http_data_only=params.get('_return_http_data_only'),
+            _preload_content=params.get('_preload_content', True),
+            _request_timeout=params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def logout_myself_handler(self, **kwargs):  # noqa: E501
+        """Sign out all my open sessions  # noqa: E501
+
+        Sign out all my open sessions  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.logout_myself_handler(async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :return: None
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async_req'):
+            return self.logout_myself_handler_with_http_info(**kwargs)  # noqa: E501
+        else:
+            (data) = self.logout_myself_handler_with_http_info(**kwargs)  # noqa: E501
+            return data
+
+    def logout_myself_handler_with_http_info(self, **kwargs):  # noqa: E501
+        """Sign out all my open sessions  # noqa: E501
+
+        Sign out all my open sessions  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.logout_myself_handler_with_http_info(async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :return: None
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = []  # noqa: E501
+        all_params.append('async_req')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in six.iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method logout_myself_handler" % key
+                )
+            params[key] = val
+        del params['kwargs']
+
+        collection_formats = {}
+
+        path_params = {}
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['application/json', 'application/xml'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['api_key']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/logout/myself', 'POST',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type=None,  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=params.get('async_req'),
+            _return_http_data_only=params.get('_return_http_data_only'),
+            _preload_content=params.get('_preload_content', True),
+            _request_timeout=params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def logout_myself_other_sessions_handler(self, **kwargs):  # noqa: E501
+        """Sign out all my other open sessions  # noqa: E501
+
+        Sign out all my other open sessions  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.logout_myself_other_sessions_handler(async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :return: None
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async_req'):
+            return self.logout_myself_other_sessions_handler_with_http_info(**kwargs)  # noqa: E501
+        else:
+            (data) = self.logout_myself_other_sessions_handler_with_http_info(**kwargs)  # noqa: E501
+            return data
+
+    def logout_myself_other_sessions_handler_with_http_info(self, **kwargs):  # noqa: E501
+        """Sign out all my other open sessions  # noqa: E501
+
+        Sign out all my other open sessions  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.logout_myself_other_sessions_handler_with_http_info(async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :return: None
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = []  # noqa: E501
+        all_params.append('async_req')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in six.iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method logout_myself_other_sessions_handler" % key
+                )
+            params[key] = val
+        del params['kwargs']
+
+        collection_formats = {}
+
+        path_params = {}
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['application/json', 'application/xml'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['api_key']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/logout/myself/other', 'POST',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type=None,  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=params.get('async_req'),
+            _return_http_data_only=params.get('_return_http_data_only'),
+            _preload_content=params.get('_preload_content', True),
+            _request_timeout=params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def logout_user_sessions_handler(self, **kwargs):  # noqa: E501
+        """Sign out all sessions of the provided username  # noqa: E501
+
+        Sign out all sessions of the provided username  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.logout_user_sessions_handler(async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :return: None
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async_req'):
+            return self.logout_user_sessions_handler_with_http_info(**kwargs)  # noqa: E501
+        else:
+            (data) = self.logout_user_sessions_handler_with_http_info(**kwargs)  # noqa: E501
+            return data
+
+    def logout_user_sessions_handler_with_http_info(self, **kwargs):  # noqa: E501
+        """Sign out all sessions of the provided username  # noqa: E501
+
+        Sign out all sessions of the provided username  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.logout_user_sessions_handler_with_http_info(async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :return: None
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = []  # noqa: E501
+        all_params.append('async_req')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in six.iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method logout_user_sessions_handler" % key
+                )
+            params[key] = val
+        del params['kwargs']
+
+        collection_formats = {}
+
+        path_params = {}
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['application/json', 'application/xml'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['api_key']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/logout/user/{username}', 'POST',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type=None,  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=params.get('async_req'),
+            _return_http_data_only=params.get('_return_http_data_only'),
+            _preload_content=params.get('_preload_content', True),
+            _request_timeout=params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def logouta_everyone_handler(self, **kwargs):  # noqa: E501
+        """Sign out all open users sessions  # noqa: E501
+
+        Sign out all open users sessions  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.logouta_everyone_handler(async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :return: None
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async_req'):
+            return self.logouta_everyone_handler_with_http_info(**kwargs)  # noqa: E501
+        else:
+            (data) = self.logouta_everyone_handler_with_http_info(**kwargs)  # noqa: E501
+            return data
+
+    def logouta_everyone_handler_with_http_info(self, **kwargs):  # noqa: E501
+        """Sign out all open users sessions  # noqa: E501
+
+        Sign out all open users sessions  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.logouta_everyone_handler_with_http_info(async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :return: None
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = []  # noqa: E501
+        all_params.append('async_req')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in six.iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method logouta_everyone_handler" % key
+                )
+            params[key] = val
+        del params['kwargs']
+
+        collection_formats = {}
+
+        path_params = {}
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['application/json', 'application/xml'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['api_key']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/logout/everyone', 'POST',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type=None,  # noqa: E501
             auth_settings=auth_settings,
             async_req=params.get('async_req'),
             _return_http_data_only=params.get('_return_http_data_only'),
@@ -4966,7 +5805,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/apikeys/revoke/user/{username}', 'POST',
@@ -5061,7 +5900,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/evidence', 'POST',
@@ -5156,7 +5995,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/automation', 'POST',
@@ -5251,7 +6090,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/widgets', 'POST',
@@ -5346,7 +6185,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/evidence/search', 'POST',
@@ -5441,7 +6280,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/incidents/search', 'POST',
@@ -5536,7 +6375,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/investigations/search', 'POST',
@@ -5631,7 +6470,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/inv-playbook/task/complete/simple', 'POST',
@@ -5762,7 +6601,7 @@ class DefaultApi(object):
             ['multipart/form-data'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/v2/inv-playbook/task/form/submit', 'POST',
@@ -5857,7 +6696,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/inv-playbook/task/note/add', 'POST',
@@ -5952,7 +6791,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/inv-playbook/task/assign', 'POST',
@@ -6047,7 +6886,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/inv-playbook/task/due', 'POST',
@@ -6142,7 +6981,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/inv-playbook/task/uncomplete', 'POST',
@@ -6237,7 +7076,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/entry/note', 'POST',
@@ -6332,7 +7171,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/entry/tags', 'POST',
@@ -6343,6 +7182,97 @@ class DefaultApi(object):
             post_params=form_params,
             files=local_var_files,
             response_type='Entry',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=params.get('async_req'),
+            _return_http_data_only=params.get('_return_http_data_only'),
+            _preload_content=params.get('_preload_content', True),
+            _request_timeout=params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def workers_status_handler(self, **kwargs):  # noqa: E501
+        """Get workers status  # noqa: E501
+
+        Get workers status  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.workers_status_handler(async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :return: Info
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async_req'):
+            return self.workers_status_handler_with_http_info(**kwargs)  # noqa: E501
+        else:
+            (data) = self.workers_status_handler_with_http_info(**kwargs)  # noqa: E501
+            return data
+
+    def workers_status_handler_with_http_info(self, **kwargs):  # noqa: E501
+        """Get workers status  # noqa: E501
+
+        Get workers status  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.workers_status_handler_with_http_info(async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :return: Info
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = []  # noqa: E501
+        all_params.append('async_req')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in six.iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method workers_status_handler" % key
+                )
+            params[key] = val
+        del params['kwargs']
+
+        collection_formats = {}
+
+        path_params = {}
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['application/json', 'application/xml'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['api_key']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/workers/status', 'GET',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='Info',  # noqa: E501
             auth_settings=auth_settings,
             async_req=params.get('async_req'),
             _return_http_data_only=params.get('_return_http_data_only'),

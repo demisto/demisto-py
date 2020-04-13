@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    Demisto API
+    Cortex XSOAR API
 
-    This is the public REST API to integrate with the demisto server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Demisto web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Demisto REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Demisto server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Demisto has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Demisto will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
+    This is the public REST API to integrate with the Cortex XSOAR server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Cortex XSOAR web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Cortex XSOAR REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Cortex XSOAR server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Cortex XSOAR has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Cortex XSOAR will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
 
     OpenAPI spec version: 2.0.0
     
@@ -18,6 +18,7 @@ import six
 
 from demisto_client.demisto_api.models.config_field import ConfigField  # noqa: F401,E501
 from demisto_client.demisto_api.models.integration_script import IntegrationScript  # noqa: F401,E501
+from demisto_client.demisto_api.models.version import Version  # noqa: F401,E501
 
 
 class ModuleConfiguration(object):
@@ -46,6 +47,7 @@ class ModuleConfiguration(object):
         'detailed_description': 'str',
         'display': 'str',
         'executable': 'str',
+        'from_server_version': 'Version',
         'hidden': 'bool',
         'hide_engines': 'bool',
         'icon': 'str',
@@ -53,18 +55,23 @@ class ModuleConfiguration(object):
         'image': 'str',
         'integration_script': 'IntegrationScript',
         'is_password_protected': 'bool',
+        'item_version': 'Version',
         'locked': 'bool',
         'modified': 'datetime',
         'name': 'str',
+        'pack_id': 'str',
         'path': 'str',
         'prev_name': 'str',
+        'primary_term': 'int',
         'propagation_labels': 'list[str]',
         'readonly': 'bool',
         'script_not_visible': 'bool',
+        'sequence_number': 'int',
         'should_commit': 'bool',
         'sort_values': 'list[str]',
         'source_module_id': 'str',
         'system': 'bool',
+        'to_server_version': 'Version',
         'vc_should_ignore': 'bool',
         'version': 'int'
     }
@@ -82,6 +89,7 @@ class ModuleConfiguration(object):
         'detailed_description': 'detailedDescription',
         'display': 'display',
         'executable': 'executable',
+        'from_server_version': 'fromServerVersion',
         'hidden': 'hidden',
         'hide_engines': 'hideEngines',
         'icon': 'icon',
@@ -89,23 +97,28 @@ class ModuleConfiguration(object):
         'image': 'image',
         'integration_script': 'integrationScript',
         'is_password_protected': 'isPasswordProtected',
+        'item_version': 'itemVersion',
         'locked': 'locked',
         'modified': 'modified',
         'name': 'name',
+        'pack_id': 'packID',
         'path': 'path',
         'prev_name': 'prevName',
+        'primary_term': 'primaryTerm',
         'propagation_labels': 'propagationLabels',
         'readonly': 'readonly',
         'script_not_visible': 'scriptNotVisible',
+        'sequence_number': 'sequenceNumber',
         'should_commit': 'shouldCommit',
         'sort_values': 'sortValues',
         'source_module_id': 'sourceModuleID',
         'system': 'system',
+        'to_server_version': 'toServerVersion',
         'vc_should_ignore': 'vcShouldIgnore',
         'version': 'version'
     }
 
-    def __init__(self, beta=None, brand=None, can_get_samples=None, category=None, cmdline=None, commit_message=None, configuration=None, deprecated=None, description=None, detailed_description=None, display=None, executable=None, hidden=None, hide_engines=None, icon=None, id=None, image=None, integration_script=None, is_password_protected=None, locked=None, modified=None, name=None, path=None, prev_name=None, propagation_labels=None, readonly=None, script_not_visible=None, should_commit=None, sort_values=None, source_module_id=None, system=None, vc_should_ignore=None, version=None):  # noqa: E501
+    def __init__(self, beta=None, brand=None, can_get_samples=None, category=None, cmdline=None, commit_message=None, configuration=None, deprecated=None, description=None, detailed_description=None, display=None, executable=None, from_server_version=None, hidden=None, hide_engines=None, icon=None, id=None, image=None, integration_script=None, is_password_protected=None, item_version=None, locked=None, modified=None, name=None, pack_id=None, path=None, prev_name=None, primary_term=None, propagation_labels=None, readonly=None, script_not_visible=None, sequence_number=None, should_commit=None, sort_values=None, source_module_id=None, system=None, to_server_version=None, vc_should_ignore=None, version=None):  # noqa: E501
         """ModuleConfiguration - a model defined in Swagger"""  # noqa: E501
 
         self._beta = None
@@ -120,6 +133,7 @@ class ModuleConfiguration(object):
         self._detailed_description = None
         self._display = None
         self._executable = None
+        self._from_server_version = None
         self._hidden = None
         self._hide_engines = None
         self._icon = None
@@ -127,18 +141,23 @@ class ModuleConfiguration(object):
         self._image = None
         self._integration_script = None
         self._is_password_protected = None
+        self._item_version = None
         self._locked = None
         self._modified = None
         self._name = None
+        self._pack_id = None
         self._path = None
         self._prev_name = None
+        self._primary_term = None
         self._propagation_labels = None
         self._readonly = None
         self._script_not_visible = None
+        self._sequence_number = None
         self._should_commit = None
         self._sort_values = None
         self._source_module_id = None
         self._system = None
+        self._to_server_version = None
         self._vc_should_ignore = None
         self._version = None
         self.discriminator = None
@@ -167,6 +186,8 @@ class ModuleConfiguration(object):
             self.display = display
         if executable is not None:
             self.executable = executable
+        if from_server_version is not None:
+            self.from_server_version = from_server_version
         if hidden is not None:
             self.hidden = hidden
         if hide_engines is not None:
@@ -181,22 +202,30 @@ class ModuleConfiguration(object):
             self.integration_script = integration_script
         if is_password_protected is not None:
             self.is_password_protected = is_password_protected
+        if item_version is not None:
+            self.item_version = item_version
         if locked is not None:
             self.locked = locked
         if modified is not None:
             self.modified = modified
         if name is not None:
             self.name = name
+        if pack_id is not None:
+            self.pack_id = pack_id
         if path is not None:
             self.path = path
         if prev_name is not None:
             self.prev_name = prev_name
+        if primary_term is not None:
+            self.primary_term = primary_term
         if propagation_labels is not None:
             self.propagation_labels = propagation_labels
         if readonly is not None:
             self.readonly = readonly
         if script_not_visible is not None:
             self.script_not_visible = script_not_visible
+        if sequence_number is not None:
+            self.sequence_number = sequence_number
         if should_commit is not None:
             self.should_commit = should_commit
         if sort_values is not None:
@@ -205,6 +234,8 @@ class ModuleConfiguration(object):
             self.source_module_id = source_module_id
         if system is not None:
             self.system = system
+        if to_server_version is not None:
+            self.to_server_version = to_server_version
         if vc_should_ignore is not None:
             self.vc_should_ignore = vc_should_ignore
         if version is not None:
@@ -463,6 +494,27 @@ class ModuleConfiguration(object):
         self._executable = executable
 
     @property
+    def from_server_version(self):
+        """Gets the from_server_version of this ModuleConfiguration.  # noqa: E501
+
+
+        :return: The from_server_version of this ModuleConfiguration.  # noqa: E501
+        :rtype: Version
+        """
+        return self._from_server_version
+
+    @from_server_version.setter
+    def from_server_version(self, from_server_version):
+        """Sets the from_server_version of this ModuleConfiguration.
+
+
+        :param from_server_version: The from_server_version of this ModuleConfiguration.  # noqa: E501
+        :type: Version
+        """
+
+        self._from_server_version = from_server_version
+
+    @property
     def hidden(self):
         """Gets the hidden of this ModuleConfiguration.  # noqa: E501
 
@@ -610,6 +662,27 @@ class ModuleConfiguration(object):
         self._is_password_protected = is_password_protected
 
     @property
+    def item_version(self):
+        """Gets the item_version of this ModuleConfiguration.  # noqa: E501
+
+
+        :return: The item_version of this ModuleConfiguration.  # noqa: E501
+        :rtype: Version
+        """
+        return self._item_version
+
+    @item_version.setter
+    def item_version(self, item_version):
+        """Sets the item_version of this ModuleConfiguration.
+
+
+        :param item_version: The item_version of this ModuleConfiguration.  # noqa: E501
+        :type: Version
+        """
+
+        self._item_version = item_version
+
+    @property
     def locked(self):
         """Gets the locked of this ModuleConfiguration.  # noqa: E501
 
@@ -673,6 +746,27 @@ class ModuleConfiguration(object):
         self._name = name
 
     @property
+    def pack_id(self):
+        """Gets the pack_id of this ModuleConfiguration.  # noqa: E501
+
+
+        :return: The pack_id of this ModuleConfiguration.  # noqa: E501
+        :rtype: str
+        """
+        return self._pack_id
+
+    @pack_id.setter
+    def pack_id(self, pack_id):
+        """Sets the pack_id of this ModuleConfiguration.
+
+
+        :param pack_id: The pack_id of this ModuleConfiguration.  # noqa: E501
+        :type: str
+        """
+
+        self._pack_id = pack_id
+
+    @property
     def path(self):
         """Gets the path of this ModuleConfiguration.  # noqa: E501
 
@@ -713,6 +807,27 @@ class ModuleConfiguration(object):
         """
 
         self._prev_name = prev_name
+
+    @property
+    def primary_term(self):
+        """Gets the primary_term of this ModuleConfiguration.  # noqa: E501
+
+
+        :return: The primary_term of this ModuleConfiguration.  # noqa: E501
+        :rtype: int
+        """
+        return self._primary_term
+
+    @primary_term.setter
+    def primary_term(self, primary_term):
+        """Sets the primary_term of this ModuleConfiguration.
+
+
+        :param primary_term: The primary_term of this ModuleConfiguration.  # noqa: E501
+        :type: int
+        """
+
+        self._primary_term = primary_term
 
     @property
     def propagation_labels(self):
@@ -776,6 +891,27 @@ class ModuleConfiguration(object):
         """
 
         self._script_not_visible = script_not_visible
+
+    @property
+    def sequence_number(self):
+        """Gets the sequence_number of this ModuleConfiguration.  # noqa: E501
+
+
+        :return: The sequence_number of this ModuleConfiguration.  # noqa: E501
+        :rtype: int
+        """
+        return self._sequence_number
+
+    @sequence_number.setter
+    def sequence_number(self, sequence_number):
+        """Sets the sequence_number of this ModuleConfiguration.
+
+
+        :param sequence_number: The sequence_number of this ModuleConfiguration.  # noqa: E501
+        :type: int
+        """
+
+        self._sequence_number = sequence_number
 
     @property
     def should_commit(self):
@@ -860,6 +996,27 @@ class ModuleConfiguration(object):
         """
 
         self._system = system
+
+    @property
+    def to_server_version(self):
+        """Gets the to_server_version of this ModuleConfiguration.  # noqa: E501
+
+
+        :return: The to_server_version of this ModuleConfiguration.  # noqa: E501
+        :rtype: Version
+        """
+        return self._to_server_version
+
+    @to_server_version.setter
+    def to_server_version(self, to_server_version):
+        """Sets the to_server_version of this ModuleConfiguration.
+
+
+        :param to_server_version: The to_server_version of this ModuleConfiguration.  # noqa: E501
+        :type: Version
+        """
+
+        self._to_server_version = to_server_version
 
     @property
     def vc_should_ignore(self):

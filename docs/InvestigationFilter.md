@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **from_date_license** | **datetime** |  | [optional] 
 **id** | **list[str]** |  | [optional] 
 **ids_only** | **bool** |  | [optional] 
+**ignore_workers** | **bool** | Do not use workers mechanism while searching bleve | [optional] 
 **include_child_inv** | **bool** |  | [optional] 
 **name** | **list[str]** |  | [optional] 
 **not_category** | **list[str]** |  | [optional] 

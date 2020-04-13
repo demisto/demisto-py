@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    Demisto API
+    Cortex XSOAR API
 
-    This is the public REST API to integrate with the demisto server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Demisto web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Demisto REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Demisto server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Demisto has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Demisto will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
+    This is the public REST API to integrate with the Cortex XSOAR server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Cortex XSOAR web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Cortex XSOAR REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Cortex XSOAR server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Cortex XSOAR has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Cortex XSOAR will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
 
     OpenAPI spec version: 2.0.0
     
@@ -18,6 +18,7 @@ import six
 
 from demisto_client.demisto_api.models.date_range import DateRange  # noqa: F401,E501
 from demisto_client.demisto_api.models.order import Order  # noqa: F401,E501
+from demisto_client.demisto_api.models.version import Version  # noqa: F401,E501
 
 
 class Widget(object):
@@ -39,18 +40,25 @@ class Widget(object):
         'data_type': 'str',
         'date_range': 'DateRange',
         'description': 'str',
+        'from_server_version': 'Version',
         'id': 'str',
         'is_predefined': 'bool',
+        'item_version': 'Version',
         'locked': 'bool',
         'modified': 'datetime',
         'name': 'str',
+        'pack_id': 'str',
         'params': 'dict(str, object)',
         'prev_name': 'str',
+        'primary_term': 'int',
+        'propagation_labels': 'list[str]',
         'query': 'str',
+        'sequence_number': 'int',
         'should_commit': 'bool',
         'size': 'int',
         'sort': 'list[Order]',
         'sort_values': 'list[str]',
+        'to_server_version': 'Version',
         'vc_should_ignore': 'bool',
         'version': 'int',
         'widget_type': 'str'
@@ -62,24 +70,31 @@ class Widget(object):
         'data_type': 'dataType',
         'date_range': 'dateRange',
         'description': 'description',
+        'from_server_version': 'fromServerVersion',
         'id': 'id',
         'is_predefined': 'isPredefined',
+        'item_version': 'itemVersion',
         'locked': 'locked',
         'modified': 'modified',
         'name': 'name',
+        'pack_id': 'packID',
         'params': 'params',
         'prev_name': 'prevName',
+        'primary_term': 'primaryTerm',
+        'propagation_labels': 'propagationLabels',
         'query': 'query',
+        'sequence_number': 'sequenceNumber',
         'should_commit': 'shouldCommit',
         'size': 'size',
         'sort': 'sort',
         'sort_values': 'sortValues',
+        'to_server_version': 'toServerVersion',
         'vc_should_ignore': 'vcShouldIgnore',
         'version': 'version',
         'widget_type': 'widgetType'
     }
 
-    def __init__(self, category=None, commit_message=None, data_type=None, date_range=None, description=None, id=None, is_predefined=None, locked=None, modified=None, name=None, params=None, prev_name=None, query=None, should_commit=None, size=None, sort=None, sort_values=None, vc_should_ignore=None, version=None, widget_type=None):  # noqa: E501
+    def __init__(self, category=None, commit_message=None, data_type=None, date_range=None, description=None, from_server_version=None, id=None, is_predefined=None, item_version=None, locked=None, modified=None, name=None, pack_id=None, params=None, prev_name=None, primary_term=None, propagation_labels=None, query=None, sequence_number=None, should_commit=None, size=None, sort=None, sort_values=None, to_server_version=None, vc_should_ignore=None, version=None, widget_type=None):  # noqa: E501
         """Widget - a model defined in Swagger"""  # noqa: E501
 
         self._category = None
@@ -87,18 +102,25 @@ class Widget(object):
         self._data_type = None
         self._date_range = None
         self._description = None
+        self._from_server_version = None
         self._id = None
         self._is_predefined = None
+        self._item_version = None
         self._locked = None
         self._modified = None
         self._name = None
+        self._pack_id = None
         self._params = None
         self._prev_name = None
+        self._primary_term = None
+        self._propagation_labels = None
         self._query = None
+        self._sequence_number = None
         self._should_commit = None
         self._size = None
         self._sort = None
         self._sort_values = None
+        self._to_server_version = None
         self._vc_should_ignore = None
         self._version = None
         self._widget_type = None
@@ -114,21 +136,33 @@ class Widget(object):
             self.date_range = date_range
         if description is not None:
             self.description = description
+        if from_server_version is not None:
+            self.from_server_version = from_server_version
         if id is not None:
             self.id = id
         if is_predefined is not None:
             self.is_predefined = is_predefined
+        if item_version is not None:
+            self.item_version = item_version
         if locked is not None:
             self.locked = locked
         if modified is not None:
             self.modified = modified
         self.name = name
+        if pack_id is not None:
+            self.pack_id = pack_id
         if params is not None:
             self.params = params
         if prev_name is not None:
             self.prev_name = prev_name
+        if primary_term is not None:
+            self.primary_term = primary_term
+        if propagation_labels is not None:
+            self.propagation_labels = propagation_labels
         if query is not None:
             self.query = query
+        if sequence_number is not None:
+            self.sequence_number = sequence_number
         if should_commit is not None:
             self.should_commit = should_commit
         if size is not None:
@@ -137,6 +171,8 @@ class Widget(object):
             self.sort = sort
         if sort_values is not None:
             self.sort_values = sort_values
+        if to_server_version is not None:
+            self.to_server_version = to_server_version
         if vc_should_ignore is not None:
             self.vc_should_ignore = vc_should_ignore
         if version is not None:
@@ -255,6 +291,27 @@ class Widget(object):
         self._description = description
 
     @property
+    def from_server_version(self):
+        """Gets the from_server_version of this Widget.  # noqa: E501
+
+
+        :return: The from_server_version of this Widget.  # noqa: E501
+        :rtype: Version
+        """
+        return self._from_server_version
+
+    @from_server_version.setter
+    def from_server_version(self, from_server_version):
+        """Sets the from_server_version of this Widget.
+
+
+        :param from_server_version: The from_server_version of this Widget.  # noqa: E501
+        :type: Version
+        """
+
+        self._from_server_version = from_server_version
+
+    @property
     def id(self):
         """Gets the id of this Widget.  # noqa: E501
 
@@ -297,6 +354,27 @@ class Widget(object):
         """
 
         self._is_predefined = is_predefined
+
+    @property
+    def item_version(self):
+        """Gets the item_version of this Widget.  # noqa: E501
+
+
+        :return: The item_version of this Widget.  # noqa: E501
+        :rtype: Version
+        """
+        return self._item_version
+
+    @item_version.setter
+    def item_version(self, item_version):
+        """Sets the item_version of this Widget.
+
+
+        :param item_version: The item_version of this Widget.  # noqa: E501
+        :type: Version
+        """
+
+        self._item_version = item_version
 
     @property
     def locked(self):
@@ -368,6 +446,27 @@ class Widget(object):
         self._name = name
 
     @property
+    def pack_id(self):
+        """Gets the pack_id of this Widget.  # noqa: E501
+
+
+        :return: The pack_id of this Widget.  # noqa: E501
+        :rtype: str
+        """
+        return self._pack_id
+
+    @pack_id.setter
+    def pack_id(self, pack_id):
+        """Sets the pack_id of this Widget.
+
+
+        :param pack_id: The pack_id of this Widget.  # noqa: E501
+        :type: str
+        """
+
+        self._pack_id = pack_id
+
+    @property
     def params(self):
         """Gets the params of this Widget.  # noqa: E501
 
@@ -414,6 +513,48 @@ class Widget(object):
         self._prev_name = prev_name
 
     @property
+    def primary_term(self):
+        """Gets the primary_term of this Widget.  # noqa: E501
+
+
+        :return: The primary_term of this Widget.  # noqa: E501
+        :rtype: int
+        """
+        return self._primary_term
+
+    @primary_term.setter
+    def primary_term(self, primary_term):
+        """Sets the primary_term of this Widget.
+
+
+        :param primary_term: The primary_term of this Widget.  # noqa: E501
+        :type: int
+        """
+
+        self._primary_term = primary_term
+
+    @property
+    def propagation_labels(self):
+        """Gets the propagation_labels of this Widget.  # noqa: E501
+
+
+        :return: The propagation_labels of this Widget.  # noqa: E501
+        :rtype: list[str]
+        """
+        return self._propagation_labels
+
+    @propagation_labels.setter
+    def propagation_labels(self, propagation_labels):
+        """Sets the propagation_labels of this Widget.
+
+
+        :param propagation_labels: The propagation_labels of this Widget.  # noqa: E501
+        :type: list[str]
+        """
+
+        self._propagation_labels = propagation_labels
+
+    @property
     def query(self):
         """Gets the query of this Widget.  # noqa: E501
 
@@ -435,6 +576,27 @@ class Widget(object):
         """
 
         self._query = query
+
+    @property
+    def sequence_number(self):
+        """Gets the sequence_number of this Widget.  # noqa: E501
+
+
+        :return: The sequence_number of this Widget.  # noqa: E501
+        :rtype: int
+        """
+        return self._sequence_number
+
+    @sequence_number.setter
+    def sequence_number(self, sequence_number):
+        """Sets the sequence_number of this Widget.
+
+
+        :param sequence_number: The sequence_number of this Widget.  # noqa: E501
+        :type: int
+        """
+
+        self._sequence_number = sequence_number
 
     @property
     def should_commit(self):
@@ -523,6 +685,27 @@ class Widget(object):
         """
 
         self._sort_values = sort_values
+
+    @property
+    def to_server_version(self):
+        """Gets the to_server_version of this Widget.  # noqa: E501
+
+
+        :return: The to_server_version of this Widget.  # noqa: E501
+        :rtype: Version
+        """
+        return self._to_server_version
+
+    @to_server_version.setter
+    def to_server_version(self, to_server_version):
+        """Sets the to_server_version of this Widget.
+
+
+        :param to_server_version: The to_server_version of this Widget.  # noqa: E501
+        :type: Version
+        """
+
+        self._to_server_version = to_server_version
 
     @property
     def vc_should_ignore(self):

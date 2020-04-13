@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    Demisto API
+    Cortex XSOAR API
 
-    This is the public REST API to integrate with the demisto server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Demisto web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Demisto REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Demisto server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Demisto has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Demisto will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
+    This is the public REST API to integrate with the Cortex XSOAR server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Cortex XSOAR web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Cortex XSOAR REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Cortex XSOAR server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Cortex XSOAR has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Cortex XSOAR will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
 
     OpenAPI spec version: 2.0.0
     
@@ -21,6 +21,7 @@ from demisto_client.demisto_api.models.ending_type import EndingType  # noqa: F4
 from demisto_client.demisto_api.models.human_cron import HumanCron  # noqa: F401,E501
 from demisto_client.demisto_api.models.report_fields_decoder import ReportFieldsDecoder  # noqa: F401,E501
 from demisto_client.demisto_api.models.section import Section  # noqa: F401,E501
+from demisto_client.demisto_api.models.version import Version  # noqa: F401,E501
 
 
 class Report(object):
@@ -47,8 +48,10 @@ class Report(object):
         'disable_header': 'bool',
         'ending_date': 'datetime',
         'ending_type': 'EndingType',
+        'from_server_version': 'Version',
         'human_cron': 'HumanCron',
         'id': 'str',
+        'item_version': 'Version',
         'latest_report_name': 'str',
         'latest_report_time': 'datetime',
         'latest_report_username': 'str',
@@ -58,9 +61,12 @@ class Report(object):
         'name': 'str',
         'next_scheduled_time': 'datetime',
         'orientation': 'str',
+        'pack_id': 'str',
         'paper_size': 'str',
         'prev_name': 'str',
         'prev_type': 'str',
+        'primary_term': 'int',
+        'propagation_labels': 'list[str]',
         'recipients': 'list[str]',
         'recurrent': 'bool',
         'report_type': 'str',
@@ -69,13 +75,16 @@ class Report(object):
         'scheduled': 'bool',
         'sections': 'list[Section]',
         'sensitive': 'bool',
+        'sequence_number': 'int',
         'should_commit': 'bool',
         'sort_values': 'list[str]',
         'start_date': 'datetime',
         'system': 'bool',
         'tags': 'list[str]',
         'times': 'int',
+        'timezone': 'str',
         'timezone_offset': 'int',
+        'to_server_version': 'Version',
         'type': 'str',
         'user_api_key': 'str',
         'user_api_key_id': 'str',
@@ -94,8 +103,10 @@ class Report(object):
         'disable_header': 'disableHeader',
         'ending_date': 'endingDate',
         'ending_type': 'endingType',
+        'from_server_version': 'fromServerVersion',
         'human_cron': 'humanCron',
         'id': 'id',
+        'item_version': 'itemVersion',
         'latest_report_name': 'latestReportName',
         'latest_report_time': 'latestReportTime',
         'latest_report_username': 'latestReportUsername',
@@ -105,9 +116,12 @@ class Report(object):
         'name': 'name',
         'next_scheduled_time': 'nextScheduledTime',
         'orientation': 'orientation',
+        'pack_id': 'packID',
         'paper_size': 'paperSize',
         'prev_name': 'prevName',
         'prev_type': 'prevType',
+        'primary_term': 'primaryTerm',
+        'propagation_labels': 'propagationLabels',
         'recipients': 'recipients',
         'recurrent': 'recurrent',
         'report_type': 'reportType',
@@ -116,13 +130,16 @@ class Report(object):
         'scheduled': 'scheduled',
         'sections': 'sections',
         'sensitive': 'sensitive',
+        'sequence_number': 'sequenceNumber',
         'should_commit': 'shouldCommit',
         'sort_values': 'sortValues',
         'start_date': 'startDate',
         'system': 'system',
         'tags': 'tags',
         'times': 'times',
+        'timezone': 'timezone',
         'timezone_offset': 'timezoneOffset',
+        'to_server_version': 'toServerVersion',
         'type': 'type',
         'user_api_key': 'userAPIKey',
         'user_api_key_id': 'userAPIKeyID',
@@ -130,7 +147,7 @@ class Report(object):
         'version': 'version'
     }
 
-    def __init__(self, commit_message=None, created_by=None, cron=None, cron_view=None, dashboard=None, decoder=None, description=None, disable_header=None, ending_date=None, ending_type=None, human_cron=None, id=None, latest_report_name=None, latest_report_time=None, latest_report_username=None, latest_scheduled_report_time=None, locked=None, modified=None, name=None, next_scheduled_time=None, orientation=None, paper_size=None, prev_name=None, prev_type=None, recipients=None, recurrent=None, report_type=None, run_once=None, running_user=None, scheduled=None, sections=None, sensitive=None, should_commit=None, sort_values=None, start_date=None, system=None, tags=None, times=None, timezone_offset=None, type=None, user_api_key=None, user_api_key_id=None, vc_should_ignore=None, version=None):  # noqa: E501
+    def __init__(self, commit_message=None, created_by=None, cron=None, cron_view=None, dashboard=None, decoder=None, description=None, disable_header=None, ending_date=None, ending_type=None, from_server_version=None, human_cron=None, id=None, item_version=None, latest_report_name=None, latest_report_time=None, latest_report_username=None, latest_scheduled_report_time=None, locked=None, modified=None, name=None, next_scheduled_time=None, orientation=None, pack_id=None, paper_size=None, prev_name=None, prev_type=None, primary_term=None, propagation_labels=None, recipients=None, recurrent=None, report_type=None, run_once=None, running_user=None, scheduled=None, sections=None, sensitive=None, sequence_number=None, should_commit=None, sort_values=None, start_date=None, system=None, tags=None, times=None, timezone=None, timezone_offset=None, to_server_version=None, type=None, user_api_key=None, user_api_key_id=None, vc_should_ignore=None, version=None):  # noqa: E501
         """Report - a model defined in Swagger"""  # noqa: E501
 
         self._commit_message = None
@@ -143,8 +160,10 @@ class Report(object):
         self._disable_header = None
         self._ending_date = None
         self._ending_type = None
+        self._from_server_version = None
         self._human_cron = None
         self._id = None
+        self._item_version = None
         self._latest_report_name = None
         self._latest_report_time = None
         self._latest_report_username = None
@@ -154,9 +173,12 @@ class Report(object):
         self._name = None
         self._next_scheduled_time = None
         self._orientation = None
+        self._pack_id = None
         self._paper_size = None
         self._prev_name = None
         self._prev_type = None
+        self._primary_term = None
+        self._propagation_labels = None
         self._recipients = None
         self._recurrent = None
         self._report_type = None
@@ -165,13 +187,16 @@ class Report(object):
         self._scheduled = None
         self._sections = None
         self._sensitive = None
+        self._sequence_number = None
         self._should_commit = None
         self._sort_values = None
         self._start_date = None
         self._system = None
         self._tags = None
         self._times = None
+        self._timezone = None
         self._timezone_offset = None
+        self._to_server_version = None
         self._type = None
         self._user_api_key = None
         self._user_api_key_id = None
@@ -199,10 +224,14 @@ class Report(object):
             self.ending_date = ending_date
         if ending_type is not None:
             self.ending_type = ending_type
+        if from_server_version is not None:
+            self.from_server_version = from_server_version
         if human_cron is not None:
             self.human_cron = human_cron
         if id is not None:
             self.id = id
+        if item_version is not None:
+            self.item_version = item_version
         if latest_report_name is not None:
             self.latest_report_name = latest_report_name
         if latest_report_time is not None:
@@ -221,12 +250,18 @@ class Report(object):
             self.next_scheduled_time = next_scheduled_time
         if orientation is not None:
             self.orientation = orientation
+        if pack_id is not None:
+            self.pack_id = pack_id
         if paper_size is not None:
             self.paper_size = paper_size
         if prev_name is not None:
             self.prev_name = prev_name
         if prev_type is not None:
             self.prev_type = prev_type
+        if primary_term is not None:
+            self.primary_term = primary_term
+        if propagation_labels is not None:
+            self.propagation_labels = propagation_labels
         if recipients is not None:
             self.recipients = recipients
         if recurrent is not None:
@@ -243,6 +278,8 @@ class Report(object):
             self.sections = sections
         if sensitive is not None:
             self.sensitive = sensitive
+        if sequence_number is not None:
+            self.sequence_number = sequence_number
         if should_commit is not None:
             self.should_commit = should_commit
         if sort_values is not None:
@@ -255,8 +292,12 @@ class Report(object):
             self.tags = tags
         if times is not None:
             self.times = times
+        if timezone is not None:
+            self.timezone = timezone
         if timezone_offset is not None:
             self.timezone_offset = timezone_offset
+        if to_server_version is not None:
+            self.to_server_version = to_server_version
         if type is not None:
             self.type = type
         if user_api_key is not None:
@@ -479,6 +520,27 @@ class Report(object):
         self._ending_type = ending_type
 
     @property
+    def from_server_version(self):
+        """Gets the from_server_version of this Report.  # noqa: E501
+
+
+        :return: The from_server_version of this Report.  # noqa: E501
+        :rtype: Version
+        """
+        return self._from_server_version
+
+    @from_server_version.setter
+    def from_server_version(self, from_server_version):
+        """Sets the from_server_version of this Report.
+
+
+        :param from_server_version: The from_server_version of this Report.  # noqa: E501
+        :type: Version
+        """
+
+        self._from_server_version = from_server_version
+
+    @property
     def human_cron(self):
         """Gets the human_cron of this Report.  # noqa: E501
 
@@ -519,6 +581,27 @@ class Report(object):
         """
 
         self._id = id
+
+    @property
+    def item_version(self):
+        """Gets the item_version of this Report.  # noqa: E501
+
+
+        :return: The item_version of this Report.  # noqa: E501
+        :rtype: Version
+        """
+        return self._item_version
+
+    @item_version.setter
+    def item_version(self, item_version):
+        """Sets the item_version of this Report.
+
+
+        :param item_version: The item_version of this Report.  # noqa: E501
+        :type: Version
+        """
+
+        self._item_version = item_version
 
     @property
     def latest_report_name(self):
@@ -710,6 +793,27 @@ class Report(object):
         self._orientation = orientation
 
     @property
+    def pack_id(self):
+        """Gets the pack_id of this Report.  # noqa: E501
+
+
+        :return: The pack_id of this Report.  # noqa: E501
+        :rtype: str
+        """
+        return self._pack_id
+
+    @pack_id.setter
+    def pack_id(self, pack_id):
+        """Sets the pack_id of this Report.
+
+
+        :param pack_id: The pack_id of this Report.  # noqa: E501
+        :type: str
+        """
+
+        self._pack_id = pack_id
+
+    @property
     def paper_size(self):
         """Gets the paper_size of this Report.  # noqa: E501
 
@@ -771,6 +875,48 @@ class Report(object):
         """
 
         self._prev_type = prev_type
+
+    @property
+    def primary_term(self):
+        """Gets the primary_term of this Report.  # noqa: E501
+
+
+        :return: The primary_term of this Report.  # noqa: E501
+        :rtype: int
+        """
+        return self._primary_term
+
+    @primary_term.setter
+    def primary_term(self, primary_term):
+        """Sets the primary_term of this Report.
+
+
+        :param primary_term: The primary_term of this Report.  # noqa: E501
+        :type: int
+        """
+
+        self._primary_term = primary_term
+
+    @property
+    def propagation_labels(self):
+        """Gets the propagation_labels of this Report.  # noqa: E501
+
+
+        :return: The propagation_labels of this Report.  # noqa: E501
+        :rtype: list[str]
+        """
+        return self._propagation_labels
+
+    @propagation_labels.setter
+    def propagation_labels(self, propagation_labels):
+        """Sets the propagation_labels of this Report.
+
+
+        :param propagation_labels: The propagation_labels of this Report.  # noqa: E501
+        :type: list[str]
+        """
+
+        self._propagation_labels = propagation_labels
 
     @property
     def recipients(self):
@@ -943,6 +1089,27 @@ class Report(object):
         self._sensitive = sensitive
 
     @property
+    def sequence_number(self):
+        """Gets the sequence_number of this Report.  # noqa: E501
+
+
+        :return: The sequence_number of this Report.  # noqa: E501
+        :rtype: int
+        """
+        return self._sequence_number
+
+    @sequence_number.setter
+    def sequence_number(self, sequence_number):
+        """Sets the sequence_number of this Report.
+
+
+        :param sequence_number: The sequence_number of this Report.  # noqa: E501
+        :type: int
+        """
+
+        self._sequence_number = sequence_number
+
+    @property
     def should_commit(self):
         """Gets the should_commit of this Report.  # noqa: E501
 
@@ -1069,6 +1236,27 @@ class Report(object):
         self._times = times
 
     @property
+    def timezone(self):
+        """Gets the timezone of this Report.  # noqa: E501
+
+
+        :return: The timezone of this Report.  # noqa: E501
+        :rtype: str
+        """
+        return self._timezone
+
+    @timezone.setter
+    def timezone(self, timezone):
+        """Sets the timezone of this Report.
+
+
+        :param timezone: The timezone of this Report.  # noqa: E501
+        :type: str
+        """
+
+        self._timezone = timezone
+
+    @property
     def timezone_offset(self):
         """Gets the timezone_offset of this Report.  # noqa: E501
 
@@ -1088,6 +1276,27 @@ class Report(object):
         """
 
         self._timezone_offset = timezone_offset
+
+    @property
+    def to_server_version(self):
+        """Gets the to_server_version of this Report.  # noqa: E501
+
+
+        :return: The to_server_version of this Report.  # noqa: E501
+        :rtype: Version
+        """
+        return self._to_server_version
+
+    @to_server_version.setter
+    def to_server_version(self, to_server_version):
+        """Sets the to_server_version of this Report.
+
+
+        :param to_server_version: The to_server_version of this Report.  # noqa: E501
+        :type: Version
+        """
+
+        self._to_server_version = to_server_version
 
     @property
     def type(self):

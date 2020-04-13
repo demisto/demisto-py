@@ -5,6 +5,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** |  | [optional] 
 **modified** | **datetime** |  | [optional] 
+**primary_term** | **int** |  | [optional] 
+**sequence_number** | **int** |  | [optional] 
 **sort_values** | **list[str]** |  | [optional] 
 **version** | **int** |  | [optional] 
 

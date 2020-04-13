@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**complete_task_v2**](DefaultApi.md#complete_task_v2) | **POST** /v2/inv-playbook/task/complete | Complete a task
 [**copy_script**](DefaultApi.md#copy_script) | **POST** /automation/copy | Copy automation
 [**create_docker_image**](DefaultApi.md#create_docker_image) | **POST** /settings/docker-images | Create Image
+[**create_feed_indicators_json**](DefaultApi.md#create_feed_indicators_json) | **POST** /indicators/feed/json | Create feed indicators from JSON
 [**create_incident**](DefaultApi.md#create_incident) | **POST** /incident | Create single incident
 [**create_incident_json**](DefaultApi.md#create_incident_json) | **POST** /incident/json | Create incident from JSON
 [**create_incidents_batch**](DefaultApi.md#create_incidents_batch) | **POST** /incident/batch | Batch create incidents
@@ -32,6 +33,7 @@ Method | HTTP request | Description
 [**get_all_widgets**](DefaultApi.md#get_all_widgets) | **GET** /widgets | 
 [**get_audits**](DefaultApi.md#get_audits) | **POST** /settings/audits | Get Audits
 [**get_automation_scripts**](DefaultApi.md#get_automation_scripts) | **POST** /automation/search | Search Automation (aka scripts)
+[**get_containers**](DefaultApi.md#get_containers) | **GET** /health/containers | Get health containers
 [**get_docker_images**](DefaultApi.md#get_docker_images) | **GET** /settings/docker-images | Get Docker Images
 [**get_entry_artifact**](DefaultApi.md#get_entry_artifact) | **GET** /entry/artifact/{id} | Get entry artifact
 [**get_incident_as_csv**](DefaultApi.md#get_incident_as_csv) | **GET** /incident/csv/{id} | Get incident as CSV
@@ -42,6 +44,8 @@ Method | HTTP request | Description
 [**get_stats_for_dashboard**](DefaultApi.md#get_stats_for_dashboard) | **POST** /statistics/dashboards/query | Get Dashboard Statistics
 [**get_stats_for_widget**](DefaultApi.md#get_stats_for_widget) | **POST** /statistics/widgets/query | Get Widget Statistics
 [**get_widget**](DefaultApi.md#get_widget) | **GET** /widgets/{id} | Get widget by ID
+[**health_handler**](DefaultApi.md#health_handler) | **GET** /health | Check if Cortex XSOAR server is available
+[**import_script**](DefaultApi.md#import_script) | **POST** /automation/import | Upload an automation
 [**import_widget**](DefaultApi.md#import_widget) | **POST** /widgets/import | Import a widget
 [**incident_file_upload**](DefaultApi.md#incident_file_upload) | **POST** /incident/upload/{id} | 
 [**indicator_whitelist**](DefaultApi.md#indicator_whitelist) | **POST** /indicator/whitelist | Whitelists or deletes Indicator
@@ -49,10 +53,15 @@ Method | HTTP request | Description
 [**indicators_create_batch**](DefaultApi.md#indicators_create_batch) | **POST** /indicators/upload | Create indicators
 [**indicators_edit**](DefaultApi.md#indicators_edit) | **POST** /indicator/edit | Edit Indicator
 [**indicators_search**](DefaultApi.md#indicators_search) | **POST** /indicators/search | Search indicators
+[**indicators_timeline_delete**](DefaultApi.md#indicators_timeline_delete) | **POST** /indicators/timeline/delete | Delete indicators timeline
 [**integration_upload**](DefaultApi.md#integration_upload) | **POST** /settings/integration-conf/upload | Upload an integration
 [**investigation_add_entries_sync**](DefaultApi.md#investigation_add_entries_sync) | **POST** /entry/execute/sync | Create new entry in existing investigation
 [**investigation_add_entry_handler**](DefaultApi.md#investigation_add_entry_handler) | **POST** /entry | Create new entry in existing investigation
 [**investigation_add_formatted_entry_handler**](DefaultApi.md#investigation_add_formatted_entry_handler) | **POST** /entry/formatted | Create new formatted entry in existing investigation
+[**logout_myself_handler**](DefaultApi.md#logout_myself_handler) | **POST** /logout/myself | Sign out all my open sessions
+[**logout_myself_other_sessions_handler**](DefaultApi.md#logout_myself_other_sessions_handler) | **POST** /logout/myself/other | Sign out all my other open sessions
+[**logout_user_sessions_handler**](DefaultApi.md#logout_user_sessions_handler) | **POST** /logout/user/{username} | Sign out all sessions of the provided username
+[**logouta_everyone_handler**](DefaultApi.md#logouta_everyone_handler) | **POST** /logout/everyone | Sign out all open users sessions
 [**revoke_user_api_key**](DefaultApi.md#revoke_user_api_key) | **POST** /apikeys/revoke/user/{username} | 
 [**save_evidence**](DefaultApi.md#save_evidence) | **POST** /evidence | Save evidence
 [**save_or_update_script**](DefaultApi.md#save_or_update_script) | **POST** /automation | Create or update automation
@@ -68,6 +77,7 @@ Method | HTTP request | Description
 [**task_un_complete**](DefaultApi.md#task_un_complete) | **POST** /inv-playbook/task/uncomplete | Un complete a task
 [**update_entry_note**](DefaultApi.md#update_entry_note) | **POST** /entry/note | Mark entry as note
 [**update_entry_tags_op**](DefaultApi.md#update_entry_tags_op) | **POST** /entry/tags | Set entry tags
+[**workers_status_handler**](DefaultApi.md#workers_status_handler) | **GET** /workers/status | Get workers status
 
 
 # **add_ad_hoc_task**
@@ -111,7 +121,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -125,7 +135,7 @@ Name | Type | Description  | Notes
 
 Batch close incidents
 
-Closes an incidents batch To update incident custom fields you should lowercase them and remove all spaces. For example: Scan IP -> scanip To get the actual key name you can also go to Demisto CLI and run /incident_add and look for the key that you would like to update
+Closes an incidents batch To update incident custom fields you should lowercase them and remove all spaces. For example: Scan IP -> scanip To get the actual key name you can also go to Cortex XSOAR CLI and run /incident_add and look for the key that you would like to update
 
 ### Example
 ```python
@@ -159,7 +169,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -219,7 +229,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -281,7 +291,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -329,7 +339,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -377,7 +387,54 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, application/xml
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **create_feed_indicators_json**
+> create_feed_indicators_json(feed_indicators_request)
+
+Create feed indicators from JSON
+
+Create indicators from raw JSON (similar to ingesting from a feed). Builds indicators according to the specified feed classifier, or uses the default one if not specified. Indicator properties (all optional except for value): **value** (string, required) | **type** (string) | **score** (number, 0-3, default `0`, where `0` means None, `1` Good, `2` Suspicious, and `3` Bad) | **sourceBrand** (string, default `\"External\"`) | **sourceInstance** (string, default `\"External\"`) | **reliability** (string, one of `\"A - Completely reliable\"`, `\"B - Usually reliable\"`, `\"C - Fairly reliable\"`, `\"D - Not usually reliable\"`, `\"E - Unreliable\"`, `\"F - Reliability cannot be judged\"`) | **expirationPolicy** (string, one of `\"never\"`, `\"interval\"`, `\"indicatorType\"`) | **expirationInterval** (number, in minutes)
+
+### Example
+```python
+from __future__ import print_function
+import time
+import demisto_client
+import demisto_client.demisto_api
+from demisto_client.demisto_api.rest import ApiException
+from pprint import pprint
+
+api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
+feed_indicators_request = demisto_client.demisto_api.FeedIndicatorsRequest() # FeedIndicatorsRequest | 
+
+try:
+    # Create feed indicators from JSON
+    api_instance.create_feed_indicators_json(feed_indicators_request)
+except ApiException as e:
+    print("Exception when calling DefaultApi->create_feed_indicators_json: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **feed_indicators_request** | [**FeedIndicatorsRequest**](FeedIndicatorsRequest.md)|  | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -391,7 +448,7 @@ Name | Type | Description  | Notes
 
 Create single incident
 
-Create or update incident according to JSON structure. To update incident custom fields you should lowercase them and remove all spaces. For example: Scan IP -> scanip To get the actual key name you can also go to Demisto CLI and run /incident_add and look for the key that you would like to update  Use the 'createInvestigation\\: True' to start the investigation process automatically. (by running a playbook based on incident type.)
+Create or update incident according to JSON structure. To update incident custom fields you should lowercase them and remove all spaces. For example: Scan IP -> scanip To get the actual key name you can also go to Cortex XSOAR CLI and run /incident_add and look for the key that you would like to update  Use the 'createInvestigation\\: True' to start the investigation process automatically. (by running a playbook based on incident type.)
 
 ### Example
 ```python
@@ -425,7 +482,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -469,7 +526,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -483,7 +540,7 @@ This endpoint does not need any parameter.
 
 Batch create incidents
 
-Create or update an incidents batch To update incident custom fields you should lowercase them and remove all spaces. For example: Scan IP -> scanip To get the actual key name you can also go to Demisto CLI and run /incident_add and look for the key that you would like to update
+Create or update an incidents batch To update incident custom fields you should lowercase them and remove all spaces. For example: Scan IP -> scanip To get the actual key name you can also go to Cortex XSOAR CLI and run /incident_add and look for the key that you would like to update
 
 ### Example
 ```python
@@ -517,7 +574,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -565,7 +622,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -615,7 +672,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -662,7 +719,7 @@ void (empty response body)
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -709,7 +766,7 @@ void (empty response body)
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -757,7 +814,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -805,7 +862,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -852,7 +909,7 @@ void (empty response body)
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -866,7 +923,7 @@ void (empty response body)
 
 Download file
 
-Download file from Demisto by entry ID
+Download file from Cortex XSOAR by entry ID
 
 ### Example
 ```python
@@ -900,7 +957,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -948,7 +1005,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -998,7 +1055,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -1008,7 +1065,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **entry_export_artifact**
-> str entry_export_artifact(download_entry=download_entry)
+> entry_export_artifact(download_entry=download_entry)
 
 Export Artifact
 
@@ -1028,8 +1085,7 @@ download_entry = demisto_client.demisto_api.DownloadEntry() # DownloadEntry |  (
 
 try:
     # Export Artifact
-    api_response = api_instance.entry_export_artifact(download_entry=download_entry)
-    pprint(api_response)
+    api_instance.entry_export_artifact(download_entry=download_entry)
 except ApiException as e:
     print("Exception when calling DefaultApi->entry_export_artifact: %s\n" % e)
 ```
@@ -1042,11 +1098,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**str**
+void (empty response body)
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -1095,7 +1151,7 @@ void (empty response body)
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -1143,7 +1199,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -1191,7 +1247,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -1239,7 +1295,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -1283,7 +1339,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -1326,7 +1382,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -1374,7 +1430,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -1422,7 +1478,51 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, application/xml
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **get_containers**
+> ContainersInfo get_containers()
+
+Get health containers
+
+Gets info on the containers - amount of running, inactive and total containers
+
+### Example
+```python
+from __future__ import print_function
+import time
+import demisto_client
+import demisto_client.demisto_api
+from demisto_client.demisto_api.rest import ApiException
+from pprint import pprint
+
+api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
+
+try:
+    # Get health containers
+    api_response = api_instance.get_containers()
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->get_containers: %s\n" % e)
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**ContainersInfo**](ContainersInfo.md)
+
+### Authorization
+
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -1466,7 +1566,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -1514,7 +1614,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -1562,7 +1662,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -1610,7 +1710,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -1658,7 +1758,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -1706,7 +1806,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -1754,7 +1854,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -1798,7 +1898,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -1842,7 +1942,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -1890,11 +1990,103 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
  - **Content-Type**: application/json, application/xml
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **health_handler**
+> str health_handler()
+
+Check if Cortex XSOAR server is available
+
+Check if Cortex XSOAR server is available
+
+### Example
+```python
+from __future__ import print_function
+import time
+import demisto_client
+import demisto_client.demisto_api
+from demisto_client.demisto_api.rest import ApiException
+from pprint import pprint
+
+api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
+
+try:
+    # Check if Cortex XSOAR server is available
+    api_response = api_instance.health_handler()
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->health_handler: %s\n" % e)
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**str**
+
+### Authorization
+
+[api_key](README.md#api_key)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, application/xml
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **import_script**
+> ModuleConfiguration import_script(file)
+
+Upload an automation
+
+Upload an automation to Cortex XSOAR
+
+### Example
+```python
+from __future__ import print_function
+import time
+import demisto_client
+import demisto_client.demisto_api
+from demisto_client.demisto_api.rest import ApiException
+from pprint import pprint
+
+api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
+file = '/path/to/file.txt' # file | file
+
+try:
+    # Upload an automation
+    api_response = api_instance.import_script(file)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->import_script: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **file** | **file**| file | 
+
+### Return type
+
+[**ModuleConfiguration**](ModuleConfiguration.md)
+
+### Authorization
+
+[api_key](README.md#api_key)
+
+### HTTP request headers
+
+ - **Content-Type**: multipart/form-data
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
@@ -1938,7 +2130,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -1997,7 +2189,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -2045,7 +2237,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -2093,7 +2285,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -2143,7 +2335,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -2191,7 +2383,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -2239,7 +2431,55 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, application/xml
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **indicators_timeline_delete**
+> IndicatorEditBulkResponse indicators_timeline_delete(indicator_filter=indicator_filter)
+
+Delete indicators timeline
+
+Delete indicators timeline by filter
+
+### Example
+```python
+from __future__ import print_function
+import time
+import demisto_client
+import demisto_client.demisto_api
+from demisto_client.demisto_api.rest import ApiException
+from pprint import pprint
+
+api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
+indicator_filter = demisto_client.demisto_api.IndicatorFilter() # IndicatorFilter |  (optional)
+
+try:
+    # Delete indicators timeline
+    api_response = api_instance.indicators_timeline_delete(indicator_filter=indicator_filter)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->indicators_timeline_delete: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **indicator_filter** | [**IndicatorFilter**](IndicatorFilter.md)|  | [optional] 
+
+### Return type
+
+[**IndicatorEditBulkResponse**](IndicatorEditBulkResponse.md)
+
+### Authorization
+
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -2253,7 +2493,7 @@ Name | Type | Description  | Notes
 
 Upload an integration
 
-Upload an integration to Demisto
+Upload an integration to Cortex XSOAR
 
 ### Example
 ```python
@@ -2287,7 +2527,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -2335,7 +2575,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -2383,7 +2623,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -2431,7 +2671,179 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, application/xml
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **logout_myself_handler**
+> logout_myself_handler()
+
+Sign out all my open sessions
+
+Sign out all my open sessions
+
+### Example
+```python
+from __future__ import print_function
+import time
+import demisto_client
+import demisto_client.demisto_api
+from demisto_client.demisto_api.rest import ApiException
+from pprint import pprint
+
+api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
+
+try:
+    # Sign out all my open sessions
+    api_instance.logout_myself_handler()
+except ApiException as e:
+    print("Exception when calling DefaultApi->logout_myself_handler: %s\n" % e)
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[api_key](README.md#api_key)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, application/xml
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **logout_myself_other_sessions_handler**
+> logout_myself_other_sessions_handler()
+
+Sign out all my other open sessions
+
+Sign out all my other open sessions
+
+### Example
+```python
+from __future__ import print_function
+import time
+import demisto_client
+import demisto_client.demisto_api
+from demisto_client.demisto_api.rest import ApiException
+from pprint import pprint
+
+api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
+
+try:
+    # Sign out all my other open sessions
+    api_instance.logout_myself_other_sessions_handler()
+except ApiException as e:
+    print("Exception when calling DefaultApi->logout_myself_other_sessions_handler: %s\n" % e)
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[api_key](README.md#api_key)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, application/xml
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **logout_user_sessions_handler**
+> logout_user_sessions_handler()
+
+Sign out all sessions of the provided username
+
+Sign out all sessions of the provided username
+
+### Example
+```python
+from __future__ import print_function
+import time
+import demisto_client
+import demisto_client.demisto_api
+from demisto_client.demisto_api.rest import ApiException
+from pprint import pprint
+
+api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
+
+try:
+    # Sign out all sessions of the provided username
+    api_instance.logout_user_sessions_handler()
+except ApiException as e:
+    print("Exception when calling DefaultApi->logout_user_sessions_handler: %s\n" % e)
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[api_key](README.md#api_key)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, application/xml
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **logouta_everyone_handler**
+> logouta_everyone_handler()
+
+Sign out all open users sessions
+
+Sign out all open users sessions
+
+### Example
+```python
+from __future__ import print_function
+import time
+import demisto_client
+import demisto_client.demisto_api
+from demisto_client.demisto_api.rest import ApiException
+from pprint import pprint
+
+api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
+
+try:
+    # Sign out all open users sessions
+    api_instance.logouta_everyone_handler()
+except ApiException as e:
+    print("Exception when calling DefaultApi->logouta_everyone_handler: %s\n" % e)
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -2477,7 +2889,7 @@ void (empty response body)
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -2525,7 +2937,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -2573,7 +2985,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -2621,7 +3033,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -2669,7 +3081,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -2717,7 +3129,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -2765,7 +3177,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -2813,7 +3225,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -2871,7 +3283,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -2919,7 +3331,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -2967,7 +3379,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -3015,7 +3427,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -3063,7 +3475,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -3111,7 +3523,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 
@@ -3159,7 +3571,51 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, application/xml
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **workers_status_handler**
+> Info workers_status_handler()
+
+Get workers status
+
+Get workers status
+
+### Example
+```python
+from __future__ import print_function
+import time
+import demisto_client
+import demisto_client.demisto_api
+from demisto_client.demisto_api.rest import ApiException
+from pprint import pprint
+
+api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
+
+try:
+    # Get workers status
+    api_response = api_instance.workers_status_handler()
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->workers_status_handler: %s\n" % e)
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**Info**](Info.md)
+
+### Authorization
+
+[api_key](README.md#api_key)
 
 ### HTTP request headers
 

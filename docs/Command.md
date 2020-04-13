@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **execution** | **bool** |  | [optional] 
 **hidden** | **bool** |  | [optional] 
 **important** | [**list[Important]**](Important.md) |  | [optional] 
+**indicator_action** | **bool** |  | [optional] 
 **name** | **str** |  | [optional] 
 **outputs** | [**list[Output]**](Output.md) |  | [optional] 
 **permitted** | **bool** |  | [optional] 

@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    Demisto API
+    Cortex XSOAR API
 
-    This is the public REST API to integrate with the demisto server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Demisto web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Demisto REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Demisto server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Demisto has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Demisto will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
+    This is the public REST API to integrate with the Cortex XSOAR server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Cortex XSOAR web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Cortex XSOAR REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Cortex XSOAR server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Cortex XSOAR has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Cortex XSOAR will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
 
     OpenAPI spec version: 2.0.0
     
@@ -43,6 +43,7 @@ class Investigation(object):
         'closing_user_id': 'str',
         'created': 'datetime',
         'creating_user_id': 'str',
+        'dbot_created_by': 'str',
         'details': 'str',
         'entitlements': 'list[str]',
         'entry_users': 'list[str]',
@@ -58,10 +59,12 @@ class Investigation(object):
         'parent_investigation': 'str',
         'persistent_entitlements': 'dict(str, str)',
         'previous_roles': 'list[str]',
+        'primary_term': 'int',
         'raw_category': 'str',
         'reason': 'dict(str, str)',
         'roles': 'list[str]',
         'run_status': 'RunStatus',
+        'sequence_number': 'int',
         'slack_mirror_auto_close': 'bool',
         'slack_mirror_type': 'str',
         'sort_values': 'list[str]',
@@ -81,6 +84,7 @@ class Investigation(object):
         'closing_user_id': 'closingUserId',
         'created': 'created',
         'creating_user_id': 'creatingUserId',
+        'dbot_created_by': 'dbotCreatedBy',
         'details': 'details',
         'entitlements': 'entitlements',
         'entry_users': 'entryUsers',
@@ -96,10 +100,12 @@ class Investigation(object):
         'parent_investigation': 'parentInvestigation',
         'persistent_entitlements': 'persistentEntitlements',
         'previous_roles': 'previousRoles',
+        'primary_term': 'primaryTerm',
         'raw_category': 'rawCategory',
         'reason': 'reason',
         'roles': 'roles',
         'run_status': 'runStatus',
+        'sequence_number': 'sequenceNumber',
         'slack_mirror_auto_close': 'slackMirrorAutoClose',
         'slack_mirror_type': 'slackMirrorType',
         'sort_values': 'sortValues',
@@ -111,7 +117,7 @@ class Investigation(object):
         'version': 'version'
     }
 
-    def __init__(self, shard_id=None, category=None, child_investigations=None, closed=None, closing_user_id=None, created=None, creating_user_id=None, details=None, entitlements=None, entry_users=None, has_role=None, id=None, is_child_investigation=None, last_open=None, mirror_auto_close=None, mirror_types=None, modified=None, name=None, open_duration=None, parent_investigation=None, persistent_entitlements=None, previous_roles=None, raw_category=None, reason=None, roles=None, run_status=None, slack_mirror_auto_close=None, slack_mirror_type=None, sort_values=None, status=None, systems=None, tags=None, type=None, users=None, version=None):  # noqa: E501
+    def __init__(self, shard_id=None, category=None, child_investigations=None, closed=None, closing_user_id=None, created=None, creating_user_id=None, dbot_created_by=None, details=None, entitlements=None, entry_users=None, has_role=None, id=None, is_child_investigation=None, last_open=None, mirror_auto_close=None, mirror_types=None, modified=None, name=None, open_duration=None, parent_investigation=None, persistent_entitlements=None, previous_roles=None, primary_term=None, raw_category=None, reason=None, roles=None, run_status=None, sequence_number=None, slack_mirror_auto_close=None, slack_mirror_type=None, sort_values=None, status=None, systems=None, tags=None, type=None, users=None, version=None):  # noqa: E501
         """Investigation - a model defined in Swagger"""  # noqa: E501
 
         self._shard_id = None
@@ -121,6 +127,7 @@ class Investigation(object):
         self._closing_user_id = None
         self._created = None
         self._creating_user_id = None
+        self._dbot_created_by = None
         self._details = None
         self._entitlements = None
         self._entry_users = None
@@ -136,10 +143,12 @@ class Investigation(object):
         self._parent_investigation = None
         self._persistent_entitlements = None
         self._previous_roles = None
+        self._primary_term = None
         self._raw_category = None
         self._reason = None
         self._roles = None
         self._run_status = None
+        self._sequence_number = None
         self._slack_mirror_auto_close = None
         self._slack_mirror_type = None
         self._sort_values = None
@@ -165,6 +174,8 @@ class Investigation(object):
             self.created = created
         if creating_user_id is not None:
             self.creating_user_id = creating_user_id
+        if dbot_created_by is not None:
+            self.dbot_created_by = dbot_created_by
         if details is not None:
             self.details = details
         if entitlements is not None:
@@ -195,6 +206,8 @@ class Investigation(object):
             self.persistent_entitlements = persistent_entitlements
         if previous_roles is not None:
             self.previous_roles = previous_roles
+        if primary_term is not None:
+            self.primary_term = primary_term
         if raw_category is not None:
             self.raw_category = raw_category
         if reason is not None:
@@ -203,6 +216,8 @@ class Investigation(object):
             self.roles = roles
         if run_status is not None:
             self.run_status = run_status
+        if sequence_number is not None:
+            self.sequence_number = sequence_number
         if slack_mirror_auto_close is not None:
             self.slack_mirror_auto_close = slack_mirror_auto_close
         if slack_mirror_type is not None:
@@ -380,6 +395,29 @@ class Investigation(object):
         """
 
         self._creating_user_id = creating_user_id
+
+    @property
+    def dbot_created_by(self):
+        """Gets the dbot_created_by of this Investigation.  # noqa: E501
+
+        Who has created this event - relevant only for manual incidents  # noqa: E501
+
+        :return: The dbot_created_by of this Investigation.  # noqa: E501
+        :rtype: str
+        """
+        return self._dbot_created_by
+
+    @dbot_created_by.setter
+    def dbot_created_by(self, dbot_created_by):
+        """Sets the dbot_created_by of this Investigation.
+
+        Who has created this event - relevant only for manual incidents  # noqa: E501
+
+        :param dbot_created_by: The dbot_created_by of this Investigation.  # noqa: E501
+        :type: str
+        """
+
+        self._dbot_created_by = dbot_created_by
 
     @property
     def details(self):
@@ -721,6 +759,27 @@ class Investigation(object):
         self._previous_roles = previous_roles
 
     @property
+    def primary_term(self):
+        """Gets the primary_term of this Investigation.  # noqa: E501
+
+
+        :return: The primary_term of this Investigation.  # noqa: E501
+        :rtype: int
+        """
+        return self._primary_term
+
+    @primary_term.setter
+    def primary_term(self, primary_term):
+        """Sets the primary_term of this Investigation.
+
+
+        :param primary_term: The primary_term of this Investigation.  # noqa: E501
+        :type: int
+        """
+
+        self._primary_term = primary_term
+
+    @property
     def raw_category(self):
         """Gets the raw_category of this Investigation.  # noqa: E501
 
@@ -807,6 +866,27 @@ class Investigation(object):
         """
 
         self._run_status = run_status
+
+    @property
+    def sequence_number(self):
+        """Gets the sequence_number of this Investigation.  # noqa: E501
+
+
+        :return: The sequence_number of this Investigation.  # noqa: E501
+        :rtype: int
+        """
+        return self._sequence_number
+
+    @sequence_number.setter
+    def sequence_number(self, sequence_number):
+        """Sets the sequence_number of this Investigation.
+
+
+        :param sequence_number: The sequence_number of this Investigation.  # noqa: E501
+        :type: int
+        """
+
+        self._sequence_number = sequence_number
 
     @property
     def slack_mirror_auto_close(self):

@@ -4,6 +4,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **shard_id** | **int** |  | [optional] 
+**dbot_created_by** | **str** | Who has created this event - relevant only for manual incidents | [optional] 
 **description** | **str** | The description for the resolve | [optional] 
 **entry_id** | **str** | The entry ID | [optional] 
 **fetched** | **datetime** | when the evidence entry was fetched | [optional] 
@@ -15,7 +16,9 @@ Name | Type | Description | Notes
 **modified** | **datetime** |  | [optional] 
 **occurred** | **datetime** | When this evidence has occurred | [optional] 
 **previous_roles** | **list[str]** | PreviousRoleName - do not change this field manually | [optional] 
+**primary_term** | **int** |  | [optional] 
 **roles** | **list[str]** | The role assigned to this investigation | [optional] 
+**sequence_number** | **int** |  | [optional] 
 **sort_values** | **list[str]** |  | [optional] 
 **tags** | **list[str]** | Tags | [optional] 
 **tags_raw** | **list[str]** | TagsRaw | [optional] 

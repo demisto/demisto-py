@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    Demisto API
+    Cortex XSOAR API
 
-    This is the public REST API to integrate with the demisto server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Demisto web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Demisto REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Demisto server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Demisto has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Demisto will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
+    This is the public REST API to integrate with the Cortex XSOAR server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Cortex XSOAR web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Cortex XSOAR REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Cortex XSOAR server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Cortex XSOAR has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Cortex XSOAR will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
 
     OpenAPI spec version: 2.0.0
     
@@ -16,7 +16,11 @@ import re  # noqa: F401
 
 import six
 
+from demisto_client.demisto_api.models.comments import Comments  # noqa: F401,E501
 from demisto_client.demisto_api.models.custom_fields import CustomFields  # noqa: F401,E501
+from demisto_client.demisto_api.models.expiration_source import ExpirationSource  # noqa: F401,E501
+from demisto_client.demisto_api.models.expiration_status import ExpirationStatus  # noqa: F401,E501
+from demisto_client.demisto_api.models.feed_indicator import FeedIndicator  # noqa: F401,E501
 from demisto_client.demisto_api.models.insight_cache import InsightCache  # noqa: F401,E501
 
 
@@ -36,25 +40,39 @@ class IocObject(object):
     swagger_types = {
         'custom_fields': 'CustomFields',
         'account': 'str',
+        'aggregated_reliability': 'str',
         'calculated_time': 'datetime',
         'comment': 'str',
+        'comments': 'Comments',
+        'deleted_feed_fetch_time': 'datetime',
+        'expiration': 'datetime',
+        'expiration_source': 'ExpirationSource',
+        'expiration_status': 'ExpirationStatus',
         'first_seen': 'datetime',
         'first_seen_entry_id': 'str',
         'id': 'str',
         'indicator_type': 'str',
         'insight_cache': 'InsightCache',
         'investigation_i_ds': 'list[str]',
+        'is_shared': 'bool',
         'last_reputation_run': 'datetime',
         'last_seen': 'datetime',
         'last_seen_entry_id': 'str',
+        'manual_expiration_time': 'datetime',
         'manual_score': 'bool',
         'manual_set_time': 'datetime',
         'manually_edited_fields': 'list[str]',
         'modified': 'datetime',
+        'modified_time': 'datetime',
+        'module_to_feed_map': 'dict(str, FeedIndicator)',
+        'primary_term': 'int',
         'score': 'int',
+        'sequence_number': 'int',
         'set_by': 'str',
         'sort_values': 'list[str]',
         'source': 'str',
+        'source_brands': 'list[str]',
+        'source_instances': 'list[str]',
         'timestamp': 'datetime',
         'value': 'str',
         'version': 'int'
@@ -63,54 +81,82 @@ class IocObject(object):
     attribute_map = {
         'custom_fields': 'CustomFields',
         'account': 'account',
+        'aggregated_reliability': 'aggregatedReliability',
         'calculated_time': 'calculatedTime',
         'comment': 'comment',
+        'comments': 'comments',
+        'deleted_feed_fetch_time': 'deletedFeedFetchTime',
+        'expiration': 'expiration',
+        'expiration_source': 'expirationSource',
+        'expiration_status': 'expirationStatus',
         'first_seen': 'firstSeen',
         'first_seen_entry_id': 'firstSeenEntryID',
         'id': 'id',
         'indicator_type': 'indicator_type',
         'insight_cache': 'insightCache',
         'investigation_i_ds': 'investigationIDs',
+        'is_shared': 'isShared',
         'last_reputation_run': 'lastReputationRun',
         'last_seen': 'lastSeen',
         'last_seen_entry_id': 'lastSeenEntryID',
+        'manual_expiration_time': 'manualExpirationTime',
         'manual_score': 'manualScore',
         'manual_set_time': 'manualSetTime',
         'manually_edited_fields': 'manuallyEditedFields',
         'modified': 'modified',
+        'modified_time': 'modifiedTime',
+        'module_to_feed_map': 'moduleToFeedMap',
+        'primary_term': 'primaryTerm',
         'score': 'score',
+        'sequence_number': 'sequenceNumber',
         'set_by': 'setBy',
         'sort_values': 'sortValues',
         'source': 'source',
+        'source_brands': 'sourceBrands',
+        'source_instances': 'sourceInstances',
         'timestamp': 'timestamp',
         'value': 'value',
         'version': 'version'
     }
 
-    def __init__(self, custom_fields=None, account=None, calculated_time=None, comment=None, first_seen=None, first_seen_entry_id=None, id=None, indicator_type=None, insight_cache=None, investigation_i_ds=None, last_reputation_run=None, last_seen=None, last_seen_entry_id=None, manual_score=None, manual_set_time=None, manually_edited_fields=None, modified=None, score=None, set_by=None, sort_values=None, source=None, timestamp=None, value=None, version=None):  # noqa: E501
+    def __init__(self, custom_fields=None, account=None, aggregated_reliability=None, calculated_time=None, comment=None, comments=None, deleted_feed_fetch_time=None, expiration=None, expiration_source=None, expiration_status=None, first_seen=None, first_seen_entry_id=None, id=None, indicator_type=None, insight_cache=None, investigation_i_ds=None, is_shared=None, last_reputation_run=None, last_seen=None, last_seen_entry_id=None, manual_expiration_time=None, manual_score=None, manual_set_time=None, manually_edited_fields=None, modified=None, modified_time=None, module_to_feed_map=None, primary_term=None, score=None, sequence_number=None, set_by=None, sort_values=None, source=None, source_brands=None, source_instances=None, timestamp=None, value=None, version=None):  # noqa: E501
         """IocObject - a model defined in Swagger"""  # noqa: E501
 
         self._custom_fields = None
         self._account = None
+        self._aggregated_reliability = None
         self._calculated_time = None
         self._comment = None
+        self._comments = None
+        self._deleted_feed_fetch_time = None
+        self._expiration = None
+        self._expiration_source = None
+        self._expiration_status = None
         self._first_seen = None
         self._first_seen_entry_id = None
         self._id = None
         self._indicator_type = None
         self._insight_cache = None
         self._investigation_i_ds = None
+        self._is_shared = None
         self._last_reputation_run = None
         self._last_seen = None
         self._last_seen_entry_id = None
+        self._manual_expiration_time = None
         self._manual_score = None
         self._manual_set_time = None
         self._manually_edited_fields = None
         self._modified = None
+        self._modified_time = None
+        self._module_to_feed_map = None
+        self._primary_term = None
         self._score = None
+        self._sequence_number = None
         self._set_by = None
         self._sort_values = None
         self._source = None
+        self._source_brands = None
+        self._source_instances = None
         self._timestamp = None
         self._value = None
         self._version = None
@@ -120,10 +166,22 @@ class IocObject(object):
             self.custom_fields = custom_fields
         if account is not None:
             self.account = account
+        if aggregated_reliability is not None:
+            self.aggregated_reliability = aggregated_reliability
         if calculated_time is not None:
             self.calculated_time = calculated_time
         if comment is not None:
             self.comment = comment
+        if comments is not None:
+            self.comments = comments
+        if deleted_feed_fetch_time is not None:
+            self.deleted_feed_fetch_time = deleted_feed_fetch_time
+        if expiration is not None:
+            self.expiration = expiration
+        if expiration_source is not None:
+            self.expiration_source = expiration_source
+        if expiration_status is not None:
+            self.expiration_status = expiration_status
         if first_seen is not None:
             self.first_seen = first_seen
         if first_seen_entry_id is not None:
@@ -136,12 +194,16 @@ class IocObject(object):
             self.insight_cache = insight_cache
         if investigation_i_ds is not None:
             self.investigation_i_ds = investigation_i_ds
+        if is_shared is not None:
+            self.is_shared = is_shared
         if last_reputation_run is not None:
             self.last_reputation_run = last_reputation_run
         if last_seen is not None:
             self.last_seen = last_seen
         if last_seen_entry_id is not None:
             self.last_seen_entry_id = last_seen_entry_id
+        if manual_expiration_time is not None:
+            self.manual_expiration_time = manual_expiration_time
         if manual_score is not None:
             self.manual_score = manual_score
         if manual_set_time is not None:
@@ -150,14 +212,26 @@ class IocObject(object):
             self.manually_edited_fields = manually_edited_fields
         if modified is not None:
             self.modified = modified
+        if modified_time is not None:
+            self.modified_time = modified_time
+        if module_to_feed_map is not None:
+            self.module_to_feed_map = module_to_feed_map
+        if primary_term is not None:
+            self.primary_term = primary_term
         if score is not None:
             self.score = score
+        if sequence_number is not None:
+            self.sequence_number = sequence_number
         if set_by is not None:
             self.set_by = set_by
         if sort_values is not None:
             self.sort_values = sort_values
         if source is not None:
             self.source = source
+        if source_brands is not None:
+            self.source_brands = source_brands
+        if source_instances is not None:
+            self.source_instances = source_instances
         if timestamp is not None:
             self.timestamp = timestamp
         if value is not None:
@@ -208,6 +282,27 @@ class IocObject(object):
         self._account = account
 
     @property
+    def aggregated_reliability(self):
+        """Gets the aggregated_reliability of this IocObject.  # noqa: E501
+
+
+        :return: The aggregated_reliability of this IocObject.  # noqa: E501
+        :rtype: str
+        """
+        return self._aggregated_reliability
+
+    @aggregated_reliability.setter
+    def aggregated_reliability(self, aggregated_reliability):
+        """Sets the aggregated_reliability of this IocObject.
+
+
+        :param aggregated_reliability: The aggregated_reliability of this IocObject.  # noqa: E501
+        :type: str
+        """
+
+        self._aggregated_reliability = aggregated_reliability
+
+    @property
     def calculated_time(self):
         """Gets the calculated_time of this IocObject.  # noqa: E501
 
@@ -250,6 +345,111 @@ class IocObject(object):
         """
 
         self._comment = comment
+
+    @property
+    def comments(self):
+        """Gets the comments of this IocObject.  # noqa: E501
+
+
+        :return: The comments of this IocObject.  # noqa: E501
+        :rtype: Comments
+        """
+        return self._comments
+
+    @comments.setter
+    def comments(self, comments):
+        """Sets the comments of this IocObject.
+
+
+        :param comments: The comments of this IocObject.  # noqa: E501
+        :type: Comments
+        """
+
+        self._comments = comments
+
+    @property
+    def deleted_feed_fetch_time(self):
+        """Gets the deleted_feed_fetch_time of this IocObject.  # noqa: E501
+
+
+        :return: The deleted_feed_fetch_time of this IocObject.  # noqa: E501
+        :rtype: datetime
+        """
+        return self._deleted_feed_fetch_time
+
+    @deleted_feed_fetch_time.setter
+    def deleted_feed_fetch_time(self, deleted_feed_fetch_time):
+        """Sets the deleted_feed_fetch_time of this IocObject.
+
+
+        :param deleted_feed_fetch_time: The deleted_feed_fetch_time of this IocObject.  # noqa: E501
+        :type: datetime
+        """
+
+        self._deleted_feed_fetch_time = deleted_feed_fetch_time
+
+    @property
+    def expiration(self):
+        """Gets the expiration of this IocObject.  # noqa: E501
+
+
+        :return: The expiration of this IocObject.  # noqa: E501
+        :rtype: datetime
+        """
+        return self._expiration
+
+    @expiration.setter
+    def expiration(self, expiration):
+        """Sets the expiration of this IocObject.
+
+
+        :param expiration: The expiration of this IocObject.  # noqa: E501
+        :type: datetime
+        """
+
+        self._expiration = expiration
+
+    @property
+    def expiration_source(self):
+        """Gets the expiration_source of this IocObject.  # noqa: E501
+
+
+        :return: The expiration_source of this IocObject.  # noqa: E501
+        :rtype: ExpirationSource
+        """
+        return self._expiration_source
+
+    @expiration_source.setter
+    def expiration_source(self, expiration_source):
+        """Sets the expiration_source of this IocObject.
+
+
+        :param expiration_source: The expiration_source of this IocObject.  # noqa: E501
+        :type: ExpirationSource
+        """
+
+        self._expiration_source = expiration_source
+
+    @property
+    def expiration_status(self):
+        """Gets the expiration_status of this IocObject.  # noqa: E501
+
+
+        :return: The expiration_status of this IocObject.  # noqa: E501
+        :rtype: ExpirationStatus
+        """
+        return self._expiration_status
+
+    @expiration_status.setter
+    def expiration_status(self, expiration_status):
+        """Sets the expiration_status of this IocObject.
+
+
+        :param expiration_status: The expiration_status of this IocObject.  # noqa: E501
+        :type: ExpirationStatus
+        """
+
+        self._expiration_status = expiration_status
 
     @property
     def first_seen(self):
@@ -378,6 +578,27 @@ class IocObject(object):
         self._investigation_i_ds = investigation_i_ds
 
     @property
+    def is_shared(self):
+        """Gets the is_shared of this IocObject.  # noqa: E501
+
+
+        :return: The is_shared of this IocObject.  # noqa: E501
+        :rtype: bool
+        """
+        return self._is_shared
+
+    @is_shared.setter
+    def is_shared(self, is_shared):
+        """Sets the is_shared of this IocObject.
+
+
+        :param is_shared: The is_shared of this IocObject.  # noqa: E501
+        :type: bool
+        """
+
+        self._is_shared = is_shared
+
+    @property
     def last_reputation_run(self):
         """Gets the last_reputation_run of this IocObject.  # noqa: E501
 
@@ -439,6 +660,27 @@ class IocObject(object):
         """
 
         self._last_seen_entry_id = last_seen_entry_id
+
+    @property
+    def manual_expiration_time(self):
+        """Gets the manual_expiration_time of this IocObject.  # noqa: E501
+
+
+        :return: The manual_expiration_time of this IocObject.  # noqa: E501
+        :rtype: datetime
+        """
+        return self._manual_expiration_time
+
+    @manual_expiration_time.setter
+    def manual_expiration_time(self, manual_expiration_time):
+        """Sets the manual_expiration_time of this IocObject.
+
+
+        :param manual_expiration_time: The manual_expiration_time of this IocObject.  # noqa: E501
+        :type: datetime
+        """
+
+        self._manual_expiration_time = manual_expiration_time
 
     @property
     def manual_score(self):
@@ -525,6 +767,69 @@ class IocObject(object):
         self._modified = modified
 
     @property
+    def modified_time(self):
+        """Gets the modified_time of this IocObject.  # noqa: E501
+
+
+        :return: The modified_time of this IocObject.  # noqa: E501
+        :rtype: datetime
+        """
+        return self._modified_time
+
+    @modified_time.setter
+    def modified_time(self, modified_time):
+        """Sets the modified_time of this IocObject.
+
+
+        :param modified_time: The modified_time of this IocObject.  # noqa: E501
+        :type: datetime
+        """
+
+        self._modified_time = modified_time
+
+    @property
+    def module_to_feed_map(self):
+        """Gets the module_to_feed_map of this IocObject.  # noqa: E501
+
+
+        :return: The module_to_feed_map of this IocObject.  # noqa: E501
+        :rtype: dict(str, FeedIndicator)
+        """
+        return self._module_to_feed_map
+
+    @module_to_feed_map.setter
+    def module_to_feed_map(self, module_to_feed_map):
+        """Sets the module_to_feed_map of this IocObject.
+
+
+        :param module_to_feed_map: The module_to_feed_map of this IocObject.  # noqa: E501
+        :type: dict(str, FeedIndicator)
+        """
+
+        self._module_to_feed_map = module_to_feed_map
+
+    @property
+    def primary_term(self):
+        """Gets the primary_term of this IocObject.  # noqa: E501
+
+
+        :return: The primary_term of this IocObject.  # noqa: E501
+        :rtype: int
+        """
+        return self._primary_term
+
+    @primary_term.setter
+    def primary_term(self, primary_term):
+        """Sets the primary_term of this IocObject.
+
+
+        :param primary_term: The primary_term of this IocObject.  # noqa: E501
+        :type: int
+        """
+
+        self._primary_term = primary_term
+
+    @property
     def score(self):
         """Gets the score of this IocObject.  # noqa: E501
 
@@ -544,6 +849,27 @@ class IocObject(object):
         """
 
         self._score = score
+
+    @property
+    def sequence_number(self):
+        """Gets the sequence_number of this IocObject.  # noqa: E501
+
+
+        :return: The sequence_number of this IocObject.  # noqa: E501
+        :rtype: int
+        """
+        return self._sequence_number
+
+    @sequence_number.setter
+    def sequence_number(self, sequence_number):
+        """Sets the sequence_number of this IocObject.
+
+
+        :param sequence_number: The sequence_number of this IocObject.  # noqa: E501
+        :type: int
+        """
+
+        self._sequence_number = sequence_number
 
     @property
     def set_by(self):
@@ -607,6 +933,48 @@ class IocObject(object):
         """
 
         self._source = source
+
+    @property
+    def source_brands(self):
+        """Gets the source_brands of this IocObject.  # noqa: E501
+
+
+        :return: The source_brands of this IocObject.  # noqa: E501
+        :rtype: list[str]
+        """
+        return self._source_brands
+
+    @source_brands.setter
+    def source_brands(self, source_brands):
+        """Sets the source_brands of this IocObject.
+
+
+        :param source_brands: The source_brands of this IocObject.  # noqa: E501
+        :type: list[str]
+        """
+
+        self._source_brands = source_brands
+
+    @property
+    def source_instances(self):
+        """Gets the source_instances of this IocObject.  # noqa: E501
+
+
+        :return: The source_instances of this IocObject.  # noqa: E501
+        :rtype: list[str]
+        """
+        return self._source_instances
+
+    @source_instances.setter
+    def source_instances(self, source_instances):
+        """Sets the source_instances of this IocObject.
+
+
+        :param source_instances: The source_instances of this IocObject.  # noqa: E501
+        :type: list[str]
+        """
+
+        self._source_instances = source_instances
 
     @property
     def timestamp(self):

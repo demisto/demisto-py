@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**complete_task_v2**](DefaultApi.md#complete_task_v2) | **POST** /v2/inv-playbook/task/complete | Complete a task
 [**copy_script**](DefaultApi.md#copy_script) | **POST** /automation/copy | Copy automation
 [**create_docker_image**](DefaultApi.md#create_docker_image) | **POST** /settings/docker-images | Create Image
+[**create_feed_indicators_json**](DefaultApi.md#create_feed_indicators_json) | **POST** /indicators/feed/json | Create feed indicators from JSON
 [**create_incident**](DefaultApi.md#create_incident) | **POST** /incident | Create single incident
 [**create_incident_json**](DefaultApi.md#create_incident_json) | **POST** /incident/json | Create incident from JSON
 [**create_incidents_batch**](DefaultApi.md#create_incidents_batch) | **POST** /incident/batch | Batch create incidents
@@ -32,6 +33,7 @@ Method | HTTP request | Description
 [**get_all_widgets**](DefaultApi.md#get_all_widgets) | **GET** /widgets | 
 [**get_audits**](DefaultApi.md#get_audits) | **POST** /settings/audits | Get Audits
 [**get_automation_scripts**](DefaultApi.md#get_automation_scripts) | **POST** /automation/search | Search Automation (aka scripts)
+[**get_containers**](DefaultApi.md#get_containers) | **GET** /health/containers | Get health containers
 [**get_docker_images**](DefaultApi.md#get_docker_images) | **GET** /settings/docker-images | Get Docker Images
 [**get_entry_artifact**](DefaultApi.md#get_entry_artifact) | **GET** /entry/artifact/{id} | Get entry artifact
 [**get_incident_as_csv**](DefaultApi.md#get_incident_as_csv) | **GET** /incident/csv/{id} | Get incident as CSV
@@ -42,6 +44,8 @@ Method | HTTP request | Description
 [**get_stats_for_dashboard**](DefaultApi.md#get_stats_for_dashboard) | **POST** /statistics/dashboards/query | Get Dashboard Statistics
 [**get_stats_for_widget**](DefaultApi.md#get_stats_for_widget) | **POST** /statistics/widgets/query | Get Widget Statistics
 [**get_widget**](DefaultApi.md#get_widget) | **GET** /widgets/{id} | Get widget by ID
+[**health_handler**](DefaultApi.md#health_handler) | **GET** /health | Check if Cortex XSOAR server is available
+[**import_script**](DefaultApi.md#import_script) | **POST** /automation/import | Upload an automation
 [**import_widget**](DefaultApi.md#import_widget) | **POST** /widgets/import | Import a widget
 [**incident_file_upload**](DefaultApi.md#incident_file_upload) | **POST** /incident/upload/{id} | 
 [**indicator_whitelist**](DefaultApi.md#indicator_whitelist) | **POST** /indicator/whitelist | Whitelists or deletes Indicator
@@ -49,10 +53,15 @@ Method | HTTP request | Description
 [**indicators_create_batch**](DefaultApi.md#indicators_create_batch) | **POST** /indicators/upload | Create indicators
 [**indicators_edit**](DefaultApi.md#indicators_edit) | **POST** /indicator/edit | Edit Indicator
 [**indicators_search**](DefaultApi.md#indicators_search) | **POST** /indicators/search | Search indicators
+[**indicators_timeline_delete**](DefaultApi.md#indicators_timeline_delete) | **POST** /indicators/timeline/delete | Delete indicators timeline
 [**integration_upload**](DefaultApi.md#integration_upload) | **POST** /settings/integration-conf/upload | Upload an integration
 [**investigation_add_entries_sync**](DefaultApi.md#investigation_add_entries_sync) | **POST** /entry/execute/sync | Create new entry in existing investigation
 [**investigation_add_entry_handler**](DefaultApi.md#investigation_add_entry_handler) | **POST** /entry | Create new entry in existing investigation
 [**investigation_add_formatted_entry_handler**](DefaultApi.md#investigation_add_formatted_entry_handler) | **POST** /entry/formatted | Create new formatted entry in existing investigation
+[**logout_myself_handler**](DefaultApi.md#logout_myself_handler) | **POST** /logout/myself | Sign out all my open sessions
+[**logout_myself_other_sessions_handler**](DefaultApi.md#logout_myself_other_sessions_handler) | **POST** /logout/myself/other | Sign out all my other open sessions
+[**logout_user_sessions_handler**](DefaultApi.md#logout_user_sessions_handler) | **POST** /logout/user/{username} | Sign out all sessions of the provided username
+[**logouta_everyone_handler**](DefaultApi.md#logouta_everyone_handler) | **POST** /logout/everyone | Sign out all open users sessions
 [**revoke_user_api_key**](DefaultApi.md#revoke_user_api_key) | **POST** /apikeys/revoke/user/{username} | 
 [**save_evidence**](DefaultApi.md#save_evidence) | **POST** /evidence | Save evidence
 [**save_or_update_script**](DefaultApi.md#save_or_update_script) | **POST** /automation | Create or update automation
@@ -68,6 +77,7 @@ Method | HTTP request | Description
 [**task_un_complete**](DefaultApi.md#task_un_complete) | **POST** /inv-playbook/task/uncomplete | Un complete a task
 [**update_entry_note**](DefaultApi.md#update_entry_note) | **POST** /entry/note | Mark entry as note
 [**update_entry_tags_op**](DefaultApi.md#update_entry_tags_op) | **POST** /entry/tags | Set entry tags
+[**workers_status_handler**](DefaultApi.md#workers_status_handler) | **GET** /workers/status | Get workers status
 
 
 ## Documentation For Models
@@ -82,15 +92,24 @@ Method | HTTP request | Description
  - [Audit](Audit.md)
  - [AuditResult](AuditResult.md)
  - [AutomationScript](AutomationScript.md)
- - [AutomationScriptAPI](AutomationScriptAPI.md)
  - [AutomationScriptFilter](AutomationScriptFilter.md)
  - [AutomationScriptFilterWrapper](AutomationScriptFilterWrapper.md)
  - [AutomationScriptResult](AutomationScriptResult.md)
+ - [BaseFilter](BaseFilter.md)
  - [Command](Command.md)
+ - [Comment](Comment.md)
+ - [CommentType](CommentType.md)
+ - [CommentUpdate](CommentUpdate.md)
+ - [Comments](Comments.md)
+ - [CommentsFields](CommentsFields.md)
  - [CommonFields](CommonFields.md)
+ - [CommonUpdateBatch](CommonUpdateBatch.md)
  - [ComplexArg](ComplexArg.md)
  - [ConfigDataType](ConfigDataType.md)
  - [ConfigField](ConfigField.md)
+ - [ContainersInfo](ContainersInfo.md)
+ - [ContentItemExportableFields](ContentItemExportableFields.md)
+ - [ContentItemVersionedFields](ContentItemVersionedFields.md)
  - [CreateIncidentRequest](CreateIncidentRequest.md)
  - [CustomFields](CustomFields.md)
  - [DBotScore](DBotScore.md)
@@ -103,6 +122,7 @@ Method | HTTP request | Description
  - [DockerImagesResult](DockerImagesResult.md)
  - [DownloadEntry](DownloadEntry.md)
  - [Duration](Duration.md)
+ - [ElasticCommonFields](ElasticCommonFields.md)
  - [EndingType](EndingType.md)
  - [Entry](Entry.md)
  - [EntryCategory](EntryCategory.md)
@@ -115,12 +135,19 @@ Method | HTTP request | Description
  - [Evidences](Evidences.md)
  - [EvidencesFilterWrapper](EvidencesFilterWrapper.md)
  - [EvidencesSearchResponse](EvidencesSearchResponse.md)
+ - [ExpirationPolicy](ExpirationPolicy.md)
+ - [ExpirationSettingsSource](ExpirationSettingsSource.md)
+ - [ExpirationSource](ExpirationSource.md)
+ - [ExpirationStatus](ExpirationStatus.md)
+ - [FeedIndicator](FeedIndicator.md)
+ - [FeedIndicatorsRequest](FeedIndicatorsRequest.md)
  - [FieldGroup](FieldGroup.md)
  - [FieldMapping](FieldMapping.md)
+ - [FieldMergeStrategy](FieldMergeStrategy.md)
  - [FieldTermLocationMap](FieldTermLocationMap.md)
  - [FileMetadata](FileMetadata.md)
- - [FilterCache](FilterCache.md)
  - [FilterOperatorID](FilterOperatorID.md)
+ - [FormDisplay](FormDisplay.md)
  - [GenericIndicatorUpdateBatch](GenericIndicatorUpdateBatch.md)
  - [GenericStringDateFilter](GenericStringDateFilter.md)
  - [GenericStringFilter](GenericStringFilter.md)
@@ -128,17 +155,21 @@ Method | HTTP request | Description
  - [Group](Group.md)
  - [Groups](Groups.md)
  - [HumanCron](HumanCron.md)
+ - [IdVersion](IdVersion.md)
  - [Important](Important.md)
  - [Incident](Incident.md)
  - [IncidentField](IncidentField.md)
  - [IncidentFilter](IncidentFilter.md)
- - [IncidentSearchResponseWrapper](IncidentSearchResponseWrapper.md)
  - [IncidentStatus](IncidentStatus.md)
  - [IncidentType](IncidentType.md)
  - [IncidentWrapper](IncidentWrapper.md)
  - [IndicatorContext](IndicatorContext.md)
+ - [IndicatorEditBulkResponse](IndicatorEditBulkResponse.md)
  - [IndicatorFilter](IndicatorFilter.md)
  - [IndicatorResult](IndicatorResult.md)
+ - [IndicatorTimeline](IndicatorTimeline.md)
+ - [IndicatorTimelineFromEntry](IndicatorTimelineFromEntry.md)
+ - [Info](Info.md)
  - [InlineResponse200](InlineResponse200.md)
  - [InsightCache](InsightCache.md)
  - [IntegrationScript](IntegrationScript.md)
@@ -153,7 +184,6 @@ Method | HTTP request | Description
  - [InvestigationPlaybookData](InvestigationPlaybookData.md)
  - [InvestigationPlaybookState](InvestigationPlaybookState.md)
  - [InvestigationPlaybookTask](InvestigationPlaybookTask.md)
- - [InvestigationPlaybookTasksAPI](InvestigationPlaybookTasksAPI.md)
  - [InvestigationSearchResponse](InvestigationSearchResponse.md)
  - [InvestigationStatus](InvestigationStatus.md)
  - [InvestigationType](InvestigationType.md)
@@ -175,13 +205,17 @@ Method | HTTP request | Description
  - [OutputType](OutputType.md)
  - [Period](Period.md)
  - [PlaybookInput](PlaybookInput.md)
+ - [PlaybookInputQuery](PlaybookInputQuery.md)
  - [PlaybookInputs](PlaybookInputs.md)
  - [PlaybookOutput](PlaybookOutput.md)
  - [PlaybookOutputs](PlaybookOutputs.md)
  - [PlaybookView](PlaybookView.md)
  - [Question](Question.md)
+ - [QuietMode](QuietMode.md)
+ - [RBAC](RBAC.md)
+ - [RawFeedIndicator](RawFeedIndicator.md)
  - [RawMessage](RawMessage.md)
- - [RemoteRepos](RemoteRepos.md)
+ - [Reliability](Reliability.md)
  - [Report](Report.md)
  - [ReportAutomation](ReportAutomation.md)
  - [ReportFieldsDecoder](ReportFieldsDecoder.md)
@@ -191,13 +225,16 @@ Method | HTTP request | Description
  - [RunStatus](RunStatus.md)
  - [SLA](SLA.md)
  - [SLAState](SLAState.md)
+ - [Schedule](Schedule.md)
+ - [Scheduler](Scheduler.md)
+ - [ScriptAPI](ScriptAPI.md)
  - [ScriptSubType](ScriptSubType.md)
  - [ScriptTarget](ScriptTarget.md)
  - [ScriptType](ScriptType.md)
  - [SearchIncidentsData](SearchIncidentsData.md)
  - [Section](Section.md)
- - [SectionItem](SectionItem.md)
  - [Severity](Severity.md)
+ - [ShardedFields](ShardedFields.md)
  - [StatsQueryResponse](StatsQueryResponse.md)
  - [StatsTextResponse](StatsTextResponse.md)
  - [StatsTrendsResponse](StatsTrendsResponse.md)
@@ -217,9 +254,10 @@ Method | HTTP request | Description
  - [UpdateDataBatch](UpdateDataBatch.md)
  - [UpdateEntry](UpdateEntry.md)
  - [UpdateEntryTags](UpdateEntryTags.md)
- - [UpdateIndicatorReputationData](UpdateIndicatorReputationData.md)
- - [UpdateResponse](UpdateResponse.md)
+ - [UpdateIndicatorBatch](UpdateIndicatorBatch.md)
  - [UploadedEntry](UploadedEntry.md)
+ - [Version](Version.md)
+ - [VersionedCommit](VersionedCommit.md)
  - [Widget](Widget.md)
  - [WidgetCell](WidgetCell.md)
  - [WidgetCells](WidgetCells.md)
@@ -232,12 +270,6 @@ Method | HTTP request | Description
 
 - **Type**: API key
 - **API key parameter name**: Authorization
-- **Location**: HTTP header
-
-## csrf_token
-
-- **Type**: API key
-- **API key parameter name**: X-XSRF-TOKEN
 - **Location**: HTTP header
 
 

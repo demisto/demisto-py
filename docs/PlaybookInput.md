@@ -5,6 +5,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **description** | **str** |  | [optional] 
 **key** | **str** |  | [optional] 
+**playbook_input_query** | [**PlaybookInputQuery**](PlaybookInputQuery.md) |  | [optional] 
 **required** | **bool** |  | [optional] 
 **value** | [**AdvanceArg**](AdvanceArg.md) |  | [optional] 
 

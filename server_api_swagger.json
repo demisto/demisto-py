@@ -11,8 +11,8 @@
   ],
   "swagger": "2.0",
   "info": {
-    "description": "This is the public REST API to integrate with the demisto server.\nHTTP request can be sent using any HTTP-client.\n\nFor an example dedicated client take a look at: https://github.com/demisto/demisto-py.\n\nRequests must include API-key that can be generated in the Demisto web client under 'Settings' -\u003e 'Integrations' -\u003e 'API keys'\n\n\nOptimistic Locking and Versioning\\:\n\nWhen using Demisto REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item).\nIn addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).\n\nAssume that Alice and Bob both read the same data from Demisto server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s?\nTo solve this, each data item in Demisto has a numeric incremental version.\nIf Alice saved an item with version 4 and Bob trying to save the same item with version 3, Demisto will rollback Bob request and returns a DB version conflict error.\nBob will need to get the latest item and work on it so Alice work will not get lost.\n\nExample request using 'curl'\\:\n\n```\ncurl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: \u003cAPI Key goes here\u003e' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed\n```",
-    "title": "Demisto API",
+    "description": "This is the public REST API to integrate with the Cortex XSOAR server.\nHTTP request can be sent using any HTTP-client.\n\nFor an example dedicated client take a look at: https://github.com/demisto/demisto-py.\n\nRequests must include API-key that can be generated in the Cortex XSOAR web client under 'Settings' -\u003e 'Integrations' -\u003e 'API keys'\n\n\nOptimistic Locking and Versioning\\:\n\nWhen using Cortex XSOAR REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item).\nIn addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).\n\nAssume that Alice and Bob both read the same data from Cortex XSOAR server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s?\nTo solve this, each data item in Cortex XSOAR has a numeric incremental version.\nIf Alice saved an item with version 4 and Bob trying to save the same item with version 3, Cortex XSOAR will rollback Bob request and returns a DB version conflict error.\nBob will need to get the latest item and work on it so Alice work will not get lost.\n\nExample request using 'curl'\\:\n\n```\ncurl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: \u003cAPI Key goes here\u003e' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed\n```",
+    "title": "Cortex XSOAR API",
     "version": "2.0.0"
   },
   "host": "hostname:443",
@@ -109,6 +109,36 @@
         }
       }
     },
+    "/automation/import": {
+      "post": {
+        "description": "Upload an automation to Cortex XSOAR",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "Upload an automation",
+        "operationId": "importScript",
+        "parameters": [
+          {
+            "type": "file",
+            "description": "file",
+            "name": "file",
+            "in": "formData",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The saved configuration",
+            "schema": {
+              "$ref": "#/definitions/ModuleConfiguration"
+            }
+          }
+        }
+      }
+    },
     "/automation/search": {
       "post": {
         "description": "Search Automation by filter",
@@ -189,7 +219,7 @@
     },
     "/entry/download/{entryid}": {
       "get": {
-        "description": "Download file from Demisto by entry ID",
+        "description": "Download file from Cortex XSOAR by entry ID",
         "produces": [
           "application/octet-stream"
         ],
@@ -260,10 +290,7 @@
         ],
         "responses": {
           "200": {
-            "description": "created file name",
-            "schema": {
-              "type": "string"
-            }
+            "description": "created file name"
           }
         }
       }
@@ -409,9 +436,39 @@
         }
       }
     },
+    "/health": {
+      "get": {
+        "description": "Check if Cortex XSOAR server is available",
+        "summary": "Check if Cortex XSOAR server is available",
+        "operationId": "healthHandler",
+        "responses": {
+          "200": {
+            "description": "OK status",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "/health/containers": {
+      "get": {
+        "description": "Gets info on the containers - amount of running, inactive and total containers",
+        "summary": "Get health containers",
+        "operationId": "getContainers",
+        "responses": {
+          "200": {
+            "description": "Gets info on the containers - amount of running, inactive and total containers",
+            "schema": {
+              "$ref": "#/definitions/containersInfo"
+            }
+          }
+        }
+      }
+    },
     "/incident": {
       "post": {
-        "description": "Create or update incident according to JSON structure.\nTo update incident custom fields you should lowercase them and remove all spaces. For example: Scan IP -\u003e scanip\nTo get the actual key name you can also go to Demisto CLI and run /incident_add and look for the key that you would like to update\n\nUse the 'createInvestigation\\: True' to start the investigation process automatically. (by running a playbook based on incident type.)",
+        "description": "Create or update incident according to JSON structure.\nTo update incident custom fields you should lowercase them and remove all spaces. For example: Scan IP -\u003e scanip\nTo get the actual key name you can also go to Cortex XSOAR CLI and run /incident_add and look for the key that you would like to update\n\nUse the 'createInvestigation\\: True' to start the investigation process automatically. (by running a playbook based on incident type.)",
         "summary": "Create single incident",
         "operationId": "createIncident",
         "parameters": [
@@ -435,7 +492,7 @@
     },
     "/incident/batch": {
       "post": {
-        "description": "Create or update an incidents batch\nTo update incident custom fields you should lowercase them and remove all spaces. For example: Scan IP -\u003e scanip\nTo get the actual key name you can also go to Demisto CLI and run /incident_add and look for the key that you would like to update",
+        "description": "Create or update an incidents batch\nTo update incident custom fields you should lowercase them and remove all spaces. For example: Scan IP -\u003e scanip\nTo get the actual key name you can also go to Cortex XSOAR CLI and run /incident_add and look for the key that you would like to update",
         "summary": "Batch create incidents",
         "operationId": "createIncidentsBatch",
         "parameters": [
@@ -483,7 +540,7 @@
     },
     "/incident/batchClose": {
       "post": {
-        "description": "Closes an incidents batch\nTo update incident custom fields you should lowercase them and remove all spaces. For example: Scan IP -\u003e scanip\nTo get the actual key name you can also go to Demisto CLI and run /incident_add and look for the key that you would like to update",
+        "description": "Closes an incidents batch\nTo update incident custom fields you should lowercase them and remove all spaces. For example: Scan IP -\u003e scanip\nTo get the actual key name you can also go to Cortex XSOAR CLI and run /incident_add and look for the key that you would like to update",
         "summary": "Batch close incidents",
         "operationId": "closeIncidentsBatch",
         "parameters": [
@@ -583,7 +640,8 @@
             "type": "string",
             "description": "Incident id to update",
             "name": "id",
-            "in": "path"
+            "in": "path",
+            "required": true
           },
           {
             "type": "string",
@@ -891,6 +949,28 @@
         }
       }
     },
+    "/indicators/feed/json": {
+      "post": {
+        "description": "Create indicators from raw JSON (similar to ingesting from a feed). Builds indicators according to the specified feed classifier,\nor uses the default one if not specified.\nIndicator properties (all optional except for value): **value** (string, required) | **type** (string) | **score** (number, 0-3,\ndefault `0`, where `0` means None, `1` Good, `2` Suspicious, and `3` Bad) | **sourceBrand** (string, default `\"External\"`) | **sourceInstance**\n(string, default `\"External\"`) | **reliability** (string, one of `\"A - Completely reliable\"`, `\"B - Usually reliable\"`, `\"C - Fairly\nreliable\"`, `\"D - Not usually reliable\"`, `\"E - Unreliable\"`, `\"F - Reliability cannot be judged\"`) | **expirationPolicy** (string,\none of `\"never\"`, `\"interval\"`, `\"indicatorType\"`) | **expirationInterval** (number, in minutes)",
+        "summary": "Create feed indicators from JSON",
+        "operationId": "createFeedIndicatorsJson",
+        "parameters": [
+          {
+            "name": "FeedIndicatorsRequest",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/FeedIndicatorsRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Indicators created"
+          }
+        }
+      }
+    },
     "/indicators/search": {
       "post": {
         "description": "Search indicators by filter",
@@ -937,6 +1017,30 @@
             "description": "Return STIX V2 file",
             "schema": {
               "type": "file"
+            }
+          }
+        }
+      }
+    },
+    "/indicators/timeline/delete": {
+      "post": {
+        "description": "Delete indicators timeline by filter",
+        "summary": "Delete indicators timeline",
+        "operationId": "indicatorsTimelineDelete",
+        "parameters": [
+          {
+            "name": "IndicatorFilter",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/IndicatorFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "IndicatorEditBulkResponse",
+            "schema": {
+              "$ref": "#/definitions/IndicatorEditBulkResponse"
             }
           }
         }
@@ -1280,6 +1384,38 @@
         }
       }
     },
+    "/logout/everyone": {
+      "post": {
+        "description": "Sign out all open users sessions",
+        "summary": "Sign out all open users sessions",
+        "operationId": "logoutaEveryoneHandler",
+        "responses": {}
+      }
+    },
+    "/logout/myself": {
+      "post": {
+        "description": "Sign out all my open sessions",
+        "summary": "Sign out all my open sessions",
+        "operationId": "logoutMyselfHandler",
+        "responses": {}
+      }
+    },
+    "/logout/myself/other": {
+      "post": {
+        "description": "Sign out all my other open sessions",
+        "summary": "Sign out all my other open sessions",
+        "operationId": "logoutMyselfOtherSessionsHandler",
+        "responses": {}
+      }
+    },
+    "/logout/user/{username}": {
+      "post": {
+        "description": "Sign out all sessions of the provided username",
+        "summary": "Sign out all sessions of the provided username",
+        "operationId": "logoutUserSessionsHandler",
+        "responses": {}
+      }
+    },
     "/report/{id}/{requestId}/execute": {
       "post": {
         "description": "Execute a new report",
@@ -1440,7 +1576,7 @@
     },
     "/settings/integration-conf/upload": {
       "post": {
-        "description": "Upload an integration to Demisto",
+        "description": "Upload an integration to Cortex XSOAR",
         "consumes": [
           "multipart/form-data"
         ],
@@ -1751,6 +1887,21 @@
           }
         }
       }
+    },
+    "/workers/status": {
+      "get": {
+        "description": "Get workers status",
+        "summary": "Get workers status",
+        "operationId": "workersStatusHandler",
+        "responses": {
+          "200": {
+            "description": "Workers status",
+            "schema": {
+              "$ref": "#/definitions/Info"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -1806,6 +1957,10 @@
       "title": "ArgTransformer ...",
       "properties": {
         "args": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/OperatorArgument"
+          },
           "x-go-name": "Args"
         },
         "operator": {
@@ -1870,7 +2025,7 @@
         "type": "integer",
         "format": "uint64"
       },
-      "x-go-package": "github.com/demisto/server/vendor/github.com/blevesearch/bleve/search"
+      "x-go-package": "github.com/blevesearch/bleve/search"
     },
     "Attachment": {
       "type": "object",
@@ -1927,6 +2082,16 @@
           "type": "string",
           "x-go-name": "Object"
         },
+        "primaryTerm": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "PrimaryTerm"
+        },
+        "sequenceNumber": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "SeqNum"
+        },
         "sortValues": {
           "type": "array",
           "items": {
@@ -1976,6 +2141,11 @@
           },
           "x-go-name": "ContextKeys"
         },
+        "dbotCreatedBy": {
+          "description": "Who has created this event - relevant only for manual incidents",
+          "type": "string",
+          "x-go-name": "CreatedBy"
+        },
         "dependsOn": {
           "description": "This fields indicates which commands this script depends on",
           "type": "object",
@@ -1991,6 +2161,10 @@
           "type": "boolean",
           "x-go-name": "Deprecated"
         },
+        "detached": {
+          "type": "boolean",
+          "x-go-name": "Detached"
+        },
         "dockerImage": {
           "type": "string",
           "x-go-name": "DockerImage"
@@ -1998,6 +2172,9 @@
         "enabled": {
           "type": "boolean",
           "x-go-name": "Enabled"
+        },
+        "fromServerVersion": {
+          "$ref": "#/definitions/Version"
         },
         "hasRole": {
           "description": "Internal field to make queries on role faster",
@@ -2019,6 +2196,9 @@
           },
           "x-go-name": "Important"
         },
+        "itemVersion": {
+          "$ref": "#/definitions/Version"
+        },
         "locked": {
           "type": "boolean",
           "x-go-name": "Locked"
@@ -2039,6 +2219,14 @@
           },
           "x-go-name": "Outputs"
         },
+        "packID": {
+          "type": "string",
+          "x-go-name": "PackID"
+        },
+        "paid": {
+          "type": "boolean",
+          "x-go-name": "Paid"
+        },
         "prevName": {
           "type": "string",
           "x-go-name": "PrevName"
@@ -2050,6 +2238,18 @@
             "type": "string"
           },
           "x-go-name": "PreviousRoleName"
+        },
+        "primaryTerm": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "PrimaryTerm"
+        },
+        "propagationLabels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "PropagationLabels"
         },
         "pswd": {
           "type": "string",
@@ -2093,6 +2293,11 @@
           "type": "boolean",
           "x-go-name": "Sensitive"
         },
+        "sequenceNumber": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "SeqNum"
+        },
         "shouldCommit": {
           "type": "boolean",
           "x-go-name": "ShouldCommit"
@@ -2103,6 +2308,10 @@
             "type": "string"
           },
           "x-go-name": "SortValues"
+        },
+        "sourceScripID": {
+          "type": "string",
+          "x-go-name": "SourceScripID"
         },
         "subtype": {
           "$ref": "#/definitions/ScriptSubType"
@@ -2120,6 +2329,9 @@
         },
         "timeout": {
           "$ref": "#/definitions/Duration"
+        },
+        "toServerVersion": {
+          "$ref": "#/definitions/Version"
         },
         "type": {
           "$ref": "#/definitions/ScriptType"
@@ -2144,121 +2356,8 @@
       },
       "x-go-package": "github.com/demisto/server/domain"
     },
-    "AutomationScriptAPI": {
-      "type": "object",
-      "title": "AutomationScriptAPI ...",
-      "properties": {
-        "arguments": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Argument"
-          },
-          "x-go-name": "Args"
-        },
-        "comment": {
-          "type": "string",
-          "x-go-name": "Comment"
-        },
-        "contextKeys": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "x-go-name": "ContextKeys"
-        },
-        "dependsOn": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "x-go-name": "DependsOn"
-        },
-        "deprecated": {
-          "type": "boolean",
-          "x-go-name": "Deprecated"
-        },
-        "dockerImage": {
-          "type": "string",
-          "x-go-name": "DockerImage"
-        },
-        "enabled": {
-          "type": "boolean",
-          "x-go-name": "Enabled"
-        },
-        "hidden": {
-          "type": "boolean",
-          "x-go-name": "Hidden"
-        },
-        "id": {
-          "type": "string",
-          "x-go-name": "ID"
-        },
-        "locked": {
-          "type": "boolean",
-          "x-go-name": "Locked"
-        },
-        "modified": {
-          "type": "string",
-          "format": "date-time",
-          "x-go-name": "Modified"
-        },
-        "name": {
-          "type": "string",
-          "x-go-name": "Name"
-        },
-        "outputs": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Output"
-          },
-          "x-go-name": "Outputs"
-        },
-        "permitted": {
-          "type": "boolean",
-          "x-go-name": "Permitted"
-        },
-        "roles": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "x-go-name": "Roles"
-        },
-        "runAs": {
-          "type": "string",
-          "x-go-name": "RunAs"
-        },
-        "scriptTarget": {
-          "$ref": "#/definitions/ScriptTarget"
-        },
-        "system": {
-          "type": "boolean",
-          "x-go-name": "System"
-        },
-        "tags": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "x-go-name": "Tags"
-        },
-        "type": {
-          "$ref": "#/definitions/ScriptType"
-        },
-        "user": {
-          "type": "string",
-          "x-go-name": "User"
-        },
-        "version": {
-          "type": "integer",
-          "format": "int64",
-          "x-go-name": "Version"
-        }
-      },
-      "x-go-package": "github.com/demisto/server/services"
+    "BaseFilter": {
+      "description": "BaseFilter provides common fields used by most filters such as paging, sizing and sorting"
     },
     "Command": {
       "description": "Command supported by a module",
@@ -2298,6 +2397,10 @@
           },
           "x-go-name": "Important"
         },
+        "indicatorAction": {
+          "type": "boolean",
+          "x-go-name": "IndicatorAction"
+        },
         "name": {
           "type": "string",
           "x-go-name": "Name"
@@ -2325,6 +2428,110 @@
       },
       "x-go-package": "github.com/demisto/server/domain"
     },
+    "Comment": {
+      "type": "object",
+      "title": "Comment ...",
+      "properties": {
+        "category": {
+          "type": "string",
+          "x-go-name": "Category"
+        },
+        "content": {
+          "type": "string",
+          "x-go-name": "Content"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "Created"
+        },
+        "entryId": {
+          "type": "string",
+          "x-go-name": "EntryID"
+        },
+        "id": {
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "modified": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "Modified"
+        },
+        "primaryTerm": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "PrimaryTerm"
+        },
+        "sequenceNumber": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "SeqNum"
+        },
+        "sortValues": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "SortValues"
+        },
+        "source": {
+          "type": "string",
+          "x-go-name": "Source"
+        },
+        "type": {
+          "$ref": "#/definitions/CommentType"
+        },
+        "user": {
+          "type": "string",
+          "x-go-name": "User"
+        },
+        "version": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Versn"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/domain"
+    },
+    "CommentType": {
+      "type": "string",
+      "title": "CommentType - comment type: regular comment, time-line, etc...",
+      "x-go-package": "github.com/demisto/server/domain"
+    },
+    "CommentUpdate": {
+      "type": "object",
+      "title": "CommentUpdate ...",
+      "properties": {
+        "content": {
+          "type": "string",
+          "x-go-name": "Content"
+        },
+        "indicatorId": {
+          "type": "string",
+          "x-go-name": "IndicatorID"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/web"
+    },
+    "Comments": {
+      "type": "array",
+      "title": "Comments ...",
+      "items": {
+        "$ref": "#/definitions/Comment"
+      },
+      "x-go-package": "github.com/demisto/server/domain"
+    },
+    "CommentsFields": {
+      "type": "object",
+      "title": "CommentsFields ...",
+      "properties": {
+        "comments": {
+          "$ref": "#/definitions/Comments"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/domain"
+    },
     "CommonFields": {
       "description": "CommonFields holds the common fields to all entities",
       "type": "object",
@@ -2337,6 +2544,16 @@
           "type": "string",
           "format": "date-time",
           "x-go-name": "Modified"
+        },
+        "primaryTerm": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "PrimaryTerm"
+        },
+        "sequenceNumber": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "SeqNum"
         },
         "sortValues": {
           "type": "array",
@@ -2352,6 +2569,31 @@
         }
       },
       "x-go-package": "github.com/demisto/server/domain"
+    },
+    "CommonUpdateBatch": {
+      "type": "object",
+      "title": "CommonUpdateBatch ...",
+      "properties": {
+        "all": {
+          "type": "boolean",
+          "x-go-name": "All"
+        },
+        "data": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          },
+          "x-go-name": "Data"
+        },
+        "ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "IDs"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/web"
     },
     "ComplexArg": {
       "description": "ComplexArg - all info that is necessary to compute argument value from context\nRoot - the root slice (or object) from to work against\nFilters - a slice of filters to apply to the root object, one after another (e.i. with AND condition between each one)\nAccessor - the key to access to each result after filter\nTransformers - a slice to transformers to apply on the result of the accessed key from each result\ne.g. if user want to take from context all File.DisplayName where File.Extension is 'EXE', and the result in uppercase than:\nRoot: is \"File\"\nFilters: will hold the \"File.DisplayName where File.Extension is 'EXE'\" query\nAccessor: is \"DisplayName\"\nTransformers: will hold the uppercase transformation",
@@ -2425,6 +2667,72 @@
         },
         "type": {
           "$ref": "#/definitions/ConfigDataType"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/domain"
+    },
+    "ContentItemExportableFields": {
+      "type": "object",
+      "title": "ContentItemExportableFields holds ContentItemExportableFields fields.",
+      "properties": {
+        "fromServerVersion": {
+          "$ref": "#/definitions/Version"
+        },
+        "itemVersion": {
+          "$ref": "#/definitions/Version"
+        },
+        "packID": {
+          "type": "string",
+          "x-go-name": "PackID"
+        },
+        "propagationLabels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "PropagationLabels"
+        },
+        "toServerVersion": {
+          "$ref": "#/definitions/Version"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/domain"
+    },
+    "ContentItemVersionedFields": {
+      "type": "object",
+      "title": "ContentItemVersionedFields holds ContentItemVersioned fields.",
+      "properties": {
+        "commitMessage": {
+          "type": "string",
+          "x-go-name": "CommitMessage"
+        },
+        "fromServerVersion": {
+          "$ref": "#/definitions/Version"
+        },
+        "itemVersion": {
+          "$ref": "#/definitions/Version"
+        },
+        "packID": {
+          "type": "string",
+          "x-go-name": "PackID"
+        },
+        "propagationLabels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "PropagationLabels"
+        },
+        "shouldCommit": {
+          "type": "boolean",
+          "x-go-name": "ShouldCommit"
+        },
+        "toServerVersion": {
+          "$ref": "#/definitions/Version"
+        },
+        "vcShouldIgnore": {
+          "type": "boolean",
+          "x-go-name": "VCShouldIgnore"
         }
       },
       "x-go-package": "github.com/demisto/server/domain"
@@ -2503,6 +2811,11 @@
           "format": "date-time",
           "x-go-name": "Created"
         },
+        "dbotCreatedBy": {
+          "description": "Who has created this event - relevant only for manual incidents",
+          "type": "string",
+          "x-go-name": "CreatedBy"
+        },
         "details": {
           "description": "The details of the incident - reason, etc.",
           "type": "string",
@@ -2519,6 +2832,11 @@
           "type": "string",
           "format": "date-time",
           "x-go-name": "DueDate"
+        },
+        "feedBased": {
+          "description": "If this incident was triggered by a feed job",
+          "type": "boolean",
+          "x-go-name": "FeedBased"
         },
         "hasRole": {
           "description": "Internal field to make queries on role faster",
@@ -2546,6 +2864,12 @@
             "$ref": "#/definitions/Label"
           },
           "x-go-name": "Labels"
+        },
+        "lastJobRunTime": {
+          "description": "If this incident was triggered by a job, this would be the time the **previous** job started",
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "LastJobRunTime"
         },
         "lastOpen": {
           "type": "string",
@@ -2622,6 +2946,11 @@
           },
           "x-go-name": "PreviousRoleName"
         },
+        "primaryTerm": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "PrimaryTerm"
+        },
         "rawCategory": {
           "type": "string",
           "x-go-name": "RawCategory"
@@ -2672,6 +3001,11 @@
         "runStatus": {
           "$ref": "#/definitions/RunStatus"
         },
+        "sequenceNumber": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "SeqNum"
+        },
         "severity": {
           "$ref": "#/definitions/Severity"
         },
@@ -2698,6 +3032,14 @@
         "status": {
           "$ref": "#/definitions/IncidentStatus"
         },
+        "todoTaskIds": {
+          "description": "ToDoTaskIDs list of to do task ids",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "ToDoTaskIDs"
+        },
         "type": {
           "description": "Incident type",
           "type": "string",
@@ -2707,18 +3049,12 @@
           "type": "integer",
           "format": "int64",
           "x-go-name": "Versn"
-        },
-        "CustomFields": {
-          "$ref": "#/definitions/CustomFields"
         }
-      },
-      "additionalProperties": {
-        "type": "object"
       },
       "x-go-package": "github.com/demisto/server/domain"
     },
     "CustomFields": {
-      "description": "The keys should be the field's display name all lower and without spaces. For example: Scan IP -\u003e scanip\nTo get the actual key name you can also go to Demisto CLI and run /incident_add and look for the key that you would like to update",
+      "description": "The keys should be the field's display name all lower and without spaces. For example: Scan IP -\u003e scanip\nTo get the actual key name you can also go to Cortex XSOAR CLI and run /incident_add and look for the key that you would like to update",
       "type": "object",
       "title": "CustomFields ...",
       "additionalProperties": {
@@ -2790,6 +3126,9 @@
           "format": "date-time",
           "x-go-name": "FromDateLicenseVal"
         },
+        "fromServerVersion": {
+          "$ref": "#/definitions/Version"
+        },
         "id": {
           "type": "string",
           "x-go-name": "ID"
@@ -2798,8 +3137,15 @@
           "type": "boolean",
           "x-go-name": "IsCommon"
         },
+        "itemVersion": {
+          "$ref": "#/definitions/Version"
+        },
         "layout": {
           "$ref": "#/definitions/WidgetCells"
+        },
+        "locked": {
+          "type": "boolean",
+          "x-go-name": "Locked"
         },
         "modified": {
           "type": "string",
@@ -2814,12 +3160,33 @@
           "type": "string",
           "x-go-name": "Owner"
         },
+        "packID": {
+          "type": "string",
+          "x-go-name": "PackID"
+        },
         "period": {
           "$ref": "#/definitions/Period"
         },
         "prevName": {
           "type": "string",
           "x-go-name": "PrevName"
+        },
+        "primaryTerm": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "PrimaryTerm"
+        },
+        "propagationLabels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "PropagationLabels"
+        },
+        "sequenceNumber": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "SeqNum"
         },
         "shared": {
           "type": "boolean",
@@ -2844,6 +3211,9 @@
           "type": "string",
           "format": "date-time",
           "x-go-name": "ToDate"
+        },
+        "toServerVersion": {
+          "$ref": "#/definitions/Version"
         },
         "vcShouldIgnore": {
           "type": "boolean",
@@ -2966,6 +3336,23 @@
       "format": "int64",
       "x-go-package": "time"
     },
+    "ElasticCommonFields": {
+      "description": "ElasticCommonFields - common fields used by elastic-search",
+      "type": "object",
+      "properties": {
+        "primaryTerm": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "PrimaryTerm"
+        },
+        "sequenceNumber": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "SeqNum"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/domain"
+    },
     "EndingType": {
       "description": "EndingType holds the type of schedule Ending",
       "type": "string",
@@ -2975,6 +3362,9 @@
       "description": "Entry holds a single entry in an investigation. Entries entered within a short amount of time by the same user are combined",
       "type": "object",
       "properties": {
+        "IndicatorTimeline": {
+          "$ref": "#/definitions/IndicatorTimeline"
+        },
         "ShardID": {
           "type": "integer",
           "format": "int64"
@@ -3011,9 +3401,22 @@
           "type": "boolean",
           "x-go-name": "CronView"
         },
+        "dbotCreatedBy": {
+          "description": "Who has created this event - relevant only for manual incidents",
+          "type": "string",
+          "x-go-name": "CreatedBy"
+        },
         "deleted": {
           "type": "boolean",
           "x-go-name": "Deleted"
+        },
+        "deletedBy": {
+          "type": "string",
+          "x-go-name": "DeletedBy"
+        },
+        "deletedFromFS": {
+          "type": "boolean",
+          "x-go-name": "DeletedFromFS"
         },
         "endingDate": {
           "type": "string",
@@ -3078,6 +3481,11 @@
           "type": "string",
           "x-go-name": "InvestigationID"
         },
+        "isTodo": {
+          "description": "IsTodo",
+          "type": "boolean",
+          "x-go-name": "IsTodo"
+        },
         "modified": {
           "type": "string",
           "format": "date-time",
@@ -3121,6 +3529,11 @@
           },
           "x-go-name": "PreviousRoleName"
         },
+        "primaryTerm": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "PrimaryTerm"
+        },
         "readOnly": {
           "description": "ReadOnly",
           "type": "boolean",
@@ -3144,6 +3557,12 @@
           },
           "x-go-name": "EntryReputations"
         },
+        "retryTime": {
+          "description": "When retry took place",
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "RetryTime"
+        },
         "roles": {
           "description": "The role assigned to this investigation",
           "type": "array",
@@ -3156,6 +3575,11 @@
           "description": "is it scheduled",
           "type": "boolean",
           "x-go-name": "Scheduled"
+        },
+        "sequenceNumber": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "SeqNum"
         },
         "sortValues": {
           "type": "array",
@@ -3199,6 +3623,10 @@
           "type": "integer",
           "format": "int64",
           "x-go-name": "Times"
+        },
+        "timezone": {
+          "type": "string",
+          "x-go-name": "Timezone"
         },
         "timezoneOffset": {
           "type": "integer",
@@ -3304,6 +3732,11 @@
           "type": "integer",
           "format": "int64"
         },
+        "dbotCreatedBy": {
+          "description": "Who has created this event - relevant only for manual incidents",
+          "type": "string",
+          "x-go-name": "CreatedBy"
+        },
         "description": {
           "description": "The description for the resolve",
           "type": "string",
@@ -3364,6 +3797,11 @@
           },
           "x-go-name": "PreviousRoleName"
         },
+        "primaryTerm": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "PrimaryTerm"
+        },
         "roles": {
           "description": "The role assigned to this investigation",
           "type": "array",
@@ -3371,6 +3809,11 @@
             "type": "string"
           },
           "x-go-name": "RoleName"
+        },
+        "sequenceNumber": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "SeqNum"
         },
         "sortValues": {
           "type": "array",
@@ -3405,9 +3848,6 @@
           "format": "int64",
           "x-go-name": "Versn"
         }
-      },
-      "additionalProperties": {
-        "type": "object"
       },
       "x-go-package": "github.com/demisto/server/domain"
     },
@@ -3458,6 +3898,174 @@
       },
       "x-go-package": "github.com/demisto/server/repo/entities"
     },
+    "ExpirationPolicy": {
+      "type": "string",
+      "title": "ExpirationPolicy ...",
+      "x-go-package": "github.com/demisto/server/domain"
+    },
+    "ExpirationSettingsSource": {
+      "type": "string",
+      "title": "ExpirationSettingsSource ...",
+      "x-go-package": "github.com/demisto/server/domain"
+    },
+    "ExpirationSource": {
+      "type": "object",
+      "title": "ExpirationSource ..\t.",
+      "properties": {
+        "brand": {
+          "type": "string",
+          "x-go-name": "Brand"
+        },
+        "expirationInterval": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "ExpirationInterval"
+        },
+        "expirationPolicy": {
+          "$ref": "#/definitions/ExpirationPolicy"
+        },
+        "instance": {
+          "type": "string",
+          "x-go-name": "Instance"
+        },
+        "moduleId": {
+          "type": "string",
+          "x-go-name": "ModuleID"
+        },
+        "setTime": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "SetTime"
+        },
+        "source": {
+          "$ref": "#/definitions/ExpirationSettingsSource"
+        },
+        "user": {
+          "type": "string",
+          "x-go-name": "User"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/domain"
+    },
+    "ExpirationStatus": {
+      "type": "string",
+      "title": "ExpirationStatus ...",
+      "x-go-package": "github.com/demisto/server/domain"
+    },
+    "FeedIndicator": {
+      "type": "object",
+      "title": "FeedIndicator ...",
+      "properties": {
+        "ExpirationSource": {
+          "$ref": "#/definitions/ExpirationSource"
+        },
+        "bypassExclusionList": {
+          "type": "boolean",
+          "x-go-name": "ShouldBypassExclusionList"
+        },
+        "classifierVersion": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "ClassifierVersion"
+        },
+        "expirationInterval": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "ExpirationInterval"
+        },
+        "expirationPolicy": {
+          "$ref": "#/definitions/ExpirationPolicy"
+        },
+        "feedConfig": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          },
+          "x-go-name": "FeedConfig"
+        },
+        "fetchTime": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "FetchTime"
+        },
+        "fields": {
+          "$ref": "#/definitions/CustomFields"
+        },
+        "isEnrichment": {
+          "type": "boolean",
+          "x-go-name": "IsEnrichment"
+        },
+        "modifiedTime": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "ModifiedTime"
+        },
+        "moduleId": {
+          "type": "string",
+          "x-go-name": "ModuleID"
+        },
+        "rawJSON": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          },
+          "x-go-name": "RawJSON"
+        },
+        "reliability": {
+          "$ref": "#/definitions/Reliability"
+        },
+        "score": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Score"
+        },
+        "sourceBrand": {
+          "type": "string",
+          "x-go-name": "Brand"
+        },
+        "sourceInstance": {
+          "type": "string",
+          "x-go-name": "Instance"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "TimeStamp"
+        },
+        "type": {
+          "description": "indicator fields",
+          "type": "string",
+          "x-go-name": "Type"
+        },
+        "value": {
+          "type": "string",
+          "x-go-name": "Value"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/domain"
+    },
+    "FeedIndicatorsRequest": {
+      "description": "FeedIndicatorsRequest is the input for JSON feed indicator ingestion",
+      "type": "object",
+      "properties": {
+        "bypassExclusionList": {
+          "type": "boolean",
+          "x-go-name": "ShouldBypassExclusionList"
+        },
+        "classifierId": {
+          "type": "string",
+          "x-go-name": "ClassifierID"
+        },
+        "indicators": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RawFeedIndicator"
+          },
+          "x-go-name": "Indicators"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/web"
+    },
     "FieldGroup": {
       "description": "FieldGroup is the field group",
       "type": "number",
@@ -3478,12 +4086,17 @@
       },
       "x-go-package": "github.com/demisto/server/domain"
     },
+    "FieldMergeStrategy": {
+      "description": "FieldMergeStrategy strategy for merging of indicator fields",
+      "type": "string",
+      "x-go-package": "github.com/demisto/server/domain"
+    },
     "FieldTermLocationMap": {
       "type": "object",
       "additionalProperties": {
         "$ref": "#/definitions/TermLocationMap"
       },
-      "x-go-package": "github.com/demisto/server/vendor/github.com/blevesearch/bleve/search"
+      "x-go-package": "github.com/blevesearch/bleve/search"
     },
     "FileMetadata": {
       "type": "object",
@@ -3529,14 +4142,48 @@
       },
       "x-go-package": "github.com/demisto/server/domain"
     },
-    "FilterCache": {
-      "type": "object",
-      "title": "FilterCache ...",
-      "x-go-package": "github.com/demisto/server/repo/entities"
-    },
     "FilterOperatorID": {
       "type": "string",
       "title": "FilterOperatorID ...",
+      "x-go-package": "github.com/demisto/server/domain"
+    },
+    "FormDisplay": {
+      "type": "object",
+      "title": "FormDisplay - display options for communication/ask task (for both email and web forms).",
+      "properties": {
+        "bodyBackgroundColor": {
+          "type": "string",
+          "x-go-name": "BodyBackgroundColor"
+        },
+        "bodyFontColor": {
+          "type": "string",
+          "x-go-name": "BodyFontColor"
+        },
+        "headerBackgroundColor": {
+          "type": "string",
+          "x-go-name": "HeaderBackgroundColor"
+        },
+        "headerFontColor": {
+          "type": "string",
+          "x-go-name": "HeaderFontColor"
+        },
+        "sender": {
+          "type": "string",
+          "x-go-name": "Sender"
+        },
+        "submitButtonBackgroundColor": {
+          "type": "string",
+          "x-go-name": "SubmitButtonBackgroundColor"
+        },
+        "submitButtonFontColor": {
+          "type": "string",
+          "x-go-name": "SubmitButtonFontColor"
+        },
+        "submitText": {
+          "type": "string",
+          "x-go-name": "SubmitText"
+        }
+      },
       "x-go-package": "github.com/demisto/server/domain"
     },
     "GenericStringDateFilter": {
@@ -3562,6 +4209,11 @@
           "type": "string",
           "format": "date-time",
           "x-go-name": "FromDateLicenseVal"
+        },
+        "ignoreWorkers": {
+          "description": "Do not use workers mechanism while searching bleve",
+          "type": "boolean",
+          "x-go-name": "IgnoreWorkers"
         },
         "page": {
           "description": "0-based page",
@@ -3630,6 +4282,11 @@
               "type": "string"
             }
           }
+        },
+        "ignoreWorkers": {
+          "description": "Do not use workers mechanism while searching bleve",
+          "type": "boolean",
+          "x-go-name": "IgnoreWorkers"
         },
         "page": {
           "description": "0-based page",
@@ -3775,10 +4432,6 @@
           },
           "x-go-name": "Days"
         },
-        "hoursPeriod": {
-          "type": "string",
-          "x-go-name": "HoursPeriod"
-        },
         "schedulingType": {
           "description": "the following fields are deprecated. do not use them.",
           "type": "string",
@@ -3896,6 +4549,11 @@
           "format": "date-time",
           "x-go-name": "Created"
         },
+        "dbotCreatedBy": {
+          "description": "Who has created this event - relevant only for manual incidents",
+          "type": "string",
+          "x-go-name": "CreatedBy"
+        },
         "details": {
           "description": "The details of the incident - reason, etc.",
           "type": "string",
@@ -3912,6 +4570,11 @@
           "type": "string",
           "format": "date-time",
           "x-go-name": "DueDate"
+        },
+        "feedBased": {
+          "description": "If this incident was triggered by a feed job",
+          "type": "boolean",
+          "x-go-name": "FeedBased"
         },
         "hasRole": {
           "description": "Internal field to make queries on role faster",
@@ -3939,6 +4602,12 @@
             "$ref": "#/definitions/Label"
           },
           "x-go-name": "Labels"
+        },
+        "lastJobRunTime": {
+          "description": "If this incident was triggered by a job, this would be the time the **previous** job started",
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "LastJobRunTime"
         },
         "lastOpen": {
           "type": "string",
@@ -4015,6 +4684,11 @@
           },
           "x-go-name": "PreviousRoleName"
         },
+        "primaryTerm": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "PrimaryTerm"
+        },
         "rawCategory": {
           "type": "string",
           "x-go-name": "RawCategory"
@@ -4065,6 +4739,11 @@
         "runStatus": {
           "$ref": "#/definitions/RunStatus"
         },
+        "sequenceNumber": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "SeqNum"
+        },
         "severity": {
           "$ref": "#/definitions/Severity"
         },
@@ -4091,6 +4770,14 @@
         "status": {
           "$ref": "#/definitions/IncidentStatus"
         },
+        "todoTaskIds": {
+          "description": "ToDoTaskIDs list of to do task ids",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "ToDoTaskIDs"
+        },
         "type": {
           "description": "Incident type",
           "type": "string",
@@ -4101,9 +4788,6 @@
           "format": "int64",
           "x-go-name": "Versn"
         }
-      },
-      "additionalProperties": {
-        "type": "object"
       },
       "x-go-package": "github.com/demisto/server/domain"
     },
@@ -4176,6 +4860,9 @@
           "type": "string",
           "x-go-name": "FieldCalcScript"
         },
+        "fromServerVersion": {
+          "$ref": "#/definitions/Version"
+        },
         "group": {
           "$ref": "#/definitions/FieldGroup"
         },
@@ -4191,9 +4878,15 @@
           "type": "boolean",
           "x-go-name": "IsReadOnly"
         },
+        "itemVersion": {
+          "$ref": "#/definitions/Version"
+        },
         "locked": {
           "type": "boolean",
           "x-go-name": "Locked"
+        },
+        "mergeStrategy": {
+          "$ref": "#/definitions/FieldMergeStrategy"
         },
         "modified": {
           "type": "string",
@@ -4212,6 +4905,10 @@
           "type": "boolean",
           "x-go-name": "OwnerOnly"
         },
+        "packID": {
+          "type": "string",
+          "x-go-name": "PackID"
+        },
         "placeholder": {
           "type": "string",
           "x-go-name": "Placeholder"
@@ -4219,6 +4916,18 @@
         "prevName": {
           "type": "string",
           "x-go-name": "PrevName"
+        },
+        "primaryTerm": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "PrimaryTerm"
+        },
+        "propagationLabels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "PropagationLabels"
         },
         "required": {
           "type": "boolean",
@@ -4234,6 +4943,11 @@
             "type": "string"
           },
           "x-go-name": "SelectValues"
+        },
+        "sequenceNumber": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "SeqNum"
         },
         "shouldCommit": {
           "type": "boolean",
@@ -4266,6 +4980,9 @@
           "type": "number",
           "format": "double",
           "x-go-name": "Threshold"
+        },
+        "toServerVersion": {
+          "$ref": "#/definitions/Version"
         },
         "type": {
           "type": "string",
@@ -4339,9 +5056,6 @@
           },
           "x-go-name": "Files"
         },
-        "firstIncidentInPage": {
-          "$ref": "#/definitions/IncidentWrapper"
-        },
         "fromActivatedDate": {
           "type": "string",
           "format": "date-time",
@@ -4379,6 +5093,11 @@
           },
           "x-go-name": "ID"
         },
+        "ignoreWorkers": {
+          "description": "Do not use workers mechanism while searching bleve",
+          "type": "boolean",
+          "x-go-name": "IgnoreWorkers"
+        },
         "includeTmp": {
           "type": "boolean",
           "x-go-name": "IncludeTmp"
@@ -4389,9 +5108,6 @@
             "type": "string"
           },
           "x-go-name": "Investigation"
-        },
-        "lastIncidentInPage": {
-          "$ref": "#/definitions/IncidentWrapper"
         },
         "level": {
           "type": "array",
@@ -4406,10 +5122,6 @@
             "type": "string"
           },
           "x-go-name": "Name"
-        },
-        "nextPage": {
-          "type": "boolean",
-          "x-go-name": "NextPage"
         },
         "notCategory": {
           "type": "array",
@@ -4474,10 +5186,6 @@
             "type": "string"
           },
           "x-go-name": "SearchBefore"
-        },
-        "sequentialPagesSearch": {
-          "type": "boolean",
-          "x-go-name": "SequentialPagesSearch"
         },
         "size": {
           "description": "Size is limited to 1000, if not passed it defaults to 0, and no results will return",
@@ -4563,31 +5271,6 @@
       },
       "x-go-package": "github.com/demisto/server/repo/entities"
     },
-    "IncidentSearchResponseWrapper": {
-      "description": "IncidentSearchResponseWrapper is an extension for the IncidentSearchResponse type, which holds list of IncidentWrapper(s)",
-      "type": "object",
-      "properties": {
-        "data": {
-          "description": "in: body",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/IncidentWrapper"
-          },
-          "x-go-name": "Data"
-        },
-        "notUpdated": {
-          "type": "integer",
-          "format": "uint64",
-          "x-go-name": "NotUpdated"
-        },
-        "total": {
-          "type": "integer",
-          "format": "int64",
-          "x-go-name": "Total"
-        }
-      },
-      "x-go-package": "github.com/demisto/server/domain"
-    },
     "IncidentStatus": {
       "description": "IncidentStatus is the status of the incident",
       "type": "number",
@@ -4632,6 +5315,9 @@
           "type": "boolean",
           "x-go-name": "Disabled"
         },
+        "fromServerVersion": {
+          "$ref": "#/definitions/Version"
+        },
         "hours": {
           "type": "integer",
           "format": "int64",
@@ -4646,6 +5332,9 @@
           "type": "string",
           "x-go-name": "ID"
         },
+        "itemVersion": {
+          "$ref": "#/definitions/Version"
+        },
         "locked": {
           "type": "boolean",
           "x-go-name": "Locked"
@@ -4659,6 +5348,10 @@
           "type": "string",
           "x-go-name": "Name"
         },
+        "packID": {
+          "type": "string",
+          "x-go-name": "PackID"
+        },
         "playbookId": {
           "type": "string",
           "x-go-name": "PlaybookID"
@@ -4671,12 +5364,29 @@
           "type": "string",
           "x-go-name": "PrevName"
         },
+        "primaryTerm": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "PrimaryTerm"
+        },
+        "propagationLabels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "PropagationLabels"
+        },
         "readonly": {
           "type": "boolean",
           "x-go-name": "ReadOnly"
         },
         "reputationCalc": {
           "$ref": "#/definitions/ReputationCalcAlg"
+        },
+        "sequenceNumber": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "SeqNum"
         },
         "shouldCommit": {
           "type": "boolean",
@@ -4702,6 +5412,9 @@
         "system": {
           "type": "boolean",
           "x-go-name": "System"
+        },
+        "toServerVersion": {
+          "$ref": "#/definitions/Version"
         },
         "vcShouldIgnore": {
           "type": "boolean",
@@ -4807,6 +5520,11 @@
           "format": "date-time",
           "x-go-name": "Created"
         },
+        "dbotCreatedBy": {
+          "description": "Who has created this event - relevant only for manual incidents",
+          "type": "string",
+          "x-go-name": "CreatedBy"
+        },
         "details": {
           "description": "The details of the incident - reason, etc.",
           "type": "string",
@@ -4823,6 +5541,11 @@
           "type": "string",
           "format": "date-time",
           "x-go-name": "DueDate"
+        },
+        "feedBased": {
+          "description": "If this incident was triggered by a feed job",
+          "type": "boolean",
+          "x-go-name": "FeedBased"
         },
         "hasRole": {
           "description": "Internal field to make queries on role faster",
@@ -4855,6 +5578,12 @@
             "$ref": "#/definitions/Label"
           },
           "x-go-name": "Labels"
+        },
+        "lastJobRunTime": {
+          "description": "If this incident was triggered by a job, this would be the time the **previous** job started",
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "LastJobRunTime"
         },
         "lastOpen": {
           "type": "string",
@@ -4931,6 +5660,11 @@
           },
           "x-go-name": "PreviousRoleName"
         },
+        "primaryTerm": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "PrimaryTerm"
+        },
         "rawCategory": {
           "type": "string",
           "x-go-name": "RawCategory"
@@ -4981,6 +5715,11 @@
         "runStatus": {
           "$ref": "#/definitions/RunStatus"
         },
+        "sequenceNumber": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "SeqNum"
+        },
         "severity": {
           "$ref": "#/definitions/Severity"
         },
@@ -5007,6 +5746,14 @@
         "status": {
           "$ref": "#/definitions/IncidentStatus"
         },
+        "todoTaskIds": {
+          "description": "ToDoTaskIDs list of to do task ids",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "ToDoTaskIDs"
+        },
         "type": {
           "description": "Incident type",
           "type": "string",
@@ -5018,10 +5765,24 @@
           "x-go-name": "Versn"
         }
       },
-      "additionalProperties": {
-        "type": "object"
-      },
       "x-go-package": "github.com/demisto/server/domain"
+    },
+    "IndicatorEditBulkResponse": {
+      "type": "object",
+      "title": "IndicatorEditBulkResponse ...",
+      "properties": {
+        "total": {
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Total"
+        },
+        "updated": {
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Updated"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/web"
     },
     "IndicatorFilter": {
       "description": "IndicatorFilter is a general filter that fetches entities using a query string query using the Query value",
@@ -5054,6 +5815,11 @@
           "type": "string",
           "format": "date-time",
           "x-go-name": "FromDateLicenseVal"
+        },
+        "ignoreWorkers": {
+          "description": "Do not use workers mechanism while searching bleve",
+          "type": "boolean",
+          "x-go-name": "IgnoreWorkers"
         },
         "lastSeen": {
           "$ref": "#/definitions/DateRangeFilter"
@@ -5137,6 +5903,69 @@
       },
       "x-go-package": "github.com/demisto/server/web"
     },
+    "IndicatorTimeline": {
+      "type": "array",
+      "title": "IndicatorTimeline ...",
+      "items": {
+        "$ref": "#/definitions/IndicatorTimelineFromEntry"
+      },
+      "x-go-package": "github.com/demisto/server/domain"
+    },
+    "IndicatorTimelineFromEntry": {
+      "type": "object",
+      "title": "IndicatorTimelineFromEntry ...",
+      "properties": {
+        "Category": {
+          "type": "string"
+        },
+        "Message": {
+          "type": "string"
+        },
+        "Source": {
+          "type": "string"
+        },
+        "Time": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "User": {
+          "type": "string"
+        },
+        "Value": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "x-go-package": "github.com/demisto/server/domain"
+    },
+    "Info": {
+      "description": "Info - holds all workers status",
+      "type": "object",
+      "properties": {
+        "Available": {
+          "type": "number",
+          "format": "double"
+        },
+        "BufferSpace": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Busy": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "Total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/util/workers/workersInfo"
+    },
     "InsightCache": {
       "description": "InsightCache - map insight name to all its metadata, name will be case insensitive",
       "type": "object",
@@ -5150,12 +5979,22 @@
           "format": "date-time",
           "x-go-name": "Modified"
         },
+        "primaryTerm": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "PrimaryTerm"
+        },
         "scores": {
           "type": "object",
           "additionalProperties": {
             "$ref": "#/definitions/DBotScore"
           },
           "x-go-name": "Scores"
+        },
+        "sequenceNumber": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "SeqNum"
         },
         "sortValues": {
           "type": "array",
@@ -5207,6 +6046,10 @@
           "type": "boolean",
           "x-go-name": "LongRunningPort"
         },
+        "paid": {
+          "type": "boolean",
+          "x-go-name": "Paid"
+        },
         "runOnce": {
           "type": "boolean",
           "x-go-name": "RunOnce"
@@ -5234,6 +6077,14 @@
             "type": "object"
           },
           "x-go-name": "Arguments"
+        },
+        "calculatedDescription": {
+          "type": "string",
+          "x-go-name": "CalculatedDescription"
+        },
+        "calculatedTaskName": {
+          "type": "string",
+          "x-go-name": "CalculatedTaskName"
         },
         "completedBy": {
           "type": "string",
@@ -5286,6 +6137,10 @@
           "type": "integer",
           "format": "int64",
           "x-go-name": "WillNotExecuteCount"
+        },
+        "willNotExecuteReason": {
+          "type": "string",
+          "x-go-name": "WillNotExecuteReason"
         }
       },
       "x-go-package": "github.com/demisto/server/domain"
@@ -5374,6 +6229,11 @@
           "description": "The user ID that created this investigation",
           "type": "string",
           "x-go-name": "CreatingUserID"
+        },
+        "dbotCreatedBy": {
+          "description": "Who has created this event - relevant only for manual incidents",
+          "type": "string",
+          "x-go-name": "CreatedBy"
         },
         "details": {
           "description": "User defined free text details",
@@ -5468,6 +6328,11 @@
           },
           "x-go-name": "PreviousRoleName"
         },
+        "primaryTerm": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "PrimaryTerm"
+        },
         "rawCategory": {
           "type": "string",
           "x-go-name": "RawCategory"
@@ -5490,6 +6355,11 @@
         },
         "runStatus": {
           "$ref": "#/definitions/RunStatus"
+        },
+        "sequenceNumber": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "SeqNum"
         },
         "slackMirrorAutoClose": {
           "description": "DEPRECATED - DeprecatedSlackMirrorAutoClose will tell us to close the Slack channel if we close investigation",
@@ -5596,6 +6466,11 @@
         "idsOnly": {
           "type": "boolean",
           "x-go-name": "IdsOnly"
+        },
+        "ignoreWorkers": {
+          "description": "Do not use workers mechanism while searching bleve",
+          "type": "boolean",
+          "x-go-name": "IgnoreWorkers"
         },
         "includeChildInv": {
           "type": "boolean",
@@ -5740,6 +6615,11 @@
           "type": "string",
           "x-go-name": "Description"
         },
+        "dbotCreatedBy": {
+          "description": "Who has created this event - relevant only for manual incidents",
+          "type": "string",
+          "x-go-name": "CreatedBy"
+        },
         "hasRole": {
           "description": "Internal field to make queries on role faster",
           "type": "boolean",
@@ -5761,6 +6641,10 @@
         "investigationId": {
           "type": "string",
           "x-go-name": "InvestigationID"
+        },
+        "isTIM": {
+          "type": "boolean",
+          "x-go-name": "IsTIM"
         },
         "modified": {
           "type": "string",
@@ -5794,6 +6678,15 @@
           },
           "x-go-name": "PreviousRoleName"
         },
+        "primaryTerm": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "PrimaryTerm"
+        },
+        "quiet": {
+          "type": "boolean",
+          "x-go-name": "Quiet"
+        },
         "roles": {
           "description": "The role assigned to this investigation",
           "type": "array",
@@ -5801,6 +6694,16 @@
             "type": "string"
           },
           "x-go-name": "RoleName"
+        },
+        "sequenceNumber": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "SeqNum"
+        },
+        "serverId": {
+          "description": "Holds the ID of the responsible cluster app server",
+          "type": "string",
+          "x-go-name": "ServerID"
         },
         "sortValues": {
           "type": "array",
@@ -5882,6 +6785,10 @@
           "type": "string",
           "x-go-name": "InvestigationID"
         },
+        "isTIM": {
+          "type": "boolean",
+          "x-go-name": "IsTIM"
+        },
         "name": {
           "type": "string",
           "x-go-name": "Name"
@@ -5892,6 +6799,10 @@
         "playbookId": {
           "type": "string",
           "x-go-name": "PlaybookID"
+        },
+        "quiet": {
+          "type": "boolean",
+          "x-go-name": "Quiet"
         },
         "startDate": {
           "type": "string",
@@ -5964,6 +6875,14 @@
           },
           "x-go-name": "BlockingTasks"
         },
+        "calculatedDescription": {
+          "type": "string",
+          "x-go-name": "CalculatedDescription"
+        },
+        "calculatedTaskName": {
+          "type": "string",
+          "x-go-name": "CalculatedTaskName"
+        },
         "comments": {
           "description": "Whether this task had any comments or not",
           "type": "boolean",
@@ -6006,6 +6925,10 @@
           "type": "integer",
           "format": "int64",
           "x-go-name": "DefaultReminder"
+        },
+        "doNotSaveTaskHistory": {
+          "type": "boolean",
+          "x-go-name": "DoNotSaveTaskHistory"
         },
         "dueDate": {
           "type": "string",
@@ -6057,6 +6980,9 @@
         "form": {
           "$ref": "#/definitions/DataCollectionForm"
         },
+        "formDisplay": {
+          "$ref": "#/definitions/FormDisplay"
+        },
         "id": {
           "type": "string",
           "x-go-name": "ID"
@@ -6080,6 +7006,11 @@
         },
         "message": {
           "$ref": "#/definitions/NotifiableItem"
+        },
+        "missingContentItem": {
+          "description": "content item which caused task to skip",
+          "type": "string",
+          "x-go-name": "MissingContentItem"
         },
         "nextTasks": {
           "type": "object",
@@ -6134,6 +7065,9 @@
           },
           "x-go-name": "PreviousTasks"
         },
+        "quietMode": {
+          "$ref": "#/definitions/QuietMode"
+        },
         "reminder": {
           "description": "Duration in minutes, this field is not persisted here",
           "type": "integer",
@@ -6157,6 +7091,16 @@
         "separateContext": {
           "type": "boolean",
           "x-go-name": "SeparateContext"
+        },
+        "skip": {
+          "description": "Skip - if true then this task will be skipped and all the tasks which comes after this task and depend on it\nwill skip (WillNotExecute)",
+          "type": "boolean",
+          "x-go-name": "Skip"
+        },
+        "skipUnavailable": {
+          "description": "SkipUnavailable if true then will check if automation exists, integration of that command is installed and\nactive or sub playbook exists in Demisto",
+          "type": "boolean",
+          "x-go-name": "SkipUnavailable"
         },
         "sla": {
           "$ref": "#/definitions/SLA"
@@ -6208,34 +7152,10 @@
           "type": "integer",
           "format": "int64",
           "x-go-name": "WillNotExecuteCount"
-        }
-      },
-      "x-go-package": "github.com/demisto/server/domain"
-    },
-    "InvestigationPlaybookTasksAPI": {
-      "description": "InvestigationPlaybookTasksAPI is the wrapper around an investigation task and it's parent inv id",
-      "type": "object",
-      "properties": {
-        "ancestors": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "x-go-name": "PlaybookAncestorNames"
         },
-        "incSeverity": {
-          "$ref": "#/definitions/Severity"
-        },
-        "invId": {
+        "willNotExecuteReason": {
           "type": "string",
-          "x-go-name": "InvestigationID"
-        },
-        "invName": {
-          "type": "string",
-          "x-go-name": "InvestigationName"
-        },
-        "task": {
-          "$ref": "#/definitions/InvestigationPlaybookTask"
+          "x-go-name": "WillNotExecuteReason"
         }
       },
       "x-go-package": "github.com/demisto/server/domain"
@@ -6291,6 +7211,10 @@
           "type": "string",
           "x-go-name": "Account"
         },
+        "aggregatedReliability": {
+          "type": "string",
+          "x-go-name": "AggregatedReliability"
+        },
         "calculatedTime": {
           "description": "Do not set the fields bellow this line",
           "type": "string",
@@ -6300,6 +7224,25 @@
         "comment": {
           "type": "string",
           "x-go-name": "Comment"
+        },
+        "comments": {
+          "$ref": "#/definitions/Comments"
+        },
+        "deletedFeedFetchTime": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "DeletedFeedFetchTime"
+        },
+        "expiration": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "ExpirationTime"
+        },
+        "expirationSource": {
+          "$ref": "#/definitions/ExpirationSource"
+        },
+        "expirationStatus": {
+          "$ref": "#/definitions/ExpirationStatus"
         },
         "firstSeen": {
           "type": "string",
@@ -6316,7 +7259,7 @@
         },
         "indicator_type": {
           "type": "string",
-          "x-go-name": "IndicatorType"
+          "x-go-name": "Type"
         },
         "insightCache": {
           "$ref": "#/definitions/InsightCache"
@@ -6327,6 +7270,10 @@
             "type": "string"
           },
           "x-go-name": "InvestigationIDs"
+        },
+        "isShared": {
+          "type": "boolean",
+          "x-go-name": "IsShared"
         },
         "lastReputationRun": {
           "type": "string",
@@ -6341,6 +7288,11 @@
         "lastSeenEntryID": {
           "type": "string",
           "x-go-name": "LastSeenEntryID"
+        },
+        "manualExpirationTime": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "ManualExpirationTime"
         },
         "manualScore": {
           "type": "boolean",
@@ -6363,10 +7315,32 @@
           "format": "date-time",
           "x-go-name": "Modified"
         },
+        "modifiedTime": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "ModifiedTime"
+        },
+        "moduleToFeedMap": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/FeedIndicator"
+          },
+          "x-go-name": "ModuleToFeedMap"
+        },
+        "primaryTerm": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "PrimaryTerm"
+        },
         "score": {
           "type": "integer",
           "format": "int64",
           "x-go-name": "Score"
+        },
+        "sequenceNumber": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "SeqNum"
         },
         "setBy": {
           "type": "string",
@@ -6382,6 +7356,20 @@
         "source": {
           "type": "string",
           "x-go-name": "Source"
+        },
+        "sourceBrands": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "SourceBrands"
+        },
+        "sourceInstances": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "SourceInstances"
         },
         "timestamp": {
           "type": "string",
@@ -6447,14 +7435,14 @@
           "x-go-name": "Start"
         }
       },
-      "x-go-package": "github.com/demisto/server/vendor/github.com/blevesearch/bleve/search"
+      "x-go-package": "github.com/blevesearch/bleve/search"
     },
     "Locations": {
       "type": "array",
       "items": {
         "$ref": "#/definitions/Location"
       },
-      "x-go-package": "github.com/demisto/server/vendor/github.com/blevesearch/bleve/search"
+      "x-go-package": "github.com/blevesearch/bleve/search"
     },
     "ModuleArgs": {
       "description": "ModuleArgs represents module args",
@@ -6519,6 +7507,9 @@
           "type": "string",
           "x-go-name": "Executable"
         },
+        "fromServerVersion": {
+          "$ref": "#/definitions/Version"
+        },
         "hidden": {
           "type": "boolean",
           "x-go-name": "Hidden"
@@ -6546,6 +7537,9 @@
           "type": "boolean",
           "x-go-name": "IsPasswordProtected"
         },
+        "itemVersion": {
+          "$ref": "#/definitions/Version"
+        },
         "locked": {
           "type": "boolean",
           "x-go-name": "Locked"
@@ -6559,6 +7553,10 @@
           "type": "string",
           "x-go-name": "Name"
         },
+        "packID": {
+          "type": "string",
+          "x-go-name": "PackID"
+        },
         "path": {
           "type": "string",
           "x-go-name": "Path"
@@ -6566,6 +7564,11 @@
         "prevName": {
           "type": "string",
           "x-go-name": "PrevName"
+        },
+        "primaryTerm": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "PrimaryTerm"
         },
         "propagationLabels": {
           "type": "array",
@@ -6581,6 +7584,11 @@
         "scriptNotVisible": {
           "type": "boolean",
           "x-go-name": "ScriptNotVisible"
+        },
+        "sequenceNumber": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "SeqNum"
         },
         "shouldCommit": {
           "type": "boolean",
@@ -6600,6 +7608,9 @@
         "system": {
           "type": "boolean",
           "x-go-name": "System"
+        },
+        "toServerVersion": {
+          "$ref": "#/definitions/Version"
         },
         "vcShouldIgnore": {
           "type": "boolean",
@@ -6789,12 +7800,56 @@
           "type": "string",
           "x-go-name": "Key"
         },
+        "playbookInputQuery": {
+          "$ref": "#/definitions/PlaybookInputQuery"
+        },
         "required": {
           "type": "boolean",
           "x-go-name": "Required"
         },
         "value": {
           "$ref": "#/definitions/AdvanceArg"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/domain"
+    },
+    "PlaybookInputQuery": {
+      "description": "PlaybookInputQuery represents the playbook query input",
+      "type": "object",
+      "properties": {
+        "fromDate": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "FromDate"
+        },
+        "fromDateLicense": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "FromDateLicenseVal"
+        },
+        "period": {
+          "$ref": "#/definitions/Period"
+        },
+        "query": {
+          "type": "string",
+          "x-go-name": "Query"
+        },
+        "queryEntity": {
+          "type": "string",
+          "x-go-name": "QueryEntity"
+        },
+        "results": {
+          "type": "object",
+          "x-go-name": "Results"
+        },
+        "runFromLastJobTime": {
+          "type": "boolean",
+          "x-go-name": "RunFromLastJobTime"
+        },
+        "toDate": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "ToDate"
         }
       },
       "x-go-package": "github.com/demisto/server/domain"
@@ -6885,6 +7940,10 @@
           "type": "string",
           "x-go-name": "Placeholder"
         },
+        "readOnly": {
+          "type": "boolean",
+          "x-go-name": "ReadOnly"
+        },
         "required": {
           "type": "boolean",
           "x-go-name": "Required"
@@ -6900,6 +7959,53 @@
       },
       "x-go-package": "github.com/demisto/server/domain"
     },
+    "QuietMode": {
+      "description": "QuietMode quiet mode for playbook task",
+      "type": "integer",
+      "format": "int64",
+      "x-go-package": "github.com/demisto/server/domain"
+    },
+    "RBAC": {
+      "description": "RBAC holds roles data for domain entities",
+      "type": "object",
+      "properties": {
+        "dbotCreatedBy": {
+          "description": "Who has created this event - relevant only for manual incidents",
+          "type": "string",
+          "x-go-name": "CreatedBy"
+        },
+        "hasRole": {
+          "description": "Internal field to make queries on role faster",
+          "type": "boolean",
+          "x-go-name": "HasRole"
+        },
+        "previousRoles": {
+          "description": "PreviousRoleName - do not change this field manually",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "PreviousRoleName"
+        },
+        "roles": {
+          "description": "The role assigned to this investigation",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "RoleName"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/domain"
+    },
+    "RawFeedIndicator": {
+      "description": "RawFeedIndicator is an unparsed feed indicator from JSON ingestion",
+      "type": "object",
+      "additionalProperties": {
+        "type": "object"
+      },
+      "x-go-package": "github.com/demisto/server/web"
+    },
     "RawMessage": {
       "description": "It implements Marshaler and Unmarshaler and can\nbe used to delay JSON decoding or precompute a JSON encoding.",
       "type": "array",
@@ -6909,6 +8015,11 @@
         "format": "uint8"
       },
       "x-go-package": "encoding/json"
+    },
+    "Reliability": {
+      "type": "string",
+      "title": "Reliability ...",
+      "x-go-package": "github.com/demisto/server/domain"
     },
     "Report": {
       "description": "Report - represents report",
@@ -6956,12 +8067,18 @@
         "endingType": {
           "$ref": "#/definitions/EndingType"
         },
+        "fromServerVersion": {
+          "$ref": "#/definitions/Version"
+        },
         "humanCron": {
           "$ref": "#/definitions/HumanCron"
         },
         "id": {
           "type": "string",
           "x-go-name": "ID"
+        },
+        "itemVersion": {
+          "$ref": "#/definitions/Version"
         },
         "latestReportName": {
           "type": "string",
@@ -7003,6 +8120,10 @@
           "type": "string",
           "x-go-name": "Orientation"
         },
+        "packID": {
+          "type": "string",
+          "x-go-name": "PackID"
+        },
         "paperSize": {
           "type": "string",
           "x-go-name": "PaperSize"
@@ -7014,6 +8135,18 @@
         "prevType": {
           "type": "string",
           "x-go-name": "PrevType"
+        },
+        "primaryTerm": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "PrimaryTerm"
+        },
+        "propagationLabels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "PropagationLabels"
         },
         "recipients": {
           "type": "array",
@@ -7054,6 +8187,11 @@
           "type": "boolean",
           "x-go-name": "Sensitive"
         },
+        "sequenceNumber": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "SeqNum"
+        },
         "shouldCommit": {
           "type": "boolean",
           "x-go-name": "ShouldCommit"
@@ -7086,10 +8224,17 @@
           "format": "int64",
           "x-go-name": "Times"
         },
+        "timezone": {
+          "type": "string",
+          "x-go-name": "Timezone"
+        },
         "timezoneOffset": {
           "type": "integer",
           "format": "int64",
           "x-go-name": "TimezoneOffset"
+        },
+        "toServerVersion": {
+          "$ref": "#/definitions/Version"
         },
         "type": {
           "type": "string",
@@ -7243,6 +8388,236 @@
       "format": "double",
       "x-go-package": "github.com/demisto/server/domain"
     },
+    "Schedule": {
+      "type": "object",
+      "title": "Schedule ...",
+      "properties": {
+        "cron": {
+          "type": "string",
+          "x-go-name": "Cron"
+        },
+        "cronView": {
+          "type": "boolean",
+          "x-go-name": "CronView"
+        },
+        "endingDate": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "EndingDate"
+        },
+        "endingType": {
+          "$ref": "#/definitions/EndingType"
+        },
+        "humanCron": {
+          "$ref": "#/definitions/HumanCron"
+        },
+        "recurrent": {
+          "type": "boolean",
+          "x-go-name": "Recurrent"
+        },
+        "scheduled": {
+          "description": "is it scheduled",
+          "type": "boolean",
+          "x-go-name": "Scheduled"
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "StartDate"
+        },
+        "times": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Times"
+        },
+        "timezone": {
+          "type": "string",
+          "x-go-name": "Timezone"
+        },
+        "timezoneOffset": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "TimezoneOffset"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/domain"
+    },
+    "Scheduler": {
+      "type": "object",
+      "title": "Scheduler ...",
+      "properties": {
+        "cron": {
+          "type": "string",
+          "x-go-name": "Cron"
+        },
+        "cronView": {
+          "type": "boolean",
+          "x-go-name": "CronView"
+        },
+        "endingDate": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "EndingDate"
+        },
+        "endingType": {
+          "$ref": "#/definitions/EndingType"
+        },
+        "humanCron": {
+          "$ref": "#/definitions/HumanCron"
+        },
+        "recurrent": {
+          "type": "boolean",
+          "x-go-name": "Recurrent"
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "StartDate"
+        },
+        "times": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Times"
+        },
+        "timezone": {
+          "type": "string",
+          "x-go-name": "Timezone"
+        },
+        "timezoneOffset": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "TimezoneOffset"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/domain"
+    },
+    "ScriptAPI": {
+      "type": "object",
+      "title": "ScriptAPI ...",
+      "properties": {
+        "arguments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Argument"
+          },
+          "x-go-name": "Args"
+        },
+        "comment": {
+          "type": "string",
+          "x-go-name": "Comment"
+        },
+        "contextKeys": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "ContextKeys"
+        },
+        "dependsOn": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "x-go-name": "DependsOn"
+        },
+        "deprecated": {
+          "type": "boolean",
+          "x-go-name": "Deprecated"
+        },
+        "detached": {
+          "type": "boolean",
+          "x-go-name": "Detached"
+        },
+        "dockerImage": {
+          "type": "string",
+          "x-go-name": "DockerImage"
+        },
+        "enabled": {
+          "type": "boolean",
+          "x-go-name": "Enabled"
+        },
+        "hidden": {
+          "type": "boolean",
+          "x-go-name": "Hidden"
+        },
+        "id": {
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "locked": {
+          "type": "boolean",
+          "x-go-name": "Locked"
+        },
+        "modified": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "Modified"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "outputs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Output"
+          },
+          "x-go-name": "Outputs"
+        },
+        "permitted": {
+          "type": "boolean",
+          "x-go-name": "Permitted"
+        },
+        "propagationLabels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "PropagationLabels"
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "Roles"
+        },
+        "runAs": {
+          "type": "string",
+          "x-go-name": "RunAs"
+        },
+        "scriptTarget": {
+          "$ref": "#/definitions/ScriptTarget"
+        },
+        "system": {
+          "type": "boolean",
+          "x-go-name": "System"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "Tags"
+        },
+        "type": {
+          "$ref": "#/definitions/ScriptType"
+        },
+        "user": {
+          "type": "string",
+          "x-go-name": "User"
+        },
+        "version": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Version"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/services/automation"
+    },
     "ScriptSubType": {
       "description": "ScriptSubType holds the script type version",
       "type": "string",
@@ -7271,7 +8646,7 @@
           "x-go-name": "FilterByUser"
         }
       },
-      "x-go-package": "github.com/demisto/server/web"
+      "x-go-package": "github.com/demisto/server/repo/entities"
     },
     "Section": {
       "type": "object",
@@ -7329,56 +8704,21 @@
       },
       "x-go-package": "github.com/demisto/server/domain"
     },
-    "SectionItem": {
-      "type": "object",
-      "title": "SectionItem ...",
-      "properties": {
-        "data": {
-          "type": "object",
-          "x-go-name": "Data"
-        },
-        "displayType": {
-          "type": "string",
-          "x-go-name": "DisplayType"
-        },
-        "endCol": {
-          "type": "integer",
-          "format": "int64",
-          "x-go-name": "EndCol"
-        },
-        "fieldId": {
-          "type": "string",
-          "x-go-name": "FieldID"
-        },
-        "fieldName": {
-          "type": "string",
-          "x-go-name": "FieldName"
-        },
-        "fieldType": {
-          "type": "string",
-          "x-go-name": "FieldType"
-        },
-        "headerStyle": {
-          "type": "object",
-          "x-go-name": "HeaderStyle"
-        },
-        "index": {
-          "type": "integer",
-          "format": "int64",
-          "x-go-name": "Index"
-        },
-        "startCol": {
-          "type": "integer",
-          "format": "int64",
-          "x-go-name": "StartCol"
-        }
-      },
-      "x-go-package": "github.com/demisto/server/domain"
-    },
     "Severity": {
       "description": "Severity is the incident severity",
       "type": "number",
       "format": "double",
+      "x-go-package": "github.com/demisto/server/domain"
+    },
+    "ShardedFields": {
+      "type": "object",
+      "title": "ShardedFields ...",
+      "properties": {
+        "ShardID": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
       "x-go-package": "github.com/demisto/server/domain"
     },
     "StatsQueryResponse": {
@@ -7587,9 +8927,23 @@
           "type": "string",
           "x-go-name": "PlaybookID"
         },
+        "playbookName": {
+          "type": "string",
+          "x-go-name": "PlaybookName"
+        },
+        "primaryTerm": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "PrimaryTerm"
+        },
         "scriptId": {
           "type": "string",
           "x-go-name": "AutomationScriptID"
+        },
+        "sequenceNumber": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "SeqNum"
         },
         "sortValues": {
           "type": "array",
@@ -7661,6 +9015,11 @@
           "type": "boolean",
           "x-go-name": "IsCommand"
         },
+        "max": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "MaxIterations"
+        },
         "scriptArguments": {
           "type": "object",
           "additionalProperties": {
@@ -7671,6 +9030,10 @@
         "scriptId": {
           "type": "string",
           "x-go-name": "AutomationScriptID"
+        },
+        "scriptName": {
+          "type": "string",
+          "x-go-name": "AutomationScriptName"
         },
         "wait": {
           "type": "integer",
@@ -7700,7 +9063,7 @@
       "additionalProperties": {
         "$ref": "#/definitions/Locations"
       },
-      "x-go-package": "github.com/demisto/server/vendor/github.com/blevesearch/bleve/search"
+      "x-go-package": "github.com/blevesearch/bleve/search"
     },
     "TerminalOptions": {
       "description": "TerminalOptions - terminal options to use in case of using pty",
@@ -7824,24 +9187,65 @@
       },
       "x-go-package": "github.com/demisto/server/web"
     },
-    "UpdateResponse": {
+    "UpdateIndicatorBatch": {
+      "description": "UpdateIndicatorBatch - edit bulk indicators",
       "type": "object",
-      "title": "UpdateResponse ...",
       "properties": {
-        "notUpdated": {
-          "type": "integer",
-          "format": "int64",
-          "x-go-name": "NotUpdated"
+        "all": {
+          "type": "boolean",
+          "x-go-name": "All"
         },
-        "updatedIds": {
+        "data": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          },
+          "x-go-name": "Data"
+        },
+        "filter": {
+          "$ref": "#/definitions/IndicatorFilter"
+        },
+        "ids": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "x-go-name": "UpdatedIds"
+          "x-go-name": "IDs"
         }
       },
-      "x-go-package": "github.com/demisto/server/repo/entities"
+      "x-go-package": "github.com/demisto/server/web"
+    },
+    "Version": {
+      "type": "object",
+      "title": "Version represents a version.",
+      "properties": {
+        "Digits": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "Label": {
+          "type": "string"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/domain"
+    },
+    "VersionedCommit": {
+      "type": "object",
+      "title": "VersionedCommit holds the commit info.",
+      "properties": {
+        "commitMessage": {
+          "type": "string",
+          "x-go-name": "CommitMessage"
+        },
+        "shouldCommit": {
+          "type": "boolean",
+          "x-go-name": "ShouldCommit"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/domain"
     },
     "Widget": {
       "description": "Widget describe a widget component used to get statistics requests, based on parameters such as\ndataType and widgetType. A widget can be a part of widgets collection inside a dashboard.",
@@ -7873,6 +9277,9 @@
           "type": "string",
           "x-go-name": "Description"
         },
+        "fromServerVersion": {
+          "$ref": "#/definitions/Version"
+        },
         "id": {
           "type": "string",
           "x-go-name": "ID"
@@ -7881,6 +9288,9 @@
           "description": "Is the widget a system widget.",
           "type": "boolean",
           "x-go-name": "IsPredefined"
+        },
+        "itemVersion": {
+          "$ref": "#/definitions/Version"
         },
         "locked": {
           "description": "Is the widget locked for editing.",
@@ -7897,6 +9307,10 @@
           "type": "string",
           "x-go-name": "Name"
         },
+        "packID": {
+          "type": "string",
+          "x-go-name": "PackID"
+        },
         "params": {
           "description": "Additional parameters for this widget, depends on widget type and data.",
           "type": "object",
@@ -7910,10 +9324,27 @@
           "type": "string",
           "x-go-name": "PrevName"
         },
+        "primaryTerm": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "PrimaryTerm"
+        },
+        "propagationLabels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "PropagationLabels"
+        },
         "query": {
           "description": "Query to search on the dataType.",
           "type": "string",
           "x-go-name": "Query"
+        },
+        "sequenceNumber": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "SeqNum"
         },
         "shouldCommit": {
           "type": "boolean",
@@ -7939,6 +9370,9 @@
             "type": "string"
           },
           "x-go-name": "SortValues"
+        },
+        "toServerVersion": {
+          "$ref": "#/definitions/Version"
         },
         "vcShouldIgnore": {
           "type": "boolean",
@@ -8039,6 +9473,11 @@
             }
           }
         },
+        "ignoreWorkers": {
+          "description": "Do not use workers mechanism while searching bleve",
+          "type": "boolean",
+          "x-go-name": "IgnoreWorkers"
+        },
         "page": {
           "description": "0-based page",
           "type": "integer",
@@ -8114,7 +9553,7 @@
         "scripts": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/AutomationScriptAPI"
+            "$ref": "#/definitions/ScriptAPI"
           },
           "x-go-name": "Scripts"
         },
@@ -8134,6 +9573,29 @@
         }
       },
       "x-go-package": "github.com/demisto/server/web"
+    },
+    "containersInfo": {
+      "description": "Info - holds all containers info",
+      "type": "object",
+      "properties": {
+        "all": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "All"
+        },
+        "inactive": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Inactive"
+        },
+        "running": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Running"
+        }
+      },
+      "x-go-name": "Info",
+      "x-go-package": "github.com/demisto/server/services/containers/containersInfo"
     },
     "deleteEvidence": {
       "type": "object",
@@ -8244,6 +9706,7 @@
       },
       "x-go-package": "github.com/demisto/server/web"
     },
+    "idVersion": {},
     "indicatorContext": {
       "type": "object",
       "properties": {
@@ -8405,10 +9868,6 @@
       },
       "x-go-package": "github.com/demisto/server/web"
     },
-    "remoteRepos": {
-      "type": "object",
-      "x-go-package": "github.com/demisto/server/web"
-    },
     "updateEntry": {
       "type": "object",
       "properties": {
@@ -8469,48 +9928,6 @@
       },
       "x-go-package": "github.com/demisto/server/web"
     },
-    "updateIndicatorReputationData": {
-      "type": "object",
-      "properties": {
-        "InvestigationId": {
-          "type": "string",
-          "x-go-name": "InvID"
-        },
-        "doNotWhitelist": {
-          "type": "boolean",
-          "x-go-name": "DoNotWhitelist"
-        },
-        "entryId": {
-          "type": "string",
-          "x-go-name": "EntryID"
-        },
-        "manualScore": {
-          "type": "boolean",
-          "x-go-name": "ManualScore"
-        },
-        "reason": {
-          "type": "string",
-          "x-go-name": "Reason"
-        },
-        "reputation": {
-          "type": "integer",
-          "format": "int64",
-          "x-go-name": "Reputation"
-        },
-        "reputations": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "x-go-name": "Reputations"
-        },
-        "value": {
-          "type": "string",
-          "x-go-name": "Value"
-        }
-      },
-      "x-go-package": "github.com/demisto/server/web"
-    },
     "uploadedEntry": {
       "type": "object",
       "properties": {
@@ -8535,20 +9952,11 @@
       "type": "apiKey",
       "name": "Authorization",
       "in": "header"
-    },
-    "csrf_token": {
-      "type": "apiKey",
-      "name": "X-XSRF-TOKEN",
-      "in": "header"
     }
   },
   "security": [
     {
       "api_key": []
-    },
-    {
-      "csrf_token": []
     }
   ]
 }
-

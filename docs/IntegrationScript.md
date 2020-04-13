@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **is_fetch_credentials** | **bool** |  | [optional] 
 **long_running** | **bool** |  | [optional] 
 **long_running_port_mapping** | **bool** |  | [optional] 
+**paid** | **bool** |  | [optional] 
 **run_once** | **bool** |  | [optional] 
 **script** | **str** |  | [optional] 
 **subtype** | [**ScriptSubType**](ScriptSubType.md) |  | [optional] 

@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    Demisto API
+    Cortex XSOAR API
 
-    This is the public REST API to integrate with the demisto server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Demisto web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Demisto REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Demisto server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Demisto has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Demisto will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
+    This is the public REST API to integrate with the Cortex XSOAR server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Cortex XSOAR web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Cortex XSOAR REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Cortex XSOAR server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Cortex XSOAR has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Cortex XSOAR will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
 
     OpenAPI spec version: 2.0.0
     
@@ -24,6 +24,7 @@ from demisto_client.demisto_api.models.entry_task import EntryTask  # noqa: F401
 from demisto_client.demisto_api.models.entry_type import EntryType  # noqa: F401,E501
 from demisto_client.demisto_api.models.file_metadata import FileMetadata  # noqa: F401,E501
 from demisto_client.demisto_api.models.human_cron import HumanCron  # noqa: F401,E501
+from demisto_client.demisto_api.models.indicator_timeline import IndicatorTimeline  # noqa: F401,E501
 
 
 class Entry(object):
@@ -40,6 +41,7 @@ class Entry(object):
                             and the value is json key in definition.
     """
     swagger_types = {
+        'indicator_timeline': 'IndicatorTimeline',
         'shard_id': 'int',
         'brand': 'str',
         'category': 'EntryCategory',
@@ -48,7 +50,10 @@ class Entry(object):
         'created': 'datetime',
         'cron': 'str',
         'cron_view': 'bool',
+        'dbot_created_by': 'str',
         'deleted': 'bool',
+        'deleted_by': 'str',
+        'deleted_from_fs': 'bool',
         'ending_date': 'datetime',
         'ending_type': 'EndingType',
         'entry_task': 'EntryTask',
@@ -63,6 +68,7 @@ class Entry(object):
         'id': 'str',
         'instance': 'str',
         'investigation_id': 'str',
+        'is_todo': 'bool',
         'modified': 'datetime',
         'note': 'bool',
         'parent_content': 'object',
@@ -71,12 +77,15 @@ class Entry(object):
         'pinned': 'bool',
         'playbook_id': 'str',
         'previous_roles': 'list[str]',
+        'primary_term': 'int',
         'read_only': 'bool',
         'recurrent': 'bool',
         'reputation_size': 'int',
         'reputations': 'list[EntryReputation]',
+        'retry_time': 'datetime',
         'roles': 'list[str]',
         'scheduled': 'bool',
+        'sequence_number': 'int',
         'sort_values': 'list[str]',
         'start_date': 'datetime',
         'system': 'str',
@@ -84,6 +93,7 @@ class Entry(object):
         'tags_raw': 'list[str]',
         'task_id': 'str',
         'times': 'int',
+        'timezone': 'str',
         'timezone_offset': 'int',
         'type': 'EntryType',
         'user': 'str',
@@ -91,6 +101,7 @@ class Entry(object):
     }
 
     attribute_map = {
+        'indicator_timeline': 'IndicatorTimeline',
         'shard_id': 'ShardID',
         'brand': 'brand',
         'category': 'category',
@@ -99,7 +110,10 @@ class Entry(object):
         'created': 'created',
         'cron': 'cron',
         'cron_view': 'cronView',
+        'dbot_created_by': 'dbotCreatedBy',
         'deleted': 'deleted',
+        'deleted_by': 'deletedBy',
+        'deleted_from_fs': 'deletedFromFS',
         'ending_date': 'endingDate',
         'ending_type': 'endingType',
         'entry_task': 'entryTask',
@@ -114,6 +128,7 @@ class Entry(object):
         'id': 'id',
         'instance': 'instance',
         'investigation_id': 'investigationId',
+        'is_todo': 'isTodo',
         'modified': 'modified',
         'note': 'note',
         'parent_content': 'parentContent',
@@ -122,12 +137,15 @@ class Entry(object):
         'pinned': 'pinned',
         'playbook_id': 'playbookId',
         'previous_roles': 'previousRoles',
+        'primary_term': 'primaryTerm',
         'read_only': 'readOnly',
         'recurrent': 'recurrent',
         'reputation_size': 'reputationSize',
         'reputations': 'reputations',
+        'retry_time': 'retryTime',
         'roles': 'roles',
         'scheduled': 'scheduled',
+        'sequence_number': 'sequenceNumber',
         'sort_values': 'sortValues',
         'start_date': 'startDate',
         'system': 'system',
@@ -135,15 +153,17 @@ class Entry(object):
         'tags_raw': 'tagsRaw',
         'task_id': 'taskId',
         'times': 'times',
+        'timezone': 'timezone',
         'timezone_offset': 'timezoneOffset',
         'type': 'type',
         'user': 'user',
         'version': 'version'
     }
 
-    def __init__(self, shard_id=None, brand=None, category=None, contents=None, contents_size=None, created=None, cron=None, cron_view=None, deleted=None, ending_date=None, ending_type=None, entry_task=None, error_source=None, file=None, file_id=None, file_metadata=None, format=None, has_role=None, history=None, human_cron=None, id=None, instance=None, investigation_id=None, modified=None, note=None, parent_content=None, parent_entry_truncated=None, parent_id=None, pinned=None, playbook_id=None, previous_roles=None, read_only=None, recurrent=None, reputation_size=None, reputations=None, roles=None, scheduled=None, sort_values=None, start_date=None, system=None, tags=None, tags_raw=None, task_id=None, times=None, timezone_offset=None, type=None, user=None, version=None):  # noqa: E501
+    def __init__(self, indicator_timeline=None, shard_id=None, brand=None, category=None, contents=None, contents_size=None, created=None, cron=None, cron_view=None, dbot_created_by=None, deleted=None, deleted_by=None, deleted_from_fs=None, ending_date=None, ending_type=None, entry_task=None, error_source=None, file=None, file_id=None, file_metadata=None, format=None, has_role=None, history=None, human_cron=None, id=None, instance=None, investigation_id=None, is_todo=None, modified=None, note=None, parent_content=None, parent_entry_truncated=None, parent_id=None, pinned=None, playbook_id=None, previous_roles=None, primary_term=None, read_only=None, recurrent=None, reputation_size=None, reputations=None, retry_time=None, roles=None, scheduled=None, sequence_number=None, sort_values=None, start_date=None, system=None, tags=None, tags_raw=None, task_id=None, times=None, timezone=None, timezone_offset=None, type=None, user=None, version=None):  # noqa: E501
         """Entry - a model defined in Swagger"""  # noqa: E501
 
+        self._indicator_timeline = None
         self._shard_id = None
         self._brand = None
         self._category = None
@@ -152,7 +172,10 @@ class Entry(object):
         self._created = None
         self._cron = None
         self._cron_view = None
+        self._dbot_created_by = None
         self._deleted = None
+        self._deleted_by = None
+        self._deleted_from_fs = None
         self._ending_date = None
         self._ending_type = None
         self._entry_task = None
@@ -167,6 +190,7 @@ class Entry(object):
         self._id = None
         self._instance = None
         self._investigation_id = None
+        self._is_todo = None
         self._modified = None
         self._note = None
         self._parent_content = None
@@ -175,12 +199,15 @@ class Entry(object):
         self._pinned = None
         self._playbook_id = None
         self._previous_roles = None
+        self._primary_term = None
         self._read_only = None
         self._recurrent = None
         self._reputation_size = None
         self._reputations = None
+        self._retry_time = None
         self._roles = None
         self._scheduled = None
+        self._sequence_number = None
         self._sort_values = None
         self._start_date = None
         self._system = None
@@ -188,12 +215,15 @@ class Entry(object):
         self._tags_raw = None
         self._task_id = None
         self._times = None
+        self._timezone = None
         self._timezone_offset = None
         self._type = None
         self._user = None
         self._version = None
         self.discriminator = None
 
+        if indicator_timeline is not None:
+            self.indicator_timeline = indicator_timeline
         if shard_id is not None:
             self.shard_id = shard_id
         if brand is not None:
@@ -210,8 +240,14 @@ class Entry(object):
             self.cron = cron
         if cron_view is not None:
             self.cron_view = cron_view
+        if dbot_created_by is not None:
+            self.dbot_created_by = dbot_created_by
         if deleted is not None:
             self.deleted = deleted
+        if deleted_by is not None:
+            self.deleted_by = deleted_by
+        if deleted_from_fs is not None:
+            self.deleted_from_fs = deleted_from_fs
         if ending_date is not None:
             self.ending_date = ending_date
         if ending_type is not None:
@@ -240,6 +276,8 @@ class Entry(object):
             self.instance = instance
         if investigation_id is not None:
             self.investigation_id = investigation_id
+        if is_todo is not None:
+            self.is_todo = is_todo
         if modified is not None:
             self.modified = modified
         if note is not None:
@@ -256,6 +294,8 @@ class Entry(object):
             self.playbook_id = playbook_id
         if previous_roles is not None:
             self.previous_roles = previous_roles
+        if primary_term is not None:
+            self.primary_term = primary_term
         if read_only is not None:
             self.read_only = read_only
         if recurrent is not None:
@@ -264,10 +304,14 @@ class Entry(object):
             self.reputation_size = reputation_size
         if reputations is not None:
             self.reputations = reputations
+        if retry_time is not None:
+            self.retry_time = retry_time
         if roles is not None:
             self.roles = roles
         if scheduled is not None:
             self.scheduled = scheduled
+        if sequence_number is not None:
+            self.sequence_number = sequence_number
         if sort_values is not None:
             self.sort_values = sort_values
         if start_date is not None:
@@ -282,6 +326,8 @@ class Entry(object):
             self.task_id = task_id
         if times is not None:
             self.times = times
+        if timezone is not None:
+            self.timezone = timezone
         if timezone_offset is not None:
             self.timezone_offset = timezone_offset
         if type is not None:
@@ -290,6 +336,27 @@ class Entry(object):
             self.user = user
         if version is not None:
             self.version = version
+
+    @property
+    def indicator_timeline(self):
+        """Gets the indicator_timeline of this Entry.  # noqa: E501
+
+
+        :return: The indicator_timeline of this Entry.  # noqa: E501
+        :rtype: IndicatorTimeline
+        """
+        return self._indicator_timeline
+
+    @indicator_timeline.setter
+    def indicator_timeline(self, indicator_timeline):
+        """Sets the indicator_timeline of this Entry.
+
+
+        :param indicator_timeline: The indicator_timeline of this Entry.  # noqa: E501
+        :type: IndicatorTimeline
+        """
+
+        self._indicator_timeline = indicator_timeline
 
     @property
     def shard_id(self):
@@ -466,6 +533,29 @@ class Entry(object):
         self._cron_view = cron_view
 
     @property
+    def dbot_created_by(self):
+        """Gets the dbot_created_by of this Entry.  # noqa: E501
+
+        Who has created this event - relevant only for manual incidents  # noqa: E501
+
+        :return: The dbot_created_by of this Entry.  # noqa: E501
+        :rtype: str
+        """
+        return self._dbot_created_by
+
+    @dbot_created_by.setter
+    def dbot_created_by(self, dbot_created_by):
+        """Sets the dbot_created_by of this Entry.
+
+        Who has created this event - relevant only for manual incidents  # noqa: E501
+
+        :param dbot_created_by: The dbot_created_by of this Entry.  # noqa: E501
+        :type: str
+        """
+
+        self._dbot_created_by = dbot_created_by
+
+    @property
     def deleted(self):
         """Gets the deleted of this Entry.  # noqa: E501
 
@@ -485,6 +575,48 @@ class Entry(object):
         """
 
         self._deleted = deleted
+
+    @property
+    def deleted_by(self):
+        """Gets the deleted_by of this Entry.  # noqa: E501
+
+
+        :return: The deleted_by of this Entry.  # noqa: E501
+        :rtype: str
+        """
+        return self._deleted_by
+
+    @deleted_by.setter
+    def deleted_by(self, deleted_by):
+        """Sets the deleted_by of this Entry.
+
+
+        :param deleted_by: The deleted_by of this Entry.  # noqa: E501
+        :type: str
+        """
+
+        self._deleted_by = deleted_by
+
+    @property
+    def deleted_from_fs(self):
+        """Gets the deleted_from_fs of this Entry.  # noqa: E501
+
+
+        :return: The deleted_from_fs of this Entry.  # noqa: E501
+        :rtype: bool
+        """
+        return self._deleted_from_fs
+
+    @deleted_from_fs.setter
+    def deleted_from_fs(self, deleted_from_fs):
+        """Sets the deleted_from_fs of this Entry.
+
+
+        :param deleted_from_fs: The deleted_from_fs of this Entry.  # noqa: E501
+        :type: bool
+        """
+
+        self._deleted_from_fs = deleted_from_fs
 
     @property
     def ending_date(self):
@@ -795,6 +927,29 @@ class Entry(object):
         self._investigation_id = investigation_id
 
     @property
+    def is_todo(self):
+        """Gets the is_todo of this Entry.  # noqa: E501
+
+        IsTodo  # noqa: E501
+
+        :return: The is_todo of this Entry.  # noqa: E501
+        :rtype: bool
+        """
+        return self._is_todo
+
+    @is_todo.setter
+    def is_todo(self, is_todo):
+        """Sets the is_todo of this Entry.
+
+        IsTodo  # noqa: E501
+
+        :param is_todo: The is_todo of this Entry.  # noqa: E501
+        :type: bool
+        """
+
+        self._is_todo = is_todo
+
+    @property
     def modified(self):
         """Gets the modified of this Entry.  # noqa: E501
 
@@ -977,6 +1132,27 @@ class Entry(object):
         self._previous_roles = previous_roles
 
     @property
+    def primary_term(self):
+        """Gets the primary_term of this Entry.  # noqa: E501
+
+
+        :return: The primary_term of this Entry.  # noqa: E501
+        :rtype: int
+        """
+        return self._primary_term
+
+    @primary_term.setter
+    def primary_term(self, primary_term):
+        """Sets the primary_term of this Entry.
+
+
+        :param primary_term: The primary_term of this Entry.  # noqa: E501
+        :type: int
+        """
+
+        self._primary_term = primary_term
+
+    @property
     def read_only(self):
         """Gets the read_only of this Entry.  # noqa: E501
 
@@ -1067,6 +1243,29 @@ class Entry(object):
         self._reputations = reputations
 
     @property
+    def retry_time(self):
+        """Gets the retry_time of this Entry.  # noqa: E501
+
+        When retry took place  # noqa: E501
+
+        :return: The retry_time of this Entry.  # noqa: E501
+        :rtype: datetime
+        """
+        return self._retry_time
+
+    @retry_time.setter
+    def retry_time(self, retry_time):
+        """Sets the retry_time of this Entry.
+
+        When retry took place  # noqa: E501
+
+        :param retry_time: The retry_time of this Entry.  # noqa: E501
+        :type: datetime
+        """
+
+        self._retry_time = retry_time
+
+    @property
     def roles(self):
         """Gets the roles of this Entry.  # noqa: E501
 
@@ -1111,6 +1310,27 @@ class Entry(object):
         """
 
         self._scheduled = scheduled
+
+    @property
+    def sequence_number(self):
+        """Gets the sequence_number of this Entry.  # noqa: E501
+
+
+        :return: The sequence_number of this Entry.  # noqa: E501
+        :rtype: int
+        """
+        return self._sequence_number
+
+    @sequence_number.setter
+    def sequence_number(self, sequence_number):
+        """Sets the sequence_number of this Entry.
+
+
+        :param sequence_number: The sequence_number of this Entry.  # noqa: E501
+        :type: int
+        """
+
+        self._sequence_number = sequence_number
 
     @property
     def sort_values(self):
@@ -1266,6 +1486,27 @@ class Entry(object):
         """
 
         self._times = times
+
+    @property
+    def timezone(self):
+        """Gets the timezone of this Entry.  # noqa: E501
+
+
+        :return: The timezone of this Entry.  # noqa: E501
+        :rtype: str
+        """
+        return self._timezone
+
+    @timezone.setter
+    def timezone(self, timezone):
+        """Sets the timezone of this Entry.
+
+
+        :param timezone: The timezone of this Entry.  # noqa: E501
+        :type: str
+        """
+
+        self._timezone = timezone
 
     @property
     def timezone_offset(self):

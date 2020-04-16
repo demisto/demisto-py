@@ -1384,6 +1384,36 @@
         }
       }
     },
+    "/layouts/import": {
+      "post": {
+        "description": "Upload a layout to Cortex XSOAR",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "Upload a layout",
+        "operationId": "importLayout",
+        "parameters": [
+          {
+            "type": "file",
+            "description": "file",
+            "name": "file",
+            "in": "formData",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The saved configuration",
+            "schema": {
+              "$ref": "#/definitions/ModuleConfiguration"
+            }
+          }
+        }
+      }
+    },
     "/logout/everyone": {
       "post": {
         "description": "Sign out all open users sessions",
@@ -2522,16 +2552,6 @@
       },
       "x-go-package": "github.com/demisto/server/domain"
     },
-    "CommentsFields": {
-      "type": "object",
-      "title": "CommentsFields ...",
-      "properties": {
-        "comments": {
-          "$ref": "#/definitions/Comments"
-        }
-      },
-      "x-go-package": "github.com/demisto/server/domain"
-    },
     "CommonFields": {
       "description": "CommonFields holds the common fields to all entities",
       "type": "object",
@@ -2671,9 +2691,9 @@
       },
       "x-go-package": "github.com/demisto/server/domain"
     },
-    "ContentItemExportableFields": {
+    "ContentItemFields": {
+      "description": "ContentItemFields holds ContentItem fields",
       "type": "object",
-      "title": "ContentItemExportableFields holds ContentItemExportableFields fields.",
       "properties": {
         "fromServerVersion": {
           "$ref": "#/definitions/Version"
@@ -8442,55 +8462,6 @@
       },
       "x-go-package": "github.com/demisto/server/domain"
     },
-    "Scheduler": {
-      "type": "object",
-      "title": "Scheduler ...",
-      "properties": {
-        "cron": {
-          "type": "string",
-          "x-go-name": "Cron"
-        },
-        "cronView": {
-          "type": "boolean",
-          "x-go-name": "CronView"
-        },
-        "endingDate": {
-          "type": "string",
-          "format": "date-time",
-          "x-go-name": "EndingDate"
-        },
-        "endingType": {
-          "$ref": "#/definitions/EndingType"
-        },
-        "humanCron": {
-          "$ref": "#/definitions/HumanCron"
-        },
-        "recurrent": {
-          "type": "boolean",
-          "x-go-name": "Recurrent"
-        },
-        "startDate": {
-          "type": "string",
-          "format": "date-time",
-          "x-go-name": "StartDate"
-        },
-        "times": {
-          "type": "integer",
-          "format": "int64",
-          "x-go-name": "Times"
-        },
-        "timezone": {
-          "type": "string",
-          "x-go-name": "Timezone"
-        },
-        "timezoneOffset": {
-          "type": "integer",
-          "format": "int64",
-          "x-go-name": "TimezoneOffset"
-        }
-      },
-      "x-go-package": "github.com/demisto/server/domain"
-    },
     "ScriptAPI": {
       "type": "object",
       "title": "ScriptAPI ...",
@@ -9706,7 +9677,6 @@
       },
       "x-go-package": "github.com/demisto/server/web"
     },
-    "idVersion": {},
     "indicatorContext": {
       "type": "object",
       "properties": {

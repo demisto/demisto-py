@@ -42,7 +42,7 @@ class IntegrationScript(object):
         'is_fetch_credentials': 'bool',
         'long_running': 'bool',
         'long_running_port_mapping': 'bool',
-        'paid': 'bool',
+        'private': 'bool',
         'run_once': 'bool',
         'script': 'str',
         'subtype': 'ScriptSubType',
@@ -57,14 +57,14 @@ class IntegrationScript(object):
         'is_fetch_credentials': 'isFetchCredentials',
         'long_running': 'longRunning',
         'long_running_port_mapping': 'longRunningPortMapping',
-        'paid': 'paid',
+        'private': 'private',
         'run_once': 'runOnce',
         'script': 'script',
         'subtype': 'subtype',
         'type': 'type'
     }
 
-    def __init__(self, commands=None, docker_image=None, feed=None, is_fetch=None, is_fetch_credentials=None, long_running=None, long_running_port_mapping=None, paid=None, run_once=None, script=None, subtype=None, type=None):  # noqa: E501
+    def __init__(self, commands=None, docker_image=None, feed=None, is_fetch=None, is_fetch_credentials=None, long_running=None, long_running_port_mapping=None, private=None, run_once=None, script=None, subtype=None, type=None):  # noqa: E501
         """IntegrationScript - a model defined in Swagger"""  # noqa: E501
 
         self._commands = None
@@ -74,7 +74,7 @@ class IntegrationScript(object):
         self._is_fetch_credentials = None
         self._long_running = None
         self._long_running_port_mapping = None
-        self._paid = None
+        self._private = None
         self._run_once = None
         self._script = None
         self._subtype = None
@@ -95,8 +95,8 @@ class IntegrationScript(object):
             self.long_running = long_running
         if long_running_port_mapping is not None:
             self.long_running_port_mapping = long_running_port_mapping
-        if paid is not None:
-            self.paid = paid
+        if private is not None:
+            self.private = private
         if run_once is not None:
             self.run_once = run_once
         if script is not None:
@@ -254,25 +254,25 @@ class IntegrationScript(object):
         self._long_running_port_mapping = long_running_port_mapping
 
     @property
-    def paid(self):
-        """Gets the paid of this IntegrationScript.  # noqa: E501
+    def private(self):
+        """Gets the private of this IntegrationScript.  # noqa: E501
 
 
-        :return: The paid of this IntegrationScript.  # noqa: E501
+        :return: The private of this IntegrationScript.  # noqa: E501
         :rtype: bool
         """
-        return self._paid
+        return self._private
 
-    @paid.setter
-    def paid(self, paid):
-        """Sets the paid of this IntegrationScript.
+    @private.setter
+    def private(self, private):
+        """Sets the private of this IntegrationScript.
 
 
-        :param paid: The paid of this IntegrationScript.  # noqa: E501
+        :param private: The private of this IntegrationScript.  # noqa: E501
         :type: bool
         """
 
-        self._paid = paid
+        self._private = private
 
     @property
     def run_once(self):

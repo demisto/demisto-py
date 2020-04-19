@@ -66,6 +66,7 @@ class IocObject(object):
         'modified_time': 'datetime',
         'module_to_feed_map': 'dict(str, FeedIndicator)',
         'primary_term': 'int',
+        'related_inc_count': 'int',
         'score': 'int',
         'sequence_number': 'int',
         'set_by': 'str',
@@ -107,6 +108,7 @@ class IocObject(object):
         'modified_time': 'modifiedTime',
         'module_to_feed_map': 'moduleToFeedMap',
         'primary_term': 'primaryTerm',
+        'related_inc_count': 'relatedIncCount',
         'score': 'score',
         'sequence_number': 'sequenceNumber',
         'set_by': 'setBy',
@@ -119,7 +121,7 @@ class IocObject(object):
         'version': 'version'
     }
 
-    def __init__(self, custom_fields=None, account=None, aggregated_reliability=None, calculated_time=None, comment=None, comments=None, deleted_feed_fetch_time=None, expiration=None, expiration_source=None, expiration_status=None, first_seen=None, first_seen_entry_id=None, id=None, indicator_type=None, insight_cache=None, investigation_i_ds=None, is_shared=None, last_reputation_run=None, last_seen=None, last_seen_entry_id=None, manual_expiration_time=None, manual_score=None, manual_set_time=None, manually_edited_fields=None, modified=None, modified_time=None, module_to_feed_map=None, primary_term=None, score=None, sequence_number=None, set_by=None, sort_values=None, source=None, source_brands=None, source_instances=None, timestamp=None, value=None, version=None):  # noqa: E501
+    def __init__(self, custom_fields=None, account=None, aggregated_reliability=None, calculated_time=None, comment=None, comments=None, deleted_feed_fetch_time=None, expiration=None, expiration_source=None, expiration_status=None, first_seen=None, first_seen_entry_id=None, id=None, indicator_type=None, insight_cache=None, investigation_i_ds=None, is_shared=None, last_reputation_run=None, last_seen=None, last_seen_entry_id=None, manual_expiration_time=None, manual_score=None, manual_set_time=None, manually_edited_fields=None, modified=None, modified_time=None, module_to_feed_map=None, primary_term=None, related_inc_count=None, score=None, sequence_number=None, set_by=None, sort_values=None, source=None, source_brands=None, source_instances=None, timestamp=None, value=None, version=None):  # noqa: E501
         """IocObject - a model defined in Swagger"""  # noqa: E501
 
         self._custom_fields = None
@@ -150,6 +152,7 @@ class IocObject(object):
         self._modified_time = None
         self._module_to_feed_map = None
         self._primary_term = None
+        self._related_inc_count = None
         self._score = None
         self._sequence_number = None
         self._set_by = None
@@ -218,6 +221,8 @@ class IocObject(object):
             self.module_to_feed_map = module_to_feed_map
         if primary_term is not None:
             self.primary_term = primary_term
+        if related_inc_count is not None:
+            self.related_inc_count = related_inc_count
         if score is not None:
             self.score = score
         if sequence_number is not None:
@@ -828,6 +833,27 @@ class IocObject(object):
         """
 
         self._primary_term = primary_term
+
+    @property
+    def related_inc_count(self):
+        """Gets the related_inc_count of this IocObject.  # noqa: E501
+
+
+        :return: The related_inc_count of this IocObject.  # noqa: E501
+        :rtype: int
+        """
+        return self._related_inc_count
+
+    @related_inc_count.setter
+    def related_inc_count(self, related_inc_count):
+        """Sets the related_inc_count of this IocObject.
+
+
+        :param related_inc_count: The related_inc_count of this IocObject.  # noqa: E501
+        :type: int
+        """
+
+        self._related_inc_count = related_inc_count
 
     @property
     def score(self):

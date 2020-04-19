@@ -61,10 +61,10 @@ class AutomationScript(object):
         'name': 'str',
         'outputs': 'list[Output]',
         'pack_id': 'str',
-        'paid': 'bool',
         'prev_name': 'str',
         'previous_roles': 'list[str]',
         'primary_term': 'int',
+        'private': 'bool',
         'propagation_labels': 'list[str]',
         'pswd': 'str',
         'raw_tags': 'list[str]',
@@ -113,10 +113,10 @@ class AutomationScript(object):
         'name': 'name',
         'outputs': 'outputs',
         'pack_id': 'packID',
-        'paid': 'paid',
         'prev_name': 'prevName',
         'previous_roles': 'previousRoles',
         'primary_term': 'primaryTerm',
+        'private': 'private',
         'propagation_labels': 'propagationLabels',
         'pswd': 'pswd',
         'raw_tags': 'rawTags',
@@ -143,7 +143,7 @@ class AutomationScript(object):
         'visual_script': 'visualScript'
     }
 
-    def __init__(self, arguments=None, comment=None, commit_message=None, context_keys=None, dbot_created_by=None, depends_on=None, deprecated=None, detached=None, docker_image=None, enabled=None, from_server_version=None, has_role=None, hidden=None, id=None, important=None, item_version=None, locked=None, modified=None, name=None, outputs=None, pack_id=None, paid=None, prev_name=None, previous_roles=None, primary_term=None, propagation_labels=None, pswd=None, raw_tags=None, roles=None, run_as=None, run_once=None, script=None, script_target=None, searchable_name=None, sensitive=None, sequence_number=None, should_commit=None, sort_values=None, source_scrip_id=None, subtype=None, system=None, tags=None, timeout=None, to_server_version=None, type=None, user=None, vc_should_ignore=None, version=None, visual_script=None):  # noqa: E501
+    def __init__(self, arguments=None, comment=None, commit_message=None, context_keys=None, dbot_created_by=None, depends_on=None, deprecated=None, detached=None, docker_image=None, enabled=None, from_server_version=None, has_role=None, hidden=None, id=None, important=None, item_version=None, locked=None, modified=None, name=None, outputs=None, pack_id=None, prev_name=None, previous_roles=None, primary_term=None, private=None, propagation_labels=None, pswd=None, raw_tags=None, roles=None, run_as=None, run_once=None, script=None, script_target=None, searchable_name=None, sensitive=None, sequence_number=None, should_commit=None, sort_values=None, source_scrip_id=None, subtype=None, system=None, tags=None, timeout=None, to_server_version=None, type=None, user=None, vc_should_ignore=None, version=None, visual_script=None):  # noqa: E501
         """AutomationScript - a model defined in Swagger"""  # noqa: E501
 
         self._arguments = None
@@ -167,10 +167,10 @@ class AutomationScript(object):
         self._name = None
         self._outputs = None
         self._pack_id = None
-        self._paid = None
         self._prev_name = None
         self._previous_roles = None
         self._primary_term = None
+        self._private = None
         self._propagation_labels = None
         self._pswd = None
         self._raw_tags = None
@@ -239,14 +239,14 @@ class AutomationScript(object):
             self.outputs = outputs
         if pack_id is not None:
             self.pack_id = pack_id
-        if paid is not None:
-            self.paid = paid
         if prev_name is not None:
             self.prev_name = prev_name
         if previous_roles is not None:
             self.previous_roles = previous_roles
         if primary_term is not None:
             self.primary_term = primary_term
+        if private is not None:
+            self.private = private
         if propagation_labels is not None:
             self.propagation_labels = propagation_labels
         if pswd is not None:
@@ -744,27 +744,6 @@ class AutomationScript(object):
         self._pack_id = pack_id
 
     @property
-    def paid(self):
-        """Gets the paid of this AutomationScript.  # noqa: E501
-
-
-        :return: The paid of this AutomationScript.  # noqa: E501
-        :rtype: bool
-        """
-        return self._paid
-
-    @paid.setter
-    def paid(self, paid):
-        """Sets the paid of this AutomationScript.
-
-
-        :param paid: The paid of this AutomationScript.  # noqa: E501
-        :type: bool
-        """
-
-        self._paid = paid
-
-    @property
     def prev_name(self):
         """Gets the prev_name of this AutomationScript.  # noqa: E501
 
@@ -828,6 +807,27 @@ class AutomationScript(object):
         """
 
         self._primary_term = primary_term
+
+    @property
+    def private(self):
+        """Gets the private of this AutomationScript.  # noqa: E501
+
+
+        :return: The private of this AutomationScript.  # noqa: E501
+        :rtype: bool
+        """
+        return self._private
+
+    @private.setter
+    def private(self, private):
+        """Sets the private of this AutomationScript.
+
+
+        :param private: The private of this AutomationScript.  # noqa: E501
+        :type: bool
+        """
+
+        self._private = private
 
     @property
     def propagation_labels(self):

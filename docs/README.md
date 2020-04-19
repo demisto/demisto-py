@@ -45,6 +45,10 @@ Method | HTTP request | Description
 [**get_stats_for_widget**](DefaultApi.md#get_stats_for_widget) | **POST** /statistics/widgets/query | Get Widget Statistics
 [**get_widget**](DefaultApi.md#get_widget) | **GET** /widgets/{id} | Get widget by ID
 [**health_handler**](DefaultApi.md#health_handler) | **GET** /health | Check if Cortex XSOAR server is available
+[**import_dashboard**](DefaultApi.md#import_dashboard) | **POST** /dashboards/import | Import a dashboard
+[**import_incident_fields**](DefaultApi.md#import_incident_fields) | **POST** /incidentfields/import | Import an incidents field
+[**import_incident_types_handler**](DefaultApi.md#import_incident_types_handler) | **POST** /incidenttypes/import | Import an incident type
+[**import_layout**](DefaultApi.md#import_layout) | **POST** /layouts/import | Upload a layout
 [**import_script**](DefaultApi.md#import_script) | **POST** /automation/import | Upload an automation
 [**import_widget**](DefaultApi.md#import_widget) | **POST** /widgets/import | Import a widget
 [**incident_file_upload**](DefaultApi.md#incident_file_upload) | **POST** /incident/upload/{id} | 
@@ -109,6 +113,7 @@ Method | HTTP request | Description
  - [ConfigField](ConfigField.md)
  - [ContainersInfo](ContainersInfo.md)
  - [ContentItemExportableFields](ContentItemExportableFields.md)
+ - [ContentItemFields](ContentItemFields.md)
  - [ContentItemVersionedFields](ContentItemVersionedFields.md)
  - [CreateIncidentRequest](CreateIncidentRequest.md)
  - [CustomFields](CustomFields.md)
@@ -135,6 +140,7 @@ Method | HTTP request | Description
  - [Evidences](Evidences.md)
  - [EvidencesFilterWrapper](EvidencesFilterWrapper.md)
  - [EvidencesSearchResponse](EvidencesSearchResponse.md)
+ - [ExpirationIndicator](ExpirationIndicator.md)
  - [ExpirationPolicy](ExpirationPolicy.md)
  - [ExpirationSettingsSource](ExpirationSettingsSource.md)
  - [ExpirationSource](ExpirationSource.md)
@@ -226,7 +232,6 @@ Method | HTTP request | Description
  - [SLA](SLA.md)
  - [SLAState](SLAState.md)
  - [Schedule](Schedule.md)
- - [Scheduler](Scheduler.md)
  - [ScriptAPI](ScriptAPI.md)
  - [ScriptSubType](ScriptSubType.md)
  - [ScriptTarget](ScriptTarget.md)

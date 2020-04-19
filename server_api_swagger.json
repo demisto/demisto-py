@@ -163,6 +163,36 @@
         }
       }
     },
+    "/dashboards/import": {
+      "post": {
+        "description": "Import a dashboard to Cortex XSOAR",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "Import a dashboard",
+        "operationId": "importDashboard",
+        "parameters": [
+          {
+            "type": "file",
+            "description": "file",
+            "name": "file",
+            "in": "formData",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The saved configuration",
+            "schema": {
+              "$ref": "#/definitions/ModuleConfiguration"
+            }
+          }
+        }
+      }
+    },
     "/entry": {
       "post": {
         "description": "API to create an entry (markdown format) in existing investigation\nBody example: {\"investigationId\":\"1234\",\"data\":\"entry content…\"}",
@@ -718,6 +748,36 @@
         }
       }
     },
+    "/incidentfields/import": {
+      "post": {
+        "description": "Import an incidents field to Cortex XSOAR",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "Import an incidents field",
+        "operationId": "importIncidentFields",
+        "parameters": [
+          {
+            "type": "file",
+            "description": "file",
+            "name": "file",
+            "in": "formData",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The saved configuration",
+            "schema": {
+              "$ref": "#/definitions/ModuleConfiguration"
+            }
+          }
+        }
+      }
+    },
     "/incidents/search": {
       "post": {
         "description": "This will search incidents across all indices\nYou can filter by multiple options",
@@ -772,6 +832,36 @@
             "description": "IncidentType",
             "schema": {
               "$ref": "#/definitions/IncidentType"
+            }
+          }
+        }
+      }
+    },
+    "/incidenttypes/import": {
+      "post": {
+        "description": "Import an incident type to Cortex XSOAR",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "Import an incident type",
+        "operationId": "importIncidentTypesHandler",
+        "parameters": [
+          {
+            "type": "file",
+            "description": "file",
+            "name": "file",
+            "in": "formData",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The saved configuration",
+            "schema": {
+              "$ref": "#/definitions/ModuleConfiguration"
             }
           }
         }
@@ -1851,22 +1941,28 @@
     "/widgets/import": {
       "post": {
         "description": "Import a widget to the system, ignoring ID or version, used to import new widgets.",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
         "summary": "Import a widget",
         "operationId": "importWidget",
         "parameters": [
           {
-            "name": "widget",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/Widget"
-            }
+            "type": "file",
+            "description": "file",
+            "name": "file",
+            "in": "formData",
+            "required": true
           }
         ],
         "responses": {
           "200": {
-            "description": "The imported saved widget.",
+            "description": "The saved configuration",
             "schema": {
-              "$ref": "#/definitions/Widget"
+              "$ref": "#/definitions/ModuleConfiguration"
             }
           }
         }
@@ -2253,10 +2349,6 @@
           "type": "string",
           "x-go-name": "PackID"
         },
-        "paid": {
-          "type": "boolean",
-          "x-go-name": "Paid"
-        },
         "prevName": {
           "type": "string",
           "x-go-name": "PrevName"
@@ -2273,6 +2365,10 @@
           "type": "integer",
           "format": "int64",
           "x-go-name": "PrimaryTerm"
+        },
+        "private": {
+          "type": "boolean",
+          "x-go-name": "Private"
         },
         "propagationLabels": {
           "type": "array",
@@ -2552,6 +2648,16 @@
       },
       "x-go-package": "github.com/demisto/server/domain"
     },
+    "CommentsFields": {
+      "type": "object",
+      "title": "CommentsFields ...",
+      "properties": {
+        "comments": {
+          "$ref": "#/definitions/Comments"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/domain"
+    },
     "CommonFields": {
       "description": "CommonFields holds the common fields to all entities",
       "type": "object",
@@ -2687,6 +2793,33 @@
         },
         "type": {
           "$ref": "#/definitions/ConfigDataType"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/domain"
+    },
+    "ContentItemExportableFields": {
+      "type": "object",
+      "title": "ContentItemExportableFields holds ContentItemExportableFields fields.",
+      "properties": {
+        "fromServerVersion": {
+          "$ref": "#/definitions/Version"
+        },
+        "itemVersion": {
+          "$ref": "#/definitions/Version"
+        },
+        "packID": {
+          "type": "string",
+          "x-go-name": "PackID"
+        },
+        "propagationLabels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "PropagationLabels"
+        },
+        "toServerVersion": {
+          "$ref": "#/definitions/Version"
         }
       },
       "x-go-package": "github.com/demisto/server/domain"
@@ -3917,6 +4050,34 @@
         }
       },
       "x-go-package": "github.com/demisto/server/repo/entities"
+    },
+    "ExpirationIndicator": {
+      "type": "object",
+      "title": "ExpirationIndicator ...",
+      "properties": {
+        "deletedFeedFetchTime": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "DeletedFeedFetchTime"
+        },
+        "expiration": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "ExpirationTime"
+        },
+        "expirationSource": {
+          "$ref": "#/definitions/ExpirationSource"
+        },
+        "expirationStatus": {
+          "$ref": "#/definitions/ExpirationStatus"
+        },
+        "manualExpirationTime": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "ManualExpirationTime"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/domain"
     },
     "ExpirationPolicy": {
       "type": "string",
@@ -6066,9 +6227,9 @@
           "type": "boolean",
           "x-go-name": "LongRunningPort"
         },
-        "paid": {
+        "private": {
           "type": "boolean",
-          "x-go-name": "Paid"
+          "x-go-name": "Private"
         },
         "runOnce": {
           "type": "boolean",
@@ -7351,6 +7512,11 @@
           "type": "integer",
           "format": "int64",
           "x-go-name": "PrimaryTerm"
+        },
+        "relatedIncCount": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "RelatedIncCount"
         },
         "score": {
           "type": "integer",
@@ -9677,6 +9843,7 @@
       },
       "x-go-package": "github.com/demisto/server/web"
     },
+    "idVersion": {},
     "indicatorContext": {
       "type": "object",
       "properties": {

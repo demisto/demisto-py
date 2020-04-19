@@ -31,6 +31,7 @@ Name | Type | Description | Notes
 **modified_time** | **datetime** |  | [optional] 
 **module_to_feed_map** | [**dict(str, FeedIndicator)**](FeedIndicator.md) |  | [optional] 
 **primary_term** | **int** |  | [optional] 
+**related_inc_count** | **int** |  | [optional] 
 **score** | **int** |  | [optional] 
 **sequence_number** | **int** |  | [optional] 
 **set_by** | **str** |  | [optional] 

@@ -49,6 +49,7 @@ from demisto_client.demisto_api.models.config_data_type import ConfigDataType
 from demisto_client.demisto_api.models.config_field import ConfigField
 from demisto_client.demisto_api.models.containers_info import ContainersInfo
 from demisto_client.demisto_api.models.content_item_exportable_fields import ContentItemExportableFields
+from demisto_client.demisto_api.models.content_item_fields import ContentItemFields
 from demisto_client.demisto_api.models.content_item_versioned_fields import ContentItemVersionedFields
 from demisto_client.demisto_api.models.create_incident_request import CreateIncidentRequest
 from demisto_client.demisto_api.models.custom_fields import CustomFields
@@ -75,6 +76,7 @@ from demisto_client.demisto_api.models.evidence_data import EvidenceData
 from demisto_client.demisto_api.models.evidences import Evidences
 from demisto_client.demisto_api.models.evidences_filter_wrapper import EvidencesFilterWrapper
 from demisto_client.demisto_api.models.evidences_search_response import EvidencesSearchResponse
+from demisto_client.demisto_api.models.expiration_indicator import ExpirationIndicator
 from demisto_client.demisto_api.models.expiration_policy import ExpirationPolicy
 from demisto_client.demisto_api.models.expiration_settings_source import ExpirationSettingsSource
 from demisto_client.demisto_api.models.expiration_source import ExpirationSource
@@ -166,7 +168,6 @@ from demisto_client.demisto_api.models.run_status import RunStatus
 from demisto_client.demisto_api.models.sla import SLA
 from demisto_client.demisto_api.models.sla_state import SLAState
 from demisto_client.demisto_api.models.schedule import Schedule
-from demisto_client.demisto_api.models.scheduler import Scheduler
 from demisto_client.demisto_api.models.script_api import ScriptAPI
 from demisto_client.demisto_api.models.script_sub_type import ScriptSubType
 from demisto_client.demisto_api.models.script_target import ScriptTarget

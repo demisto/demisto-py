@@ -4205,7 +4205,7 @@ class DefaultApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def import_layout(self, file, type, kind, **kwargs):  # noqa: E501
+    def import_layout(self, file, **kwargs):  # noqa: E501
         """Import a layout  # noqa: E501
 
         Import a layout to Cortex XSOAR  # noqa: E501
@@ -4216,8 +4216,6 @@ class DefaultApi(object):
 
         :param async_req bool
         :param file file: file (required)
-        :param str type: associated typeID for the layout (required)
-        :param str kind: layout kind details (required)
         :return: LayoutAPI
                  If the method is called asynchronously,
                  returns the request thread.

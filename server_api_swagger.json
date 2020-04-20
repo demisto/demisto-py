@@ -186,7 +186,7 @@
             "type": "string",
             "description": "associated typeID for the layout",
             "name": "classifierId",
-            "in": "string",
+            "in": "formData",
             "required": true
           }
         ],
@@ -1437,7 +1437,7 @@
         }
       }
     },
-    "/layouts/import": {
+    "/v2/layouts/import": {
       "post": {
         "description": "Import a layout to Cortex XSOAR",
         "consumes": [
@@ -1491,7 +1491,7 @@
           "application/json"
         ],
         "summary": "Import and override playbook",
-        "operationId": "overridePlaybookYaml",
+        "operationId": "importPlaybook",
         "parameters": [
           {
             "type": "file",
@@ -3695,6 +3695,155 @@
       },
       "x-go-package": "github.com/demisto/server/repo/entities"
     },
+    "ExpirationPolicy": {
+      "type": "string",
+      "title": "ExpirationPolicy ...",
+      "x-go-package": "github.com/demisto/server/domain"
+    },
+    "ExpirationSettingsSource": {
+      "type": "string",
+      "title": "ExpirationSettingsSource ...",
+      "x-go-package": "github.com/demisto/server/domain"
+    },
+    "ExpirationSource": {
+      "type": "object",
+      "title": "ExpirationSource ..\t.",
+      "properties": {
+        "brand": {
+          "type": "string",
+          "x-go-name": "Brand"
+        },
+        "expirationInterval": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "ExpirationInterval"
+        },
+        "expirationPolicy": {
+          "$ref": "#/definitions/ExpirationPolicy"
+        },
+        "instance": {
+          "type": "string",
+          "x-go-name": "Instance"
+        },
+        "moduleId": {
+          "type": "string",
+          "x-go-name": "ModuleID"
+        },
+        "setTime": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "SetTime"
+        },
+        "source": {
+          "$ref": "#/definitions/ExpirationSettingsSource"
+        },
+        "user": {
+          "type": "string",
+          "x-go-name": "User"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/domain"
+    },
+    "FeedIndicator": {
+      "type": "object",
+      "title": "FeedIndicator ...",
+      "properties": {
+        "ExpirationSource": {
+          "$ref": "#/definitions/ExpirationSource"
+        },
+        "bypassExclusionList": {
+          "type": "boolean",
+          "x-go-name": "ShouldBypassExclusionList"
+        },
+        "classifierVersion": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "ClassifierVersion"
+        },
+        "expirationInterval": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "ExpirationInterval"
+        },
+        "expirationPolicy": {
+          "$ref": "#/definitions/ExpirationPolicy"
+        },
+        "feedConfig": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          },
+          "x-go-name": "FeedConfig"
+        },
+        "fetchTime": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "FetchTime"
+        },
+        "fields": {
+          "$ref": "#/definitions/CustomFields"
+        },
+        "isEnrichment": {
+          "type": "boolean",
+          "x-go-name": "IsEnrichment"
+        },
+        "modifiedTime": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "ModifiedTime"
+        },
+        "moduleId": {
+          "type": "string",
+          "x-go-name": "ModuleID"
+        },
+        "rawJSON": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          },
+          "x-go-name": "RawJSON"
+        },
+        "reliability": {
+          "$ref": "#/definitions/Reliability"
+        },
+        "score": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Score"
+        },
+        "sourceBrand": {
+          "type": "string",
+          "x-go-name": "Brand"
+        },
+        "sourceInstance": {
+          "type": "string",
+          "x-go-name": "Instance"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "TimeStamp"
+        },
+        "type": {
+          "description": "indicator fields",
+          "type": "string",
+          "x-go-name": "Type"
+        },
+        "value": {
+          "type": "string",
+          "x-go-name": "Value"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/domain"
+    },
+    "FeedIndicators": {
+      "type": "array",
+      "title": "FeedIndicators ...",
+      "items": {
+        "$ref": "#/definitions/FeedIndicator"
+      },
+      "x-go-package": "github.com/demisto/server/domain"
+    },
     "FieldGroup": {
       "description": "FieldGroup is the field group",
       "type": "number",
@@ -3774,6 +3923,45 @@
     "FilterOperatorID": {
       "type": "string",
       "title": "FilterOperatorID ...",
+      "x-go-package": "github.com/demisto/server/domain"
+    },
+    "FormDisplay": {
+      "type": "object",
+      "title": "FormDisplay - display options for communication/ask task (for both email and web forms).",
+      "properties": {
+        "bodyBackgroundColor": {
+          "type": "string",
+          "x-go-name": "BodyBackgroundColor"
+        },
+        "bodyFontColor": {
+          "type": "string",
+          "x-go-name": "BodyFontColor"
+        },
+        "headerBackgroundColor": {
+          "type": "string",
+          "x-go-name": "HeaderBackgroundColor"
+        },
+        "headerFontColor": {
+          "type": "string",
+          "x-go-name": "HeaderFontColor"
+        },
+        "sender": {
+          "type": "string",
+          "x-go-name": "Sender"
+        },
+        "submitButtonBackgroundColor": {
+          "type": "string",
+          "x-go-name": "SubmitButtonBackgroundColor"
+        },
+        "submitButtonFontColor": {
+          "type": "string",
+          "x-go-name": "SubmitButtonFontColor"
+        },
+        "submitText": {
+          "type": "string",
+          "x-go-name": "SubmitText"
+        }
+      },
       "x-go-package": "github.com/demisto/server/domain"
     },
     "GenericStringDateFilter": {
@@ -5260,6 +5448,26 @@
       },
       "x-go-package": "github.com/demisto/server/domain"
     },
+    "Incidents": {
+      "description": "Incidents is a list of incident entities"
+    },
+    "IndicatorEditBulkResponse": {
+      "type": "object",
+      "title": "IndicatorEditBulkResponse ...",
+      "properties": {
+        "total": {
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Total"
+        },
+        "updated": {
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Updated"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/web"
+    },
     "IndicatorFilter": {
       "description": "IndicatorFilter is a general filter that fetches entities using a query string query using the Query value",
       "type": "object",
@@ -5393,6 +5601,122 @@
             "$ref": "#/definitions/DBotScore"
           },
           "x-go-name": "Scores"
+        },
+        "sequenceNumber": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "SeqNum"
+        },
+        "sortValues": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "SortValues"
+        },
+        "version": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Versn"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/domain"
+    },
+    "InstanceClassifier": {
+      "description": "InstanceClassifier - classifies an incident from a specific brand",
+      "type": "object",
+      "properties": {
+        "brandName": {
+          "type": "string",
+          "x-go-name": "Brand"
+        },
+        "commitMessage": {
+          "type": "string",
+          "x-go-name": "CommitMessage"
+        },
+        "custom": {
+          "type": "boolean",
+          "x-go-name": "Custom"
+        },
+        "defaultIncidentType": {
+          "type": "string",
+          "x-go-name": "DefaultIncidentType"
+        },
+        "feed": {
+          "type": "boolean",
+          "x-go-name": "Feed"
+        },
+        "fromServerVersion": {
+          "$ref": "#/definitions/Version"
+        },
+        "id": {
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "incidentSamples": {
+          "$ref": "#/definitions/Incidents"
+        },
+        "indicatorSamples": {
+          "$ref": "#/definitions/FeedIndicators"
+        },
+        "instanceId": {
+          "type": "string",
+          "x-go-name": "InstanceID"
+        },
+        "instanceName": {
+          "type": "string",
+          "x-go-name": "InstanceName"
+        },
+        "isDefault": {
+          "type": "boolean",
+          "x-go-name": "IsDefault"
+        },
+        "itemVersion": {
+          "$ref": "#/definitions/Version"
+        },
+        "keyTypeMap": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "x-go-name": "KeyTypeMap"
+        },
+        "mapping": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/Mapper"
+          },
+          "x-go-name": "Mapping"
+        },
+        "modified": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "Modified"
+        },
+        "packID": {
+          "type": "string",
+          "x-go-name": "PackID"
+        },
+        "primaryTerm": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "PrimaryTerm"
+        },
+        "propagationLabels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "PropagationLabels"
+        },
+        "sequenceNumber": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "SeqNum"
+        },
+        "shouldCommit": {
+          "type": "boolean",
+          "x-go-name": "ShouldCommit"
         },
         "sortValues": {
           "type": "array",
@@ -6371,6 +6695,9 @@
           },
           "x-go-name": "PreviousTasks"
         },
+        "quietMode": {
+          "$ref": "#/definitions/QuietMode"
+        },
         "reminder": {
           "description": "Duration in minutes, this field is not persisted here",
           "type": "integer",
@@ -6660,6 +6987,244 @@
       },
       "x-go-package": "github.com/demisto/server/domain"
     },
+    "Layout": {
+      "type": "object",
+      "title": "Layout ...",
+      "properties": {
+        "commitMessage": {
+          "type": "string",
+          "x-go-name": "CommitMessage"
+        },
+        "fromServerVersion": {
+          "$ref": "#/definitions/Version"
+        },
+        "id": {
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "itemVersion": {
+          "$ref": "#/definitions/Version"
+        },
+        "kind": {
+          "type": "string",
+          "x-go-name": "Kind"
+        },
+        "modified": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "Modified"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "packID": {
+          "type": "string",
+          "x-go-name": "PackID"
+        },
+        "prevKind": {
+          "type": "string",
+          "x-go-name": "PrevKind"
+        },
+        "prevTypeId": {
+          "type": "string",
+          "x-go-name": "PrevTypeID"
+        },
+        "primaryTerm": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "PrimaryTerm"
+        },
+        "propagationLabels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "PropagationLabels"
+        },
+        "sections": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LayoutSection"
+          },
+          "x-go-name": "Sections"
+        },
+        "sequenceNumber": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "SeqNum"
+        },
+        "shouldCommit": {
+          "type": "boolean",
+          "x-go-name": "ShouldCommit"
+        },
+        "sortValues": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "SortValues"
+        },
+        "system": {
+          "type": "boolean",
+          "x-go-name": "System"
+        },
+        "toServerVersion": {
+          "$ref": "#/definitions/Version"
+        },
+        "typeId": {
+          "type": "string",
+          "x-go-name": "TypeID"
+        },
+        "vcShouldIgnore": {
+          "type": "boolean",
+          "x-go-name": "VCShouldIgnore"
+        },
+        "version": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Versn"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/domain"
+    },
+    "LayoutAPI": {
+      "description": "LayoutAPI - request sent from the client contains some or all\nof the fields.",
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "x-go-name": "Kind"
+        },
+        "layout": {
+          "$ref": "#/definitions/Layout"
+        },
+        "typeId": {
+          "type": "string",
+          "x-go-name": "TypeID"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/domain"
+    },
+    "LayoutField": {
+      "type": "object",
+      "title": "LayoutField ...",
+      "properties": {
+        "fieldId": {
+          "type": "string",
+          "x-go-name": "FieldID"
+        },
+        "id": {
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "isVisible": {
+          "type": "boolean",
+          "x-go-name": "IsVisible"
+        },
+        "modified": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "Modified"
+        },
+        "primaryTerm": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "PrimaryTerm"
+        },
+        "sequenceNumber": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "SeqNum"
+        },
+        "sortValues": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "SortValues"
+        },
+        "version": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Versn"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/domain"
+    },
+    "LayoutSection": {
+      "type": "object",
+      "title": "LayoutSection ...",
+      "properties": {
+        "description": {
+          "type": "string",
+          "x-go-name": "Description"
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LayoutField"
+          },
+          "x-go-name": "Fields"
+        },
+        "id": {
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "isVisible": {
+          "type": "boolean",
+          "x-go-name": "IsVisible"
+        },
+        "modified": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "Modified"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "primaryTerm": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "PrimaryTerm"
+        },
+        "query": {
+          "type": "object",
+          "x-go-name": "Query"
+        },
+        "queryType": {
+          "type": "string",
+          "x-go-name": "QueryType"
+        },
+        "readOnly": {
+          "type": "boolean",
+          "x-go-name": "IsReadOnly"
+        },
+        "sequenceNumber": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "SeqNum"
+        },
+        "sortValues": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "SortValues"
+        },
+        "type": {
+          "type": "string",
+          "x-go-name": "Type"
+        },
+        "version": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Versn"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/domain"
+    },
     "Location": {
       "type": "object",
       "properties": {
@@ -6692,6 +7257,25 @@
         "$ref": "#/definitions/Location"
       },
       "x-go-package": "github.com/demisto/server/vendor/github.com/blevesearch/bleve/search"
+    },
+    "Mapper": {
+      "description": "Mapper - mapper for new incidents",
+      "type": "object",
+      "properties": {
+        "dontMapEventToLabels": {
+          "description": "DontMapEventToLabels by default we will map all the fields of the event to incident labels",
+          "type": "boolean",
+          "x-go-name": "DontMapEventToLabels"
+        },
+        "internalMapping": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/AdvanceArg"
+          },
+          "x-go-name": "InternalMapping"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/domain"
     },
     "ModuleArgs": {
       "description": "ModuleArgs represents module args",
@@ -7014,6 +7598,209 @@
       },
       "x-go-package": "github.com/demisto/server/domain"
     },
+    "Playbook": {
+      "description": "Playbook is a collection of tasks",
+      "type": "object",
+      "properties": {
+        "brands": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "Brands"
+        },
+        "commands": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "Commands"
+        },
+        "comment": {
+          "type": "string",
+          "x-go-name": "Description"
+        },
+        "commitMessage": {
+          "type": "string",
+          "x-go-name": "CommitMessage"
+        },
+        "dbotCreatedBy": {
+          "description": "Who has created this event - relevant only for manual incidents",
+          "type": "string",
+          "x-go-name": "CreatedBy"
+        },
+        "detached": {
+          "type": "boolean",
+          "x-go-name": "Detached"
+        },
+        "fromServerVersion": {
+          "$ref": "#/definitions/Version"
+        },
+        "hasRole": {
+          "description": "Internal field to make queries on role faster",
+          "type": "boolean",
+          "x-go-name": "HasRole"
+        },
+        "hidden": {
+          "type": "boolean",
+          "x-go-name": "Hidden"
+        },
+        "id": {
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "inputs": {
+          "$ref": "#/definitions/PlaybookInputs"
+        },
+        "itemVersion": {
+          "$ref": "#/definitions/Version"
+        },
+        "locked": {
+          "type": "boolean",
+          "x-go-name": "Locked"
+        },
+        "missingScriptsIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "MissingScriptsIDs"
+        },
+        "modified": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "Modified"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "nameRaw": {
+          "type": "string",
+          "x-go-name": "NameRaw"
+        },
+        "outputs": {
+          "$ref": "#/definitions/PlaybookOutputs"
+        },
+        "packID": {
+          "type": "string",
+          "x-go-name": "PackID"
+        },
+        "prevName": {
+          "type": "string",
+          "x-go-name": "PrevName"
+        },
+        "previousRoles": {
+          "description": "PreviousRoleName - do not change this field manually",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "PreviousRoleName"
+        },
+        "primaryTerm": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "PrimaryTerm"
+        },
+        "private": {
+          "type": "boolean",
+          "x-go-name": "Private"
+        },
+        "propagationLabels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "PropagationLabels"
+        },
+        "quiet": {
+          "type": "boolean",
+          "x-go-name": "Quiet"
+        },
+        "roles": {
+          "description": "The role assigned to this investigation",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "RoleName"
+        },
+        "scriptIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "ScriptIDs"
+        },
+        "sequenceNumber": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "SeqNum"
+        },
+        "shouldCommit": {
+          "type": "boolean",
+          "x-go-name": "ShouldCommit"
+        },
+        "sortValues": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "SortValues"
+        },
+        "sourcePlaybookID": {
+          "type": "string",
+          "x-go-name": "SourcePlaybookID"
+        },
+        "startTaskId": {
+          "type": "string",
+          "x-go-name": "StartTaskID"
+        },
+        "system": {
+          "type": "boolean",
+          "x-go-name": "System"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "Tags"
+        },
+        "taskIds": {
+          "description": "auto generated field that will contain all task ids in this playbook\nNeeded for searching with bleve",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "TaskIDs"
+        },
+        "tasks": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/PlaybookTask"
+          },
+          "x-go-name": "Tasks"
+        },
+        "toServerVersion": {
+          "$ref": "#/definitions/Version"
+        },
+        "vcShouldIgnore": {
+          "type": "boolean",
+          "x-go-name": "VCShouldIgnore"
+        },
+        "version": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Versn"
+        },
+        "view": {
+          "$ref": "#/definitions/PlaybookView"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/domain"
+    },
     "PlaybookInput": {
       "description": "PlaybookInput represents the playbook input",
       "type": "object",
@@ -7067,6 +7854,135 @@
       "type": "array",
       "items": {
         "$ref": "#/definitions/PlaybookOutput"
+      },
+      "x-go-package": "github.com/demisto/server/domain"
+    },
+    "PlaybookTask": {
+      "type": "object",
+      "title": "PlaybookTask ...",
+      "properties": {
+        "conditions": {
+          "description": "Conditions - optional list of conditions to run when task is conditional. we check conditions by their order (e.i. - considering the first one that satisfied)",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TaskCondition"
+          },
+          "x-go-name": "Conditions"
+        },
+        "continueOnError": {
+          "type": "boolean",
+          "x-go-name": "ContinueOnError"
+        },
+        "defaultAssignee": {
+          "type": "string",
+          "x-go-name": "DefaultAssignee"
+        },
+        "defaultAssigneeComplex": {
+          "$ref": "#/definitions/AdvanceArg"
+        },
+        "defaultReminder": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "DefaultReminder"
+        },
+        "evidenceData": {
+          "$ref": "#/definitions/EvidenceData"
+        },
+        "fieldMapping": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FieldMapping"
+          },
+          "x-go-name": "FieldMappingArray"
+        },
+        "form": {
+          "$ref": "#/definitions/DataCollectionForm"
+        },
+        "formDisplay": {
+          "$ref": "#/definitions/FormDisplay"
+        },
+        "id": {
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "ignoreWorker": {
+          "description": "Do not run this task in a worker",
+          "type": "boolean",
+          "x-go-name": "IgnoreWorker"
+        },
+        "loop": {
+          "$ref": "#/definitions/TaskLoop"
+        },
+        "message": {
+          "$ref": "#/definitions/NotifiableItem"
+        },
+        "nextTasks": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "x-go-name": "NextTasks"
+        },
+        "note": {
+          "type": "boolean",
+          "x-go-name": "Note"
+        },
+        "quietMode": {
+          "$ref": "#/definitions/QuietMode"
+        },
+        "reputationCalc": {
+          "$ref": "#/definitions/ReputationCalcAlg"
+        },
+        "restrictedCompletion": {
+          "type": "boolean",
+          "x-go-name": "RestrictedCompletion"
+        },
+        "scriptArguments": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/AdvanceArg"
+          },
+          "x-go-name": "ScriptArguments"
+        },
+        "separateContext": {
+          "type": "boolean",
+          "x-go-name": "SeparateContext"
+        },
+        "skipUnavailable": {
+          "description": "SkipUnavailable if true then will check if automation exists, integration of that command is installed and\nactive or sub playbook exists in Demisto",
+          "type": "boolean",
+          "x-go-name": "SkipUnavailable"
+        },
+        "sla": {
+          "$ref": "#/definitions/SLA"
+        },
+        "slaReminder": {
+          "$ref": "#/definitions/SLA"
+        },
+        "task": {
+          "$ref": "#/definitions/Task"
+        },
+        "taskId": {
+          "type": "string",
+          "x-go-name": "TaskID"
+        },
+        "timerTriggers": {
+          "description": "SLA fields",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TimerTrigger"
+          },
+          "x-go-name": "TimerTriggers"
+        },
+        "type": {
+          "$ref": "#/definitions/TaskType"
+        },
+        "view": {
+          "$ref": "#/definitions/TaskView"
+        }
       },
       "x-go-package": "github.com/demisto/server/domain"
     },
@@ -7137,6 +8053,12 @@
       },
       "x-go-package": "github.com/demisto/server/domain"
     },
+    "QuietMode": {
+      "description": "QuietMode quiet mode for playbook task",
+      "type": "integer",
+      "format": "int64",
+      "x-go-package": "github.com/demisto/server/domain"
+    },
     "RawMessage": {
       "description": "It implements Marshaler and Unmarshaler and can\nbe used to delay JSON decoding or precompute a JSON encoding.",
       "type": "array",
@@ -7146,6 +8068,11 @@
         "format": "uint8"
       },
       "x-go-package": "encoding/json"
+    },
+    "Reliability": {
+      "type": "string",
+      "title": "Reliability ...",
+      "x-go-package": "github.com/demisto/server/domain"
     },
     "Report": {
       "description": "Report - represents report",
@@ -7479,6 +8406,133 @@
       "type": "number",
       "format": "double",
       "x-go-package": "github.com/demisto/server/domain"
+    },
+    "ScriptAPI": {
+      "type": "object",
+      "title": "ScriptAPI ...",
+      "properties": {
+        "arguments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Argument"
+          },
+          "x-go-name": "Args"
+        },
+        "comment": {
+          "type": "string",
+          "x-go-name": "Comment"
+        },
+        "contextKeys": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "ContextKeys"
+        },
+        "dependsOn": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "x-go-name": "DependsOn"
+        },
+        "deprecated": {
+          "type": "boolean",
+          "x-go-name": "Deprecated"
+        },
+        "detached": {
+          "type": "boolean",
+          "x-go-name": "Detached"
+        },
+        "dockerImage": {
+          "type": "string",
+          "x-go-name": "DockerImage"
+        },
+        "enabled": {
+          "type": "boolean",
+          "x-go-name": "Enabled"
+        },
+        "hidden": {
+          "type": "boolean",
+          "x-go-name": "Hidden"
+        },
+        "id": {
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "locked": {
+          "type": "boolean",
+          "x-go-name": "Locked"
+        },
+        "modified": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "Modified"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "outputs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Output"
+          },
+          "x-go-name": "Outputs"
+        },
+        "permitted": {
+          "type": "boolean",
+          "x-go-name": "Permitted"
+        },
+        "propagationLabels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "PropagationLabels"
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "Roles"
+        },
+        "runAs": {
+          "type": "string",
+          "x-go-name": "RunAs"
+        },
+        "scriptTarget": {
+          "$ref": "#/definitions/ScriptTarget"
+        },
+        "system": {
+          "type": "boolean",
+          "x-go-name": "System"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "Tags"
+        },
+        "type": {
+          "$ref": "#/definitions/ScriptType"
+        },
+        "user": {
+          "type": "string",
+          "x-go-name": "User"
+        },
+        "version": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Version"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/services/automation"
     },
     "ScriptSubType": {
       "description": "ScriptSubType holds the script type version",
@@ -8060,6 +9114,23 @@
         }
       },
       "x-go-package": "github.com/demisto/server/web"
+    },
+    "Version": {
+      "type": "object",
+      "title": "Version represents a version.",
+      "properties": {
+        "Digits": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "Label": {
+          "type": "string"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/domain"
     },
     "UpdateResponse": {
       "type": "object",

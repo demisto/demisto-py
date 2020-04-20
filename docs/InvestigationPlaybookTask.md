@@ -39,6 +39,7 @@ Name | Type | Description | Notes
 **patched** | **bool** | Indicates whether this task was patched to InvPB and did not originally belong to the playbook | [optional] 
 **playbook_inputs** | **dict(str, object)** |  | [optional] 
 **previous_tasks** | **dict(str, list[str])** |  | [optional] 
+**quiet_mode** | [**QuietMode**](QuietMode.md) |  | [optional] 
 **reminder** | **int** | Duration in minutes, this field is not persisted here | [optional] 
 **reputation_calc** | [**ReputationCalcAlg**](ReputationCalcAlg.md) |  | [optional] 
 **restricted_completion** | **bool** |  | [optional] 

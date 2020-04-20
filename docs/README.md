@@ -46,7 +46,8 @@ Method | HTTP request | Description
 [**import_dashboard**](DefaultApi.md#import_dashboard) | **POST** /dashboards/import | Import a dashboard
 [**import_incident_fields**](DefaultApi.md#import_incident_fields) | **POST** /incidentfields/import | Import an incidents field
 [**import_incident_types_handler**](DefaultApi.md#import_incident_types_handler) | **POST** /incidenttypes/import | Import an incident type
-[**import_layout**](DefaultApi.md#import_layout) | **POST** /layouts/import | Import a layout
+[**import_layout**](DefaultApi.md#import_layout) | **POST** /v2/layouts/import | Import a layout
+[**import_playbook**](DefaultApi.md#import_playbook) | **POST** /playbook/save/yaml | Import and override playbook
 [**import_script**](DefaultApi.md#import_script) | **POST** /automation/import | Upload an automation
 [**import_widget**](DefaultApi.md#import_widget) | **POST** /widgets/import | Import a widget
 [**incident_file_upload**](DefaultApi.md#incident_file_upload) | **POST** /incident/upload/{id} | 
@@ -59,7 +60,6 @@ Method | HTTP request | Description
 [**investigation_add_entries_sync**](DefaultApi.md#investigation_add_entries_sync) | **POST** /entry/execute/sync | Create new entry in existing investigation
 [**investigation_add_entry_handler**](DefaultApi.md#investigation_add_entry_handler) | **POST** /entry | Create new entry in existing investigation
 [**investigation_add_formatted_entry_handler**](DefaultApi.md#investigation_add_formatted_entry_handler) | **POST** /entry/formatted | Create new formatted entry in existing investigation
-[**override_playbook_yaml**](DefaultApi.md#override_playbook_yaml) | **POST** /playbook/save/yaml | Import and override playbook
 [**revoke_user_api_key**](DefaultApi.md#revoke_user_api_key) | **POST** /apikeys/revoke/user/{username} | 
 [**save_evidence**](DefaultApi.md#save_evidence) | **POST** /evidence | Save evidence
 [**save_or_update_script**](DefaultApi.md#save_or_update_script) | **POST** /automation | Create or update automation
@@ -122,12 +122,18 @@ Method | HTTP request | Description
  - [Evidences](Evidences.md)
  - [EvidencesFilterWrapper](EvidencesFilterWrapper.md)
  - [EvidencesSearchResponse](EvidencesSearchResponse.md)
+ - [ExpirationPolicy](ExpirationPolicy.md)
+ - [ExpirationSettingsSource](ExpirationSettingsSource.md)
+ - [ExpirationSource](ExpirationSource.md)
+ - [FeedIndicator](FeedIndicator.md)
+ - [FeedIndicators](FeedIndicators.md)
  - [FieldGroup](FieldGroup.md)
  - [FieldMapping](FieldMapping.md)
  - [FieldTermLocationMap](FieldTermLocationMap.md)
  - [FileMetadata](FileMetadata.md)
  - [FilterCache](FilterCache.md)
  - [FilterOperatorID](FilterOperatorID.md)
+ - [FormDisplay](FormDisplay.md)
  - [GenericIndicatorUpdateBatch](GenericIndicatorUpdateBatch.md)
  - [GenericStringDateFilter](GenericStringDateFilter.md)
  - [GenericStringFilter](GenericStringFilter.md)
@@ -143,11 +149,14 @@ Method | HTTP request | Description
  - [IncidentStatus](IncidentStatus.md)
  - [IncidentType](IncidentType.md)
  - [IncidentWrapper](IncidentWrapper.md)
+ - [Incidents](Incidents.md)
  - [IndicatorContext](IndicatorContext.md)
+ - [IndicatorEditBulkResponse](IndicatorEditBulkResponse.md)
  - [IndicatorFilter](IndicatorFilter.md)
  - [IndicatorResult](IndicatorResult.md)
  - [InlineResponse200](InlineResponse200.md)
  - [InsightCache](InsightCache.md)
+ - [InstanceClassifier](InstanceClassifier.md)
  - [IntegrationScript](IntegrationScript.md)
  - [InvPlaybookAssignee](InvPlaybookAssignee.md)
  - [InvPlaybookDue](InvPlaybookDue.md)
@@ -168,8 +177,13 @@ Method | HTTP request | Description
  - [IocObject](IocObject.md)
  - [IocObjects](IocObjects.md)
  - [Label](Label.md)
+ - [Layout](Layout.md)
+ - [LayoutAPI](LayoutAPI.md)
+ - [LayoutField](LayoutField.md)
+ - [LayoutSection](LayoutSection.md)
  - [Location](Location.md)
  - [Locations](Locations.md)
+ - [Mapper](Mapper.md)
  - [ModuleArgs](ModuleArgs.md)
  - [ModuleConfiguration](ModuleConfiguration.md)
  - [NewDockerImage](NewDockerImage.md)
@@ -181,13 +195,17 @@ Method | HTTP request | Description
  - [Output](Output.md)
  - [OutputType](OutputType.md)
  - [Period](Period.md)
+ - [Playbook](Playbook.md)
  - [PlaybookInput](PlaybookInput.md)
  - [PlaybookInputs](PlaybookInputs.md)
  - [PlaybookOutput](PlaybookOutput.md)
  - [PlaybookOutputs](PlaybookOutputs.md)
+ - [PlaybookTask](PlaybookTask.md)
  - [PlaybookView](PlaybookView.md)
  - [Question](Question.md)
+ - [QuietMode](QuietMode.md)
  - [RawMessage](RawMessage.md)
+ - [Reliability](Reliability.md)
  - [RemoteRepos](RemoteRepos.md)
  - [Report](Report.md)
  - [ReportAutomation](ReportAutomation.md)
@@ -198,6 +216,7 @@ Method | HTTP request | Description
  - [RunStatus](RunStatus.md)
  - [SLA](SLA.md)
  - [SLAState](SLAState.md)
+ - [ScriptAPI](ScriptAPI.md)
  - [ScriptSubType](ScriptSubType.md)
  - [ScriptTarget](ScriptTarget.md)
  - [ScriptType](ScriptType.md)
@@ -227,6 +246,7 @@ Method | HTTP request | Description
  - [UpdateIndicatorReputationData](UpdateIndicatorReputationData.md)
  - [UpdateResponse](UpdateResponse.md)
  - [UploadedEntry](UploadedEntry.md)
+ - [Version](Version.md)
  - [Widget](Widget.md)
  - [WidgetCell](WidgetCell.md)
  - [WidgetCells](WidgetCells.md)

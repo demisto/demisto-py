@@ -46,7 +46,8 @@ Method | HTTP request | Description
 [**import_dashboard**](DefaultApi.md#import_dashboard) | **POST** /dashboards/import | Import a dashboard
 [**import_incident_fields**](DefaultApi.md#import_incident_fields) | **POST** /incidentfields/import | Import an incidents field
 [**import_incident_types_handler**](DefaultApi.md#import_incident_types_handler) | **POST** /incidenttypes/import | Import an incident type
-[**import_layout**](DefaultApi.md#import_layout) | **POST** /layouts/import | Import a layout
+[**import_layout**](DefaultApi.md#import_layout) | **POST** /v2/layouts/import | Import a layout
+[**import_playbook**](DefaultApi.md#import_playbook) | **POST** /playbook/save/yaml | Import and override playbook
 [**import_script**](DefaultApi.md#import_script) | **POST** /automation/import | Upload an automation
 [**import_widget**](DefaultApi.md#import_widget) | **POST** /widgets/import | Import a widget
 [**incident_file_upload**](DefaultApi.md#incident_file_upload) | **POST** /incident/upload/{id} | 
@@ -59,7 +60,6 @@ Method | HTTP request | Description
 [**investigation_add_entries_sync**](DefaultApi.md#investigation_add_entries_sync) | **POST** /entry/execute/sync | Create new entry in existing investigation
 [**investigation_add_entry_handler**](DefaultApi.md#investigation_add_entry_handler) | **POST** /entry | Create new entry in existing investigation
 [**investigation_add_formatted_entry_handler**](DefaultApi.md#investigation_add_formatted_entry_handler) | **POST** /entry/formatted | Create new formatted entry in existing investigation
-[**override_playbook_yaml**](DefaultApi.md#override_playbook_yaml) | **POST** /playbook/save/yaml | Import and override playbook
 [**revoke_user_api_key**](DefaultApi.md#revoke_user_api_key) | **POST** /apikeys/revoke/user/{username} | 
 [**save_evidence**](DefaultApi.md#save_evidence) | **POST** /evidence | Save evidence
 [**save_or_update_script**](DefaultApi.md#save_or_update_script) | **POST** /automation | Create or update automation
@@ -2099,7 +2099,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **import_layout**
-> LayoutAPI import_layout(file, type, kind)
+> LayoutAPI import_layout(file)
 
 Import a layout
 
@@ -2116,12 +2116,10 @@ from pprint import pprint
 
 api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 file = '/path/to/file.txt' # file | file
-type = 'type_example' # str | associated typeID for the layout
-kind = 'kind_example' # str | layout kind details
 
 try:
     # Import a layout
-    api_response = api_instance.import_layout(file, type, kind)
+    api_response = api_instance.import_layout(file)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->import_layout: %s\n" % e)
@@ -2131,13 +2129,59 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **file** | **file**| file | 
- **type** | **str**| associated typeID for the layout | 
- **kind** | **str**| layout kind details | 
+ **file** | **file**| file |  
 
 ### Return type
 
 [**LayoutAPI**](LayoutAPI.md)
+
+### Authorization
+
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+
+### HTTP request headers
+
+ - **Content-Type**: multipart/form-data
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **import_playbook**
+> Playbook import_playbook(file)
+
+Import and override playbook
+
+Import and override playbook in Cortex XSOAR
+
+### Example
+```python
+from __future__ import print_function
+import time
+import demisto_client
+import demisto_client.demisto_api
+from demisto_client.demisto_api.rest import ApiException
+from pprint import pprint
+
+api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
+file = '/path/to/file.txt' # file | file
+
+try:
+    # Import and override playbook
+    api_response = api_instance.import_playbook(file)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->import_playbook: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **file** | **file**| file | 
+
+### Return type
+
+[**Playbook**](Playbook.md)
 
 ### Authorization
 
@@ -2735,54 +2779,6 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json, application/xml
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
-
-# **override_playbook_yaml**
-> Playbook override_playbook_yaml(file)
-
-Import and override playbook
-
-Import and override playbook in Cortex XSOAR
-
-### Example
-```python
-from __future__ import print_function
-import time
-import demisto_client
-import demisto_client.demisto_api
-from demisto_client.demisto_api.rest import ApiException
-from pprint import pprint
-
-api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
-file = '/path/to/file.txt' # file | file
-
-try:
-    # Import and override playbook
-    api_response = api_instance.import_playbook(file)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling DefaultApi->override_playbook_yaml: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **file** | **file**| file | 
-
-### Return type
-
-[**Playbook**](Playbook.md)
-
-### Authorization
-
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
-
-### HTTP request headers
-
- - **Content-Type**: multipart/form-data
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)

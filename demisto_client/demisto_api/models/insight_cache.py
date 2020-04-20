@@ -36,6 +36,7 @@ class InsightCache(object):
         'id': 'str',
         'modified': 'datetime',
         'scores': 'dict(str, DBotScore)',
+        'sequence_number': 'int',
         'sort_values': 'list[str]',
         'version': 'int'
     }
@@ -44,16 +45,18 @@ class InsightCache(object):
         'id': 'id',
         'modified': 'modified',
         'scores': 'scores',
+        'sequence_number': 'sequenceNumber',
         'sort_values': 'sortValues',
         'version': 'version'
     }
 
-    def __init__(self, id=None, modified=None, scores=None, sort_values=None, version=None):  # noqa: E501
+    def __init__(self, id=None, modified=None, scores=None, sequence_number=None, sort_values=None, version=None):  # noqa: E501
         """InsightCache - a model defined in Swagger"""  # noqa: E501
 
         self._id = None
         self._modified = None
         self._scores = None
+        self._sequence_number = None
         self._sort_values = None
         self._version = None
         self.discriminator = None
@@ -64,6 +67,8 @@ class InsightCache(object):
             self.modified = modified
         if scores is not None:
             self.scores = scores
+        if sequence_number is not None:
+            self.sequence_number = sequence_number
         if sort_values is not None:
             self.sort_values = sort_values
         if version is not None:
@@ -131,6 +136,27 @@ class InsightCache(object):
         """
 
         self._scores = scores
+
+    @property
+    def sequence_number(self):
+        """Gets the sequence_number of this InsightCache.  # noqa: E501
+
+
+        :return: The sequence_number of this InsightCache.  # noqa: E501
+        :rtype: int
+        """
+        return self._sequence_number
+
+    @sequence_number.setter
+    def sequence_number(self, sequence_number):
+        """Sets the sequence_number of this InsightCache.
+
+
+        :param sequence_number: The sequence_number of this InsightCache.  # noqa: E501
+        :type: int
+        """
+
+        self._sequence_number = sequence_number
 
     @property
     def sort_values(self):

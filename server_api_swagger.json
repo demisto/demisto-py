@@ -109,6 +109,36 @@
         }
       }
     },
+    "/automation/import": {
+      "post": {
+        "description": "Upload an automation to Cortex XSOAR",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "Upload an automation",
+        "operationId": "importScript",
+        "parameters": [
+          {
+            "type": "file",
+            "description": "file",
+            "name": "file",
+            "in": "formData",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The saved automation",
+            "schema": {
+              "$ref": "#/definitions/AutomationScript"
+            }
+          }
+        }
+      }
+    },
     "/automation/search": {
       "post": {
         "description": "Search Automation by filter",
@@ -128,6 +158,73 @@
             "description": "automationScriptResult",
             "schema": {
               "$ref": "#/definitions/automationScriptResult"
+            }
+          }
+        }
+      }
+    },
+    "/classifier/import": {
+      "post": {
+        "description": "Import a classifier to Cortex XSOAR",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "Import a classifier",
+        "operationId": "importClassifier",
+        "parameters": [
+          {
+            "type": "file",
+            "description": "file",
+            "name": "file",
+            "in": "formData",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "associated typeID for the layout",
+            "name": "classifierId",
+            "in": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The saved classifier",
+            "schema": {
+              "$ref": "#/definitions/InstanceClassifier"
+            }
+          }
+        }
+      }
+    },
+    "/dashboards/import": {
+      "post": {
+        "description": "Import a dashboard to Cortex XSOAR",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "Import a dashboard",
+        "operationId": "importDashboard",
+        "parameters": [
+          {
+            "type": "file",
+            "description": "file",
+            "name": "file",
+            "in": "formData",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The saved dashboard",
+            "schema": {
+              "$ref": "#/definitions/Dashboard"
             }
           }
         }
@@ -660,6 +757,36 @@
         }
       }
     },
+    "/incidentfields/import": {
+      "post": {
+        "description": "Import an incidents field to Cortex XSOAR",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "Import an incidents field",
+        "operationId": "importIncidentFields",
+        "parameters": [
+          {
+            "type": "file",
+            "description": "file",
+            "name": "file",
+            "in": "formData",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The saved incident field",
+            "schema": {
+              "$ref": "#/definitions/IncidentField"
+            }
+          }
+        }
+      }
+    },
     "/incidents/search": {
       "post": {
         "description": "This will search incidents across all indices\nYou can filter by multiple options",
@@ -712,6 +839,36 @@
         "responses": {
           "200": {
             "description": "IncidentType",
+            "schema": {
+              "$ref": "#/definitions/IncidentType"
+            }
+          }
+        }
+      }
+    },
+    "/incidenttypes/import": {
+      "post": {
+        "description": "Import an incident type to Cortex XSOAR",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "Import an incident type",
+        "operationId": "importIncidentTypesHandler",
+        "parameters": [
+          {
+            "type": "file",
+            "description": "file",
+            "name": "file",
+            "in": "formData",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The saved incident type",
             "schema": {
               "$ref": "#/definitions/IncidentType"
             }
@@ -1280,6 +1437,80 @@
         }
       }
     },
+    "/layouts/import": {
+      "post": {
+        "description": "Import a layout to Cortex XSOAR",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "Import a layout",
+        "operationId": "importLayout",
+        "parameters": [
+          {
+            "type": "file",
+            "description": "file",
+            "name": "file",
+            "in": "formData",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "associated typeID for the layout",
+            "name": "type",
+            "in": "formData",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "layout kind details",
+            "name": "kind",
+            "in": "formData",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The saved layout",
+            "schema": {
+              "$ref": "#/definitions/LayoutAPI"
+            }
+          }
+        }
+      }
+    },
+    "/playbook/save/yaml": {
+      "post": {
+        "description": "Import and override playbook in Cortex XSOAR",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "Import and override playbook",
+        "operationId": "overridePlaybookYaml",
+        "parameters": [
+          {
+            "type": "file",
+            "description": "file",
+            "name": "file",
+            "in": "formData",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The saved playbook",
+            "schema": {
+              "$ref": "#/definitions/Playbook"
+            }
+          }
+        }
+      }
+    },
     "/report/{id}/{requestId}/execute": {
       "post": {
         "description": "Execute a new report",
@@ -1685,20 +1916,26 @@
     "/widgets/import": {
       "post": {
         "description": "Import a widget to the system, ignoring ID or version, used to import new widgets.",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
         "summary": "Import a widget",
         "operationId": "importWidget",
         "parameters": [
           {
-            "name": "widget",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/Widget"
-            }
+            "type": "file",
+            "description": "file",
+            "name": "file",
+            "in": "formData",
+            "required": true
           }
         ],
         "responses": {
           "200": {
-            "description": "The imported saved widget.",
+            "description": "The saved widget",
             "schema": {
               "$ref": "#/definitions/Widget"
             }

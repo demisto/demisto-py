@@ -3796,45 +3796,655 @@ class DefaultApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def import_widget(self, **kwargs):  # noqa: E501
+    def import_classifier(self, file, **kwargs):  # noqa: E501
+        """Import a classifier  # noqa: E501
+
+        Import a classifier to Cortex XSOAR  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.import_classifier(file, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param file file: file (required)
+        :return: InstanceClassifier
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async_req'):
+            return self.import_classifier_with_http_info(file, **kwargs)  # noqa: E501
+        else:
+            (data) = self.import_classifier_with_http_info(file, **kwargs)  # noqa: E501
+            return data
+
+    def import_classifier_with_http_info(self, file, **kwargs):  # noqa: E501
+        """Import a classifier  # noqa: E501
+
+        Import a classifier to Cortex XSOAR  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.import_classifier_with_http_info(file, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param file file: file (required)
+        :return: InstanceClassifier
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['file']  # noqa: E501
+        all_params.append('async_req')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in six.iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method import_classifier" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'file' is set
+        if ('file' not in params or
+                params['file'] is None):
+            raise ValueError("Missing the required parameter `file` when calling `import_classifier`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+        if 'file' in params:
+            local_var_files['file'] = params['file']  # noqa: E501
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['multipart/form-data'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/classifier/import', 'POST',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='InstanceClassifier',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=params.get('async_req'),
+            _return_http_data_only=params.get('_return_http_data_only'),
+            _preload_content=params.get('_preload_content', True),
+            _request_timeout=params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def import_dashboard(self, file, **kwargs):  # noqa: E501
+        """Import a dashboard  # noqa: E501
+
+        Import a dashboard to Cortex XSOAR  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.import_dashboard(file, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param file file: file (required)
+        :return: Dashboard
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async_req'):
+            return self.import_dashboard_with_http_info(file, **kwargs)  # noqa: E501
+        else:
+            (data) = self.import_dashboard_with_http_info(file, **kwargs)  # noqa: E501
+            return data
+
+    def import_dashboard_with_http_info(self, file, **kwargs):  # noqa: E501
+        """Import a dashboard  # noqa: E501
+
+        Import a dashboard to Cortex XSOAR  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.import_dashboard_with_http_info(file, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param file file: file (required)
+        :return: Dashboard
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['file']  # noqa: E501
+        all_params.append('async_req')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in six.iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method import_dashboard" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'file' is set
+        if ('file' not in params or
+                params['file'] is None):
+            raise ValueError("Missing the required parameter `file` when calling `import_dashboard`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+        if 'file' in params:
+            local_var_files['file'] = params['file']  # noqa: E501
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['multipart/form-data'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/dashboards/import', 'POST',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='Dashboard',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=params.get('async_req'),
+            _return_http_data_only=params.get('_return_http_data_only'),
+            _preload_content=params.get('_preload_content', True),
+            _request_timeout=params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def import_incident_fields(self, file, **kwargs):  # noqa: E501
+        """Import an incidents field  # noqa: E501
+
+        Import an incidents field to Cortex XSOAR  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.import_incident_fields(file, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param file file: file (required)
+        :return: IncidentField
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async_req'):
+            return self.import_incident_fields_with_http_info(file, **kwargs)  # noqa: E501
+        else:
+            (data) = self.import_incident_fields_with_http_info(file, **kwargs)  # noqa: E501
+            return data
+
+    def import_incident_fields_with_http_info(self, file, **kwargs):  # noqa: E501
+        """Import an incidents field  # noqa: E501
+
+        Import an incidents field to Cortex XSOAR  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.import_incident_fields_with_http_info(file, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param file file: file (required)
+        :return: IncidentField
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['file']  # noqa: E501
+        all_params.append('async_req')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in six.iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method import_incident_fields" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'file' is set
+        if ('file' not in params or
+                params['file'] is None):
+            raise ValueError("Missing the required parameter `file` when calling `import_incident_fields`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+        if 'file' in params:
+            local_var_files['file'] = params['file']  # noqa: E501
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['multipart/form-data'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/incidentfields/import', 'POST',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='IncidentField',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=params.get('async_req'),
+            _return_http_data_only=params.get('_return_http_data_only'),
+            _preload_content=params.get('_preload_content', True),
+            _request_timeout=params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def import_incident_types_handler(self, file, **kwargs):  # noqa: E501
+        """Import an incident type  # noqa: E501
+
+        Import an incident type to Cortex XSOAR  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.import_incident_types_handler(file, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param file file: file (required)
+        :return: IncidentType
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async_req'):
+            return self.import_incident_types_handler_with_http_info(file, **kwargs)  # noqa: E501
+        else:
+            (data) = self.import_incident_types_handler_with_http_info(file, **kwargs)  # noqa: E501
+            return data
+
+    def import_incident_types_handler_with_http_info(self, file, **kwargs):  # noqa: E501
+        """Import an incident type  # noqa: E501
+
+        Import an incident type to Cortex XSOAR  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.import_incident_types_handler_with_http_info(file, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param file file: file (required)
+        :return: IncidentType
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['file']  # noqa: E501
+        all_params.append('async_req')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in six.iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method import_incident_types_handler" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'file' is set
+        if ('file' not in params or
+                params['file'] is None):
+            raise ValueError("Missing the required parameter `file` when calling `import_incident_types_handler`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+        if 'file' in params:
+            local_var_files['file'] = params['file']  # noqa: E501
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['multipart/form-data'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/incidenttypes/import', 'POST',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='IncidentType',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=params.get('async_req'),
+            _return_http_data_only=params.get('_return_http_data_only'),
+            _preload_content=params.get('_preload_content', True),
+            _request_timeout=params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def import_layout(self, file, type, kind, **kwargs):  # noqa: E501
+        """Import a layout  # noqa: E501
+
+        Import a layout to Cortex XSOAR  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.import_layout(file, type, kind, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param file file: file (required)
+        :param str type: associated typeID for the layout (required)
+        :param str kind: layout kind details (required)
+        :return: LayoutAPI
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async_req'):
+            return self.import_layout_with_http_info(file, type, kind, **kwargs)  # noqa: E501
+        else:
+            (data) = self.import_layout_with_http_info(file, type, kind, **kwargs)  # noqa: E501
+            return data
+
+    def import_layout_with_http_info(self, file, type, kind, **kwargs):  # noqa: E501
+        """Import a layout  # noqa: E501
+
+        Import a layout to Cortex XSOAR  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.import_layout_with_http_info(file, type, kind, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param file file: file (required)
+        :param str type: associated typeID for the layout (required)
+        :param str kind: layout kind details (required)
+        :return: LayoutAPI
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['file', 'type', 'kind']  # noqa: E501
+        all_params.append('async_req')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in six.iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method import_layout" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'file' is set
+        if ('file' not in params or
+                params['file'] is None):
+            raise ValueError("Missing the required parameter `file` when calling `import_layout`")  # noqa: E501
+        # verify the required parameter 'type' is set
+        if ('type' not in params or
+                params['type'] is None):
+            raise ValueError("Missing the required parameter `type` when calling `import_layout`")  # noqa: E501
+        # verify the required parameter 'kind' is set
+        if ('kind' not in params or
+                params['kind'] is None):
+            raise ValueError("Missing the required parameter `kind` when calling `import_layout`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+        if 'file' in params:
+            local_var_files['file'] = params['file']  # noqa: E501
+        if 'type' in params:
+            form_params.append(('type', params['type']))  # noqa: E501
+        if 'kind' in params:
+            form_params.append(('kind', params['kind']))  # noqa: E501
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['multipart/form-data'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/layouts/import', 'POST',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='LayoutAPI',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=params.get('async_req'),
+            _return_http_data_only=params.get('_return_http_data_only'),
+            _preload_content=params.get('_preload_content', True),
+            _request_timeout=params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def import_script(self, file, **kwargs):  # noqa: E501
+        """Upload an automation  # noqa: E501
+
+        Upload an automation to Cortex XSOAR  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.import_script(file, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param file file: file (required)
+        :return: AutomationScript
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async_req'):
+            return self.import_script_with_http_info(file, **kwargs)  # noqa: E501
+        else:
+            (data) = self.import_script_with_http_info(file, **kwargs)  # noqa: E501
+            return data
+
+    def import_script_with_http_info(self, file, **kwargs):  # noqa: E501
+        """Upload an automation  # noqa: E501
+
+        Upload an automation to Cortex XSOAR  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.import_script_with_http_info(file, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param file file: file (required)
+        :return: AutomationScript
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['file']  # noqa: E501
+        all_params.append('async_req')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in six.iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method import_script" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'file' is set
+        if ('file' not in params or
+                params['file'] is None):
+            raise ValueError("Missing the required parameter `file` when calling `import_script`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+        if 'file' in params:
+            local_var_files['file'] = params['file']  # noqa: E501
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['multipart/form-data'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/automation/import', 'POST',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='AutomationScript',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=params.get('async_req'),
+            _return_http_data_only=params.get('_return_http_data_only'),
+            _preload_content=params.get('_preload_content', True),
+            _request_timeout=params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def import_widget(self, file, **kwargs):  # noqa: E501
         """Import a widget  # noqa: E501
 
         Import a widget to the system, ignoring ID or version, used to import new widgets.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.import_widget(async_req=True)
+        >>> thread = api.import_widget(file, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool
-        :param Widget widget:
+        :param file file: file (required)
         :return: Widget
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async_req'):
-            return self.import_widget_with_http_info(**kwargs)  # noqa: E501
+            return self.import_widget_with_http_info(file, **kwargs)  # noqa: E501
         else:
-            (data) = self.import_widget_with_http_info(**kwargs)  # noqa: E501
+            (data) = self.import_widget_with_http_info(file, **kwargs)  # noqa: E501
             return data
 
-    def import_widget_with_http_info(self, **kwargs):  # noqa: E501
+    def import_widget_with_http_info(self, file, **kwargs):  # noqa: E501
         """Import a widget  # noqa: E501
 
         Import a widget to the system, ignoring ID or version, used to import new widgets.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.import_widget_with_http_info(async_req=True)
+        >>> thread = api.import_widget_with_http_info(file, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool
-        :param Widget widget:
+        :param file file: file (required)
         :return: Widget
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['widget']  # noqa: E501
+        all_params = ['file']  # noqa: E501
         all_params.append('async_req')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -3849,6 +4459,10 @@ class DefaultApi(object):
                 )
             params[key] = val
         del params['kwargs']
+        # verify the required parameter 'file' is set
+        if ('file' not in params or
+                params['file'] is None):
+            raise ValueError("Missing the required parameter `file` when calling `import_widget`")  # noqa: E501
 
         collection_formats = {}
 
@@ -3860,17 +4474,17 @@ class DefaultApi(object):
 
         form_params = []
         local_var_files = {}
+        if 'file' in params:
+            local_var_files['file'] = params['file']  # noqa: E501
 
         body_params = None
-        if 'widget' in params:
-            body_params = params['widget']
         # HTTP header `Accept`
         header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
 
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json', 'application/xml'])  # noqa: E501
+            ['multipart/form-data'])  # noqa: E501
 
         # Authentication setting
         auth_settings = ['api_key', 'csrf_token']  # noqa: E501
@@ -4878,6 +5492,105 @@ class DefaultApi(object):
             post_params=form_params,
             files=local_var_files,
             response_type='Entry',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=params.get('async_req'),
+            _return_http_data_only=params.get('_return_http_data_only'),
+            _preload_content=params.get('_preload_content', True),
+            _request_timeout=params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def import_playbook(self, file, **kwargs):  # noqa: E501
+        """Import and override playbook  # noqa: E501
+
+        Import and override playbook in Cortex XSOAR  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.import_playbook(file, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param file file: file (required)
+        :return: Playbook
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async_req'):
+            return self.override_playbook_yaml_with_http_info(file, **kwargs)  # noqa: E501
+        else:
+            (data) = self.override_playbook_yaml_with_http_info(file, **kwargs)  # noqa: E501
+            return data
+
+    def override_playbook_yaml_with_http_info(self, file, **kwargs):  # noqa: E501
+        """Import and override playbook  # noqa: E501
+
+        Import and override playbook in Cortex XSOAR  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.override_playbook_yaml_with_http_info(file, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param file file: file (required)
+        :return: Playbook
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['file']  # noqa: E501
+        all_params.append('async_req')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in six.iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method override_playbook_yaml" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'file' is set
+        if ('file' not in params or
+                params['file'] is None):
+            raise ValueError("Missing the required parameter `file` when calling `override_playbook_yaml`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+        if 'file' in params:
+            local_var_files['file'] = params['file']  # noqa: E501
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['multipart/form-data'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/playbook/save/yaml', 'POST',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='Playbook',  # noqa: E501
             auth_settings=auth_settings,
             async_req=params.get('async_req'),
             _return_http_data_only=params.get('_return_http_data_only'),

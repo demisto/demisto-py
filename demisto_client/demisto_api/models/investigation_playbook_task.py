@@ -23,6 +23,7 @@ from demisto_client.demisto_api.models.field_mapping import FieldMapping  # noqa
 from demisto_client.demisto_api.models.inv_playbook_task_complete_data import InvPlaybookTaskCompleteData  # noqa: F401,E501
 # from demisto_client.demisto_api.models.investigation_playbook import InvestigationPlaybook  # noqa: F401,E501
 from demisto_client.demisto_api.models.notifiable_item import NotifiableItem  # noqa: F401,E501
+from demisto_client.demisto_api.models.quiet_mode import QuietMode  # noqa: F401,E501
 from demisto_client.demisto_api.models.reputation_calc_alg import ReputationCalcAlg  # noqa: F401,E501
 from demisto_client.demisto_api.models.sla import SLA  # noqa: F401,E501
 from demisto_client.demisto_api.models.task import Task  # noqa: F401,E501
@@ -84,6 +85,7 @@ class InvestigationPlaybookTask(object):
         'patched': 'bool',
         'playbook_inputs': 'dict(str, object)',
         'previous_tasks': 'dict(str, list[str])',
+        'quiet_mode': 'QuietMode',
         'reminder': 'int',
         'reputation_calc': 'ReputationCalcAlg',
         'restricted_completion': 'bool',
@@ -140,6 +142,7 @@ class InvestigationPlaybookTask(object):
         'patched': 'patched',
         'playbook_inputs': 'playbookInputs',
         'previous_tasks': 'previousTasks',
+        'quiet_mode': 'quietMode',
         'reminder': 'reminder',
         'reputation_calc': 'reputationCalc',
         'restricted_completion': 'restrictedCompletion',
@@ -159,7 +162,7 @@ class InvestigationPlaybookTask(object):
         'will_not_execute_count': 'willNotExecuteCount'
     }
 
-    def __init__(self, arguments=None, assignee=None, assignee_set=None, blocking_tasks=None, comments=None, completed_by=None, completed_count=None, completed_date=None, conditions=None, continue_on_error=None, default_assignee=None, default_assignee_complex=None, default_reminder=None, due_date=None, due_date_set=None, entries=None, evidence_data=None, execution_count=None, field_mapping=None, for_each_index=None, for_each_inputs=None, form=None, id=None, ignore_worker=None, indent=None, input=None, loop=None, message=None, next_tasks=None, note=None, outputs=None, parent_block_count=None, parent_playbook_id=None, patched=None, playbook_inputs=None, previous_tasks=None, reminder=None, reputation_calc=None, restricted_completion=None, script_arguments=None, separate_context=None, sla=None, sla_reminder=None, start_date=None, state=None, sub_playbook=None, task=None, task_complete_data=None, task_id=None, timer_triggers=None, type=None, view=None, will_not_execute_count=None):  # noqa: E501
+    def __init__(self, arguments=None, assignee=None, assignee_set=None, blocking_tasks=None, comments=None, completed_by=None, completed_count=None, completed_date=None, conditions=None, continue_on_error=None, default_assignee=None, default_assignee_complex=None, default_reminder=None, due_date=None, due_date_set=None, entries=None, evidence_data=None, execution_count=None, field_mapping=None, for_each_index=None, for_each_inputs=None, form=None, id=None, ignore_worker=None, indent=None, input=None, loop=None, message=None, next_tasks=None, note=None, outputs=None, parent_block_count=None, parent_playbook_id=None, patched=None, playbook_inputs=None, previous_tasks=None, quiet_mode=None, reminder=None, reputation_calc=None, restricted_completion=None, script_arguments=None, separate_context=None, sla=None, sla_reminder=None, start_date=None, state=None, sub_playbook=None, task=None, task_complete_data=None, task_id=None, timer_triggers=None, type=None, view=None, will_not_execute_count=None):  # noqa: E501
         """InvestigationPlaybookTask - a model defined in Swagger"""  # noqa: E501
 
         self._arguments = None
@@ -198,6 +201,7 @@ class InvestigationPlaybookTask(object):
         self._patched = None
         self._playbook_inputs = None
         self._previous_tasks = None
+        self._quiet_mode = None
         self._reminder = None
         self._reputation_calc = None
         self._restricted_completion = None
@@ -289,6 +293,8 @@ class InvestigationPlaybookTask(object):
             self.playbook_inputs = playbook_inputs
         if previous_tasks is not None:
             self.previous_tasks = previous_tasks
+        if quiet_mode is not None:
+            self.quiet_mode = quiet_mode
         if reminder is not None:
             self.reminder = reminder
         if reputation_calc is not None:
@@ -1091,6 +1097,27 @@ class InvestigationPlaybookTask(object):
         """
 
         self._previous_tasks = previous_tasks
+
+    @property
+    def quiet_mode(self):
+        """Gets the quiet_mode of this InvestigationPlaybookTask.  # noqa: E501
+
+
+        :return: The quiet_mode of this InvestigationPlaybookTask.  # noqa: E501
+        :rtype: QuietMode
+        """
+        return self._quiet_mode
+
+    @quiet_mode.setter
+    def quiet_mode(self, quiet_mode):
+        """Sets the quiet_mode of this InvestigationPlaybookTask.
+
+
+        :param quiet_mode: The quiet_mode of this InvestigationPlaybookTask.  # noqa: E501
+        :type: QuietMode
+        """
+
+        self._quiet_mode = quiet_mode
 
     @property
     def reminder(self):

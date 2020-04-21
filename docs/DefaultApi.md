@@ -42,6 +42,13 @@ Method | HTTP request | Description
 [**get_stats_for_dashboard**](DefaultApi.md#get_stats_for_dashboard) | **POST** /statistics/dashboards/query | Get Dashboard Statistics
 [**get_stats_for_widget**](DefaultApi.md#get_stats_for_widget) | **POST** /statistics/widgets/query | Get Widget Statistics
 [**get_widget**](DefaultApi.md#get_widget) | **GET** /widgets/{id} | Get widget by ID
+[**import_classifier**](DefaultApi.md#import_classifier) | **POST** /classifier/import | Import a classifier
+[**import_dashboard**](DefaultApi.md#import_dashboard) | **POST** /dashboards/import | Import a dashboard
+[**import_incident_fields**](DefaultApi.md#import_incident_fields) | **POST** /incidentfields/import | Import an incidents field
+[**import_incident_types_handler**](DefaultApi.md#import_incident_types_handler) | **POST** /incidenttypes/import | Import an incident type
+[**import_layout**](DefaultApi.md#import_layout) | **POST** /v2/layouts/import | Import a layout
+[**import_playbook**](DefaultApi.md#import_playbook) | **POST** /playbook/save/yaml | Import and override playbook
+[**import_script**](DefaultApi.md#import_script) | **POST** /automation/import | Upload an automation
 [**import_widget**](DefaultApi.md#import_widget) | **POST** /widgets/import | Import a widget
 [**incident_file_upload**](DefaultApi.md#incident_file_upload) | **POST** /incident/upload/{id} | 
 [**indicator_whitelist**](DefaultApi.md#indicator_whitelist) | **POST** /indicator/whitelist | Whitelists or deletes Indicator
@@ -1899,8 +1906,344 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
+# **import_classifier**
+> InstanceClassifier import_classifier(file)
+
+Import a classifier
+
+Import a classifier to Cortex XSOAR
+
+### Example
+```python
+from __future__ import print_function
+import time
+import demisto_client
+import demisto_client.demisto_api
+from demisto_client.demisto_api.rest import ApiException
+from pprint import pprint
+
+api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
+file = '/path/to/file.txt' # file | file
+
+try:
+    # Import a classifier
+    api_response = api_instance.import_classifier(file)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->import_classifier: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **file** | **file**| file | 
+
+### Return type
+
+[**InstanceClassifier**](InstanceClassifier.md)
+
+### Authorization
+
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+
+### HTTP request headers
+
+ - **Content-Type**: multipart/form-data
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **import_dashboard**
+> Dashboard import_dashboard(file)
+
+Import a dashboard
+
+Import a dashboard to Cortex XSOAR
+
+### Example
+```python
+from __future__ import print_function
+import time
+import demisto_client
+import demisto_client.demisto_api
+from demisto_client.demisto_api.rest import ApiException
+from pprint import pprint
+
+api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
+file = '/path/to/file.txt' # file | file
+
+try:
+    # Import a dashboard
+    api_response = api_instance.import_dashboard(file)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->import_dashboard: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **file** | **file**| file | 
+
+### Return type
+
+[**Dashboard**](Dashboard.md)
+
+### Authorization
+
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+
+### HTTP request headers
+
+ - **Content-Type**: multipart/form-data
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **import_incident_fields**
+> IncidentField import_incident_fields(file)
+
+Import an incidents field
+
+Import an incidents field to Cortex XSOAR
+
+### Example
+```python
+from __future__ import print_function
+import time
+import demisto_client
+import demisto_client.demisto_api
+from demisto_client.demisto_api.rest import ApiException
+from pprint import pprint
+
+api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
+file = '/path/to/file.txt' # file | file
+
+try:
+    # Import an incidents field
+    api_response = api_instance.import_incident_fields(file)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->import_incident_fields: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **file** | **file**| file | 
+
+### Return type
+
+[**IncidentField**](IncidentField.md)
+
+### Authorization
+
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+
+### HTTP request headers
+
+ - **Content-Type**: multipart/form-data
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **import_incident_types_handler**
+> IncidentType import_incident_types_handler(file)
+
+Import an incident type
+
+Import an incident type to Cortex XSOAR
+
+### Example
+```python
+from __future__ import print_function
+import time
+import demisto_client
+import demisto_client.demisto_api
+from demisto_client.demisto_api.rest import ApiException
+from pprint import pprint
+
+api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
+file = '/path/to/file.txt' # file | file
+
+try:
+    # Import an incident type
+    api_response = api_instance.import_incident_types_handler(file)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->import_incident_types_handler: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **file** | **file**| file | 
+
+### Return type
+
+[**IncidentType**](IncidentType.md)
+
+### Authorization
+
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+
+### HTTP request headers
+
+ - **Content-Type**: multipart/form-data
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **import_layout**
+> LayoutAPI import_layout(file)
+
+Import a layout
+
+Import a layout to Cortex XSOAR
+
+### Example
+```python
+from __future__ import print_function
+import time
+import demisto_client
+import demisto_client.demisto_api
+from demisto_client.demisto_api.rest import ApiException
+from pprint import pprint
+
+api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
+file = '/path/to/file.txt' # file | file
+
+try:
+    # Import a layout
+    api_response = api_instance.import_layout(file)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->import_layout: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **file** | **file**| file |  
+
+### Return type
+
+[**LayoutAPI**](LayoutAPI.md)
+
+### Authorization
+
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+
+### HTTP request headers
+
+ - **Content-Type**: multipart/form-data
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **import_playbook**
+> Playbook import_playbook(file)
+
+Import and override playbook
+
+Import and override playbook in Cortex XSOAR
+
+### Example
+```python
+from __future__ import print_function
+import time
+import demisto_client
+import demisto_client.demisto_api
+from demisto_client.demisto_api.rest import ApiException
+from pprint import pprint
+
+api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
+file = '/path/to/file.txt' # file | file
+
+try:
+    # Import and override playbook
+    api_response = api_instance.import_playbook(file)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->import_playbook: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **file** | **file**| file | 
+
+### Return type
+
+[**Playbook**](Playbook.md)
+
+### Authorization
+
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+
+### HTTP request headers
+
+ - **Content-Type**: multipart/form-data
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **import_script**
+> AutomationScript import_script(file)
+
+Upload an automation
+
+Upload an automation to Cortex XSOAR
+
+### Example
+```python
+from __future__ import print_function
+import time
+import demisto_client
+import demisto_client.demisto_api
+from demisto_client.demisto_api.rest import ApiException
+from pprint import pprint
+
+api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
+file = '/path/to/file.txt' # file | file
+
+try:
+    # Upload an automation
+    api_response = api_instance.import_script(file)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->import_script: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **file** | **file**| file | 
+
+### Return type
+
+[**AutomationScript**](AutomationScript.md)
+
+### Authorization
+
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+
+### HTTP request headers
+
+ - **Content-Type**: multipart/form-data
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
 # **import_widget**
-> Widget import_widget(widget=widget)
+> Widget import_widget(file)
 
 Import a widget
 
@@ -1916,11 +2259,11 @@ from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
 api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
-widget = demisto_client.demisto_api.Widget() # Widget |  (optional)
+file = '/path/to/file.txt' # file | file
 
 try:
     # Import a widget
-    api_response = api_instance.import_widget(widget=widget)
+    api_response = api_instance.import_widget(file)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->import_widget: %s\n" % e)
@@ -1930,7 +2273,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **widget** | [**Widget**](Widget.md)|  | [optional] 
+ **file** | **file**| file | 
 
 ### Return type
 
@@ -1942,7 +2285,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, application/xml
+ - **Content-Type**: multipart/form-data
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)

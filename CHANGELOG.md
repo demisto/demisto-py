@@ -3,6 +3,17 @@
 [PyPI History][1]
 
 [1]: https://pypi.org/project/demisto-py/#history
+## 2.0.11
+* Added `import_playbook` method for importing a playbook to Demisto.
+* Added `import_script` method for importing a script to Demisto.
+* Added `import_incident_fields` method for importing an incident field to Demisto.
+* Added `import_incident_types_handler` method for importing an incident type to Demisto.
+* Added `import_widget` method for import a widget to Demisto.
+* Added `import_dashboard` method for import a dashboard to Demisto.
+* Added `import_classifier` method for importing a classifier to Demisto.
+* Added `import_layout` method for importing a layout to Demisto.
+
+
 ## 2.0.10
 * Enabled host and path parameters to function with trailing or leading slashes.
 

@@ -5,7 +5,7 @@
 [1]: https://pypi.org/project/demisto-py/#history
 
 ## 2.0.12
-* Fixed a bug int the `import_layout` method where the API endpoint was not working as planned.
+* Fixed a bug in the `import_layout` method where an API endpoint was not working as planned.
 
 ## 2.0.11
 * Added `import_playbook` method for importing a playbook to Demisto.

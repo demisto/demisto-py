@@ -4309,7 +4309,7 @@ class DefaultApi(object):
         auth_settings = ['api_key', 'csrf_token']  # noqa: E501
 
         return self.api_client.call_api(
-            '/v2/layouts/import', 'POST',
+            '/layouts/import', 'POST',
             path_params,
             query_params,
             header_params,

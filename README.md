@@ -81,6 +81,31 @@ Additional examples available in the [docs](docs/README.md) and under the [examp
 ## API Documentation
 API Documentation based upon the Demisto Server Swagger API is available [here](docs/README.md)
 
+## Troubleshooting
+
+### API Key
+If when using an API key you encounter a response similar to the following:
+```json
+{"id":"forbidden","status":403,"title":"Forbidden","detail":"Issue with CSRF code","error":"http: named cookie not present","encrypted":false,"multires":null}
+```
+It means your API key is invalid. Make sure you are using a valid API key. You can check your API key by using curl with the following request:
+```bash
+  curl -i -k -H 'Authorization: YOUR_API_KEY'  https://your-demisto.server.url/about
+```
+For a valid API key you will receive a response similar to the following:
+```
+HTTP/1.1 200 OK
+Strict-Transport-Security: max-age=10886400000000000; includeSubDomains
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+X-Xss-Protection: 1; mode=block
+Date: Thu, 04 Jun 2020 09:27:53 GMT
+Content-Length: 189
+Content-Type: text/plain; charset=utf-8
+
+{"demistoVersion":"5.5.0", ...}
+```
+
 ## Dev Environment Setup
 We build for both python 2 and 3. We recommend installing both development environments. You can use pyenv to manage multiple python versions (see: https://github.com/pyenv/pyenv). We use [tox](https://github.com/tox-dev/tox) for managing environments and running unit tests.
 

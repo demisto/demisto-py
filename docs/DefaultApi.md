@@ -2129,9 +2129,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **file** | **file**| file | 
- **type** | **str**| associated typeID for the layout | 
- **kind** | **str**| layout kind details | 
+ **file** | **file**| file |  
 
 ### Return type
 

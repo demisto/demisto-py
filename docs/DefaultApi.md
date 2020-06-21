@@ -2129,7 +2129,9 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **file** | **file**| file |  
+ **file** | **file**| file | 
+ **type** | **str**| associated typeID for the layout | 
+ **kind** | **str**| layout kind details | 
 
 ### Return type
 
@@ -3022,7 +3024,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **search_incidents**
-> InlineResponse200 search_incidents(filter=filter)
+> InlineResponse200 search_incidents(filter)
 
 Search incidents by filter
 
@@ -3038,11 +3040,11 @@ from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
 api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
-filter = demisto_client.demisto_api.SearchIncidentsData() # SearchIncidentsData |  (optional)
+filter = demisto_client.demisto_api.SearchIncidentsData() # SearchIncidentsData | 
 
 try:
     # Search incidents by filter
-    api_response = api_instance.search_incidents(filter=filter)
+    api_response = api_instance.search_incidents(filter)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->search_incidents: %s\n" % e)
@@ -3052,7 +3054,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **filter** | [**SearchIncidentsData**](SearchIncidentsData.md)|  | [optional] 
+ **filter** | [**SearchIncidentsData**](SearchIncidentsData.md)|  | 
 
 ### Return type
 

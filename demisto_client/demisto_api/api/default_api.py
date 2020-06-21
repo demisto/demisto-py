@@ -6094,39 +6094,39 @@ class DefaultApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def search_incidents(self, **kwargs):  # noqa: E501
+    def search_incidents(self, filter, **kwargs):  # noqa: E501
         """Search incidents by filter  # noqa: E501
 
         This will search incidents across all indices You can filter by multiple options  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.search_incidents(async_req=True)
+        >>> thread = api.search_incidents(filter, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool
-        :param SearchIncidentsData filter:
+        :param SearchIncidentsData filter: (required)
         :return: Incident
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async_req'):
-            return self.search_incidents_with_http_info(**kwargs)  # noqa: E501
+            return self.search_incidents_with_http_info(filter, **kwargs)  # noqa: E501
         else:
-            (data) = self.search_incidents_with_http_info(**kwargs)  # noqa: E501
+            (data) = self.search_incidents_with_http_info(filter, **kwargs)  # noqa: E501
             return data
 
-    def search_incidents_with_http_info(self, **kwargs):  # noqa: E501
+    def search_incidents_with_http_info(self, filter, **kwargs):  # noqa: E501
         """Search incidents by filter  # noqa: E501
 
         This will search incidents across all indices You can filter by multiple options  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.search_incidents_with_http_info(async_req=True)
+        >>> thread = api.search_incidents_with_http_info(filter, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool
-        :param SearchIncidentsData filter:
+        :param SearchIncidentsData filter: (required)
         :return: Incident
                  If the method is called asynchronously,
                  returns the request thread.
@@ -6147,6 +6147,10 @@ class DefaultApi(object):
                 )
             params[key] = val
         del params['kwargs']
+        # verify the required parameter 'filter' is set
+        if ('filter' not in params or
+                params['filter'] is None):
+            raise ValueError("Missing the required parameter `filter` when calling `search_incidents`")  # noqa: E501
 
         collection_formats = {}
 

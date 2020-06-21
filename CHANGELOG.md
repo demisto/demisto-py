@@ -4,7 +4,7 @@
 
 [1]: https://pypi.org/project/demisto-py/#history
 
-#2.0.13
+## 2.0.13
 * Fixed the `filter` parameter in `search_incidents` method to be required as specified in the API.
 
 ## 2.0.12

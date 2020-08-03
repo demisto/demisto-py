@@ -1907,7 +1907,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **import_classifier**
-> InstanceClassifier import_classifier(file)
+> InstanceClassifier import_classifier(file, classifier_id)
 
 Import a classifier
 
@@ -1924,10 +1924,11 @@ from pprint import pprint
 
 api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 file = '/path/to/file.txt' # file | file
+classifier_id = 'classifier_id_example' # str | associated typeID for the layout
 
 try:
     # Import a classifier
-    api_response = api_instance.import_classifier(file)
+    api_response = api_instance.import_classifier(file, classifier_id)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->import_classifier: %s\n" % e)
@@ -1938,6 +1939,7 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **file** | **file**| file | 
+ **classifier_id** | **str**| associated typeID for the layout | 
 
 ### Return type
 
@@ -2099,7 +2101,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **import_layout**
-> LayoutAPI import_layout(file)
+> LayoutAPI import_layout(file, type, kind)
 
 Import a layout
 
@@ -2116,10 +2118,12 @@ from pprint import pprint
 
 api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 file = '/path/to/file.txt' # file | file
+type = 'type_example' # str | associated typeID for the layout
+kind = 'kind_example' # str | layout kind details
 
 try:
     # Import a layout
-    api_response = api_instance.import_layout(file)
+    api_response = api_instance.import_layout(file, type, kind)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->import_layout: %s\n" % e)
@@ -2129,7 +2133,9 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **file** | **file**| file |  
+ **file** | **file**| file | 
+ **type** | **str**| associated typeID for the layout | 
+ **kind** | **str**| layout kind details | 
 
 ### Return type
 

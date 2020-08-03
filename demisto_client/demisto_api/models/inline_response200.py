@@ -38,7 +38,7 @@ class InlineResponse200(object):
     }
 
     attribute_map = {
-        'incidents': 'incidents',
+        'incidents': 'data',
         'total': 'total'
     }
 

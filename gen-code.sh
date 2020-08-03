@@ -23,7 +23,7 @@ sed -i '' -e 's/^from demisto_client.demisto_api.models.group import Group/# &/'
 sed -i '' -e 's/^from demisto_client.demisto_api.models.investigation_playbook import InvestigationPlaybook/# &/' demisto_client/demisto_api/models/investigation_playbook_task.py
 # __api_call needs to work with dict objects and not Classes when updating data such as POST requests
 sed -i '' -e 's/config = self.configuration/&; body = demisto_client.to_extended_dict(body)  # noqa: E702/' demisto_client/demisto_api/api_client.py
-# # Spec file specifies 'InlineResponse200' as expected return type. This is incorrect.
+# Spec file specifies 'InlineResponse200' as expected return type, but model maps to incidents not data.
 sed -i '' -e "s/'incidents': 'incidents',/'incidents': 'data',/g" demisto_client/demisto_api/models/inline_response200.py
 # Update the docs
 sed -i '' -e '/# demisto-py/,/## Documentation for API Endpoints/d' docs/README.md

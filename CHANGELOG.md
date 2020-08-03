@@ -4,6 +4,9 @@
 
 [1]: https://pypi.org/project/demisto-py/#history
 
+## 2.0.14
+Fixed an issue where the attribute mapping for the `search_incidents` model was incorrectly looking for `incidents` not `data`.
+
 ## 2.0.13
 * Fixed the `filter` parameter in `search_incidents` method to be required as specified in the API.
 

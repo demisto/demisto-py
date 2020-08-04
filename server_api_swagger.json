@@ -808,7 +808,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "incidents": {
+                "data": {
                   "type": "array",
                   "items": {
                     "$ref": "#/definitions/Incident"

@@ -2116,6 +2116,8 @@ from pprint import pprint
 
 api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 file = '/path/to/file.txt' # file | file
+type = 'type_example' # str | associated typeID for the layout
+kind = 'kind_example' # str | layout kind details
 
 try:
     # Import a layout

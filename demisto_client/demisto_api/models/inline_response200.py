@@ -33,47 +33,47 @@ class InlineResponse200(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'incidents': 'list[Incident]',
+        'data': 'list[Incident]',
         'total': 'int'
     }
 
     attribute_map = {
-        'incidents': 'incidents',
+        'data': 'data',
         'total': 'total'
     }
 
-    def __init__(self, incidents=None, total=None):  # noqa: E501
+    def __init__(self, data=None, total=None):  # noqa: E501
         """InlineResponse200 - a model defined in Swagger"""  # noqa: E501
 
-        self._incidents = None
+        self._data = None
         self._total = None
         self.discriminator = None
 
-        if incidents is not None:
-            self.incidents = incidents
+        if data is not None:
+            self.data = data
         if total is not None:
             self.total = total
 
     @property
-    def incidents(self):
-        """Gets the incidents of this InlineResponse200.  # noqa: E501
+    def data(self):
+        """Gets the data of this InlineResponse200.  # noqa: E501
 
 
-        :return: The incidents of this InlineResponse200.  # noqa: E501
+        :return: The data of this InlineResponse200.  # noqa: E501
         :rtype: list[Incident]
         """
-        return self._incidents
+        return self._data
 
-    @incidents.setter
-    def incidents(self, incidents):
-        """Sets the incidents of this InlineResponse200.
+    @data.setter
+    def data(self, data):
+        """Sets the data of this InlineResponse200.
 
 
-        :param incidents: The incidents of this InlineResponse200.  # noqa: E501
+        :param data: The data of this InlineResponse200.  # noqa: E501
         :type: list[Incident]
         """
 
-        self._incidents = incidents
+        self._data = data
 
     @property
     def total(self):

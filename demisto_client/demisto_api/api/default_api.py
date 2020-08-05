@@ -3814,7 +3814,6 @@ class DefaultApi(object):
         """
         with open(file, 'r') as classifier_json_file:
             data = classifier_json_file.read()
-
         classifier_data_json = json.loads(data)
         classifier_id = classifier_data_json.get('id')
         kwargs['_return_http_data_only'] = True
@@ -6105,7 +6104,7 @@ class DefaultApi(object):
 
         :param async_req bool
         :param SearchIncidentsData filter: (required)
-        :return: Incident
+        :return: InlineResponse200
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -6127,7 +6126,7 @@ class DefaultApi(object):
 
         :param async_req bool
         :param SearchIncidentsData filter: (required)
-        :return: Incident
+        :return: InlineResponse200
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -6185,7 +6184,7 @@ class DefaultApi(object):
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='Incident',  # noqa: E501
+            response_type='InlineResponse200',  # noqa: E501
             auth_settings=auth_settings,
             async_req=params.get('async_req'),
             _return_http_data_only=params.get('_return_http_data_only'),

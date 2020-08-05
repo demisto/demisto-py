@@ -13,6 +13,7 @@
 
 from __future__ import absolute_import
 
+import json
 import re  # noqa: F401
 
 # python 2 and python 3 compatibility library
@@ -3796,22 +3797,25 @@ class DefaultApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def import_classifier(self, file, classifier_id, **kwargs):  # noqa: E501
+    def import_classifier(self, file, **kwargs):  # noqa: E501
         """Import a classifier  # noqa: E501
 
         Import a classifier to Cortex XSOAR  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.import_classifier(file, classifier_id, async_req=True)
+        >>> thread = api.import_classifier(file, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool
         :param file file: file (required)
-        :param str classifier_id: associated typeID for the layout (required)
         :return: InstanceClassifier
                  If the method is called asynchronously,
                  returns the request thread.
         """
+        with open(file, 'r') as classifier_json_file:
+            data = classifier_json_file.read()
+        classifier_data_json = json.loads(data)
+        classifier_id = classifier_data_json.get('id')
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async_req'):
             return self.import_classifier_with_http_info(file, classifier_id, **kwargs)  # noqa: E501
@@ -4200,7 +4204,7 @@ class DefaultApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def import_layout(self, file, type, kind, **kwargs):  # noqa: E501
+    def import_layout(self, file, **kwargs):  # noqa: E501
         """Import a layout  # noqa: E501
 
         Import a layout to Cortex XSOAR  # noqa: E501
@@ -4211,12 +4215,16 @@ class DefaultApi(object):
 
         :param async_req bool
         :param file file: file (required)
-        :param str type: associated typeID for the layout (required)
-        :param str kind: layout kind details (required)
         :return: LayoutAPI
                  If the method is called asynchronously,
                  returns the request thread.
         """
+        with open(file, 'r') as layout_json_file:
+            data = layout_json_file.read()
+
+        layout_data_json = json.loads(data)
+        type = layout_data_json.get('typeId')
+        kind = layout_data_json.get('kind')
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async_req'):
             return self.import_layout_with_http_info(file, type, kind, **kwargs)  # noqa: E501
@@ -4300,7 +4308,7 @@ class DefaultApi(object):
         auth_settings = ['api_key', 'csrf_token']  # noqa: E501
 
         return self.api_client.call_api(
-            '/v2/layouts/import', 'POST',
+            '/layouts/import', 'POST',
             path_params,
             query_params,
             header_params,

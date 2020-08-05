@@ -1907,7 +1907,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **import_classifier**
-> InstanceClassifier import_classifier(file, classifier_id)
+> InstanceClassifier import_classifier(file)
 
 Import a classifier
 
@@ -1928,7 +1928,7 @@ classifier_id = 'classifier_id_example' # str | associated typeID for the layout
 
 try:
     # Import a classifier
-    api_response = api_instance.import_classifier(file, classifier_id)
+    api_response = api_instance.import_classifier(file)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->import_classifier: %s\n" % e)
@@ -2123,7 +2123,7 @@ kind = 'kind_example' # str | layout kind details
 
 try:
     # Import a layout
-    api_response = api_instance.import_layout(file, type, kind)
+    api_response = api_instance.import_layout(file)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->import_layout: %s\n" % e)
@@ -2134,8 +2134,6 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **file** | **file**| file | 
- **type** | **str**| associated typeID for the layout | 
- **kind** | **str**| layout kind details | 
 
 ### Return type
 

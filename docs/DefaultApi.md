@@ -1924,7 +1924,6 @@ from pprint import pprint
 
 api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 file = '/path/to/file.txt' # file | file
-classifier_id = 'classifier_id_example' # str | associated typeID for the layout
 
 try:
     # Import a classifier
@@ -1939,7 +1938,6 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **file** | **file**| file | 
- **classifier_id** | **str**| associated typeID for the layout | 
 
 ### Return type
 
@@ -2101,7 +2099,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **import_layout**
-> LayoutAPI import_layout(file, type, kind)
+> LayoutAPI import_layout(file)
 
 Import a layout
 
@@ -2133,7 +2131,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **file** | **file**| file | 
+ **file** | **file**| file |  
 
 ### Return type
 

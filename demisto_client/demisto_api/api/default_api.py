@@ -4223,7 +4223,10 @@ class DefaultApi(object):
             data = layout_json_file.read()
 
         layout_data_json = json.loads(data)
-        type = layout_data_json.get('typeId')
+        if 'typeId' in layout_data_json:
+            type = layout_data_json.get('typeId')
+        else:
+            type = layout_data_json.get('id')
         kind = layout_data_json.get('kind')
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async_req'):
@@ -4272,7 +4275,7 @@ class DefaultApi(object):
         # verify the required parameter 'type' is set
         if ('type' not in params or
                 params['type'] is None):
-            raise ValueError("Missing the required parameter `type` when calling `import_layout`")  # noqa: E501
+            raise ValueError("Missing the required parameter `type` when calling `import_layout- test`")  # noqa: E501
         # verify the required parameter 'kind' is set
         if ('kind' not in params or
                 params['kind'] is None):

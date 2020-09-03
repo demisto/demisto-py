@@ -4275,7 +4275,7 @@ class DefaultApi(object):
         # verify the required parameter 'type' is set
         if ('type' not in params or
                 params['type'] is None):
-            raise ValueError("Missing the required parameter `type` when calling `import_layout- test`")  # noqa: E501
+            raise ValueError("Missing the required parameter `type` when calling `import_layout`")  # noqa: E501
         # verify the required parameter 'kind' is set
         if ('kind' not in params or
                 params['kind'] is None):

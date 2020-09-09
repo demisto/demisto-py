@@ -4223,10 +4223,7 @@ class DefaultApi(object):
             data = layout_json_file.read()
 
         layout_data_json = json.loads(data)
-        if 'typeId' in layout_data_json:
-            type = layout_data_json.get('typeId')
-        else:
-            type = layout_data_json.get('id')
+        type = layout_data_json.get('typeId')
         kind = layout_data_json.get('kind')
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async_req'):
@@ -4273,13 +4270,13 @@ class DefaultApi(object):
                 params['file'] is None):
             raise ValueError("Missing the required parameter `file` when calling `import_layout`")  # noqa: E501
         # verify the required parameter 'type' is set
-        if ('type' not in params or
-                params['type'] is None):
-            raise ValueError("Missing the required parameter `type` when calling `import_layout`")  # noqa: E501
-        # verify the required parameter 'kind' is set
-        if ('kind' not in params or
-                params['kind'] is None):
-            raise ValueError("Missing the required parameter `kind` when calling `import_layout`")  # noqa: E501
+        # if ('type' not in params or
+        #         params['type'] is None):
+        #     raise ValueError("Missing the required parameter `type` when calling `import_layout`")  # noqa: E501
+        # # verify the required parameter 'kind' is set
+        # if ('kind' not in params or
+        #         params['kind'] is None):
+        #     raise ValueError("Missing the required parameter `kind` when calling `import_layout`")  # noqa: E501
 
         collection_formats = {}
 
@@ -4293,9 +4290,9 @@ class DefaultApi(object):
         local_var_files = {}
         if 'file' in params:
             local_var_files['file'] = params['file']  # noqa: E501
-        if 'type' in params:
+        if 'type' in params and params.get('type'):
             form_params.append(('type', params['type']))  # noqa: E501
-        if 'kind' in params:
+        if 'kind' in params and params.get('kind'):
             form_params.append(('kind', params['kind']))  # noqa: E501
 
         body_params = None

@@ -4269,14 +4269,6 @@ class DefaultApi(object):
         if ('file' not in params or
                 params['file'] is None):
             raise ValueError("Missing the required parameter `file` when calling `import_layout`")  # noqa: E501
-        # verify the required parameter 'type' is set
-        # if ('type' not in params or
-        #         params['type'] is None):
-        #     raise ValueError("Missing the required parameter `type` when calling `import_layout`")  # noqa: E501
-        # # verify the required parameter 'kind' is set
-        # if ('kind' not in params or
-        #         params['kind'] is None):
-        #     raise ValueError("Missing the required parameter `kind` when calling `import_layout`")  # noqa: E501
 
         collection_formats = {}
 

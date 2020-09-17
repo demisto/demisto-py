@@ -4,9 +4,6 @@
 
 [1]: https://pypi.org/project/demisto-py/#history
 
-## 2.0.15
-Fix update-release-notes command on Windows OS.
-
 ## 2.0.14
 Fixed an issue where the attribute mapping for the `search_incidents` model was incorrectly looking for `incidents` not `data`.
 

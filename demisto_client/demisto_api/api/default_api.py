@@ -19,6 +19,7 @@ import re  # noqa: F401
 # python 2 and python 3 compatibility library
 import six
 import demisto_client
+from distutils.version import LooseVersion
 
 from demisto_client.demisto_api.api_client import ApiClient
 
@@ -4280,11 +4281,11 @@ class DefaultApi(object):
 
         form_params = []
         local_var_files = {}
-        if 'file' in params:
+        if params.get('file', None):
             local_var_files['file'] = params['file']  # noqa: E501
-        if 'type' in params and params.get('type'):
+        if params.get('type', None):
             form_params.append(('type', params['type']))  # noqa: E501
-        if 'kind' in params and params.get('kind'):
+        if params.get('kind', None):
             form_params.append(('kind', params['kind']))  # noqa: E501
 
         body_params = None
@@ -4298,9 +4299,17 @@ class DefaultApi(object):
 
         # Authentication setting
         auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        url = '/v2/layouts/import'
+        server_details, status_code, response_headers = self.api_client.call_api('/about', 'GET', header_params={'Accept': 'application/json'},
+                                                  auth_settings=['api_key'], response_type=str, _preload_content=params.get('_preload_content', True))
+        if 200 == status_code:
+            server_details = json.loads(server_details.replace('\'', '"'))
+            if LooseVersion(server_details.get('demistoVersion')) >= LooseVersion('6.0.0'):
+                url = '/layouts/import'
 
         return self.api_client.call_api(
-            '/layouts/import', 'POST',
+            url,
+            'POST',
             path_params,
             query_params,
             header_params,

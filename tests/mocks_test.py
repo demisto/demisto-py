@@ -2,12 +2,15 @@ from urllib3_mock import Responses
 import demisto_client
 from datetime import datetime
 import json
-
 responses = Responses('requests.packages.urllib3')
 
 api_key = 'sample_api_key'
 host = 'http://localhost:8080'
 
+import os
+
+os.environ.pop('DEMISTO_USERNAME')
+os.environ.pop('DEMISTO_PASSWORD')
 
 def assert_reset():
     assert len(responses._urls) == 0
@@ -16,6 +19,7 @@ def assert_reset():
 
 def test_get_docker_images():
     '''Check GET docker images.'''
+
     @responses.activate
     def run():
         body = '{ "images": [{"id": "aae7b8aaba8c", "repository": ' \
@@ -45,6 +49,7 @@ def test_get_docker_images():
 
 def test_create_incident():
     '''Check creating an incident.'''
+
     @responses.activate
     def run():
         body = '{"name":"Test Incident","owner":"Admin","parent":"","phase":"",' \
@@ -88,6 +93,7 @@ def test_create_incident():
 
 def test_get_reports():
     '''Testing GET all reports.'''
+
     @responses.activate
     def run():
         body = '[{"created_by":"DBot","dashboard":"None","decoder":{},"description":"This report ' \
@@ -123,6 +129,7 @@ def test_get_reports():
 
 def test_indicators_search():
     '''Testing search for indicator.'''
+
     @responses.activate
     def run():
         body = r'''
@@ -179,6 +186,7 @@ def test_indicators_search():
 
 def test_export_entry():
     '''Testing export entry artifact.'''
+
     @responses.activate
     def run():
         body = "entry_artifact_6@1770.md"
@@ -207,6 +215,7 @@ def test_export_entry():
 
 def test_generic_request():
     '''Testing generic requst.'''
+
     @responses.activate
     def run():
         responses.add('POST', '/test',
@@ -214,7 +223,8 @@ def test_generic_request():
                       status=200,
                       content_type='text/plain')
         api_instance = demisto_client.configure(base_url=host, api_key=api_key, debug=False)
-        (res, code, headers) = api_instance.generic_request('/test', 'POST', body="this is a test", content_type='text/plain', accept='text/plain')
+        (res, code, headers) = api_instance.generic_request('/test', 'POST', body="this is a test",
+                                                            content_type='text/plain', accept='text/plain')
 
         assert res == 'all good'
         assert code == 200
@@ -226,3 +236,57 @@ def test_generic_request():
 
     run()
     assert_reset()
+
+res = {
+  "configuration": {
+    "api_key": {
+        "Authorization": "1234",
+        "assert_hostname": "None",
+        "cert_file": "true",
+        "connetion_pool_maxsize": 50,
+        "host": "http://localhost:8080"
+    }
+
+  }
+
+}
+
+
+def test_import_layout(mocker):
+    client = demisto_client.configure(base_url=host, api_key=api_key, debug=False,
+                                      verify_ssl=False)
+    mocker.patch.object(client, 'import_layout_with_http_info', return_value={'test': 'test'})
+    res = client.import_layout('../tests_data/layoutscontainer-test.json')
+    assert res.get('test') == 'test'
+
+
+def test_import_layout_with_http_info_with_knowing_server_version(mocker):
+    client = demisto_client.configure(base_url=host, api_key=api_key, debug=False,
+                                      verify_ssl=False)
+    mocker.patch.object(client.api_client, 'call_api', side_effect=[("{'demistoVersion': '6.0.0'}", 200, {'Content-type': 'application/json'}),  {'test': 'test'}])
+    res = client.import_layout('../tests_data/layoutscontainer-test.json')
+    assert res.get('test') == 'test'
+
+
+def test_import_layout_with_http_info_without_knowing_server_version(mocker):
+    client = demisto_client.configure(base_url=host, api_key=api_key, debug=False,
+                                      verify_ssl=False)
+    mocker.patch.object(client.api_client, 'call_api', side_effect=[("{'demistoVersion': '6.0.0'}", 404, {'Content-type': 'application/json'}),  {'test': 'test'}])
+    res = client.import_layout('../tests_data/layoutscontainer-test.json')
+    assert res.get('test') == 'test'
+
+
+def test_import_layout_with_http_info_with_old_server_version(mocker):
+    client = demisto_client.configure(base_url=host, api_key=api_key, debug=False,
+                                      verify_ssl=False)
+    mocker.patch.object(client.api_client, 'call_api', side_effect=[("{'demistoVersion': '5.0.0'}", 200, {'Content-type': 'application/json'}),  {'test': 'test'}])
+    res = client.import_layout('../tests_data/layoutscontainer-test.json')
+    assert res.get('test') == 'test'
+
+
+def test_import_layout_with_http_info_with_old_layout_format(mocker):
+    client = demisto_client.configure(base_url=host, api_key=api_key, debug=False,
+                                      verify_ssl=False)
+    mocker.patch.object(client.api_client, 'call_api', side_effect=[("{'demistoVersion': '5.0.0'}", 200, {'Content-type': 'application/json'}),  {'test': 'test'}])
+    res = client.import_layout('../tests_data/layout-details-test-V2.json')
+    assert res.get('test') == 'test'

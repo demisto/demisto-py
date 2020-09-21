@@ -7,10 +7,6 @@ responses = Responses('requests.packages.urllib3')
 api_key = 'sample_api_key'
 host = 'http://localhost:8080'
 
-import os
-
-os.environ.pop('DEMISTO_USERNAME')
-os.environ.pop('DEMISTO_PASSWORD')
 
 def assert_reset():
     assert len(responses._urls) == 0

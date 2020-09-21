@@ -9,7 +9,7 @@ host = 'http://localhost:8080'
 
 import os
 
-print('here is the path!')
+print('\nhere is the path!\n')
 print(os.path.dirname(os.path.realpath(__file__)))
 
 def assert_reset():
@@ -128,6 +128,8 @@ def test_get_reports():
 
 
 def test_indicators_search():
+    print('\nhere is the path!\n')
+    print(os.path.dirname(os.path.realpath(__file__)))
     '''Testing search for indicator.'''
 
     @responses.activate

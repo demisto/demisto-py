@@ -44,6 +44,19 @@ import demisto_client/g' demisto_client/demisto_api/api/default_api.py
 echo -e "\n    def generic_request(self, path, method, body=None, **kwargs):  # noqa: E501\n        return demisto_client.generic_request_func(self, path, method, body, **kwargs)" >> demisto_client/demisto_api/api/default_api.py
 # fix bug where binary data is decoded on py3
 sed -i '' -e 's#if six\.PY3:#if six.PY3 and r.getheader("Content-Type") != "application/octet-stream":#' demisto_client/demisto_api/rest.py
+
+# Gal is the queen
+start=`grep "verify the required parameter 'type'" demisto_client/demisto_api/api/default_api.py -n | cut -f1 -d: | tail -1 | tr -d "\\n"`
+end=`grep ".kind. when calling .import_layout." demisto_client/demisto_api/api/default_api.py -n | cut -f1 -d: | tail -1 | tr -d "\\n"`
+sed -i '' -e "$start,${end}d" demisto_client/demisto_api/api/default_api.py
+
+kind_line=`grep "'kind' in params:" -n demisto_client/demisto_api/api/default_api.py | cut -f1 -d: | tr -d "\\n"`
+start=$((kind_line-4))
+end=$((kind_line+1))
+sed -i '' -e "$start,$end s/if \(.*\) in params/if params.get(\1, None)/" demisto_client/demisto_api/api/default_api.py
+
+sed -i '' -e "s:'/v2/layouts/import', 'POST',:demisto_client.get_url_for_demisto_version(self.api_client, params), 'POST',:" demisto_client/demisto_api/api/default_api.py
+
 # remove files not used
 rm .travis.yml
 rm git_push.sh

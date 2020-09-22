@@ -55,6 +55,22 @@ end=$((kind_line+1))
 sed -i '' -e "$start,$end s/if \(.*\) in params/if params.get(\1, None)/" demisto_client/demisto_api/api/default_api.py
 sed -i '' -e "s:'/v2/layouts/import', 'POST',:demisto_client.get_url_for_demisto_version(self.api_client, params), 'POST',:" demisto_client/demisto_api/api/default_api.py
 
+sed -i '' -e 's/def import_layout(self, file, type, kind, \*\*kwargs):/def import_layout(self, file, \*\*kwargs):/' demisto_client/demisto_api/api/default_api.py
+
+sed -i '' -e '/import demisto_client/ a\
+import json' demisto_client/demisto_api/api/default_api.py
+
+ret_line=`grep "return self.import_layout_with_http_info" demisto_client/demisto_api/api/default_api.py -n | cut -f1 -d: | tail -1 | tr -d "\\n"`
+start=$((ret_line-3))
+sed -i '' -e "${start}a\\
+\ \ \ \ \ \ \ \ with open(file, 'r') as layout_json_file:\\
+\ \ \ \ \ \ \ \ \ \ \ \ data = layout_json_file.read()\\
+\ \ \ \ \ \ \ \ layout_data_json = json.loads(data)\\
+\ \ \ \ \ \ \ \ type = layout_data_json.get('typeId')\\
+\ \ \ \ \ \ \ \ kind = layout_data_json.get('kind')" demisto_client/demisto_api/api/default_api.py
+
+# End fix import layout
+
 # remove files not used
 rm .travis.yml
 rm git_push.sh

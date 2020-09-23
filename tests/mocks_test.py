@@ -233,20 +233,6 @@ def test_generic_request():
     run()
     assert_reset()
 
-res = {
-  "configuration": {
-    "api_key": {
-        "Authorization": "1234",
-        "assert_hostname": "None",
-        "cert_file": "true",
-        "connetion_pool_maxsize": 50,
-        "host": "http://localhost:8080"
-    }
-
-  }
-
-}
-
 
 def test_import_layout(mocker):
     client = demisto_client.configure(base_url=host, api_key=api_key, debug=False,

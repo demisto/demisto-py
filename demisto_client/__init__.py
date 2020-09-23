@@ -247,7 +247,14 @@ def generic_request_func(self, path, method, body=None, **kwargs):
         collection_formats=collection_formats)
 
 
-def get_url_for_demisto_version(api_client, params):
+def get_layouts_url_for_demisto_version(api_client, params):
+    """
+    This function returns the correct url to upload a layout according to Demisto version that is being used.
+    :param api_client: "ApiClient" instance.
+    :param params: dict containing information about the uploaded layout.
+
+    :return: the correct url as string.
+    """
     url = '/v2/layouts/import'
     server_details, status_code, response_headers = api_client.call_api('/about', 'GET', header_params={
         'Accept': 'application/json'},

@@ -235,6 +235,14 @@ def test_generic_request():
 
 
 def test_import_layout(mocker):
+    """
+    Given:
+        - Path for a layoutscontainer.
+    When
+        - Using client.import_layout() to upload a new layout.
+    Then
+        - The layout is being uploaded and getting back the layout metadata.
+    """
     client = demisto_client.configure(base_url=host, api_key=api_key, debug=False,
                                       verify_ssl=False)
     mocker.patch.object(client, 'import_layout_with_http_info', return_value={'test': 'test'})
@@ -243,6 +251,14 @@ def test_import_layout(mocker):
 
 
 def test_import_layout_with_http_info_with_knowing_server_version(mocker):
+    """
+    Given:
+        - path for a layoutscontainer.
+    When
+        - Succeeding in getting demisto version using 'get_layouts_url_for_demisto_version' function
+    Then
+        - The layout is being uploaded and getting back the layout metadata.
+    """
     client = demisto_client.configure(base_url=host, api_key=api_key, debug=False,
                                       verify_ssl=False)
     mocker.patch.object(client.api_client, 'call_api', side_effect=[("{'demistoVersion': '6.0.0'}", 200, {'Content-type': 'application/json'}),  {'test': 'test'}])
@@ -251,6 +267,14 @@ def test_import_layout_with_http_info_with_knowing_server_version(mocker):
 
 
 def test_import_layout_with_http_info_without_knowing_server_version(mocker):
+    """
+    Given:
+        - Path for a layoutscontainer.
+    When
+        - Not knowing demisto version, and working with 6.0.0 or higher
+    Then
+        - The layout is being uploaded and getting back the layout metadata.
+    """
     client = demisto_client.configure(base_url=host, api_key=api_key, debug=False,
                                       verify_ssl=False)
     mocker.patch.object(client.api_client, 'call_api', side_effect=[("{'demistoVersion': '6.0.0'}", 404, {'Content-type': 'application/json'}),  {'test': 'test'}])
@@ -258,15 +282,15 @@ def test_import_layout_with_http_info_without_knowing_server_version(mocker):
     assert res.get('test') == 'test'
 
 
-def test_import_layout_with_http_info_with_old_server_version(mocker):
-    client = demisto_client.configure(base_url=host, api_key=api_key, debug=False,
-                                      verify_ssl=False)
-    mocker.patch.object(client.api_client, 'call_api', side_effect=[("{'demistoVersion': '5.0.0'}", 200, {'Content-type': 'application/json'}),  {'test': 'test'}])
-    res = client.import_layout('tests_data/layoutscontainer-test.json')
-    assert res.get('test') == 'test'
-
-
 def test_import_layout_with_http_info_with_old_layout_format(mocker):
+    """
+    Given:
+        - Path for a layout
+    When
+        - Working with 5.0.0 and uploading a layout(the old version)
+    Then
+        - The layout is being uploaded and getting back the layout metadata.
+    """
     client = demisto_client.configure(base_url=host, api_key=api_key, debug=False,
                                       verify_ssl=False)
 

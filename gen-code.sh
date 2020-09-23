@@ -53,7 +53,7 @@ kind_line=`grep "'kind' in params:" -n demisto_client/demisto_api/api/default_ap
 start=$((kind_line-4))
 end=$((kind_line+1))
 sed -i '' -e "$start,$end s/if \(.*\) in params/if params.get(\1, None)/" demisto_client/demisto_api/api/default_api.py
-sed -i '' -e "s:'/v2/layouts/import', 'POST',:demisto_client.get_url_for_demisto_version(self.api_client, params), 'POST',:" demisto_client/demisto_api/api/default_api.py
+sed -i '' -e "s:'/v2/layouts/import', 'POST',:demisto_client.get_layouts_url_for_demisto_version(self.api_client, params), 'POST',:" demisto_client/demisto_api/api/default_api.py
 
 sed -i '' -e 's/def import_layout(self, file, type, kind, \*\*kwargs):/def import_layout(self, file, \*\*kwargs):/' demisto_client/demisto_api/api/default_api.py
 

@@ -4297,10 +4297,9 @@ class DefaultApi(object):
 
         # Authentication setting
         auth_settings = ['api_key', 'csrf_token']  # noqa: E501
-        url = demisto_client.get_url_for_demisto_version(self.api_client, params)
 
         return self.api_client.call_api(
-            url,
+            demisto_client.get_layouts_url_for_demisto_version(self.api_client, params),
             'POST',
             path_params,
             query_params,

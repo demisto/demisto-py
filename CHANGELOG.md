@@ -4,6 +4,10 @@
 
 [1]: https://pypi.org/project/demisto-py/#history
 
+## 2.0.15
+* Support `import_layout` to upload the new layout version(layoutscontainer).
+* Fixed `import_layout` when uploading an old layout version.
+
 ## 2.0.14
 Fixed an issue where the attribute mapping for the `search_incidents` model was incorrectly looking for `incidents` not `data`.
 

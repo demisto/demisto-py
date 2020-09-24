@@ -3,11 +3,12 @@ import six
 import os
 import datetime
 import tzlocal
+import json
 
 from demisto_client.demisto_api import ApiClient
 from demisto_client.demisto_api.configuration import Configuration
 from pkg_resources import get_distribution, DistributionNotFound
-
+from distutils.version import LooseVersion
 
 try:
     __version__ = get_distribution(__name__).version
@@ -244,3 +245,25 @@ def generic_request_func(self, path, method, body=None, **kwargs):
         _preload_content=params.get('_preload_content', True),
         _request_timeout=params.get('_request_timeout'),
         collection_formats=collection_formats)
+
+
+def get_layouts_url_for_demisto_version(api_client, params):
+    """
+    This function returns the correct url to upload a layout according to Demisto version that is being used.
+    :param api_client: "ApiClient" instance.
+    :param params: dict containing information about the uploaded layout.
+
+    :return: the correct url as string.
+    """
+    url = '/v2/layouts/import'
+    server_details, status_code, response_headers = api_client.call_api('/about', 'GET', header_params={
+        'Accept': 'application/json'},
+                                                                             auth_settings=['api_key'],
+                                                                             response_type=str,
+                                                                             _preload_content=params.get(
+                                                                                 '_preload_content', True))
+    if 200 == status_code:
+        server_details = json.loads(server_details.replace('\'', '"'))
+        if LooseVersion(server_details.get('demistoVersion')) >= LooseVersion('6.0.0'):
+            url = '/layouts/import'
+    return url

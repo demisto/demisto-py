@@ -7,7 +7,8 @@ set -e
 
 # Verify that code-gen.sh doesn't generate a diff
 bash -x ./gen-code.sh 
-DIFF_OUT=$(git diff --stat)
+# we diff only the code
+DIFF_OUT=$(git diff --stat demisto_client)
 
 echo "========================================="
 echo ""

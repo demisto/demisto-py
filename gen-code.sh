@@ -35,9 +35,8 @@ sed -i "${INPLACE[@]}" -e '/# demisto-py/,/## Documentation for API Endpoints/d'
 echo '## Documentation for API Endpoints' | cat - docs/README.md > readme.temp && mv readme.temp docs/README.md
 sed -i "${INPLACE[@]}" -e 's#(docs/#(#' docs/*.md
 sed -i "${INPLACE[@]}" -e 's#(../README.md#(README.md#g' docs/*.md
-sed -i "${INPLACE[@]}" '/# Configure API key authorization: api_key/,/DefaultApi(demisto_client.demisto_api.ApiClient(configuration))/c\
-api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")\
-' docs/DefaultApi.md
+sed -i "${INPLACE[@]}" -e '/# Configure API key authorization: api_key/,/DefaultApi(demisto_client.demisto_api.ApiClient(configuration))/c\
+api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")' docs/DefaultApi.md
 sed -i "${INPLACE[@]}" -e '/import time/ a\
 import demisto_client' docs/DefaultApi.md
 # Remove the class name in the endpoint api table as it doesn't look good on github.com

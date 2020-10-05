@@ -8,6 +8,7 @@ rm -rf docs
 mkdir -p demisto_client
 mv README.md README.md.org
 docker run --rm -it -v `pwd`:/work -w /work swaggerapi/swagger-codegen-cli:2.4.7 generate -i /work/server_api_swagger.json -l python -o /work -c /work/swagger-config.json
+echo "============= done swagger-codegen. moving to mofifications... ================="
 rm -r test
 mv demisto_client.demisto_api/*.py demisto_client/demisto_api/.
 mv demisto_client.demisto_api/api/*.py demisto_client/demisto_api/api/.

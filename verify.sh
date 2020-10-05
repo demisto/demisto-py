@@ -6,7 +6,7 @@ set -e
 # Script to run extra verifications after tox build completes
 
 # Verify that code-gen.sh doesn't generate a diff
-sh -x ./gen-code.sh 
+bash -x ./gen-code.sh 
 DIFF_OUT=$(git diff --stat)
 
 echo "========================================="

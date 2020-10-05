@@ -13,6 +13,10 @@ jobs:
       steps:
         - checkout
         - run:
+            name: Setup Python
+            command: |
+              pyenv versions              
+        - run:
             name: tox build
             command: |
               pip install tox

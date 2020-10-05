@@ -17,6 +17,7 @@ import re  # noqa: F401
 import six
 
 from demisto_client.demisto_api.models.attachment import Attachment  # noqa: F401,E501
+from demisto_client.demisto_api.models.custom_fields import CustomFields  # noqa: F401,E501
 from demisto_client.demisto_api.models.incident_status import IncidentStatus  # noqa: F401,E501
 from demisto_client.demisto_api.models.label import Label  # noqa: F401,E501
 from demisto_client.demisto_api.models.run_status import RunStatus  # noqa: F401,E501
@@ -89,7 +90,8 @@ class Incident(dict):
         'source_instance': 'str',
         'status': 'IncidentStatus',
         'type': 'str',
-        'version': 'int'
+        'version': 'int',
+        'custom_fields': 'CustomFields'
     }
 
     attribute_map = {
@@ -144,10 +146,11 @@ class Incident(dict):
         'source_instance': 'sourceInstance',
         'status': 'status',
         'type': 'type',
-        'version': 'version'
+        'version': 'version',
+        'custom_fields': 'CustomFields'
     }
 
-    def __init__(self, shard_id=None, account=None, activated=None, activatinging_user_id=None, attachment=None, autime=None, canvases=None, category=None, close_notes=None, close_reason=None, closed=None, closing_user_id=None, created=None, details=None, dropped_count=None, due_date=None, has_role=None, id=None, investigation_id=None, is_playground=None, labels=None, last_open=None, linked_count=None, linked_incidents=None, modified=None, name=None, notify_time=None, occurred=None, open_duration=None, owner=None, parent=None, phase=None, playbook_id=None, previous_roles=None, raw_category=None, raw_close_reason=None, raw_json=None, raw_name=None, raw_phase=None, raw_type=None, reason=None, reminder=None, roles=None, run_status=None, severity=None, sla=None, sort_values=None, source_brand=None, source_instance=None, status=None, type=None, version=None):  # noqa: E501
+    def __init__(self, shard_id=None, account=None, activated=None, activatinging_user_id=None, attachment=None, autime=None, canvases=None, category=None, close_notes=None, close_reason=None, closed=None, closing_user_id=None, created=None, details=None, dropped_count=None, due_date=None, has_role=None, id=None, investigation_id=None, is_playground=None, labels=None, last_open=None, linked_count=None, linked_incidents=None, modified=None, name=None, notify_time=None, occurred=None, open_duration=None, owner=None, parent=None, phase=None, playbook_id=None, previous_roles=None, raw_category=None, raw_close_reason=None, raw_json=None, raw_name=None, raw_phase=None, raw_type=None, reason=None, reminder=None, roles=None, run_status=None, severity=None, sla=None, sort_values=None, source_brand=None, source_instance=None, status=None, type=None, version=None, custom_fields=None):  # noqa: E501
         """Incident - a model defined in Swagger"""  # noqa: E501
 
         self._shard_id = None
@@ -202,6 +205,7 @@ class Incident(dict):
         self._status = None
         self._type = None
         self._version = None
+        self._custom_fields = None
         self.discriminator = None
 
         if shard_id is not None:
@@ -308,6 +312,8 @@ class Incident(dict):
             self.type = type
         if version is not None:
             self.version = version
+        if custom_fields is not None:
+            self.custom_fields = custom_fields
 
     @property
     def shard_id(self):
@@ -1480,6 +1486,27 @@ class Incident(dict):
         """
 
         self._version = version
+
+    @property
+    def custom_fields(self):
+        """Gets the custom_fields of this Incident.  # noqa: E501
+
+
+        :return: The custom_fields of this Incident.  # noqa: E501
+        :rtype: CustomFields
+        """
+        return self._custom_fields
+
+    @custom_fields.setter
+    def custom_fields(self, custom_fields):
+        """Sets the custom_fields of this Incident.
+
+
+        :param custom_fields: The custom_fields of this Incident.  # noqa: E501
+        :type: CustomFields
+        """
+
+        self._custom_fields = custom_fields
 
     def to_dict(self):
         """Returns the model properties as a dict"""

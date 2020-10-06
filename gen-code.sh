@@ -80,3 +80,16 @@ sed -i "${INPLACE[@]}" -e "${start}a\\
 # remove files not used
 rm .travis.yml
 rm git_push.sh
+
+sed -i "" -e 's/def import_classifier(self, file, classifier_id, \*\*kwargs):  # noqa: E501/def import_classifier(self, file, \*\*kwargs):  # noqa: E501/' demisto_client/demisto_api/api/default_api.py
+sed -i '' -e 's/>>> thread = api.import_classifier(file, classifier_id, async_req=True)/>>> thread = api.import_classifier(file, async_req=True)/' demisto_client/demisto_api/api/default_api.py
+del=`grep ":param str classifier_id: associated typeID for the layout (required)" demisto_client/demisto_api/api/default_api.py -n | head -n1 | cut -d : -f1`
+sed -i '' -e "$del d" demisto_client/demisto_api/api/default_api.py
+
+select=`grep "return self.import_classifier_with_http_info(file, classifier_id, \*\*kwargs)  # noqa: E501" demisto_client/demisto_api/api/default_api.py -n | head -n1 | cut -d : -f1`
+start=$((select-2))
+sed -i "" -e "${start}a\\
+\ \ \ \ \ \ \ \ with open(file, 'r') as classifier_json_file:\\
+\ \ \ \ \ \ \ \ \ \ \ \ data = classifier_json_file.read()\\
+\ \ \ \ \ \ \ \ classifier_data_json = json.loads(data)\\
+\ \ \ \ \ \ \ \ classifier_id = classifier_data_json.get('id')\\" demisto_client/demisto_api/api/default_api.py

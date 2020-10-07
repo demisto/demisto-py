@@ -7,16 +7,25 @@ jobs:
   # using tox
   toxify:
 
-      docker:
-        - image: python:3.6
+      machine:
+        image: ubuntu-1604:202007-01
 
       steps:
         - checkout
         - run:
+            name: Setup Python
+            command: |
+              pyenv versions
+              pyenv global 2.7.18 3.8.3 3.7.8              
+        - run:
             name: tox build
             command: |
               pip install tox
-              tox -q        
+              tox -q
+        - run:
+            name: verify
+            command: |
+              ./verify.sh
         - run: 
             name: deploy
             command: |

@@ -55,6 +55,7 @@ Name | Type | Description | Notes
 **status** | [**IncidentStatus**](IncidentStatus.md) |  | [optional] 
 **type** | **str** | Incident type | [optional] 
 **version** | **int** |  | [optional] 
+**custom_fields** | [**CustomFields**](CustomFields.md) |  | [optional] 
 
 [[Back to Model list]](README.md#documentation-for-models) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to README]](README.md)
 

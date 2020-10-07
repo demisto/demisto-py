@@ -181,6 +181,7 @@ def generic_request_func(self, path, method, body=None, **kwargs):
     :param body: dict - Dict object of request body.
     :param content_type: str - optional content type of body.
     :param accept: str/list[str] - optional content type to accept.
+    :param response_type: str - optional response type to return. Default: 'str'. To get an object specify 'object'.
 
     :return: tuple of (response_data, response_code, headers).
     """
@@ -194,6 +195,7 @@ def generic_request_func(self, path, method, body=None, **kwargs):
     all_params.append('_request_timeout')
     all_params.append('content_type')
     all_params.append('accept')
+    all_params.append('response_type')
 
     params = locals()
     for key, val in six.iteritems(params['kwargs']):
@@ -238,7 +240,7 @@ def generic_request_func(self, path, method, body=None, **kwargs):
         body=body_params,
         post_params=form_params,
         files=local_var_files,
-        response_type='str',  # noqa: E501
+        response_type=params.get('response_type', 'str'),
         auth_settings=auth_settings,
         async_req=params.get('async_req'),
         _return_http_data_only=params.get('_return_http_data_only'),
@@ -258,10 +260,10 @@ def get_layouts_url_for_demisto_version(api_client, params):
     url = '/v2/layouts/import'
     server_details, status_code, response_headers = api_client.call_api('/about', 'GET', header_params={
         'Accept': 'application/json'},
-                                                                             auth_settings=['api_key'],
-                                                                             response_type=str,
-                                                                             _preload_content=params.get(
-                                                                                 '_preload_content', True))
+        auth_settings=['api_key'],
+        response_type=str,
+        _preload_content=params.get(
+        '_preload_content', True))
     if 200 == status_code:
         server_details = json.loads(server_details.replace('\'', '"'))
         if LooseVersion(server_details.get('demistoVersion')) >= LooseVersion('6.0.0'):

@@ -4,6 +4,10 @@
 
 [1]: https://pypi.org/project/demisto-py/#history
 
+## 2.0.16
+* Removed testing with Python 3.6 and added testing with Python 3.8.
+* Added to the `generic_request` function support for `response_type` argument.
+
 ## 2.0.15
 * Support `import_layout` to upload the new layout version(layoutscontainer).
 * Fixed `import_layout` when uploading an old layout version.

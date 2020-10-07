@@ -106,6 +106,16 @@ Content-Type: text/plain; charset=utf-8
 {"demistoVersion":"5.5.0", ...}
 ```
 
+## Contributing
+Contributions are welcome and appreciated. To contribute follow the instructions below and submit a PR. 
+
+Before merging any PRs, we need all contributors to sign a contributor license agreement. By signing a contributor license agreement, we ensure that the community is free to use your contributions.
+
+When you open a new pull request, a bot will evaluate whether you have signed the CLA. If required, the bot will comment on the pull request, including a link to accept the agreement. The CLA document is also available for review as a [PDF](https://github.com/demisto/content/blob/master/docs/cla.pdf).
+
+If the `license/cla` status check remains on *Pending*, even though all contributors have accepted the CLA, you can recheck the CLA status by visiting the following link (replace **[PRID]** with the ID of your PR): https://cla-assistant.io/check/demisto/demisto-py?pullRequest=[PRID] .
+
+
 ## Dev Environment Setup
 We build for both python 2 and 3. We recommend installing both development environments. You can use pyenv to manage multiple python versions (see: https://github.com/pyenv/pyenv). We use [tox](https://github.com/tox-dev/tox) for managing environments and running unit tests.
 
@@ -146,9 +156,13 @@ tox -q -e py27
 ```
 
 ## Code Generation
-Library code was generated using the Demisto Server 4.5.0 Swagger definition. 
-We use a script to generate the code and then modify as needed. 
-If you would like to contribute don't modify the generated code directly, modify the script. 
+Library code was generated using the Demisto Server 4.5.0 Swagger definition with modifications to support later Server versions.
+
+**Important:** All code under [demisto_client/demisto_api](demisto_client/demisto_api) is generated using the swagger code generation tool. Do not modify this code directly.
+
+We use a script to run the generate tool and then modify as needed. 
+If you would like to contribute **DO NOT** modify the generated code directly, modify the script: [gen-code.sh](gen-code.sh) and then re-generate the code.
+
 To generate the code run (requires bash, sed and docker):
 ```
 ./gen-code.sh

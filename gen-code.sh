@@ -102,7 +102,7 @@ sed -i "${INPLACE[@]}" -e "${start}a\\
 \ \ \ \ \ \ \ \ with open(file, 'r') as classifier_json_file:\\
 \ \ \ \ \ \ \ \ \ \ \ \ data = classifier_json_file.read()\\
 \ \ \ \ \ \ \ \ classifier_data_json = json.loads(data)\\
-\ \ \ \ \ \ \ \ classifier_id = classifier_data_json.get('id')\\" demisto_client/demisto_api/api/default_api.py
+\ \ \ \ \ \ \ \ classifier_id = classifier_data_json.get('id')" demisto_client/demisto_api/api/default_api.py
 
 # End fix import_classifier
 

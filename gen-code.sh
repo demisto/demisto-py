@@ -91,6 +91,7 @@ sed -i "${INPLACE[@]}" -e "${start}a\\
 rm .travis.yml
 rm git_push.sh
 
+# fix import_classifier
 sed -i "" -e 's/def import_classifier(self, file, classifier_id, \*\*kwargs):  # noqa: E501/def import_classifier(self, file, \*\*kwargs):  # noqa: E501/' demisto_client/demisto_api/api/default_api.py
 sed -i '' -e 's/>>> thread = api.import_classifier(file, classifier_id, async_req=True)/>>> thread = api.import_classifier(file, async_req=True)/' demisto_client/demisto_api/api/default_api.py
 del=`grep ":param str classifier_id: associated typeID for the layout (required)" demisto_client/demisto_api/api/default_api.py -n | head -n1 | cut -d : -f1`

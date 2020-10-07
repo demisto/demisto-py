@@ -8,14 +8,14 @@ set -e
 # Verify that code-gen.sh doesn't generate a diff
 bash -x ./gen-code.sh 
 # we diff only the code
-DIFF_OUT=$(git diff --stat demisto_client)
+DIFF_OUT=$(git diff -- demisto_client)
 
 echo "========================================="
 echo ""
 
 if [[ -n "$DIFF_OUT" ]]; then
     echo "./gen-code.sh modified the source code. gen-code.sh should not modify the source code. If needed, run gen-code.sh before committing."
-    echo "git diff --stat output:"
+    echo "git diff -- demisto_client output:"
     echo "$DIFF_OUT"
     exit 1
 fi

@@ -168,5 +168,25 @@ To generate the code run (requires bash, sed and docker):
 ./gen-code.sh
 ```
 
+## Publishing a Release (demisto devs)
+After merging to `master`, a test deployment will be pushed to: https://test.pypi.org/project/demisto-py/ .
+You can test the test package by following the pip install instructions. For example:
+```
+pip install -i https://test.pypi.org/simple/ demisto-py
+```
+
+Steps to publish a production release:
+* Make sure [CHANGELOG.md[(CHANGELOG.md) is up to date.
+* Create and push a tag with the release version using git. For example:
+  ```
+  git tag v2.0.19
+  git push origin v2.0.19
+  ```
+* Check that the circleci build completes successfully. Once done, the release will be pushed to: https://pypi.org/project/demisto-py/ .
+* Update GitHub releases: go to [tags page](https://github.com/demisto/demisto-py/tags) and for the relevant tag choose from the right drop down menu: `Create release`. Name the release the same as the tag. Copy the text from previous releases for the description.
+
+Congratulations! The release is now public.
+
+
 ## License
 Apache 2.0 - See [LICENSE](LICENSE) for more information.

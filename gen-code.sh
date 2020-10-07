@@ -47,11 +47,10 @@ sed -i "${INPLACE[@]}" -e 's/> InstanceClassifier import_classifier(file, classi
 sed -i "${INPLACE[@]}" -e 's/api_response = api_instance.import_classifier(file, classifier_id)/api_response = api_instance.import_classifier(file)/' docs/DefaultApi.md
 sed -i "${INPLACE[@]}" -e 's/> LayoutAPI import_layout(file, type, kind)/> LayoutAPI import_layout(file)/' docs/DefaultApi.md
 sed -i "${INPLACE[@]}" -e 's/api_response = api_instance.import_layout(file, type, kind)/api_response = api_instance.import_layout(file)/' docs/DefaultApi.md
-# sed -i "${INPLACE[@]}" -e 's/ **type** | **str**| associated typeID for the layout | /'
 del=`grep  "\*\*type\*\* | \*\*str\*\*| associated typeID for the layout | " docs/DefaultApi.md -n | head -n1 | cut -d : -f1`
-sed -i '' -e "$del d" docs/DefaultApi.md
+sed -i "${INPLACE[@]}" -e "$del d" docs/DefaultApi.md
 del=`grep  "\*\*kind\*\* | \*\*str\*\*| layout kind details | " docs/DefaultApi.md -n | head -n1 | cut -d : -f1`
-sed -i '' -e "$del d" docs/DefaultApi.md
+sed -i "${INPLACE[@]}" -e "$del d" docs/DefaultApi.md
 
 # Remove the class name in the endpoint api table as it doesn't look good on github.com
 sed -i "${INPLACE[@]}" -e 's#Class \| ##' docs/README.md

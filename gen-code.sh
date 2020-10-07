@@ -1,8 +1,12 @@
 #!/usr/bin/env bash
 
+# ALL CHANGES TO GENERATE CODE ARE DONE VIA THIS FILE
+
 # exit on errors
 set -e
 
+# IMPORTANT: Make sure when writing sed command to use: sed -i "${INPLACE[@]}" 
+# to be compatible with mac and linux
 # sed on mac requires '' as param and on linux doesn't
 if [[ "$(uname)" == Linux ]]; then
     INPLACE=()
@@ -39,11 +43,11 @@ sed -i "${INPLACE[@]}" -e '/# Configure API key authorization: api_key/,/Default
 api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")' docs/DefaultApi.md
 sed -i "${INPLACE[@]}" -e '/import time/ a\
 import demisto_client' docs/DefaultApi.md
-sed -i "" -e 's/> InstanceClassifier import_classifier(file, classifier_id)/> InstanceClassifier import_classifier(file)/' docs/DefaultApi.md
-sed -i "" -e 's/api_response = api_instance.import_classifier(file, classifier_id)/api_response = api_instance.import_classifier(file)/' docs/DefaultApi.md
-sed -i "" -e 's/> LayoutAPI import_layout(file, type, kind)/> LayoutAPI import_layout(file)/' docs/DefaultApi.md
-sed -i "" -e 's/api_response = api_instance.import_layout(file, type, kind)/api_response = api_instance.import_layout(file)/' docs/DefaultApi.md
-# sed -i "" -e 's/ **type** | **str**| associated typeID for the layout | /'
+sed -i "${INPLACE[@]}" -e 's/> InstanceClassifier import_classifier(file, classifier_id)/> InstanceClassifier import_classifier(file)/' docs/DefaultApi.md
+sed -i "${INPLACE[@]}" -e 's/api_response = api_instance.import_classifier(file, classifier_id)/api_response = api_instance.import_classifier(file)/' docs/DefaultApi.md
+sed -i "${INPLACE[@]}" -e 's/> LayoutAPI import_layout(file, type, kind)/> LayoutAPI import_layout(file)/' docs/DefaultApi.md
+sed -i "${INPLACE[@]}" -e 's/api_response = api_instance.import_layout(file, type, kind)/api_response = api_instance.import_layout(file)/' docs/DefaultApi.md
+# sed -i "${INPLACE[@]}" -e 's/ **type** | **str**| associated typeID for the layout | /'
 del=`grep  "\*\*type\*\* | \*\*str\*\*| associated typeID for the layout | " docs/DefaultApi.md -n | head -n1 | cut -d : -f1`
 sed -i '' -e "$del d" docs/DefaultApi.md
 del=`grep  "\*\*kind\*\* | \*\*str\*\*| layout kind details | " docs/DefaultApi.md -n | head -n1 | cut -d : -f1`
@@ -87,20 +91,22 @@ sed -i "${INPLACE[@]}" -e "${start}a\\
 
 # End fix import layout
 
-# remove files not used
-rm .travis.yml
-rm git_push.sh
-
 # fix import_classifier
-sed -i "" -e 's/def import_classifier(self, file, classifier_id, \*\*kwargs):  # noqa: E501/def import_classifier(self, file, \*\*kwargs):  # noqa: E501/' demisto_client/demisto_api/api/default_api.py
-sed -i '' -e 's/>>> thread = api.import_classifier(file, classifier_id, async_req=True)/>>> thread = api.import_classifier(file, async_req=True)/' demisto_client/demisto_api/api/default_api.py
+sed -i "${INPLACE[@]}" -e 's/def import_classifier(self, file, classifier_id, \*\*kwargs):  # noqa: E501/def import_classifier(self, file, \*\*kwargs):  # noqa: E501/' demisto_client/demisto_api/api/default_api.py
+sed -i "${INPLACE[@]}" -e 's/>>> thread = api.import_classifier(file, classifier_id, async_req=True)/>>> thread = api.import_classifier(file, async_req=True)/' demisto_client/demisto_api/api/default_api.py
 del=`grep ":param str classifier_id: associated typeID for the layout (required)" demisto_client/demisto_api/api/default_api.py -n | head -n1 | cut -d : -f1`
-sed -i '' -e "$del d" demisto_client/demisto_api/api/default_api.py
+sed -i "${INPLACE[@]}" -e "$del d" demisto_client/demisto_api/api/default_api.py
 
 select=`grep "return self.import_classifier_with_http_info(file, classifier_id, \*\*kwargs)  # noqa: E501" demisto_client/demisto_api/api/default_api.py -n | head -n1 | cut -d : -f1`
 start=$((select-2))
-sed -i "" -e "${start}a\\
+sed -i "${INPLACE[@]}" -e "${start}a\\
 \ \ \ \ \ \ \ \ with open(file, 'r') as classifier_json_file:\\
 \ \ \ \ \ \ \ \ \ \ \ \ data = classifier_json_file.read()\\
 \ \ \ \ \ \ \ \ classifier_data_json = json.loads(data)\\
 \ \ \ \ \ \ \ \ classifier_id = classifier_data_json.get('id')\\" demisto_client/demisto_api/api/default_api.py
+
+# End fix import_classifier
+
+# remove files not used
+rm .travis.yml
+rm git_push.sh

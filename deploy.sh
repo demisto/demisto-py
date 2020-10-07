@@ -4,8 +4,8 @@
 set -e
 
 function deploy_to_pypi () {
-    pip3 install twine wheel
-    python3 setup.py sdist bdist_wheel
+    pip2 install twine wheel
+    python2 setup.py sdist bdist_wheel
     TWINE_USERNAME=__token__ twine upload dist/*
 }
 

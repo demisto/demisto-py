@@ -4,7 +4,7 @@
 
 [1]: https://pypi.org/project/demisto-py/#history
 
-## 2.0.15
+## 2.0.17
 * Support `import_layout` to upload the new layout version(layoutscontainer).
 * Fixed `import_layout` when uploading an old layout version.
 * Removed testing with Python 3.6 and added testing with Python 3.8.

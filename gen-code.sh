@@ -109,3 +109,9 @@ sed -i "${INPLACE[@]}" -e "${start}a\\
 # remove files not used
 rm .travis.yml
 rm git_push.sh
+
+echo "# DO NOT MODIFY CODE IN THIS DIRECTORY OR SUB-DIRS.
+
+Use gen-code.sh to perform any changes needed in generated code.
+
+" > demisto_client/demisto_api/README.md

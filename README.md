@@ -176,7 +176,7 @@ pip install -i https://test.pypi.org/simple/ demisto-py
 ```
 
 Steps to publish a production release:
-* Make sure [CHANGELOG.md[(CHANGELOG.md) is up to date.
+* Make sure [CHANGELOG.md](CHANGELOG.md) is up to date.
 * Create and push a tag with the release version using git. For example:
   ```
   git tag v2.0.19

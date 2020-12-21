@@ -4,6 +4,10 @@
 
 [1]: https://pypi.org/project/demisto-py/#history
 
+## 2.0.20
+* Prevent headers from being logged when `DEMISTO_SENSITIVE_LOGGING` environment variable is set to false.
+
+
 ## 2.0.19
 * Support `import_layout` to upload the new layout version(layoutscontainer).
 * Fixed `import_layout` when uploading an old layout version.

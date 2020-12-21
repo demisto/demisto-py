@@ -5,7 +5,7 @@
 [1]: https://pypi.org/project/demisto-py/#history
 
 ## 2.0.20
-* Prevent headers from being logged when `DEMISTO_SENSITIVE_LOGGING` environment variable is set to false.
+* Prevent headers from being logged when `DEMISTO_EXCEPTION_HEADER_LOGGING` environment variable is set to false.
 
 
 ## 2.0.19

@@ -313,7 +313,7 @@ class ApiException(Exception):
         """Custom error messages for exception"""
         sensitive_env = os.getenv("DEMISTO_EXCEPTION_HEADER_LOGGING")
         if sensitive_env:
-            sensitive_logging = sensitive_env.lower() not in ["true", "1", "yes"]
+            sensitive_logging = sensitive_env.lower() in ["true", "1", "yes"]
         else:
             sensitive_logging = False
         error_message = "({0})\n"\

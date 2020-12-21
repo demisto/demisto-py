@@ -67,7 +67,7 @@ sed -i "${INPLACE[@]}" -e 's#if six\.PY3:#if six.PY3 and r.getheader("Content-Ty
 sed -i "${INPLACE[@]}" -e 's/"""Custom error messages for exception"""/"""Custom error messages for exception"""\
         sensitive_env = os.getenv("DEMISTO_EXCEPTION_HEADER_LOGGING")\
         if sensitive_env:\
-            sensitive_logging = sensitive_env.lower() not in ["true", "1", "yes"]\
+            sensitive_logging = sensitive_env.lower() in ["true", "1", "yes"]\
         else:\
             sensitive_logging = False/' demisto_client/demisto_api/rest.py
 sed -i "${INPLACE[@]}" -e 's#        if self.headers:#        if self.headers and sensitive_logging:#' demisto_client/demisto_api/rest.py

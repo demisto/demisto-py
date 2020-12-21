@@ -18,6 +18,7 @@ import json
 import logging
 import re
 import ssl
+import os
 
 import certifi
 # python 2 and python 3 compatibility library

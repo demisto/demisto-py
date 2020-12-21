@@ -5,7 +5,7 @@
 # exit on errors
 set -e
 
-# IMPORTANT: Make sure when writing sed command to use: sed -i "${INPLACE[@]}" 
+# IMPORTANT: Make sure when writing sed command to use: sed -i "${INPLACE[@]}"
 # to be compatible with mac and linux
 # sed on mac requires '' as param and on linux doesn't
 if [[ "$(uname)" == Linux ]]; then
@@ -63,7 +63,14 @@ import demisto_client/g' demisto_client/demisto_api/api/default_api.py
 echo -e "\n    def generic_request(self, path, method, body=None, **kwargs):  # noqa: E501\n        return demisto_client.generic_request_func(self, path, method, body, **kwargs)" >> demisto_client/demisto_api/api/default_api.py
 # fix bug where binary data is decoded on py3
 sed -i "${INPLACE[@]}" -e 's#if six\.PY3:#if six.PY3 and r.getheader("Content-Type") != "application/octet-stream":#' demisto_client/demisto_api/rest.py
-
+# Disable sensitive logging by default
+sed -i "${INPLACE[@]}" -e 's/"""Custom error messages for exception"""/"""Custom error messages for exception"""\
+        sensitive_env = os.getenv("DEMISTO_EXCEPTION_HEADER_LOGGING")\
+        if sensitive_env:\
+            sensitive_logging = sensitive_env.lower() in ["true", "1", "yes"]\
+        else:\
+            sensitive_logging = False/' demisto_client/demisto_api/rest.py
+sed -i "${INPLACE[@]}" -e 's#        if self.headers:#        if self.headers and sensitive_logging:#' demisto_client/demisto_api/rest.py
 # Fix import layout command
 start=`grep "verify the required parameter 'type'" demisto_client/demisto_api/api/default_api.py -n | cut -f1 -d: | tail -1 | tr -d "\\n"`
 end=`grep ".kind. when calling .import_layout." demisto_client/demisto_api/api/default_api.py -n | cut -f1 -d: | tail -1 | tr -d "\\n"`

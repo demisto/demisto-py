@@ -311,9 +311,14 @@ class ApiException(Exception):
 
     def __str__(self):
         """Custom error messages for exception"""
+        sensitive_env = os.getenv("DEMISTO_EXCEPTION_HEADER_LOGGING")
+        if sensitive_env:
+            sensitive_logging = sensitive_env.lower() in ["true", "1", "yes"]
+        else:
+            sensitive_logging = False
         error_message = "({0})\n"\
                         "Reason: {1}\n".format(self.status, self.reason)
-        if self.headers:
+        if self.headers and sensitive_logging:
             error_message += "HTTP response headers: {0}\n".format(
                 self.headers)
 

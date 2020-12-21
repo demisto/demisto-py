@@ -4,6 +4,10 @@
 
 [1]: https://pypi.org/project/demisto-py/#history
 
+## 2.0.20
+* Log only headers in exceptions when `DEMISTO_EXCEPTION_HEADER_LOGGING` environment variable is set to true. This protects against possible sensitive data being logged in exceptions.
+
+
 ## 2.0.19
 * Support `import_layout` to upload the new layout version(layoutscontainer).
 * Fixed `import_layout` when uploading an old layout version.

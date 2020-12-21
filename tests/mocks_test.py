@@ -1,3 +1,5 @@
+import unittest
+
 from urllib3_mock import Responses
 import demisto_client
 from datetime import datetime
@@ -297,3 +299,81 @@ def test_import_layout_with_http_info_with_old_layout_format(mocker):
     mocker.patch.object(client.api_client, 'call_api', side_effect=[("{'demistoVersion': '5.0.0'}", 200, {'Content-type': 'application/json'}),  {'test': 'test'}])
     res = client.import_layout('tests_data/layout-details-test-V2.json')
     assert res.get('test') == 'test'
+
+
+class TestFailedGenericRequestNoEnv(unittest.TestCase):
+
+    def test_generic_request(self):
+        """
+        Given:
+        - Request which should result in an ApiException
+        When:
+        - No environment variable has been set
+        Then:
+        - Return ApiException without the headers in the error
+        """
+        from demisto_client.demisto_api.rest import ApiException
+
+        @responses.activate
+        def run():
+            responses.add('POST', '/test',
+                          body="Not good",
+                          status=400,
+                          content_type='text/plain')
+            api_instance = demisto_client.configure(base_url=host, api_key=api_key, debug=False)
+
+            with self.assertRaises(ApiException) as context:
+                (_, _, _) = api_instance.generic_request('/test', 'POST',
+                                                                    body="this is a test",
+                                                                    content_type='text/plain',
+                                                                    accept='text/plain')
+            self.assertTrue('HTTP response body' in str(context.exception))
+            self.assertFalse('HTTP response headers' in str(context.exception))
+            assert len(responses.calls) == 1
+            assert responses.calls[0].request.url == '/test'
+            assert responses.calls[0].request.host == 'localhost'
+            assert responses.calls[0].request.scheme == 'http'
+
+        run()
+        assert_reset()
+
+
+class TestFailedGenericRequestWithEnv(unittest.TestCase):
+
+    def test_generic_request(self):
+        """
+        Given:
+        - Request which should result in an ApiException
+        When:
+        - Environment variable DEMISTO_EXCEPTION_HEADER_LOGGING has been set to true
+        Then:
+        - Return ApiException with the headers in the error
+        """
+
+        import os
+        from demisto_client.demisto_api.rest import ApiException
+        from unittest import mock
+
+        @mock.patch.dict(os.environ, {"DEMISTO_EXCEPTION_HEADER_LOGGING": "true"})
+        @responses.activate
+        def run():
+            responses.add('POST', '/test',
+                          body="Not good",
+                          status=400,
+                          content_type='text/plain')
+            api_instance = demisto_client.configure(base_url=host, api_key=api_key, debug=False)
+
+            with self.assertRaises(ApiException) as context:
+                (_, _, _) = api_instance.generic_request('/test', 'POST',
+                                                                    body="this is a test",
+                                                                    content_type='text/plain',
+                                                                    accept='text/plain')
+            self.assertTrue('HTTP response body' in str(context.exception))
+            self.assertTrue('HTTP response headers' in str(context.exception))
+            assert len(responses.calls) == 1
+            assert responses.calls[0].request.url == '/test'
+            assert responses.calls[0].request.host == 'localhost'
+            assert responses.calls[0].request.scheme == 'http'
+
+        run()
+        assert_reset()

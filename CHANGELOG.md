@@ -3,6 +3,8 @@
 [PyPI History][1]
 
 [1]: https://pypi.org/project/demisto-py/#history
+## 2.0.21
+* don't cache last response in case `DONT_CACHE_LAST_RESPONSE` environment variable is set to true, this to avoid memory leaks.
 
 ## 2.0.20
 * Log only headers in exceptions when `DEMISTO_EXCEPTION_HEADER_LOGGING` environment variable is set to true. This protects against possible sensitive data being logged in exceptions.

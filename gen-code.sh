@@ -113,6 +113,9 @@ sed -i "${INPLACE[@]}" -e "${start}a\\
 \ \ \ \ \ \ \ \ classifier_data_json = json.loads(data)\\
 \ \ \ \ \ \ \ \ classifier_id = classifier_data_json.get('id')" demisto_client/demisto_api/api/default_api.py
 
+sed -i "${INPLACE[@]}" -e 's/PRIMITIVE_TYPES = (float, bool, bytes, six.text_type) + six.integer_types/CACHE_LAST_RESPONSE = not os.environ.get("DONT_CACHE_LAST_RESPONSE", False)\
+    PRIMITIVE_TYPES = (float, bool, bytes, six.text_type) + six.integer_types/' -e 's/self.last_response = response_data/if self.CACHE_LAST_RESPONSE:\
+            self.last_response = response_data/' demisto_client/demisto_api/api_client.py
 # End fix import_classifier
 
 # remove files not used

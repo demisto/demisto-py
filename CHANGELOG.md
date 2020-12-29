@@ -3,7 +3,7 @@
 [PyPI History][1]
 
 [1]: https://pypi.org/project/demisto-py/#history
-## 2.0.21
+## 2.0.22
 * don't cache last response in case `DONT_CACHE_LAST_RESPONSE` environment variable is set to true, this to avoid memory leaks.
 
 ## 2.0.20

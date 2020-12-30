@@ -48,6 +48,7 @@ class ApiClient(object):
         to the API
     """
 
+    CACHE_LAST_RESPONSE = not os.environ.get("DONT_CACHE_LAST_RESPONSE", False)
     PRIMITIVE_TYPES = (float, bool, bytes, six.text_type) + six.integer_types
     NATIVE_TYPES_MAPPING = {
         'int': int,
@@ -160,7 +161,8 @@ class ApiClient(object):
             _preload_content=_preload_content,
             _request_timeout=_request_timeout)
 
-        self.last_response = response_data
+        if self.CACHE_LAST_RESPONSE:
+            self.last_response = response_data
 
         return_data = response_data
         if _preload_content:

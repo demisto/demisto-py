@@ -4,7 +4,7 @@
 
 [1]: https://pypi.org/project/demisto-py/#history
 ## 2.0.23
-* Support for adding feed indicators vai the route: `/indicators/feed/json`.
+* Support for adding feed indicators via the route: `/indicators/feed/json`.
 
 ## 2.0.22
 * Don't cache last response in case `DONT_CACHE_LAST_RESPONSE` environment variable is set to true, this to avoid memory leaks.

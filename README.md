@@ -129,16 +129,16 @@ tox -l
 ```
 Then setup dev virtual envs for both python 2 and 3 (will also install all necessary requirements):
 ```
-tox --devenv venv2 --devenv py27
-tox --devenv venv3 --devenv py37
+tox --devenv py27
+tox --devenv py37
 ```
 Activate python 2 env by running:
 ```
-. venv2/bin/activate
+. py27/bin/activate
 ```
 Switch to python 3 env by running:
 ```
-. venv3/bin/activate
+. py37/bin/activate
 ```
 
 ## Running Unit Tests

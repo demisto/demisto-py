@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**complete_task_v2**](DefaultApi.md#complete_task_v2) | **POST** /v2/inv-playbook/task/complete | Complete a task
 [**copy_script**](DefaultApi.md#copy_script) | **POST** /automation/copy | Copy automation
 [**create_docker_image**](DefaultApi.md#create_docker_image) | **POST** /settings/docker-images | Create Image
+[**create_feed_indicators_json**](DefaultApi.md#create_feed_indicators_json) | **POST** /indicators/feed/json | Create feed indicators from JSON
 [**create_incident**](DefaultApi.md#create_incident) | **POST** /incident | Create single incident
 [**create_incident_json**](DefaultApi.md#create_incident_json) | **POST** /incident/json | Create incident from JSON
 [**create_incidents_batch**](DefaultApi.md#create_incidents_batch) | **POST** /incident/batch | Batch create incidents
@@ -381,6 +382,53 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**NewDockerImageResult**](NewDockerImageResult.md)
+
+### Authorization
+
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, application/xml
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **create_feed_indicators_json**
+> create_feed_indicators_json(feed_indicators_request)
+
+Create feed indicators from JSON
+
+Create indicators from raw JSON (similar to ingesting from a feed). Builds indicators according to the specified feed classifier, or uses the default one if not specified. Indicator properties (all optional except for value): **value** (string, required) | **type** (string) | **score** (number, 0-3, default `0`, where `0` means None, `1` Good, `2` Suspicious, and `3` Bad) | **sourceBrand** (string, default `\"External\"`) | **sourceInstance** (string, default `\"External\"`) | **reliability** (string, one of `\"A - Completely reliable\"`, `\"B - Usually reliable\"`, `\"C - Fairly reliable\"`, `\"D - Not usually reliable\"`, `\"E - Unreliable\"`, `\"F - Reliability cannot be judged\"`) | **expirationPolicy** (string, one of `\"never\"`, `\"interval\"`, `\"indicatorType\"`) | **expirationInterval** (number, in minutes)
+
+### Example
+```python
+from __future__ import print_function
+import time
+import demisto_client
+import demisto_client.demisto_api
+from demisto_client.demisto_api.rest import ApiException
+from pprint import pprint
+
+api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
+feed_indicators_request = demisto_client.demisto_api.FeedIndicatorsRequest() # FeedIndicatorsRequest | 
+
+try:
+    # Create feed indicators from JSON
+    api_instance.create_feed_indicators_json(feed_indicators_request)
+except ApiException as e:
+    print("Exception when calling DefaultApi->create_feed_indicators_json: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **feed_indicators_request** | [**FeedIndicatorsRequest**](FeedIndicatorsRequest.md)|  | 
+
+### Return type
+
+void (empty response body)
 
 ### Authorization
 

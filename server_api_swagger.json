@@ -1049,6 +1049,28 @@
         }
       }
     },
+    "/indicators/feed/json": {
+      "post": {
+        "description": "Create indicators from raw JSON (similar to ingesting from a feed). Builds indicators according to the specified feed classifier,\nor uses the default one if not specified.\nIndicator properties (all optional except for value): **value** (string, required) | **type** (string) | **score** (number, 0-3,\ndefault `0`, where `0` means None, `1` Good, `2` Suspicious, and `3` Bad) | **sourceBrand** (string, default `\"External\"`) | **sourceInstance**\n(string, default `\"External\"`) | **reliability** (string, one of `\"A - Completely reliable\"`, `\"B - Usually reliable\"`, `\"C - Fairly\nreliable\"`, `\"D - Not usually reliable\"`, `\"E - Unreliable\"`, `\"F - Reliability cannot be judged\"`) | **expirationPolicy** (string,\none of `\"never\"`, `\"interval\"`, `\"indicatorType\"`) | **expirationInterval** (number, in minutes)",
+        "summary": "Create feed indicators from JSON",
+        "operationId": "createFeedIndicatorsJson",
+        "parameters": [
+          {
+            "name": "FeedIndicatorsRequest",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/FeedIndicatorsRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Indicators created"
+          }
+        }
+      }
+    },
     "/indicators/search": {
       "post": {
         "description": "Search indicators by filter",
@@ -3844,6 +3866,40 @@
         "$ref": "#/definitions/FeedIndicator"
       },
       "x-go-package": "github.com/demisto/server/domain"
+    },
+    "FeedIndicatorsRequest": {
+      "description": "FeedIndicatorsRequest is the input for JSON feed indicator ingestion",
+      "type": "object",
+      "properties": {
+        "bypassExclusionList": {
+          "type": "boolean",
+          "x-go-name": "ShouldBypassExclusionList"
+        },
+        "classifierId": {
+          "type": "string",
+          "x-go-name": "ClassifierID"
+        },
+        "indicators": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RawFeedIndicator"
+          },
+          "x-go-name": "Indicators"
+        },
+        "mapperId": {
+          "type": "string",
+          "x-go-name": "MapperID"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/web"
+    },
+    "RawFeedIndicator": {
+      "description": "RawFeedIndicator is an unparsed feed indicator from JSON ingestion",
+      "type": "object",
+      "additionalProperties": {
+        "type": "object"
+      },
+      "x-go-package": "github.com/demisto/server/web"
     },
     "FieldGroup": {
       "description": "FieldGroup is the field group",

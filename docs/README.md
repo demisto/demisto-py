@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**complete_task_v2**](DefaultApi.md#complete_task_v2) | **POST** /v2/inv-playbook/task/complete | Complete a task
 [**copy_script**](DefaultApi.md#copy_script) | **POST** /automation/copy | Copy automation
 [**create_docker_image**](DefaultApi.md#create_docker_image) | **POST** /settings/docker-images | Create Image
+[**create_feed_indicators_json**](DefaultApi.md#create_feed_indicators_json) | **POST** /indicators/feed/json | Create feed indicators from JSON
 [**create_incident**](DefaultApi.md#create_incident) | **POST** /incident | Create single incident
 [**create_incident_json**](DefaultApi.md#create_incident_json) | **POST** /incident/json | Create incident from JSON
 [**create_incidents_batch**](DefaultApi.md#create_incidents_batch) | **POST** /incident/batch | Batch create incidents
@@ -127,6 +128,7 @@ Method | HTTP request | Description
  - [ExpirationSource](ExpirationSource.md)
  - [FeedIndicator](FeedIndicator.md)
  - [FeedIndicators](FeedIndicators.md)
+ - [FeedIndicatorsRequest](FeedIndicatorsRequest.md)
  - [FieldGroup](FieldGroup.md)
  - [FieldMapping](FieldMapping.md)
  - [FieldTermLocationMap](FieldTermLocationMap.md)
@@ -204,6 +206,7 @@ Method | HTTP request | Description
  - [PlaybookView](PlaybookView.md)
  - [Question](Question.md)
  - [QuietMode](QuietMode.md)
+ - [RawFeedIndicator](RawFeedIndicator.md)
  - [RawMessage](RawMessage.md)
  - [Reliability](Reliability.md)
  - [RemoteRepos](RemoteRepos.md)

@@ -70,6 +70,7 @@ from demisto_client.demisto_api.models.expiration_settings_source import Expirat
 from demisto_client.demisto_api.models.expiration_source import ExpirationSource
 from demisto_client.demisto_api.models.feed_indicator import FeedIndicator
 from demisto_client.demisto_api.models.feed_indicators import FeedIndicators
+from demisto_client.demisto_api.models.feed_indicators_request import FeedIndicatorsRequest
 from demisto_client.demisto_api.models.field_group import FieldGroup
 from demisto_client.demisto_api.models.field_mapping import FieldMapping
 from demisto_client.demisto_api.models.field_term_location_map import FieldTermLocationMap
@@ -147,6 +148,7 @@ from demisto_client.demisto_api.models.playbook_task import PlaybookTask
 from demisto_client.demisto_api.models.playbook_view import PlaybookView
 from demisto_client.demisto_api.models.question import Question
 from demisto_client.demisto_api.models.quiet_mode import QuietMode
+from demisto_client.demisto_api.models.raw_feed_indicator import RawFeedIndicator
 from demisto_client.demisto_api.models.raw_message import RawMessage
 from demisto_client.demisto_api.models.reliability import Reliability
 from demisto_client.demisto_api.models.remote_repos import RemoteRepos

@@ -20,6 +20,7 @@ jobs:
         - run:
             name: tox build
             command: |
+              pip -V
               pip install tox
               tox -q
         - run:

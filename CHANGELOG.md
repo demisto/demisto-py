@@ -3,6 +3,9 @@
 [PyPI History][1]
 
 [1]: https://pypi.org/project/demisto-py/#history
+## 2.0.24
+* Fixed bug in arguments required for the route: `/v2/inv-playbook/task/form/submit`.
+
 ## 2.0.23
 * Support for adding feed indicators via the route: `/indicators/feed/json`.
 

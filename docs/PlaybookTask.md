@@ -14,6 +14,8 @@ Name | Type | Description | Notes
 **form_display** | [**FormDisplay**](FormDisplay.md) |  | [optional] 
 **id** | **str** |  | [optional] 
 **ignore_worker** | **bool** | Do not run this task in a worker | [optional] 
+**is_auto_switched_to_quiet_mode** | **bool** |  | [optional] 
+**is_over_size** | **bool** |  | [optional] 
 **loop** | [**TaskLoop**](TaskLoop.md) |  | [optional] 
 **message** | [**NotifiableItem**](NotifiableItem.md) |  | [optional] 
 **next_tasks** | **dict(str, list[str])** |  | [optional] 

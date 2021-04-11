@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    Demisto API
+    Cortex XSOAR API
 
-    This is the public REST API to integrate with the demisto server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Demisto web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Demisto REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Demisto server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Demisto has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Demisto will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
+    This is the public REST API to integrate with the Cortex XSOAR server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Cortex XSOAR web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Cortex XSOAR REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Cortex XSOAR server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Cortex XSOAR has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Cortex XSOAR will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
 
     OpenAPI spec version: 2.0.0
     
@@ -16,9 +16,12 @@ import re  # noqa: F401
 
 import six
 
+from demisto_client.demisto_api.models.advance_arg import AdvanceArg  # noqa: F401,E501
 from demisto_client.demisto_api.models.feed_indicators import FeedIndicators  # noqa: F401,E501
 from demisto_client.demisto_api.models.incidents import Incidents  # noqa: F401,E501
 from demisto_client.demisto_api.models.mapper import Mapper  # noqa: F401,E501
+from demisto_client.demisto_api.models.mapper_type import MapperType  # noqa: F401,E501
+from demisto_client.demisto_api.models.unclassified_cases import UnclassifiedCases  # noqa: F401,E501
 from demisto_client.demisto_api.models.version import Version  # noqa: F401,E501
 
 
@@ -36,119 +39,173 @@ class InstanceClassifier(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'brand_name': 'str',
+        'brands': 'list[str]',
         'commit_message': 'str',
-        'custom': 'bool',
         'default_incident_type': 'str',
+        'description': 'str',
         'feed': 'bool',
         'from_server_version': 'Version',
+        'highlight': 'dict(str, list[str])',
         'id': 'str',
         'incident_samples': 'Incidents',
         'indicator_samples': 'FeedIndicators',
-        'instance_id': 'str',
-        'instance_name': 'str',
-        'is_default': 'bool',
+        'instance_ids': 'list[str]',
         'item_version': 'Version',
         'key_type_map': 'dict(str, str)',
+        'locked': 'bool',
+        'logical_version': 'int',
         'mapping': 'dict(str, Mapper)',
         'modified': 'datetime',
+        'name': 'str',
+        'name_raw': 'str',
+        'numeric_id': 'int',
         'pack_id': 'str',
+        'pack_propagation_labels': 'list[str]',
+        'prev_name': 'str',
         'primary_term': 'int',
         'propagation_labels': 'list[str]',
         'sequence_number': 'int',
         'should_commit': 'bool',
         'sort_values': 'list[str]',
+        'source_classifier_id': 'str',
+        'system': 'bool',
+        'to_server_version': 'Version',
+        'transformer': 'AdvanceArg',
+        'type': 'MapperType',
+        'unclassified_cases': 'dict(str, UnclassifiedCases)',
+        'vc_should_ignore': 'bool',
+        'vc_should_keep_item_legacy_prod_machine': 'bool',
         'version': 'int'
     }
 
     attribute_map = {
-        'brand_name': 'brandName',
+        'brands': 'brands',
         'commit_message': 'commitMessage',
-        'custom': 'custom',
         'default_incident_type': 'defaultIncidentType',
+        'description': 'description',
         'feed': 'feed',
         'from_server_version': 'fromServerVersion',
+        'highlight': 'highlight',
         'id': 'id',
         'incident_samples': 'incidentSamples',
         'indicator_samples': 'indicatorSamples',
-        'instance_id': 'instanceId',
-        'instance_name': 'instanceName',
-        'is_default': 'isDefault',
+        'instance_ids': 'instanceIds',
         'item_version': 'itemVersion',
         'key_type_map': 'keyTypeMap',
+        'locked': 'locked',
+        'logical_version': 'logicalVersion',
         'mapping': 'mapping',
         'modified': 'modified',
+        'name': 'name',
+        'name_raw': 'nameRaw',
+        'numeric_id': 'numericId',
         'pack_id': 'packID',
+        'pack_propagation_labels': 'packPropagationLabels',
+        'prev_name': 'prevName',
         'primary_term': 'primaryTerm',
         'propagation_labels': 'propagationLabels',
         'sequence_number': 'sequenceNumber',
         'should_commit': 'shouldCommit',
         'sort_values': 'sortValues',
+        'source_classifier_id': 'sourceClassifierId',
+        'system': 'system',
+        'to_server_version': 'toServerVersion',
+        'transformer': 'transformer',
+        'type': 'type',
+        'unclassified_cases': 'unclassifiedCases',
+        'vc_should_ignore': 'vcShouldIgnore',
+        'vc_should_keep_item_legacy_prod_machine': 'vcShouldKeepItemLegacyProdMachine',
         'version': 'version'
     }
 
-    def __init__(self, brand_name=None, commit_message=None, custom=None, default_incident_type=None, feed=None, from_server_version=None, id=None, incident_samples=None, indicator_samples=None, instance_id=None, instance_name=None, is_default=None, item_version=None, key_type_map=None, mapping=None, modified=None, pack_id=None, primary_term=None, propagation_labels=None, sequence_number=None, should_commit=None, sort_values=None, version=None):  # noqa: E501
+    def __init__(self, brands=None, commit_message=None, default_incident_type=None, description=None, feed=None, from_server_version=None, highlight=None, id=None, incident_samples=None, indicator_samples=None, instance_ids=None, item_version=None, key_type_map=None, locked=None, logical_version=None, mapping=None, modified=None, name=None, name_raw=None, numeric_id=None, pack_id=None, pack_propagation_labels=None, prev_name=None, primary_term=None, propagation_labels=None, sequence_number=None, should_commit=None, sort_values=None, source_classifier_id=None, system=None, to_server_version=None, transformer=None, type=None, unclassified_cases=None, vc_should_ignore=None, vc_should_keep_item_legacy_prod_machine=None, version=None):  # noqa: E501
         """InstanceClassifier - a model defined in Swagger"""  # noqa: E501
 
-        self._brand_name = None
+        self._brands = None
         self._commit_message = None
-        self._custom = None
         self._default_incident_type = None
+        self._description = None
         self._feed = None
         self._from_server_version = None
+        self._highlight = None
         self._id = None
         self._incident_samples = None
         self._indicator_samples = None
-        self._instance_id = None
-        self._instance_name = None
-        self._is_default = None
+        self._instance_ids = None
         self._item_version = None
         self._key_type_map = None
+        self._locked = None
+        self._logical_version = None
         self._mapping = None
         self._modified = None
+        self._name = None
+        self._name_raw = None
+        self._numeric_id = None
         self._pack_id = None
+        self._pack_propagation_labels = None
+        self._prev_name = None
         self._primary_term = None
         self._propagation_labels = None
         self._sequence_number = None
         self._should_commit = None
         self._sort_values = None
+        self._source_classifier_id = None
+        self._system = None
+        self._to_server_version = None
+        self._transformer = None
+        self._type = None
+        self._unclassified_cases = None
+        self._vc_should_ignore = None
+        self._vc_should_keep_item_legacy_prod_machine = None
         self._version = None
         self.discriminator = None
 
-        if brand_name is not None:
-            self.brand_name = brand_name
+        if brands is not None:
+            self.brands = brands
         if commit_message is not None:
             self.commit_message = commit_message
-        if custom is not None:
-            self.custom = custom
         if default_incident_type is not None:
             self.default_incident_type = default_incident_type
+        if description is not None:
+            self.description = description
         if feed is not None:
             self.feed = feed
         if from_server_version is not None:
             self.from_server_version = from_server_version
+        if highlight is not None:
+            self.highlight = highlight
         if id is not None:
             self.id = id
         if incident_samples is not None:
             self.incident_samples = incident_samples
         if indicator_samples is not None:
             self.indicator_samples = indicator_samples
-        if instance_id is not None:
-            self.instance_id = instance_id
-        if instance_name is not None:
-            self.instance_name = instance_name
-        if is_default is not None:
-            self.is_default = is_default
+        if instance_ids is not None:
+            self.instance_ids = instance_ids
         if item_version is not None:
             self.item_version = item_version
         if key_type_map is not None:
             self.key_type_map = key_type_map
+        if locked is not None:
+            self.locked = locked
+        if logical_version is not None:
+            self.logical_version = logical_version
         if mapping is not None:
             self.mapping = mapping
         if modified is not None:
             self.modified = modified
+        if name is not None:
+            self.name = name
+        if name_raw is not None:
+            self.name_raw = name_raw
+        if numeric_id is not None:
+            self.numeric_id = numeric_id
         if pack_id is not None:
             self.pack_id = pack_id
+        if pack_propagation_labels is not None:
+            self.pack_propagation_labels = pack_propagation_labels
+        if prev_name is not None:
+            self.prev_name = prev_name
         if primary_term is not None:
             self.primary_term = primary_term
         if propagation_labels is not None:
@@ -159,29 +216,45 @@ class InstanceClassifier(object):
             self.should_commit = should_commit
         if sort_values is not None:
             self.sort_values = sort_values
+        if source_classifier_id is not None:
+            self.source_classifier_id = source_classifier_id
+        if system is not None:
+            self.system = system
+        if to_server_version is not None:
+            self.to_server_version = to_server_version
+        if transformer is not None:
+            self.transformer = transformer
+        if type is not None:
+            self.type = type
+        if unclassified_cases is not None:
+            self.unclassified_cases = unclassified_cases
+        if vc_should_ignore is not None:
+            self.vc_should_ignore = vc_should_ignore
+        if vc_should_keep_item_legacy_prod_machine is not None:
+            self.vc_should_keep_item_legacy_prod_machine = vc_should_keep_item_legacy_prod_machine
         if version is not None:
             self.version = version
 
     @property
-    def brand_name(self):
-        """Gets the brand_name of this InstanceClassifier.  # noqa: E501
+    def brands(self):
+        """Gets the brands of this InstanceClassifier.  # noqa: E501
 
 
-        :return: The brand_name of this InstanceClassifier.  # noqa: E501
-        :rtype: str
+        :return: The brands of this InstanceClassifier.  # noqa: E501
+        :rtype: list[str]
         """
-        return self._brand_name
+        return self._brands
 
-    @brand_name.setter
-    def brand_name(self, brand_name):
-        """Sets the brand_name of this InstanceClassifier.
+    @brands.setter
+    def brands(self, brands):
+        """Sets the brands of this InstanceClassifier.
 
 
-        :param brand_name: The brand_name of this InstanceClassifier.  # noqa: E501
-        :type: str
+        :param brands: The brands of this InstanceClassifier.  # noqa: E501
+        :type: list[str]
         """
 
-        self._brand_name = brand_name
+        self._brands = brands
 
     @property
     def commit_message(self):
@@ -205,27 +278,6 @@ class InstanceClassifier(object):
         self._commit_message = commit_message
 
     @property
-    def custom(self):
-        """Gets the custom of this InstanceClassifier.  # noqa: E501
-
-
-        :return: The custom of this InstanceClassifier.  # noqa: E501
-        :rtype: bool
-        """
-        return self._custom
-
-    @custom.setter
-    def custom(self, custom):
-        """Sets the custom of this InstanceClassifier.
-
-
-        :param custom: The custom of this InstanceClassifier.  # noqa: E501
-        :type: bool
-        """
-
-        self._custom = custom
-
-    @property
     def default_incident_type(self):
         """Gets the default_incident_type of this InstanceClassifier.  # noqa: E501
 
@@ -245,6 +297,27 @@ class InstanceClassifier(object):
         """
 
         self._default_incident_type = default_incident_type
+
+    @property
+    def description(self):
+        """Gets the description of this InstanceClassifier.  # noqa: E501
+
+
+        :return: The description of this InstanceClassifier.  # noqa: E501
+        :rtype: str
+        """
+        return self._description
+
+    @description.setter
+    def description(self, description):
+        """Sets the description of this InstanceClassifier.
+
+
+        :param description: The description of this InstanceClassifier.  # noqa: E501
+        :type: str
+        """
+
+        self._description = description
 
     @property
     def feed(self):
@@ -287,6 +360,27 @@ class InstanceClassifier(object):
         """
 
         self._from_server_version = from_server_version
+
+    @property
+    def highlight(self):
+        """Gets the highlight of this InstanceClassifier.  # noqa: E501
+
+
+        :return: The highlight of this InstanceClassifier.  # noqa: E501
+        :rtype: dict(str, list[str])
+        """
+        return self._highlight
+
+    @highlight.setter
+    def highlight(self, highlight):
+        """Sets the highlight of this InstanceClassifier.
+
+
+        :param highlight: The highlight of this InstanceClassifier.  # noqa: E501
+        :type: dict(str, list[str])
+        """
+
+        self._highlight = highlight
 
     @property
     def id(self):
@@ -352,67 +446,25 @@ class InstanceClassifier(object):
         self._indicator_samples = indicator_samples
 
     @property
-    def instance_id(self):
-        """Gets the instance_id of this InstanceClassifier.  # noqa: E501
+    def instance_ids(self):
+        """Gets the instance_ids of this InstanceClassifier.  # noqa: E501
 
 
-        :return: The instance_id of this InstanceClassifier.  # noqa: E501
-        :rtype: str
+        :return: The instance_ids of this InstanceClassifier.  # noqa: E501
+        :rtype: list[str]
         """
-        return self._instance_id
+        return self._instance_ids
 
-    @instance_id.setter
-    def instance_id(self, instance_id):
-        """Sets the instance_id of this InstanceClassifier.
-
-
-        :param instance_id: The instance_id of this InstanceClassifier.  # noqa: E501
-        :type: str
-        """
-
-        self._instance_id = instance_id
-
-    @property
-    def instance_name(self):
-        """Gets the instance_name of this InstanceClassifier.  # noqa: E501
+    @instance_ids.setter
+    def instance_ids(self, instance_ids):
+        """Sets the instance_ids of this InstanceClassifier.
 
 
-        :return: The instance_name of this InstanceClassifier.  # noqa: E501
-        :rtype: str
-        """
-        return self._instance_name
-
-    @instance_name.setter
-    def instance_name(self, instance_name):
-        """Sets the instance_name of this InstanceClassifier.
-
-
-        :param instance_name: The instance_name of this InstanceClassifier.  # noqa: E501
-        :type: str
+        :param instance_ids: The instance_ids of this InstanceClassifier.  # noqa: E501
+        :type: list[str]
         """
 
-        self._instance_name = instance_name
-
-    @property
-    def is_default(self):
-        """Gets the is_default of this InstanceClassifier.  # noqa: E501
-
-
-        :return: The is_default of this InstanceClassifier.  # noqa: E501
-        :rtype: bool
-        """
-        return self._is_default
-
-    @is_default.setter
-    def is_default(self, is_default):
-        """Sets the is_default of this InstanceClassifier.
-
-
-        :param is_default: The is_default of this InstanceClassifier.  # noqa: E501
-        :type: bool
-        """
-
-        self._is_default = is_default
+        self._instance_ids = instance_ids
 
     @property
     def item_version(self):
@@ -457,6 +509,48 @@ class InstanceClassifier(object):
         self._key_type_map = key_type_map
 
     @property
+    def locked(self):
+        """Gets the locked of this InstanceClassifier.  # noqa: E501
+
+
+        :return: The locked of this InstanceClassifier.  # noqa: E501
+        :rtype: bool
+        """
+        return self._locked
+
+    @locked.setter
+    def locked(self, locked):
+        """Sets the locked of this InstanceClassifier.
+
+
+        :param locked: The locked of this InstanceClassifier.  # noqa: E501
+        :type: bool
+        """
+
+        self._locked = locked
+
+    @property
+    def logical_version(self):
+        """Gets the logical_version of this InstanceClassifier.  # noqa: E501
+
+
+        :return: The logical_version of this InstanceClassifier.  # noqa: E501
+        :rtype: int
+        """
+        return self._logical_version
+
+    @logical_version.setter
+    def logical_version(self, logical_version):
+        """Sets the logical_version of this InstanceClassifier.
+
+
+        :param logical_version: The logical_version of this InstanceClassifier.  # noqa: E501
+        :type: int
+        """
+
+        self._logical_version = logical_version
+
+    @property
     def mapping(self):
         """Gets the mapping of this InstanceClassifier.  # noqa: E501
 
@@ -499,6 +593,69 @@ class InstanceClassifier(object):
         self._modified = modified
 
     @property
+    def name(self):
+        """Gets the name of this InstanceClassifier.  # noqa: E501
+
+
+        :return: The name of this InstanceClassifier.  # noqa: E501
+        :rtype: str
+        """
+        return self._name
+
+    @name.setter
+    def name(self, name):
+        """Sets the name of this InstanceClassifier.
+
+
+        :param name: The name of this InstanceClassifier.  # noqa: E501
+        :type: str
+        """
+
+        self._name = name
+
+    @property
+    def name_raw(self):
+        """Gets the name_raw of this InstanceClassifier.  # noqa: E501
+
+
+        :return: The name_raw of this InstanceClassifier.  # noqa: E501
+        :rtype: str
+        """
+        return self._name_raw
+
+    @name_raw.setter
+    def name_raw(self, name_raw):
+        """Sets the name_raw of this InstanceClassifier.
+
+
+        :param name_raw: The name_raw of this InstanceClassifier.  # noqa: E501
+        :type: str
+        """
+
+        self._name_raw = name_raw
+
+    @property
+    def numeric_id(self):
+        """Gets the numeric_id of this InstanceClassifier.  # noqa: E501
+
+
+        :return: The numeric_id of this InstanceClassifier.  # noqa: E501
+        :rtype: int
+        """
+        return self._numeric_id
+
+    @numeric_id.setter
+    def numeric_id(self, numeric_id):
+        """Sets the numeric_id of this InstanceClassifier.
+
+
+        :param numeric_id: The numeric_id of this InstanceClassifier.  # noqa: E501
+        :type: int
+        """
+
+        self._numeric_id = numeric_id
+
+    @property
     def pack_id(self):
         """Gets the pack_id of this InstanceClassifier.  # noqa: E501
 
@@ -518,6 +675,48 @@ class InstanceClassifier(object):
         """
 
         self._pack_id = pack_id
+
+    @property
+    def pack_propagation_labels(self):
+        """Gets the pack_propagation_labels of this InstanceClassifier.  # noqa: E501
+
+
+        :return: The pack_propagation_labels of this InstanceClassifier.  # noqa: E501
+        :rtype: list[str]
+        """
+        return self._pack_propagation_labels
+
+    @pack_propagation_labels.setter
+    def pack_propagation_labels(self, pack_propagation_labels):
+        """Sets the pack_propagation_labels of this InstanceClassifier.
+
+
+        :param pack_propagation_labels: The pack_propagation_labels of this InstanceClassifier.  # noqa: E501
+        :type: list[str]
+        """
+
+        self._pack_propagation_labels = pack_propagation_labels
+
+    @property
+    def prev_name(self):
+        """Gets the prev_name of this InstanceClassifier.  # noqa: E501
+
+
+        :return: The prev_name of this InstanceClassifier.  # noqa: E501
+        :rtype: str
+        """
+        return self._prev_name
+
+    @prev_name.setter
+    def prev_name(self, prev_name):
+        """Sets the prev_name of this InstanceClassifier.
+
+
+        :param prev_name: The prev_name of this InstanceClassifier.  # noqa: E501
+        :type: str
+        """
+
+        self._prev_name = prev_name
 
     @property
     def primary_term(self):
@@ -623,6 +822,174 @@ class InstanceClassifier(object):
         """
 
         self._sort_values = sort_values
+
+    @property
+    def source_classifier_id(self):
+        """Gets the source_classifier_id of this InstanceClassifier.  # noqa: E501
+
+
+        :return: The source_classifier_id of this InstanceClassifier.  # noqa: E501
+        :rtype: str
+        """
+        return self._source_classifier_id
+
+    @source_classifier_id.setter
+    def source_classifier_id(self, source_classifier_id):
+        """Sets the source_classifier_id of this InstanceClassifier.
+
+
+        :param source_classifier_id: The source_classifier_id of this InstanceClassifier.  # noqa: E501
+        :type: str
+        """
+
+        self._source_classifier_id = source_classifier_id
+
+    @property
+    def system(self):
+        """Gets the system of this InstanceClassifier.  # noqa: E501
+
+
+        :return: The system of this InstanceClassifier.  # noqa: E501
+        :rtype: bool
+        """
+        return self._system
+
+    @system.setter
+    def system(self, system):
+        """Sets the system of this InstanceClassifier.
+
+
+        :param system: The system of this InstanceClassifier.  # noqa: E501
+        :type: bool
+        """
+
+        self._system = system
+
+    @property
+    def to_server_version(self):
+        """Gets the to_server_version of this InstanceClassifier.  # noqa: E501
+
+
+        :return: The to_server_version of this InstanceClassifier.  # noqa: E501
+        :rtype: Version
+        """
+        return self._to_server_version
+
+    @to_server_version.setter
+    def to_server_version(self, to_server_version):
+        """Sets the to_server_version of this InstanceClassifier.
+
+
+        :param to_server_version: The to_server_version of this InstanceClassifier.  # noqa: E501
+        :type: Version
+        """
+
+        self._to_server_version = to_server_version
+
+    @property
+    def transformer(self):
+        """Gets the transformer of this InstanceClassifier.  # noqa: E501
+
+
+        :return: The transformer of this InstanceClassifier.  # noqa: E501
+        :rtype: AdvanceArg
+        """
+        return self._transformer
+
+    @transformer.setter
+    def transformer(self, transformer):
+        """Sets the transformer of this InstanceClassifier.
+
+
+        :param transformer: The transformer of this InstanceClassifier.  # noqa: E501
+        :type: AdvanceArg
+        """
+
+        self._transformer = transformer
+
+    @property
+    def type(self):
+        """Gets the type of this InstanceClassifier.  # noqa: E501
+
+
+        :return: The type of this InstanceClassifier.  # noqa: E501
+        :rtype: MapperType
+        """
+        return self._type
+
+    @type.setter
+    def type(self, type):
+        """Sets the type of this InstanceClassifier.
+
+
+        :param type: The type of this InstanceClassifier.  # noqa: E501
+        :type: MapperType
+        """
+
+        self._type = type
+
+    @property
+    def unclassified_cases(self):
+        """Gets the unclassified_cases of this InstanceClassifier.  # noqa: E501
+
+
+        :return: The unclassified_cases of this InstanceClassifier.  # noqa: E501
+        :rtype: dict(str, UnclassifiedCases)
+        """
+        return self._unclassified_cases
+
+    @unclassified_cases.setter
+    def unclassified_cases(self, unclassified_cases):
+        """Sets the unclassified_cases of this InstanceClassifier.
+
+
+        :param unclassified_cases: The unclassified_cases of this InstanceClassifier.  # noqa: E501
+        :type: dict(str, UnclassifiedCases)
+        """
+
+        self._unclassified_cases = unclassified_cases
+
+    @property
+    def vc_should_ignore(self):
+        """Gets the vc_should_ignore of this InstanceClassifier.  # noqa: E501
+
+
+        :return: The vc_should_ignore of this InstanceClassifier.  # noqa: E501
+        :rtype: bool
+        """
+        return self._vc_should_ignore
+
+    @vc_should_ignore.setter
+    def vc_should_ignore(self, vc_should_ignore):
+        """Sets the vc_should_ignore of this InstanceClassifier.
+
+
+        :param vc_should_ignore: The vc_should_ignore of this InstanceClassifier.  # noqa: E501
+        :type: bool
+        """
+
+        self._vc_should_ignore = vc_should_ignore
+
+    @property
+    def vc_should_keep_item_legacy_prod_machine(self):
+        """Gets the vc_should_keep_item_legacy_prod_machine of this InstanceClassifier.  # noqa: E501
+
+
+        :return: The vc_should_keep_item_legacy_prod_machine of this InstanceClassifier.  # noqa: E501
+        :rtype: bool
+        """
+        return self._vc_should_keep_item_legacy_prod_machine
+
+    @vc_should_keep_item_legacy_prod_machine.setter
+    def vc_should_keep_item_legacy_prod_machine(self, vc_should_keep_item_legacy_prod_machine):
+        """Sets the vc_should_keep_item_legacy_prod_machine of this InstanceClassifier.
+
+
+        :param vc_should_keep_item_legacy_prod_machine: The vc_should_keep_item_legacy_prod_machine of this InstanceClassifier.  # noqa: E501
+        :type: bool
+        """
+
+        self._vc_should_keep_item_legacy_prod_machine = vc_should_keep_item_legacy_prod_machine
 
     @property
     def version(self):

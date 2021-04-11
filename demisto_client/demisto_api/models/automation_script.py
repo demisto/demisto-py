@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    Demisto API
+    Cortex XSOAR API
 
-    This is the public REST API to integrate with the demisto server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Demisto web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Demisto REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Demisto server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Demisto has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Demisto will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
+    This is the public REST API to integrate with the Cortex XSOAR server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Cortex XSOAR web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Cortex XSOAR REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Cortex XSOAR server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Cortex XSOAR has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Cortex XSOAR will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
 
     OpenAPI spec version: 2.0.0
     
@@ -23,6 +23,7 @@ from demisto_client.demisto_api.models.output import Output  # noqa: F401,E501
 from demisto_client.demisto_api.models.script_sub_type import ScriptSubType  # noqa: F401,E501
 from demisto_client.demisto_api.models.script_target import ScriptTarget  # noqa: F401,E501
 from demisto_client.demisto_api.models.script_type import ScriptType  # noqa: F401,E501
+from demisto_client.demisto_api.models.version import Version  # noqa: F401,E501
 
 
 class AutomationScript(object):
@@ -39,24 +40,40 @@ class AutomationScript(object):
                             and the value is json key in definition.
     """
     swagger_types = {
+        'all_read': 'bool',
+        'all_read_write': 'bool',
         'arguments': 'list[Argument]',
         'comment': 'str',
         'commit_message': 'str',
         'context_keys': 'list[str]',
+        'dbot_created_by': 'str',
         'depends_on': 'dict(str, list[str])',
         'deprecated': 'bool',
+        'detached': 'bool',
         'docker_image': 'str',
         'enabled': 'bool',
+        'from_server_version': 'Version',
         'has_role': 'bool',
         'hidden': 'bool',
+        'highlight': 'dict(str, list[str])',
         'id': 'str',
         'important': 'list[Important]',
+        'item_version': 'Version',
         'locked': 'bool',
         'modified': 'datetime',
         'name': 'str',
+        'numeric_id': 'int',
         'outputs': 'list[Output]',
+        'pack_id': 'str',
+        'pack_propagation_labels': 'list[str]',
+        'polling': 'bool',
         'prev_name': 'str',
+        'previous_all_read': 'bool',
+        'previous_all_read_write': 'bool',
         'previous_roles': 'list[str]',
+        'primary_term': 'int',
+        'private': 'bool',
+        'propagation_labels': 'list[str]',
         'pswd': 'str',
         'raw_tags': 'list[str]',
         'roles': 'list[str]',
@@ -66,38 +83,61 @@ class AutomationScript(object):
         'script_target': 'ScriptTarget',
         'searchable_name': 'str',
         'sensitive': 'bool',
+        'sequence_number': 'int',
         'should_commit': 'bool',
         'sort_values': 'list[str]',
+        'source_scrip_id': 'str',
         'subtype': 'ScriptSubType',
         'system': 'bool',
         'tags': 'list[str]',
         'timeout': 'Duration',
+        'to_server_version': 'Version',
         'type': 'ScriptType',
         'user': 'str',
         'vc_should_ignore': 'bool',
+        'vc_should_keep_item_legacy_prod_machine': 'bool',
         'version': 'int',
-        'visual_script': 'str'
+        'visual_script': 'str',
+        'xsoar_has_read_only_role': 'bool',
+        'xsoar_previous_read_only_roles': 'list[str]',
+        'xsoar_read_only_roles': 'list[str]'
     }
 
     attribute_map = {
+        'all_read': 'allRead',
+        'all_read_write': 'allReadWrite',
         'arguments': 'arguments',
         'comment': 'comment',
         'commit_message': 'commitMessage',
         'context_keys': 'contextKeys',
+        'dbot_created_by': 'dbotCreatedBy',
         'depends_on': 'dependsOn',
         'deprecated': 'deprecated',
+        'detached': 'detached',
         'docker_image': 'dockerImage',
         'enabled': 'enabled',
+        'from_server_version': 'fromServerVersion',
         'has_role': 'hasRole',
         'hidden': 'hidden',
+        'highlight': 'highlight',
         'id': 'id',
         'important': 'important',
+        'item_version': 'itemVersion',
         'locked': 'locked',
         'modified': 'modified',
         'name': 'name',
+        'numeric_id': 'numericId',
         'outputs': 'outputs',
+        'pack_id': 'packID',
+        'pack_propagation_labels': 'packPropagationLabels',
+        'polling': 'polling',
         'prev_name': 'prevName',
+        'previous_all_read': 'previousAllRead',
+        'previous_all_read_write': 'previousAllReadWrite',
         'previous_roles': 'previousRoles',
+        'primary_term': 'primaryTerm',
+        'private': 'private',
+        'propagation_labels': 'propagationLabels',
         'pswd': 'pswd',
         'raw_tags': 'rawTags',
         'roles': 'roles',
@@ -107,40 +147,63 @@ class AutomationScript(object):
         'script_target': 'scriptTarget',
         'searchable_name': 'searchableName',
         'sensitive': 'sensitive',
+        'sequence_number': 'sequenceNumber',
         'should_commit': 'shouldCommit',
         'sort_values': 'sortValues',
+        'source_scrip_id': 'sourceScripID',
         'subtype': 'subtype',
         'system': 'system',
         'tags': 'tags',
         'timeout': 'timeout',
+        'to_server_version': 'toServerVersion',
         'type': 'type',
         'user': 'user',
         'vc_should_ignore': 'vcShouldIgnore',
+        'vc_should_keep_item_legacy_prod_machine': 'vcShouldKeepItemLegacyProdMachine',
         'version': 'version',
-        'visual_script': 'visualScript'
+        'visual_script': 'visualScript',
+        'xsoar_has_read_only_role': 'xsoarHasReadOnlyRole',
+        'xsoar_previous_read_only_roles': 'xsoarPreviousReadOnlyRoles',
+        'xsoar_read_only_roles': 'xsoarReadOnlyRoles'
     }
 
-    def __init__(self, arguments=None, comment=None, commit_message=None, context_keys=None, depends_on=None, deprecated=None, docker_image=None, enabled=None, has_role=None, hidden=None, id=None, important=None, locked=None, modified=None, name=None, outputs=None, prev_name=None, previous_roles=None, pswd=None, raw_tags=None, roles=None, run_as=None, run_once=None, script=None, script_target=None, searchable_name=None, sensitive=None, should_commit=None, sort_values=None, subtype=None, system=None, tags=None, timeout=None, type=None, user=None, vc_should_ignore=None, version=None, visual_script=None):  # noqa: E501
+    def __init__(self, all_read=None, all_read_write=None, arguments=None, comment=None, commit_message=None, context_keys=None, dbot_created_by=None, depends_on=None, deprecated=None, detached=None, docker_image=None, enabled=None, from_server_version=None, has_role=None, hidden=None, highlight=None, id=None, important=None, item_version=None, locked=None, modified=None, name=None, numeric_id=None, outputs=None, pack_id=None, pack_propagation_labels=None, polling=None, prev_name=None, previous_all_read=None, previous_all_read_write=None, previous_roles=None, primary_term=None, private=None, propagation_labels=None, pswd=None, raw_tags=None, roles=None, run_as=None, run_once=None, script=None, script_target=None, searchable_name=None, sensitive=None, sequence_number=None, should_commit=None, sort_values=None, source_scrip_id=None, subtype=None, system=None, tags=None, timeout=None, to_server_version=None, type=None, user=None, vc_should_ignore=None, vc_should_keep_item_legacy_prod_machine=None, version=None, visual_script=None, xsoar_has_read_only_role=None, xsoar_previous_read_only_roles=None, xsoar_read_only_roles=None):  # noqa: E501
         """AutomationScript - a model defined in Swagger"""  # noqa: E501
 
+        self._all_read = None
+        self._all_read_write = None
         self._arguments = None
         self._comment = None
         self._commit_message = None
         self._context_keys = None
+        self._dbot_created_by = None
         self._depends_on = None
         self._deprecated = None
+        self._detached = None
         self._docker_image = None
         self._enabled = None
+        self._from_server_version = None
         self._has_role = None
         self._hidden = None
+        self._highlight = None
         self._id = None
         self._important = None
+        self._item_version = None
         self._locked = None
         self._modified = None
         self._name = None
+        self._numeric_id = None
         self._outputs = None
+        self._pack_id = None
+        self._pack_propagation_labels = None
+        self._polling = None
         self._prev_name = None
+        self._previous_all_read = None
+        self._previous_all_read_write = None
         self._previous_roles = None
+        self._primary_term = None
+        self._private = None
+        self._propagation_labels = None
         self._pswd = None
         self._raw_tags = None
         self._roles = None
@@ -150,19 +213,30 @@ class AutomationScript(object):
         self._script_target = None
         self._searchable_name = None
         self._sensitive = None
+        self._sequence_number = None
         self._should_commit = None
         self._sort_values = None
+        self._source_scrip_id = None
         self._subtype = None
         self._system = None
         self._tags = None
         self._timeout = None
+        self._to_server_version = None
         self._type = None
         self._user = None
         self._vc_should_ignore = None
+        self._vc_should_keep_item_legacy_prod_machine = None
         self._version = None
         self._visual_script = None
+        self._xsoar_has_read_only_role = None
+        self._xsoar_previous_read_only_roles = None
+        self._xsoar_read_only_roles = None
         self.discriminator = None
 
+        if all_read is not None:
+            self.all_read = all_read
+        if all_read_write is not None:
+            self.all_read_write = all_read_write
         if arguments is not None:
             self.arguments = arguments
         if comment is not None:
@@ -171,34 +245,62 @@ class AutomationScript(object):
             self.commit_message = commit_message
         if context_keys is not None:
             self.context_keys = context_keys
+        if dbot_created_by is not None:
+            self.dbot_created_by = dbot_created_by
         if depends_on is not None:
             self.depends_on = depends_on
         if deprecated is not None:
             self.deprecated = deprecated
+        if detached is not None:
+            self.detached = detached
         if docker_image is not None:
             self.docker_image = docker_image
         if enabled is not None:
             self.enabled = enabled
+        if from_server_version is not None:
+            self.from_server_version = from_server_version
         if has_role is not None:
             self.has_role = has_role
         if hidden is not None:
             self.hidden = hidden
+        if highlight is not None:
+            self.highlight = highlight
         if id is not None:
             self.id = id
         if important is not None:
             self.important = important
+        if item_version is not None:
+            self.item_version = item_version
         if locked is not None:
             self.locked = locked
         if modified is not None:
             self.modified = modified
         if name is not None:
             self.name = name
+        if numeric_id is not None:
+            self.numeric_id = numeric_id
         if outputs is not None:
             self.outputs = outputs
+        if pack_id is not None:
+            self.pack_id = pack_id
+        if pack_propagation_labels is not None:
+            self.pack_propagation_labels = pack_propagation_labels
+        if polling is not None:
+            self.polling = polling
         if prev_name is not None:
             self.prev_name = prev_name
+        if previous_all_read is not None:
+            self.previous_all_read = previous_all_read
+        if previous_all_read_write is not None:
+            self.previous_all_read_write = previous_all_read_write
         if previous_roles is not None:
             self.previous_roles = previous_roles
+        if primary_term is not None:
+            self.primary_term = primary_term
+        if private is not None:
+            self.private = private
+        if propagation_labels is not None:
+            self.propagation_labels = propagation_labels
         if pswd is not None:
             self.pswd = pswd
         if raw_tags is not None:
@@ -217,10 +319,14 @@ class AutomationScript(object):
             self.searchable_name = searchable_name
         if sensitive is not None:
             self.sensitive = sensitive
+        if sequence_number is not None:
+            self.sequence_number = sequence_number
         if should_commit is not None:
             self.should_commit = should_commit
         if sort_values is not None:
             self.sort_values = sort_values
+        if source_scrip_id is not None:
+            self.source_scrip_id = source_scrip_id
         if subtype is not None:
             self.subtype = subtype
         if system is not None:
@@ -229,16 +335,68 @@ class AutomationScript(object):
             self.tags = tags
         if timeout is not None:
             self.timeout = timeout
+        if to_server_version is not None:
+            self.to_server_version = to_server_version
         if type is not None:
             self.type = type
         if user is not None:
             self.user = user
         if vc_should_ignore is not None:
             self.vc_should_ignore = vc_should_ignore
+        if vc_should_keep_item_legacy_prod_machine is not None:
+            self.vc_should_keep_item_legacy_prod_machine = vc_should_keep_item_legacy_prod_machine
         if version is not None:
             self.version = version
         if visual_script is not None:
             self.visual_script = visual_script
+        if xsoar_has_read_only_role is not None:
+            self.xsoar_has_read_only_role = xsoar_has_read_only_role
+        if xsoar_previous_read_only_roles is not None:
+            self.xsoar_previous_read_only_roles = xsoar_previous_read_only_roles
+        if xsoar_read_only_roles is not None:
+            self.xsoar_read_only_roles = xsoar_read_only_roles
+
+    @property
+    def all_read(self):
+        """Gets the all_read of this AutomationScript.  # noqa: E501
+
+
+        :return: The all_read of this AutomationScript.  # noqa: E501
+        :rtype: bool
+        """
+        return self._all_read
+
+    @all_read.setter
+    def all_read(self, all_read):
+        """Sets the all_read of this AutomationScript.
+
+
+        :param all_read: The all_read of this AutomationScript.  # noqa: E501
+        :type: bool
+        """
+
+        self._all_read = all_read
+
+    @property
+    def all_read_write(self):
+        """Gets the all_read_write of this AutomationScript.  # noqa: E501
+
+
+        :return: The all_read_write of this AutomationScript.  # noqa: E501
+        :rtype: bool
+        """
+        return self._all_read_write
+
+    @all_read_write.setter
+    def all_read_write(self, all_read_write):
+        """Sets the all_read_write of this AutomationScript.
+
+
+        :param all_read_write: The all_read_write of this AutomationScript.  # noqa: E501
+        :type: bool
+        """
+
+        self._all_read_write = all_read_write
 
     @property
     def arguments(self):
@@ -325,6 +483,29 @@ class AutomationScript(object):
         self._context_keys = context_keys
 
     @property
+    def dbot_created_by(self):
+        """Gets the dbot_created_by of this AutomationScript.  # noqa: E501
+
+        Who has created this event - relevant only for manual incidents  # noqa: E501
+
+        :return: The dbot_created_by of this AutomationScript.  # noqa: E501
+        :rtype: str
+        """
+        return self._dbot_created_by
+
+    @dbot_created_by.setter
+    def dbot_created_by(self, dbot_created_by):
+        """Sets the dbot_created_by of this AutomationScript.
+
+        Who has created this event - relevant only for manual incidents  # noqa: E501
+
+        :param dbot_created_by: The dbot_created_by of this AutomationScript.  # noqa: E501
+        :type: str
+        """
+
+        self._dbot_created_by = dbot_created_by
+
+    @property
     def depends_on(self):
         """Gets the depends_on of this AutomationScript.  # noqa: E501
 
@@ -369,6 +550,27 @@ class AutomationScript(object):
         self._deprecated = deprecated
 
     @property
+    def detached(self):
+        """Gets the detached of this AutomationScript.  # noqa: E501
+
+
+        :return: The detached of this AutomationScript.  # noqa: E501
+        :rtype: bool
+        """
+        return self._detached
+
+    @detached.setter
+    def detached(self, detached):
+        """Sets the detached of this AutomationScript.
+
+
+        :param detached: The detached of this AutomationScript.  # noqa: E501
+        :type: bool
+        """
+
+        self._detached = detached
+
+    @property
     def docker_image(self):
         """Gets the docker_image of this AutomationScript.  # noqa: E501
 
@@ -409,6 +611,27 @@ class AutomationScript(object):
         """
 
         self._enabled = enabled
+
+    @property
+    def from_server_version(self):
+        """Gets the from_server_version of this AutomationScript.  # noqa: E501
+
+
+        :return: The from_server_version of this AutomationScript.  # noqa: E501
+        :rtype: Version
+        """
+        return self._from_server_version
+
+    @from_server_version.setter
+    def from_server_version(self, from_server_version):
+        """Sets the from_server_version of this AutomationScript.
+
+
+        :param from_server_version: The from_server_version of this AutomationScript.  # noqa: E501
+        :type: Version
+        """
+
+        self._from_server_version = from_server_version
 
     @property
     def has_role(self):
@@ -455,6 +678,27 @@ class AutomationScript(object):
         self._hidden = hidden
 
     @property
+    def highlight(self):
+        """Gets the highlight of this AutomationScript.  # noqa: E501
+
+
+        :return: The highlight of this AutomationScript.  # noqa: E501
+        :rtype: dict(str, list[str])
+        """
+        return self._highlight
+
+    @highlight.setter
+    def highlight(self, highlight):
+        """Sets the highlight of this AutomationScript.
+
+
+        :param highlight: The highlight of this AutomationScript.  # noqa: E501
+        :type: dict(str, list[str])
+        """
+
+        self._highlight = highlight
+
+    @property
     def id(self):
         """Gets the id of this AutomationScript.  # noqa: E501
 
@@ -495,6 +739,27 @@ class AutomationScript(object):
         """
 
         self._important = important
+
+    @property
+    def item_version(self):
+        """Gets the item_version of this AutomationScript.  # noqa: E501
+
+
+        :return: The item_version of this AutomationScript.  # noqa: E501
+        :rtype: Version
+        """
+        return self._item_version
+
+    @item_version.setter
+    def item_version(self, item_version):
+        """Sets the item_version of this AutomationScript.
+
+
+        :param item_version: The item_version of this AutomationScript.  # noqa: E501
+        :type: Version
+        """
+
+        self._item_version = item_version
 
     @property
     def locked(self):
@@ -560,6 +825,27 @@ class AutomationScript(object):
         self._name = name
 
     @property
+    def numeric_id(self):
+        """Gets the numeric_id of this AutomationScript.  # noqa: E501
+
+
+        :return: The numeric_id of this AutomationScript.  # noqa: E501
+        :rtype: int
+        """
+        return self._numeric_id
+
+    @numeric_id.setter
+    def numeric_id(self, numeric_id):
+        """Sets the numeric_id of this AutomationScript.
+
+
+        :param numeric_id: The numeric_id of this AutomationScript.  # noqa: E501
+        :type: int
+        """
+
+        self._numeric_id = numeric_id
+
+    @property
     def outputs(self):
         """Gets the outputs of this AutomationScript.  # noqa: E501
 
@@ -579,6 +865,69 @@ class AutomationScript(object):
         """
 
         self._outputs = outputs
+
+    @property
+    def pack_id(self):
+        """Gets the pack_id of this AutomationScript.  # noqa: E501
+
+
+        :return: The pack_id of this AutomationScript.  # noqa: E501
+        :rtype: str
+        """
+        return self._pack_id
+
+    @pack_id.setter
+    def pack_id(self, pack_id):
+        """Sets the pack_id of this AutomationScript.
+
+
+        :param pack_id: The pack_id of this AutomationScript.  # noqa: E501
+        :type: str
+        """
+
+        self._pack_id = pack_id
+
+    @property
+    def pack_propagation_labels(self):
+        """Gets the pack_propagation_labels of this AutomationScript.  # noqa: E501
+
+
+        :return: The pack_propagation_labels of this AutomationScript.  # noqa: E501
+        :rtype: list[str]
+        """
+        return self._pack_propagation_labels
+
+    @pack_propagation_labels.setter
+    def pack_propagation_labels(self, pack_propagation_labels):
+        """Sets the pack_propagation_labels of this AutomationScript.
+
+
+        :param pack_propagation_labels: The pack_propagation_labels of this AutomationScript.  # noqa: E501
+        :type: list[str]
+        """
+
+        self._pack_propagation_labels = pack_propagation_labels
+
+    @property
+    def polling(self):
+        """Gets the polling of this AutomationScript.  # noqa: E501
+
+
+        :return: The polling of this AutomationScript.  # noqa: E501
+        :rtype: bool
+        """
+        return self._polling
+
+    @polling.setter
+    def polling(self, polling):
+        """Sets the polling of this AutomationScript.
+
+
+        :param polling: The polling of this AutomationScript.  # noqa: E501
+        :type: bool
+        """
+
+        self._polling = polling
 
     @property
     def prev_name(self):
@@ -602,10 +951,52 @@ class AutomationScript(object):
         self._prev_name = prev_name
 
     @property
+    def previous_all_read(self):
+        """Gets the previous_all_read of this AutomationScript.  # noqa: E501
+
+
+        :return: The previous_all_read of this AutomationScript.  # noqa: E501
+        :rtype: bool
+        """
+        return self._previous_all_read
+
+    @previous_all_read.setter
+    def previous_all_read(self, previous_all_read):
+        """Sets the previous_all_read of this AutomationScript.
+
+
+        :param previous_all_read: The previous_all_read of this AutomationScript.  # noqa: E501
+        :type: bool
+        """
+
+        self._previous_all_read = previous_all_read
+
+    @property
+    def previous_all_read_write(self):
+        """Gets the previous_all_read_write of this AutomationScript.  # noqa: E501
+
+
+        :return: The previous_all_read_write of this AutomationScript.  # noqa: E501
+        :rtype: bool
+        """
+        return self._previous_all_read_write
+
+    @previous_all_read_write.setter
+    def previous_all_read_write(self, previous_all_read_write):
+        """Sets the previous_all_read_write of this AutomationScript.
+
+
+        :param previous_all_read_write: The previous_all_read_write of this AutomationScript.  # noqa: E501
+        :type: bool
+        """
+
+        self._previous_all_read_write = previous_all_read_write
+
+    @property
     def previous_roles(self):
         """Gets the previous_roles of this AutomationScript.  # noqa: E501
 
-        PreviousRoleName - do not change this field manually  # noqa: E501
+        Do not change this field manually  # noqa: E501
 
         :return: The previous_roles of this AutomationScript.  # noqa: E501
         :rtype: list[str]
@@ -616,13 +1007,76 @@ class AutomationScript(object):
     def previous_roles(self, previous_roles):
         """Sets the previous_roles of this AutomationScript.
 
-        PreviousRoleName - do not change this field manually  # noqa: E501
+        Do not change this field manually  # noqa: E501
 
         :param previous_roles: The previous_roles of this AutomationScript.  # noqa: E501
         :type: list[str]
         """
 
         self._previous_roles = previous_roles
+
+    @property
+    def primary_term(self):
+        """Gets the primary_term of this AutomationScript.  # noqa: E501
+
+
+        :return: The primary_term of this AutomationScript.  # noqa: E501
+        :rtype: int
+        """
+        return self._primary_term
+
+    @primary_term.setter
+    def primary_term(self, primary_term):
+        """Sets the primary_term of this AutomationScript.
+
+
+        :param primary_term: The primary_term of this AutomationScript.  # noqa: E501
+        :type: int
+        """
+
+        self._primary_term = primary_term
+
+    @property
+    def private(self):
+        """Gets the private of this AutomationScript.  # noqa: E501
+
+
+        :return: The private of this AutomationScript.  # noqa: E501
+        :rtype: bool
+        """
+        return self._private
+
+    @private.setter
+    def private(self, private):
+        """Sets the private of this AutomationScript.
+
+
+        :param private: The private of this AutomationScript.  # noqa: E501
+        :type: bool
+        """
+
+        self._private = private
+
+    @property
+    def propagation_labels(self):
+        """Gets the propagation_labels of this AutomationScript.  # noqa: E501
+
+
+        :return: The propagation_labels of this AutomationScript.  # noqa: E501
+        :rtype: list[str]
+        """
+        return self._propagation_labels
+
+    @propagation_labels.setter
+    def propagation_labels(self, propagation_labels):
+        """Sets the propagation_labels of this AutomationScript.
+
+
+        :param propagation_labels: The propagation_labels of this AutomationScript.  # noqa: E501
+        :type: list[str]
+        """
+
+        self._propagation_labels = propagation_labels
 
     @property
     def pswd(self):
@@ -816,6 +1270,27 @@ class AutomationScript(object):
         self._sensitive = sensitive
 
     @property
+    def sequence_number(self):
+        """Gets the sequence_number of this AutomationScript.  # noqa: E501
+
+
+        :return: The sequence_number of this AutomationScript.  # noqa: E501
+        :rtype: int
+        """
+        return self._sequence_number
+
+    @sequence_number.setter
+    def sequence_number(self, sequence_number):
+        """Sets the sequence_number of this AutomationScript.
+
+
+        :param sequence_number: The sequence_number of this AutomationScript.  # noqa: E501
+        :type: int
+        """
+
+        self._sequence_number = sequence_number
+
+    @property
     def should_commit(self):
         """Gets the should_commit of this AutomationScript.  # noqa: E501
 
@@ -856,6 +1331,27 @@ class AutomationScript(object):
         """
 
         self._sort_values = sort_values
+
+    @property
+    def source_scrip_id(self):
+        """Gets the source_scrip_id of this AutomationScript.  # noqa: E501
+
+
+        :return: The source_scrip_id of this AutomationScript.  # noqa: E501
+        :rtype: str
+        """
+        return self._source_scrip_id
+
+    @source_scrip_id.setter
+    def source_scrip_id(self, source_scrip_id):
+        """Sets the source_scrip_id of this AutomationScript.
+
+
+        :param source_scrip_id: The source_scrip_id of this AutomationScript.  # noqa: E501
+        :type: str
+        """
+
+        self._source_scrip_id = source_scrip_id
 
     @property
     def subtype(self):
@@ -942,6 +1438,27 @@ class AutomationScript(object):
         self._timeout = timeout
 
     @property
+    def to_server_version(self):
+        """Gets the to_server_version of this AutomationScript.  # noqa: E501
+
+
+        :return: The to_server_version of this AutomationScript.  # noqa: E501
+        :rtype: Version
+        """
+        return self._to_server_version
+
+    @to_server_version.setter
+    def to_server_version(self, to_server_version):
+        """Sets the to_server_version of this AutomationScript.
+
+
+        :param to_server_version: The to_server_version of this AutomationScript.  # noqa: E501
+        :type: Version
+        """
+
+        self._to_server_version = to_server_version
+
+    @property
     def type(self):
         """Gets the type of this AutomationScript.  # noqa: E501
 
@@ -1005,6 +1522,27 @@ class AutomationScript(object):
         self._vc_should_ignore = vc_should_ignore
 
     @property
+    def vc_should_keep_item_legacy_prod_machine(self):
+        """Gets the vc_should_keep_item_legacy_prod_machine of this AutomationScript.  # noqa: E501
+
+
+        :return: The vc_should_keep_item_legacy_prod_machine of this AutomationScript.  # noqa: E501
+        :rtype: bool
+        """
+        return self._vc_should_keep_item_legacy_prod_machine
+
+    @vc_should_keep_item_legacy_prod_machine.setter
+    def vc_should_keep_item_legacy_prod_machine(self, vc_should_keep_item_legacy_prod_machine):
+        """Sets the vc_should_keep_item_legacy_prod_machine of this AutomationScript.
+
+
+        :param vc_should_keep_item_legacy_prod_machine: The vc_should_keep_item_legacy_prod_machine of this AutomationScript.  # noqa: E501
+        :type: bool
+        """
+
+        self._vc_should_keep_item_legacy_prod_machine = vc_should_keep_item_legacy_prod_machine
+
+    @property
     def version(self):
         """Gets the version of this AutomationScript.  # noqa: E501
 
@@ -1045,6 +1583,69 @@ class AutomationScript(object):
         """
 
         self._visual_script = visual_script
+
+    @property
+    def xsoar_has_read_only_role(self):
+        """Gets the xsoar_has_read_only_role of this AutomationScript.  # noqa: E501
+
+
+        :return: The xsoar_has_read_only_role of this AutomationScript.  # noqa: E501
+        :rtype: bool
+        """
+        return self._xsoar_has_read_only_role
+
+    @xsoar_has_read_only_role.setter
+    def xsoar_has_read_only_role(self, xsoar_has_read_only_role):
+        """Sets the xsoar_has_read_only_role of this AutomationScript.
+
+
+        :param xsoar_has_read_only_role: The xsoar_has_read_only_role of this AutomationScript.  # noqa: E501
+        :type: bool
+        """
+
+        self._xsoar_has_read_only_role = xsoar_has_read_only_role
+
+    @property
+    def xsoar_previous_read_only_roles(self):
+        """Gets the xsoar_previous_read_only_roles of this AutomationScript.  # noqa: E501
+
+
+        :return: The xsoar_previous_read_only_roles of this AutomationScript.  # noqa: E501
+        :rtype: list[str]
+        """
+        return self._xsoar_previous_read_only_roles
+
+    @xsoar_previous_read_only_roles.setter
+    def xsoar_previous_read_only_roles(self, xsoar_previous_read_only_roles):
+        """Sets the xsoar_previous_read_only_roles of this AutomationScript.
+
+
+        :param xsoar_previous_read_only_roles: The xsoar_previous_read_only_roles of this AutomationScript.  # noqa: E501
+        :type: list[str]
+        """
+
+        self._xsoar_previous_read_only_roles = xsoar_previous_read_only_roles
+
+    @property
+    def xsoar_read_only_roles(self):
+        """Gets the xsoar_read_only_roles of this AutomationScript.  # noqa: E501
+
+
+        :return: The xsoar_read_only_roles of this AutomationScript.  # noqa: E501
+        :rtype: list[str]
+        """
+        return self._xsoar_read_only_roles
+
+    @xsoar_read_only_roles.setter
+    def xsoar_read_only_roles(self, xsoar_read_only_roles):
+        """Sets the xsoar_read_only_roles of this AutomationScript.
+
+
+        :param xsoar_read_only_roles: The xsoar_read_only_roles of this AutomationScript.  # noqa: E501
+        :type: list[str]
+        """
+
+        self._xsoar_read_only_roles = xsoar_read_only_roles
 
     def to_dict(self):
         """Returns the model properties as a dict"""

@@ -4,6 +4,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **playbook_name** | **str** |  | [optional] 
+**quiet** | **bool** |  | [optional] 
 **task_id** | **str** |  | [optional] 
 **task_name** | **str** |  | [optional] 
 **task_status** | **str** |  | [optional] 

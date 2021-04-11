@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **name** | **str** |  | [optional] 
 **os** | **str** |  | [optional] 
 **password** | **str** |  | [optional] 
+**services_id** | **str** |  | [optional] 
 **smb** | **int** |  | [optional] 
 **smbport** | **int** |  | [optional] 
 **sshkey** | **str** |  | [optional] 

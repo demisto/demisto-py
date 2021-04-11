@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    Demisto API
+    Cortex XSOAR API
 
-    This is the public REST API to integrate with the demisto server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Demisto web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Demisto REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Demisto server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Demisto has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Demisto will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
+    This is the public REST API to integrate with the Cortex XSOAR server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Cortex XSOAR web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Cortex XSOAR REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Cortex XSOAR server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Cortex XSOAR has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Cortex XSOAR will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
 
     OpenAPI spec version: 2.0.0
     
@@ -58,6 +58,8 @@ class PlaybookTask(object):
         'form_display': 'FormDisplay',
         'id': 'str',
         'ignore_worker': 'bool',
+        'is_auto_switched_to_quiet_mode': 'bool',
+        'is_over_size': 'bool',
         'loop': 'TaskLoop',
         'message': 'NotifiableItem',
         'next_tasks': 'dict(str, list[str])',
@@ -89,6 +91,8 @@ class PlaybookTask(object):
         'form_display': 'formDisplay',
         'id': 'id',
         'ignore_worker': 'ignoreWorker',
+        'is_auto_switched_to_quiet_mode': 'isAutoSwitchedToQuietMode',
+        'is_over_size': 'isOverSize',
         'loop': 'loop',
         'message': 'message',
         'next_tasks': 'nextTasks',
@@ -108,7 +112,7 @@ class PlaybookTask(object):
         'view': 'view'
     }
 
-    def __init__(self, conditions=None, continue_on_error=None, default_assignee=None, default_assignee_complex=None, default_reminder=None, evidence_data=None, field_mapping=None, form=None, form_display=None, id=None, ignore_worker=None, loop=None, message=None, next_tasks=None, note=None, quiet_mode=None, reputation_calc=None, restricted_completion=None, script_arguments=None, separate_context=None, skip_unavailable=None, sla=None, sla_reminder=None, task=None, task_id=None, timer_triggers=None, type=None, view=None):  # noqa: E501
+    def __init__(self, conditions=None, continue_on_error=None, default_assignee=None, default_assignee_complex=None, default_reminder=None, evidence_data=None, field_mapping=None, form=None, form_display=None, id=None, ignore_worker=None, is_auto_switched_to_quiet_mode=None, is_over_size=None, loop=None, message=None, next_tasks=None, note=None, quiet_mode=None, reputation_calc=None, restricted_completion=None, script_arguments=None, separate_context=None, skip_unavailable=None, sla=None, sla_reminder=None, task=None, task_id=None, timer_triggers=None, type=None, view=None):  # noqa: E501
         """PlaybookTask - a model defined in Swagger"""  # noqa: E501
 
         self._conditions = None
@@ -122,6 +126,8 @@ class PlaybookTask(object):
         self._form_display = None
         self._id = None
         self._ignore_worker = None
+        self._is_auto_switched_to_quiet_mode = None
+        self._is_over_size = None
         self._loop = None
         self._message = None
         self._next_tasks = None
@@ -163,6 +169,10 @@ class PlaybookTask(object):
             self.id = id
         if ignore_worker is not None:
             self.ignore_worker = ignore_worker
+        if is_auto_switched_to_quiet_mode is not None:
+            self.is_auto_switched_to_quiet_mode = is_auto_switched_to_quiet_mode
+        if is_over_size is not None:
+            self.is_over_size = is_over_size
         if loop is not None:
             self.loop = loop
         if message is not None:
@@ -432,6 +442,48 @@ class PlaybookTask(object):
         """
 
         self._ignore_worker = ignore_worker
+
+    @property
+    def is_auto_switched_to_quiet_mode(self):
+        """Gets the is_auto_switched_to_quiet_mode of this PlaybookTask.  # noqa: E501
+
+
+        :return: The is_auto_switched_to_quiet_mode of this PlaybookTask.  # noqa: E501
+        :rtype: bool
+        """
+        return self._is_auto_switched_to_quiet_mode
+
+    @is_auto_switched_to_quiet_mode.setter
+    def is_auto_switched_to_quiet_mode(self, is_auto_switched_to_quiet_mode):
+        """Sets the is_auto_switched_to_quiet_mode of this PlaybookTask.
+
+
+        :param is_auto_switched_to_quiet_mode: The is_auto_switched_to_quiet_mode of this PlaybookTask.  # noqa: E501
+        :type: bool
+        """
+
+        self._is_auto_switched_to_quiet_mode = is_auto_switched_to_quiet_mode
+
+    @property
+    def is_over_size(self):
+        """Gets the is_over_size of this PlaybookTask.  # noqa: E501
+
+
+        :return: The is_over_size of this PlaybookTask.  # noqa: E501
+        :rtype: bool
+        """
+        return self._is_over_size
+
+    @is_over_size.setter
+    def is_over_size(self, is_over_size):
+        """Sets the is_over_size of this PlaybookTask.
+
+
+        :param is_over_size: The is_over_size of this PlaybookTask.  # noqa: E501
+        :type: bool
+        """
+
+        self._is_over_size = is_over_size
 
     @property
     def loop(self):

@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    Demisto API
+    Cortex XSOAR API
 
-    This is the public REST API to integrate with the demisto server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Demisto web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Demisto REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Demisto server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Demisto has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Demisto will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
+    This is the public REST API to integrate with the Cortex XSOAR server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Cortex XSOAR web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Cortex XSOAR REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Cortex XSOAR server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Cortex XSOAR has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Cortex XSOAR will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
 
     OpenAPI spec version: 2.0.0
     
@@ -16,6 +16,7 @@ import re  # noqa: F401
 
 import six
 
+from demisto_client.demisto_api.models.inv_playbook_debug_info import InvPlaybookDebugInfo  # noqa: F401,E501
 from demisto_client.demisto_api.models.investigation_playbook_data import InvestigationPlaybookData  # noqa: F401,E501
 from demisto_client.demisto_api.models.investigation_playbook_state import InvestigationPlaybookState  # noqa: F401,E501
 from demisto_client.demisto_api.models.investigation_playbook_task import InvestigationPlaybookTask  # noqa: F401,E501
@@ -43,20 +44,35 @@ class InvestigationPlaybook(object):
         'replaced_playbook': 'bool',
         'shard_id': 'int',
         'updated_operator_i_ds': 'bool',
+        'all_read': 'bool',
+        'all_read_write': 'bool',
         'auto_extracting': 'bool',
         'comment': 'str',
+        'dbot_created_by': 'str',
         'has_role': 'bool',
+        'highlight': 'dict(str, list[str])',
         'id': 'str',
         'incident_create_date': 'datetime',
         'inputs': 'PlaybookInputs',
+        'inv_pb_debug_info': 'InvPlaybookDebugInfo',
         'investigation_id': 'str',
+        'is_tim': 'bool',
         'modified': 'datetime',
         'name': 'str',
+        'numeric_id': 'int',
         'outputs': 'PlaybookOutputs',
         'pb_history': 'list[InvestigationPlaybookData]',
+        'pending_tasks': 'dict(str, object)',
         'playbook_id': 'str',
+        'previous_all_read': 'bool',
+        'previous_all_read_write': 'bool',
         'previous_roles': 'list[str]',
+        'primary_term': 'int',
+        'quiet': 'bool',
+        'recovery_attempts': 'int',
         'roles': 'list[str]',
+        'sequence_number': 'int',
+        'server_id': 'str',
         'sort_values': 'list[str]',
         'start_date': 'datetime',
         'start_task_id': 'str',
@@ -65,7 +81,10 @@ class InvestigationPlaybook(object):
         'sub_playbook_outputs': 'dict(str, PlaybookOutputs)',
         'tasks': 'dict(str, InvestigationPlaybookTask)',
         'version': 'int',
-        'view': 'PlaybookView'
+        'view': 'PlaybookView',
+        'xsoar_has_read_only_role': 'bool',
+        'xsoar_previous_read_only_roles': 'list[str]',
+        'xsoar_read_only_roles': 'list[str]'
     }
 
     attribute_map = {
@@ -74,20 +93,35 @@ class InvestigationPlaybook(object):
         'replaced_playbook': 'ReplacedPlaybook',
         'shard_id': 'ShardID',
         'updated_operator_i_ds': 'UpdatedOperatorIDs',
+        'all_read': 'allRead',
+        'all_read_write': 'allReadWrite',
         'auto_extracting': 'autoExtracting',
         'comment': 'comment',
+        'dbot_created_by': 'dbotCreatedBy',
         'has_role': 'hasRole',
+        'highlight': 'highlight',
         'id': 'id',
         'incident_create_date': 'incidentCreateDate',
         'inputs': 'inputs',
+        'inv_pb_debug_info': 'invPBDebugInfo',
         'investigation_id': 'investigationId',
+        'is_tim': 'isTIM',
         'modified': 'modified',
         'name': 'name',
+        'numeric_id': 'numericId',
         'outputs': 'outputs',
         'pb_history': 'pbHistory',
+        'pending_tasks': 'pendingTasks',
         'playbook_id': 'playbookId',
+        'previous_all_read': 'previousAllRead',
+        'previous_all_read_write': 'previousAllReadWrite',
         'previous_roles': 'previousRoles',
+        'primary_term': 'primaryTerm',
+        'quiet': 'quiet',
+        'recovery_attempts': 'recoveryAttempts',
         'roles': 'roles',
+        'sequence_number': 'sequenceNumber',
+        'server_id': 'serverId',
         'sort_values': 'sortValues',
         'start_date': 'startDate',
         'start_task_id': 'startTaskId',
@@ -96,10 +130,13 @@ class InvestigationPlaybook(object):
         'sub_playbook_outputs': 'subPlaybookOutputs',
         'tasks': 'tasks',
         'version': 'version',
-        'view': 'view'
+        'view': 'view',
+        'xsoar_has_read_only_role': 'xsoarHasReadOnlyRole',
+        'xsoar_previous_read_only_roles': 'xsoarPreviousReadOnlyRoles',
+        'xsoar_read_only_roles': 'xsoarReadOnlyRoles'
     }
 
-    def __init__(self, dirty=None, ready_playbook_inputs=None, replaced_playbook=None, shard_id=None, updated_operator_i_ds=None, auto_extracting=None, comment=None, has_role=None, id=None, incident_create_date=None, inputs=None, investigation_id=None, modified=None, name=None, outputs=None, pb_history=None, playbook_id=None, previous_roles=None, roles=None, sort_values=None, start_date=None, start_task_id=None, state=None, sub_playbook_inputs=None, sub_playbook_outputs=None, tasks=None, version=None, view=None):  # noqa: E501
+    def __init__(self, dirty=None, ready_playbook_inputs=None, replaced_playbook=None, shard_id=None, updated_operator_i_ds=None, all_read=None, all_read_write=None, auto_extracting=None, comment=None, dbot_created_by=None, has_role=None, highlight=None, id=None, incident_create_date=None, inputs=None, inv_pb_debug_info=None, investigation_id=None, is_tim=None, modified=None, name=None, numeric_id=None, outputs=None, pb_history=None, pending_tasks=None, playbook_id=None, previous_all_read=None, previous_all_read_write=None, previous_roles=None, primary_term=None, quiet=None, recovery_attempts=None, roles=None, sequence_number=None, server_id=None, sort_values=None, start_date=None, start_task_id=None, state=None, sub_playbook_inputs=None, sub_playbook_outputs=None, tasks=None, version=None, view=None, xsoar_has_read_only_role=None, xsoar_previous_read_only_roles=None, xsoar_read_only_roles=None):  # noqa: E501
         """InvestigationPlaybook - a model defined in Swagger"""  # noqa: E501
 
         self._dirty = None
@@ -107,20 +144,35 @@ class InvestigationPlaybook(object):
         self._replaced_playbook = None
         self._shard_id = None
         self._updated_operator_i_ds = None
+        self._all_read = None
+        self._all_read_write = None
         self._auto_extracting = None
         self._comment = None
+        self._dbot_created_by = None
         self._has_role = None
+        self._highlight = None
         self._id = None
         self._incident_create_date = None
         self._inputs = None
+        self._inv_pb_debug_info = None
         self._investigation_id = None
+        self._is_tim = None
         self._modified = None
         self._name = None
+        self._numeric_id = None
         self._outputs = None
         self._pb_history = None
+        self._pending_tasks = None
         self._playbook_id = None
+        self._previous_all_read = None
+        self._previous_all_read_write = None
         self._previous_roles = None
+        self._primary_term = None
+        self._quiet = None
+        self._recovery_attempts = None
         self._roles = None
+        self._sequence_number = None
+        self._server_id = None
         self._sort_values = None
         self._start_date = None
         self._start_task_id = None
@@ -130,6 +182,9 @@ class InvestigationPlaybook(object):
         self._tasks = None
         self._version = None
         self._view = None
+        self._xsoar_has_read_only_role = None
+        self._xsoar_previous_read_only_roles = None
+        self._xsoar_read_only_roles = None
         self.discriminator = None
 
         if dirty is not None:
@@ -142,34 +197,64 @@ class InvestigationPlaybook(object):
             self.shard_id = shard_id
         if updated_operator_i_ds is not None:
             self.updated_operator_i_ds = updated_operator_i_ds
+        if all_read is not None:
+            self.all_read = all_read
+        if all_read_write is not None:
+            self.all_read_write = all_read_write
         if auto_extracting is not None:
             self.auto_extracting = auto_extracting
         if comment is not None:
             self.comment = comment
+        if dbot_created_by is not None:
+            self.dbot_created_by = dbot_created_by
         if has_role is not None:
             self.has_role = has_role
+        if highlight is not None:
+            self.highlight = highlight
         if id is not None:
             self.id = id
         if incident_create_date is not None:
             self.incident_create_date = incident_create_date
         if inputs is not None:
             self.inputs = inputs
+        if inv_pb_debug_info is not None:
+            self.inv_pb_debug_info = inv_pb_debug_info
         if investigation_id is not None:
             self.investigation_id = investigation_id
+        if is_tim is not None:
+            self.is_tim = is_tim
         if modified is not None:
             self.modified = modified
         if name is not None:
             self.name = name
+        if numeric_id is not None:
+            self.numeric_id = numeric_id
         if outputs is not None:
             self.outputs = outputs
         if pb_history is not None:
             self.pb_history = pb_history
+        if pending_tasks is not None:
+            self.pending_tasks = pending_tasks
         if playbook_id is not None:
             self.playbook_id = playbook_id
+        if previous_all_read is not None:
+            self.previous_all_read = previous_all_read
+        if previous_all_read_write is not None:
+            self.previous_all_read_write = previous_all_read_write
         if previous_roles is not None:
             self.previous_roles = previous_roles
+        if primary_term is not None:
+            self.primary_term = primary_term
+        if quiet is not None:
+            self.quiet = quiet
+        if recovery_attempts is not None:
+            self.recovery_attempts = recovery_attempts
         if roles is not None:
             self.roles = roles
+        if sequence_number is not None:
+            self.sequence_number = sequence_number
+        if server_id is not None:
+            self.server_id = server_id
         if sort_values is not None:
             self.sort_values = sort_values
         if start_date is not None:
@@ -188,6 +273,12 @@ class InvestigationPlaybook(object):
             self.version = version
         if view is not None:
             self.view = view
+        if xsoar_has_read_only_role is not None:
+            self.xsoar_has_read_only_role = xsoar_has_read_only_role
+        if xsoar_previous_read_only_roles is not None:
+            self.xsoar_previous_read_only_roles = xsoar_previous_read_only_roles
+        if xsoar_read_only_roles is not None:
+            self.xsoar_read_only_roles = xsoar_read_only_roles
 
     @property
     def dirty(self):
@@ -297,6 +388,48 @@ class InvestigationPlaybook(object):
         self._updated_operator_i_ds = updated_operator_i_ds
 
     @property
+    def all_read(self):
+        """Gets the all_read of this InvestigationPlaybook.  # noqa: E501
+
+
+        :return: The all_read of this InvestigationPlaybook.  # noqa: E501
+        :rtype: bool
+        """
+        return self._all_read
+
+    @all_read.setter
+    def all_read(self, all_read):
+        """Sets the all_read of this InvestigationPlaybook.
+
+
+        :param all_read: The all_read of this InvestigationPlaybook.  # noqa: E501
+        :type: bool
+        """
+
+        self._all_read = all_read
+
+    @property
+    def all_read_write(self):
+        """Gets the all_read_write of this InvestigationPlaybook.  # noqa: E501
+
+
+        :return: The all_read_write of this InvestigationPlaybook.  # noqa: E501
+        :rtype: bool
+        """
+        return self._all_read_write
+
+    @all_read_write.setter
+    def all_read_write(self, all_read_write):
+        """Sets the all_read_write of this InvestigationPlaybook.
+
+
+        :param all_read_write: The all_read_write of this InvestigationPlaybook.  # noqa: E501
+        :type: bool
+        """
+
+        self._all_read_write = all_read_write
+
+    @property
     def auto_extracting(self):
         """Gets the auto_extracting of this InvestigationPlaybook.  # noqa: E501
 
@@ -339,6 +472,29 @@ class InvestigationPlaybook(object):
         self._comment = comment
 
     @property
+    def dbot_created_by(self):
+        """Gets the dbot_created_by of this InvestigationPlaybook.  # noqa: E501
+
+        Who has created this event - relevant only for manual incidents  # noqa: E501
+
+        :return: The dbot_created_by of this InvestigationPlaybook.  # noqa: E501
+        :rtype: str
+        """
+        return self._dbot_created_by
+
+    @dbot_created_by.setter
+    def dbot_created_by(self, dbot_created_by):
+        """Sets the dbot_created_by of this InvestigationPlaybook.
+
+        Who has created this event - relevant only for manual incidents  # noqa: E501
+
+        :param dbot_created_by: The dbot_created_by of this InvestigationPlaybook.  # noqa: E501
+        :type: str
+        """
+
+        self._dbot_created_by = dbot_created_by
+
+    @property
     def has_role(self):
         """Gets the has_role of this InvestigationPlaybook.  # noqa: E501
 
@@ -360,6 +516,27 @@ class InvestigationPlaybook(object):
         """
 
         self._has_role = has_role
+
+    @property
+    def highlight(self):
+        """Gets the highlight of this InvestigationPlaybook.  # noqa: E501
+
+
+        :return: The highlight of this InvestigationPlaybook.  # noqa: E501
+        :rtype: dict(str, list[str])
+        """
+        return self._highlight
+
+    @highlight.setter
+    def highlight(self, highlight):
+        """Sets the highlight of this InvestigationPlaybook.
+
+
+        :param highlight: The highlight of this InvestigationPlaybook.  # noqa: E501
+        :type: dict(str, list[str])
+        """
+
+        self._highlight = highlight
 
     @property
     def id(self):
@@ -427,6 +604,27 @@ class InvestigationPlaybook(object):
         self._inputs = inputs
 
     @property
+    def inv_pb_debug_info(self):
+        """Gets the inv_pb_debug_info of this InvestigationPlaybook.  # noqa: E501
+
+
+        :return: The inv_pb_debug_info of this InvestigationPlaybook.  # noqa: E501
+        :rtype: InvPlaybookDebugInfo
+        """
+        return self._inv_pb_debug_info
+
+    @inv_pb_debug_info.setter
+    def inv_pb_debug_info(self, inv_pb_debug_info):
+        """Sets the inv_pb_debug_info of this InvestigationPlaybook.
+
+
+        :param inv_pb_debug_info: The inv_pb_debug_info of this InvestigationPlaybook.  # noqa: E501
+        :type: InvPlaybookDebugInfo
+        """
+
+        self._inv_pb_debug_info = inv_pb_debug_info
+
+    @property
     def investigation_id(self):
         """Gets the investigation_id of this InvestigationPlaybook.  # noqa: E501
 
@@ -446,6 +644,27 @@ class InvestigationPlaybook(object):
         """
 
         self._investigation_id = investigation_id
+
+    @property
+    def is_tim(self):
+        """Gets the is_tim of this InvestigationPlaybook.  # noqa: E501
+
+
+        :return: The is_tim of this InvestigationPlaybook.  # noqa: E501
+        :rtype: bool
+        """
+        return self._is_tim
+
+    @is_tim.setter
+    def is_tim(self, is_tim):
+        """Sets the is_tim of this InvestigationPlaybook.
+
+
+        :param is_tim: The is_tim of this InvestigationPlaybook.  # noqa: E501
+        :type: bool
+        """
+
+        self._is_tim = is_tim
 
     @property
     def modified(self):
@@ -488,6 +707,27 @@ class InvestigationPlaybook(object):
         """
 
         self._name = name
+
+    @property
+    def numeric_id(self):
+        """Gets the numeric_id of this InvestigationPlaybook.  # noqa: E501
+
+
+        :return: The numeric_id of this InvestigationPlaybook.  # noqa: E501
+        :rtype: int
+        """
+        return self._numeric_id
+
+    @numeric_id.setter
+    def numeric_id(self, numeric_id):
+        """Sets the numeric_id of this InvestigationPlaybook.
+
+
+        :param numeric_id: The numeric_id of this InvestigationPlaybook.  # noqa: E501
+        :type: int
+        """
+
+        self._numeric_id = numeric_id
 
     @property
     def outputs(self):
@@ -534,6 +774,29 @@ class InvestigationPlaybook(object):
         self._pb_history = pb_history
 
     @property
+    def pending_tasks(self):
+        """Gets the pending_tasks of this InvestigationPlaybook.  # noqa: E501
+
+        Tasks that are marked for running, but cannot yet run due to incomplete parents  # noqa: E501
+
+        :return: The pending_tasks of this InvestigationPlaybook.  # noqa: E501
+        :rtype: dict(str, object)
+        """
+        return self._pending_tasks
+
+    @pending_tasks.setter
+    def pending_tasks(self, pending_tasks):
+        """Sets the pending_tasks of this InvestigationPlaybook.
+
+        Tasks that are marked for running, but cannot yet run due to incomplete parents  # noqa: E501
+
+        :param pending_tasks: The pending_tasks of this InvestigationPlaybook.  # noqa: E501
+        :type: dict(str, object)
+        """
+
+        self._pending_tasks = pending_tasks
+
+    @property
     def playbook_id(self):
         """Gets the playbook_id of this InvestigationPlaybook.  # noqa: E501
 
@@ -555,10 +818,52 @@ class InvestigationPlaybook(object):
         self._playbook_id = playbook_id
 
     @property
+    def previous_all_read(self):
+        """Gets the previous_all_read of this InvestigationPlaybook.  # noqa: E501
+
+
+        :return: The previous_all_read of this InvestigationPlaybook.  # noqa: E501
+        :rtype: bool
+        """
+        return self._previous_all_read
+
+    @previous_all_read.setter
+    def previous_all_read(self, previous_all_read):
+        """Sets the previous_all_read of this InvestigationPlaybook.
+
+
+        :param previous_all_read: The previous_all_read of this InvestigationPlaybook.  # noqa: E501
+        :type: bool
+        """
+
+        self._previous_all_read = previous_all_read
+
+    @property
+    def previous_all_read_write(self):
+        """Gets the previous_all_read_write of this InvestigationPlaybook.  # noqa: E501
+
+
+        :return: The previous_all_read_write of this InvestigationPlaybook.  # noqa: E501
+        :rtype: bool
+        """
+        return self._previous_all_read_write
+
+    @previous_all_read_write.setter
+    def previous_all_read_write(self, previous_all_read_write):
+        """Sets the previous_all_read_write of this InvestigationPlaybook.
+
+
+        :param previous_all_read_write: The previous_all_read_write of this InvestigationPlaybook.  # noqa: E501
+        :type: bool
+        """
+
+        self._previous_all_read_write = previous_all_read_write
+
+    @property
     def previous_roles(self):
         """Gets the previous_roles of this InvestigationPlaybook.  # noqa: E501
 
-        PreviousRoleName - do not change this field manually  # noqa: E501
+        Do not change this field manually  # noqa: E501
 
         :return: The previous_roles of this InvestigationPlaybook.  # noqa: E501
         :rtype: list[str]
@@ -569,13 +874,76 @@ class InvestigationPlaybook(object):
     def previous_roles(self, previous_roles):
         """Sets the previous_roles of this InvestigationPlaybook.
 
-        PreviousRoleName - do not change this field manually  # noqa: E501
+        Do not change this field manually  # noqa: E501
 
         :param previous_roles: The previous_roles of this InvestigationPlaybook.  # noqa: E501
         :type: list[str]
         """
 
         self._previous_roles = previous_roles
+
+    @property
+    def primary_term(self):
+        """Gets the primary_term of this InvestigationPlaybook.  # noqa: E501
+
+
+        :return: The primary_term of this InvestigationPlaybook.  # noqa: E501
+        :rtype: int
+        """
+        return self._primary_term
+
+    @primary_term.setter
+    def primary_term(self, primary_term):
+        """Sets the primary_term of this InvestigationPlaybook.
+
+
+        :param primary_term: The primary_term of this InvestigationPlaybook.  # noqa: E501
+        :type: int
+        """
+
+        self._primary_term = primary_term
+
+    @property
+    def quiet(self):
+        """Gets the quiet of this InvestigationPlaybook.  # noqa: E501
+
+
+        :return: The quiet of this InvestigationPlaybook.  # noqa: E501
+        :rtype: bool
+        """
+        return self._quiet
+
+    @quiet.setter
+    def quiet(self, quiet):
+        """Sets the quiet of this InvestigationPlaybook.
+
+
+        :param quiet: The quiet of this InvestigationPlaybook.  # noqa: E501
+        :type: bool
+        """
+
+        self._quiet = quiet
+
+    @property
+    def recovery_attempts(self):
+        """Gets the recovery_attempts of this InvestigationPlaybook.  # noqa: E501
+
+
+        :return: The recovery_attempts of this InvestigationPlaybook.  # noqa: E501
+        :rtype: int
+        """
+        return self._recovery_attempts
+
+    @recovery_attempts.setter
+    def recovery_attempts(self, recovery_attempts):
+        """Sets the recovery_attempts of this InvestigationPlaybook.
+
+
+        :param recovery_attempts: The recovery_attempts of this InvestigationPlaybook.  # noqa: E501
+        :type: int
+        """
+
+        self._recovery_attempts = recovery_attempts
 
     @property
     def roles(self):
@@ -599,6 +967,50 @@ class InvestigationPlaybook(object):
         """
 
         self._roles = roles
+
+    @property
+    def sequence_number(self):
+        """Gets the sequence_number of this InvestigationPlaybook.  # noqa: E501
+
+
+        :return: The sequence_number of this InvestigationPlaybook.  # noqa: E501
+        :rtype: int
+        """
+        return self._sequence_number
+
+    @sequence_number.setter
+    def sequence_number(self, sequence_number):
+        """Sets the sequence_number of this InvestigationPlaybook.
+
+
+        :param sequence_number: The sequence_number of this InvestigationPlaybook.  # noqa: E501
+        :type: int
+        """
+
+        self._sequence_number = sequence_number
+
+    @property
+    def server_id(self):
+        """Gets the server_id of this InvestigationPlaybook.  # noqa: E501
+
+        Holds the ID of the responsible cluster app server  # noqa: E501
+
+        :return: The server_id of this InvestigationPlaybook.  # noqa: E501
+        :rtype: str
+        """
+        return self._server_id
+
+    @server_id.setter
+    def server_id(self, server_id):
+        """Sets the server_id of this InvestigationPlaybook.
+
+        Holds the ID of the responsible cluster app server  # noqa: E501
+
+        :param server_id: The server_id of this InvestigationPlaybook.  # noqa: E501
+        :type: str
+        """
+
+        self._server_id = server_id
 
     @property
     def sort_values(self):
@@ -790,6 +1202,69 @@ class InvestigationPlaybook(object):
         """
 
         self._view = view
+
+    @property
+    def xsoar_has_read_only_role(self):
+        """Gets the xsoar_has_read_only_role of this InvestigationPlaybook.  # noqa: E501
+
+
+        :return: The xsoar_has_read_only_role of this InvestigationPlaybook.  # noqa: E501
+        :rtype: bool
+        """
+        return self._xsoar_has_read_only_role
+
+    @xsoar_has_read_only_role.setter
+    def xsoar_has_read_only_role(self, xsoar_has_read_only_role):
+        """Sets the xsoar_has_read_only_role of this InvestigationPlaybook.
+
+
+        :param xsoar_has_read_only_role: The xsoar_has_read_only_role of this InvestigationPlaybook.  # noqa: E501
+        :type: bool
+        """
+
+        self._xsoar_has_read_only_role = xsoar_has_read_only_role
+
+    @property
+    def xsoar_previous_read_only_roles(self):
+        """Gets the xsoar_previous_read_only_roles of this InvestigationPlaybook.  # noqa: E501
+
+
+        :return: The xsoar_previous_read_only_roles of this InvestigationPlaybook.  # noqa: E501
+        :rtype: list[str]
+        """
+        return self._xsoar_previous_read_only_roles
+
+    @xsoar_previous_read_only_roles.setter
+    def xsoar_previous_read_only_roles(self, xsoar_previous_read_only_roles):
+        """Sets the xsoar_previous_read_only_roles of this InvestigationPlaybook.
+
+
+        :param xsoar_previous_read_only_roles: The xsoar_previous_read_only_roles of this InvestigationPlaybook.  # noqa: E501
+        :type: list[str]
+        """
+
+        self._xsoar_previous_read_only_roles = xsoar_previous_read_only_roles
+
+    @property
+    def xsoar_read_only_roles(self):
+        """Gets the xsoar_read_only_roles of this InvestigationPlaybook.  # noqa: E501
+
+
+        :return: The xsoar_read_only_roles of this InvestigationPlaybook.  # noqa: E501
+        :rtype: list[str]
+        """
+        return self._xsoar_read_only_roles
+
+    @xsoar_read_only_roles.setter
+    def xsoar_read_only_roles(self, xsoar_read_only_roles):
+        """Sets the xsoar_read_only_roles of this InvestigationPlaybook.
+
+
+        :param xsoar_read_only_roles: The xsoar_read_only_roles of this InvestigationPlaybook.  # noqa: E501
+        :type: list[str]
+        """
+
+        self._xsoar_read_only_roles = xsoar_read_only_roles
 
     def to_dict(self):
         """Returns the model properties as a dict"""

@@ -5,6 +5,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** |  | [optional] 
 **investigation_id** | **str** |  | [optional] 
+**primary_term** | **int** |  | [optional] 
+**sequence_number** | **int** |  | [optional] 
 **tags** | **list[str]** |  | [optional] 
 **version** | **int** |  | [optional] 
 

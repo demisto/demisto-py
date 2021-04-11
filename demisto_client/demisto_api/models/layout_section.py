@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    Demisto API
+    Cortex XSOAR API
 
-    This is the public REST API to integrate with the demisto server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Demisto web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Demisto REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Demisto server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Demisto has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Demisto will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
+    This is the public REST API to integrate with the Cortex XSOAR server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Cortex XSOAR web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Cortex XSOAR REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Cortex XSOAR server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Cortex XSOAR has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Cortex XSOAR will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
 
     OpenAPI spec version: 2.0.0
     
@@ -35,10 +35,12 @@ class LayoutSection(object):
     swagger_types = {
         'description': 'str',
         'fields': 'list[LayoutField]',
+        'highlight': 'dict(str, list[str])',
         'id': 'str',
         'is_visible': 'bool',
         'modified': 'datetime',
         'name': 'str',
+        'numeric_id': 'int',
         'primary_term': 'int',
         'query': 'object',
         'query_type': 'str',
@@ -52,10 +54,12 @@ class LayoutSection(object):
     attribute_map = {
         'description': 'description',
         'fields': 'fields',
+        'highlight': 'highlight',
         'id': 'id',
         'is_visible': 'isVisible',
         'modified': 'modified',
         'name': 'name',
+        'numeric_id': 'numericId',
         'primary_term': 'primaryTerm',
         'query': 'query',
         'query_type': 'queryType',
@@ -66,15 +70,17 @@ class LayoutSection(object):
         'version': 'version'
     }
 
-    def __init__(self, description=None, fields=None, id=None, is_visible=None, modified=None, name=None, primary_term=None, query=None, query_type=None, read_only=None, sequence_number=None, sort_values=None, type=None, version=None):  # noqa: E501
+    def __init__(self, description=None, fields=None, highlight=None, id=None, is_visible=None, modified=None, name=None, numeric_id=None, primary_term=None, query=None, query_type=None, read_only=None, sequence_number=None, sort_values=None, type=None, version=None):  # noqa: E501
         """LayoutSection - a model defined in Swagger"""  # noqa: E501
 
         self._description = None
         self._fields = None
+        self._highlight = None
         self._id = None
         self._is_visible = None
         self._modified = None
         self._name = None
+        self._numeric_id = None
         self._primary_term = None
         self._query = None
         self._query_type = None
@@ -89,6 +95,8 @@ class LayoutSection(object):
             self.description = description
         if fields is not None:
             self.fields = fields
+        if highlight is not None:
+            self.highlight = highlight
         if id is not None:
             self.id = id
         if is_visible is not None:
@@ -97,6 +105,8 @@ class LayoutSection(object):
             self.modified = modified
         if name is not None:
             self.name = name
+        if numeric_id is not None:
+            self.numeric_id = numeric_id
         if primary_term is not None:
             self.primary_term = primary_term
         if query is not None:
@@ -155,6 +165,27 @@ class LayoutSection(object):
         """
 
         self._fields = fields
+
+    @property
+    def highlight(self):
+        """Gets the highlight of this LayoutSection.  # noqa: E501
+
+
+        :return: The highlight of this LayoutSection.  # noqa: E501
+        :rtype: dict(str, list[str])
+        """
+        return self._highlight
+
+    @highlight.setter
+    def highlight(self, highlight):
+        """Sets the highlight of this LayoutSection.
+
+
+        :param highlight: The highlight of this LayoutSection.  # noqa: E501
+        :type: dict(str, list[str])
+        """
+
+        self._highlight = highlight
 
     @property
     def id(self):
@@ -239,6 +270,27 @@ class LayoutSection(object):
         """
 
         self._name = name
+
+    @property
+    def numeric_id(self):
+        """Gets the numeric_id of this LayoutSection.  # noqa: E501
+
+
+        :return: The numeric_id of this LayoutSection.  # noqa: E501
+        :rtype: int
+        """
+        return self._numeric_id
+
+    @numeric_id.setter
+    def numeric_id(self, numeric_id):
+        """Sets the numeric_id of this LayoutSection.
+
+
+        :param numeric_id: The numeric_id of this LayoutSection.  # noqa: E501
+        :type: int
+        """
+
+        self._numeric_id = numeric_id
 
     @property
     def primary_term(self):

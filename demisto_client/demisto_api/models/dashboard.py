@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    Demisto API
+    Cortex XSOAR API
 
-    This is the public REST API to integrate with the demisto server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Demisto web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Demisto REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Demisto server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Demisto has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Demisto will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
+    This is the public REST API to integrate with the Cortex XSOAR server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Cortex XSOAR web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Cortex XSOAR REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Cortex XSOAR server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Cortex XSOAR has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Cortex XSOAR will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
 
     OpenAPI spec version: 2.0.0
     
@@ -17,6 +17,7 @@ import re  # noqa: F401
 import six
 
 from demisto_client.demisto_api.models.period import Period  # noqa: F401,E501
+from demisto_client.demisto_api.models.version import Version  # noqa: F401,E501
 from demisto_client.demisto_api.models.widget_cells import WidgetCells  # noqa: F401,E501
 
 
@@ -34,94 +35,194 @@ class Dashboard(object):
                             and the value is json key in definition.
     """
     swagger_types = {
+        'all_read': 'bool',
+        'all_read_write': 'bool',
         'commit_message': 'str',
+        'dbot_created_by': 'str',
         'from_date': 'datetime',
         'from_date_license': 'datetime',
+        'from_server_version': 'Version',
+        'has_role': 'bool',
+        'highlight': 'dict(str, list[str])',
         'id': 'str',
         'is_common': 'bool',
+        'item_version': 'Version',
         'layout': 'WidgetCells',
+        'locked': 'bool',
         'modified': 'datetime',
         'name': 'str',
+        'numeric_id': 'int',
         'owner': 'str',
+        'pack_id': 'str',
+        'pack_propagation_labels': 'list[str]',
         'period': 'Period',
         'prev_name': 'str',
-        'shared': 'bool',
+        'previous_all_read': 'bool',
+        'previous_all_read_write': 'bool',
+        'previous_roles': 'list[str]',
+        'primary_term': 'int',
+        'propagation_labels': 'list[str]',
+        'roles': 'list[str]',
+        'sequence_number': 'int',
         'should_commit': 'bool',
         'sort_values': 'list[str]',
         'system': 'bool',
         'to_date': 'datetime',
+        'to_server_version': 'Version',
         'vc_should_ignore': 'bool',
-        'version': 'int'
+        'vc_should_keep_item_legacy_prod_machine': 'bool',
+        'version': 'int',
+        'xsoar_has_read_only_role': 'bool',
+        'xsoar_previous_read_only_roles': 'list[str]',
+        'xsoar_read_only_roles': 'list[str]'
     }
 
     attribute_map = {
+        'all_read': 'allRead',
+        'all_read_write': 'allReadWrite',
         'commit_message': 'commitMessage',
+        'dbot_created_by': 'dbotCreatedBy',
         'from_date': 'fromDate',
         'from_date_license': 'fromDateLicense',
+        'from_server_version': 'fromServerVersion',
+        'has_role': 'hasRole',
+        'highlight': 'highlight',
         'id': 'id',
         'is_common': 'isCommon',
+        'item_version': 'itemVersion',
         'layout': 'layout',
+        'locked': 'locked',
         'modified': 'modified',
         'name': 'name',
+        'numeric_id': 'numericId',
         'owner': 'owner',
+        'pack_id': 'packID',
+        'pack_propagation_labels': 'packPropagationLabels',
         'period': 'period',
         'prev_name': 'prevName',
-        'shared': 'shared',
+        'previous_all_read': 'previousAllRead',
+        'previous_all_read_write': 'previousAllReadWrite',
+        'previous_roles': 'previousRoles',
+        'primary_term': 'primaryTerm',
+        'propagation_labels': 'propagationLabels',
+        'roles': 'roles',
+        'sequence_number': 'sequenceNumber',
         'should_commit': 'shouldCommit',
         'sort_values': 'sortValues',
         'system': 'system',
         'to_date': 'toDate',
+        'to_server_version': 'toServerVersion',
         'vc_should_ignore': 'vcShouldIgnore',
-        'version': 'version'
+        'vc_should_keep_item_legacy_prod_machine': 'vcShouldKeepItemLegacyProdMachine',
+        'version': 'version',
+        'xsoar_has_read_only_role': 'xsoarHasReadOnlyRole',
+        'xsoar_previous_read_only_roles': 'xsoarPreviousReadOnlyRoles',
+        'xsoar_read_only_roles': 'xsoarReadOnlyRoles'
     }
 
-    def __init__(self, commit_message=None, from_date=None, from_date_license=None, id=None, is_common=None, layout=None, modified=None, name=None, owner=None, period=None, prev_name=None, shared=None, should_commit=None, sort_values=None, system=None, to_date=None, vc_should_ignore=None, version=None):  # noqa: E501
+    def __init__(self, all_read=None, all_read_write=None, commit_message=None, dbot_created_by=None, from_date=None, from_date_license=None, from_server_version=None, has_role=None, highlight=None, id=None, is_common=None, item_version=None, layout=None, locked=None, modified=None, name=None, numeric_id=None, owner=None, pack_id=None, pack_propagation_labels=None, period=None, prev_name=None, previous_all_read=None, previous_all_read_write=None, previous_roles=None, primary_term=None, propagation_labels=None, roles=None, sequence_number=None, should_commit=None, sort_values=None, system=None, to_date=None, to_server_version=None, vc_should_ignore=None, vc_should_keep_item_legacy_prod_machine=None, version=None, xsoar_has_read_only_role=None, xsoar_previous_read_only_roles=None, xsoar_read_only_roles=None):  # noqa: E501
         """Dashboard - a model defined in Swagger"""  # noqa: E501
 
+        self._all_read = None
+        self._all_read_write = None
         self._commit_message = None
+        self._dbot_created_by = None
         self._from_date = None
         self._from_date_license = None
+        self._from_server_version = None
+        self._has_role = None
+        self._highlight = None
         self._id = None
         self._is_common = None
+        self._item_version = None
         self._layout = None
+        self._locked = None
         self._modified = None
         self._name = None
+        self._numeric_id = None
         self._owner = None
+        self._pack_id = None
+        self._pack_propagation_labels = None
         self._period = None
         self._prev_name = None
-        self._shared = None
+        self._previous_all_read = None
+        self._previous_all_read_write = None
+        self._previous_roles = None
+        self._primary_term = None
+        self._propagation_labels = None
+        self._roles = None
+        self._sequence_number = None
         self._should_commit = None
         self._sort_values = None
         self._system = None
         self._to_date = None
+        self._to_server_version = None
         self._vc_should_ignore = None
+        self._vc_should_keep_item_legacy_prod_machine = None
         self._version = None
+        self._xsoar_has_read_only_role = None
+        self._xsoar_previous_read_only_roles = None
+        self._xsoar_read_only_roles = None
         self.discriminator = None
 
+        if all_read is not None:
+            self.all_read = all_read
+        if all_read_write is not None:
+            self.all_read_write = all_read_write
         if commit_message is not None:
             self.commit_message = commit_message
+        if dbot_created_by is not None:
+            self.dbot_created_by = dbot_created_by
         if from_date is not None:
             self.from_date = from_date
         if from_date_license is not None:
             self.from_date_license = from_date_license
+        if from_server_version is not None:
+            self.from_server_version = from_server_version
+        if has_role is not None:
+            self.has_role = has_role
+        if highlight is not None:
+            self.highlight = highlight
         if id is not None:
             self.id = id
         if is_common is not None:
             self.is_common = is_common
+        if item_version is not None:
+            self.item_version = item_version
         if layout is not None:
             self.layout = layout
+        if locked is not None:
+            self.locked = locked
         if modified is not None:
             self.modified = modified
         if name is not None:
             self.name = name
+        if numeric_id is not None:
+            self.numeric_id = numeric_id
         if owner is not None:
             self.owner = owner
+        if pack_id is not None:
+            self.pack_id = pack_id
+        if pack_propagation_labels is not None:
+            self.pack_propagation_labels = pack_propagation_labels
         if period is not None:
             self.period = period
         if prev_name is not None:
             self.prev_name = prev_name
-        if shared is not None:
-            self.shared = shared
+        if previous_all_read is not None:
+            self.previous_all_read = previous_all_read
+        if previous_all_read_write is not None:
+            self.previous_all_read_write = previous_all_read_write
+        if previous_roles is not None:
+            self.previous_roles = previous_roles
+        if primary_term is not None:
+            self.primary_term = primary_term
+        if propagation_labels is not None:
+            self.propagation_labels = propagation_labels
+        if roles is not None:
+            self.roles = roles
+        if sequence_number is not None:
+            self.sequence_number = sequence_number
         if should_commit is not None:
             self.should_commit = should_commit
         if sort_values is not None:
@@ -130,10 +231,62 @@ class Dashboard(object):
             self.system = system
         if to_date is not None:
             self.to_date = to_date
+        if to_server_version is not None:
+            self.to_server_version = to_server_version
         if vc_should_ignore is not None:
             self.vc_should_ignore = vc_should_ignore
+        if vc_should_keep_item_legacy_prod_machine is not None:
+            self.vc_should_keep_item_legacy_prod_machine = vc_should_keep_item_legacy_prod_machine
         if version is not None:
             self.version = version
+        if xsoar_has_read_only_role is not None:
+            self.xsoar_has_read_only_role = xsoar_has_read_only_role
+        if xsoar_previous_read_only_roles is not None:
+            self.xsoar_previous_read_only_roles = xsoar_previous_read_only_roles
+        if xsoar_read_only_roles is not None:
+            self.xsoar_read_only_roles = xsoar_read_only_roles
+
+    @property
+    def all_read(self):
+        """Gets the all_read of this Dashboard.  # noqa: E501
+
+
+        :return: The all_read of this Dashboard.  # noqa: E501
+        :rtype: bool
+        """
+        return self._all_read
+
+    @all_read.setter
+    def all_read(self, all_read):
+        """Sets the all_read of this Dashboard.
+
+
+        :param all_read: The all_read of this Dashboard.  # noqa: E501
+        :type: bool
+        """
+
+        self._all_read = all_read
+
+    @property
+    def all_read_write(self):
+        """Gets the all_read_write of this Dashboard.  # noqa: E501
+
+
+        :return: The all_read_write of this Dashboard.  # noqa: E501
+        :rtype: bool
+        """
+        return self._all_read_write
+
+    @all_read_write.setter
+    def all_read_write(self, all_read_write):
+        """Sets the all_read_write of this Dashboard.
+
+
+        :param all_read_write: The all_read_write of this Dashboard.  # noqa: E501
+        :type: bool
+        """
+
+        self._all_read_write = all_read_write
 
     @property
     def commit_message(self):
@@ -155,6 +308,29 @@ class Dashboard(object):
         """
 
         self._commit_message = commit_message
+
+    @property
+    def dbot_created_by(self):
+        """Gets the dbot_created_by of this Dashboard.  # noqa: E501
+
+        Who has created this event - relevant only for manual incidents  # noqa: E501
+
+        :return: The dbot_created_by of this Dashboard.  # noqa: E501
+        :rtype: str
+        """
+        return self._dbot_created_by
+
+    @dbot_created_by.setter
+    def dbot_created_by(self, dbot_created_by):
+        """Sets the dbot_created_by of this Dashboard.
+
+        Who has created this event - relevant only for manual incidents  # noqa: E501
+
+        :param dbot_created_by: The dbot_created_by of this Dashboard.  # noqa: E501
+        :type: str
+        """
+
+        self._dbot_created_by = dbot_created_by
 
     @property
     def from_date(self):
@@ -199,6 +375,71 @@ class Dashboard(object):
         self._from_date_license = from_date_license
 
     @property
+    def from_server_version(self):
+        """Gets the from_server_version of this Dashboard.  # noqa: E501
+
+
+        :return: The from_server_version of this Dashboard.  # noqa: E501
+        :rtype: Version
+        """
+        return self._from_server_version
+
+    @from_server_version.setter
+    def from_server_version(self, from_server_version):
+        """Sets the from_server_version of this Dashboard.
+
+
+        :param from_server_version: The from_server_version of this Dashboard.  # noqa: E501
+        :type: Version
+        """
+
+        self._from_server_version = from_server_version
+
+    @property
+    def has_role(self):
+        """Gets the has_role of this Dashboard.  # noqa: E501
+
+        Internal field to make queries on role faster  # noqa: E501
+
+        :return: The has_role of this Dashboard.  # noqa: E501
+        :rtype: bool
+        """
+        return self._has_role
+
+    @has_role.setter
+    def has_role(self, has_role):
+        """Sets the has_role of this Dashboard.
+
+        Internal field to make queries on role faster  # noqa: E501
+
+        :param has_role: The has_role of this Dashboard.  # noqa: E501
+        :type: bool
+        """
+
+        self._has_role = has_role
+
+    @property
+    def highlight(self):
+        """Gets the highlight of this Dashboard.  # noqa: E501
+
+
+        :return: The highlight of this Dashboard.  # noqa: E501
+        :rtype: dict(str, list[str])
+        """
+        return self._highlight
+
+    @highlight.setter
+    def highlight(self, highlight):
+        """Sets the highlight of this Dashboard.
+
+
+        :param highlight: The highlight of this Dashboard.  # noqa: E501
+        :type: dict(str, list[str])
+        """
+
+        self._highlight = highlight
+
+    @property
     def id(self):
         """Gets the id of this Dashboard.  # noqa: E501
 
@@ -241,6 +482,27 @@ class Dashboard(object):
         self._is_common = is_common
 
     @property
+    def item_version(self):
+        """Gets the item_version of this Dashboard.  # noqa: E501
+
+
+        :return: The item_version of this Dashboard.  # noqa: E501
+        :rtype: Version
+        """
+        return self._item_version
+
+    @item_version.setter
+    def item_version(self, item_version):
+        """Sets the item_version of this Dashboard.
+
+
+        :param item_version: The item_version of this Dashboard.  # noqa: E501
+        :type: Version
+        """
+
+        self._item_version = item_version
+
+    @property
     def layout(self):
         """Gets the layout of this Dashboard.  # noqa: E501
 
@@ -260,6 +522,27 @@ class Dashboard(object):
         """
 
         self._layout = layout
+
+    @property
+    def locked(self):
+        """Gets the locked of this Dashboard.  # noqa: E501
+
+
+        :return: The locked of this Dashboard.  # noqa: E501
+        :rtype: bool
+        """
+        return self._locked
+
+    @locked.setter
+    def locked(self, locked):
+        """Sets the locked of this Dashboard.
+
+
+        :param locked: The locked of this Dashboard.  # noqa: E501
+        :type: bool
+        """
+
+        self._locked = locked
 
     @property
     def modified(self):
@@ -304,6 +587,27 @@ class Dashboard(object):
         self._name = name
 
     @property
+    def numeric_id(self):
+        """Gets the numeric_id of this Dashboard.  # noqa: E501
+
+
+        :return: The numeric_id of this Dashboard.  # noqa: E501
+        :rtype: int
+        """
+        return self._numeric_id
+
+    @numeric_id.setter
+    def numeric_id(self, numeric_id):
+        """Sets the numeric_id of this Dashboard.
+
+
+        :param numeric_id: The numeric_id of this Dashboard.  # noqa: E501
+        :type: int
+        """
+
+        self._numeric_id = numeric_id
+
+    @property
     def owner(self):
         """Gets the owner of this Dashboard.  # noqa: E501
 
@@ -323,6 +627,48 @@ class Dashboard(object):
         """
 
         self._owner = owner
+
+    @property
+    def pack_id(self):
+        """Gets the pack_id of this Dashboard.  # noqa: E501
+
+
+        :return: The pack_id of this Dashboard.  # noqa: E501
+        :rtype: str
+        """
+        return self._pack_id
+
+    @pack_id.setter
+    def pack_id(self, pack_id):
+        """Sets the pack_id of this Dashboard.
+
+
+        :param pack_id: The pack_id of this Dashboard.  # noqa: E501
+        :type: str
+        """
+
+        self._pack_id = pack_id
+
+    @property
+    def pack_propagation_labels(self):
+        """Gets the pack_propagation_labels of this Dashboard.  # noqa: E501
+
+
+        :return: The pack_propagation_labels of this Dashboard.  # noqa: E501
+        :rtype: list[str]
+        """
+        return self._pack_propagation_labels
+
+    @pack_propagation_labels.setter
+    def pack_propagation_labels(self, pack_propagation_labels):
+        """Sets the pack_propagation_labels of this Dashboard.
+
+
+        :param pack_propagation_labels: The pack_propagation_labels of this Dashboard.  # noqa: E501
+        :type: list[str]
+        """
+
+        self._pack_propagation_labels = pack_propagation_labels
 
     @property
     def period(self):
@@ -367,25 +713,155 @@ class Dashboard(object):
         self._prev_name = prev_name
 
     @property
-    def shared(self):
-        """Gets the shared of this Dashboard.  # noqa: E501
+    def previous_all_read(self):
+        """Gets the previous_all_read of this Dashboard.  # noqa: E501
 
 
-        :return: The shared of this Dashboard.  # noqa: E501
+        :return: The previous_all_read of this Dashboard.  # noqa: E501
         :rtype: bool
         """
-        return self._shared
+        return self._previous_all_read
 
-    @shared.setter
-    def shared(self, shared):
-        """Sets the shared of this Dashboard.
+    @previous_all_read.setter
+    def previous_all_read(self, previous_all_read):
+        """Sets the previous_all_read of this Dashboard.
 
 
-        :param shared: The shared of this Dashboard.  # noqa: E501
+        :param previous_all_read: The previous_all_read of this Dashboard.  # noqa: E501
         :type: bool
         """
 
-        self._shared = shared
+        self._previous_all_read = previous_all_read
+
+    @property
+    def previous_all_read_write(self):
+        """Gets the previous_all_read_write of this Dashboard.  # noqa: E501
+
+
+        :return: The previous_all_read_write of this Dashboard.  # noqa: E501
+        :rtype: bool
+        """
+        return self._previous_all_read_write
+
+    @previous_all_read_write.setter
+    def previous_all_read_write(self, previous_all_read_write):
+        """Sets the previous_all_read_write of this Dashboard.
+
+
+        :param previous_all_read_write: The previous_all_read_write of this Dashboard.  # noqa: E501
+        :type: bool
+        """
+
+        self._previous_all_read_write = previous_all_read_write
+
+    @property
+    def previous_roles(self):
+        """Gets the previous_roles of this Dashboard.  # noqa: E501
+
+        Do not change this field manually  # noqa: E501
+
+        :return: The previous_roles of this Dashboard.  # noqa: E501
+        :rtype: list[str]
+        """
+        return self._previous_roles
+
+    @previous_roles.setter
+    def previous_roles(self, previous_roles):
+        """Sets the previous_roles of this Dashboard.
+
+        Do not change this field manually  # noqa: E501
+
+        :param previous_roles: The previous_roles of this Dashboard.  # noqa: E501
+        :type: list[str]
+        """
+
+        self._previous_roles = previous_roles
+
+    @property
+    def primary_term(self):
+        """Gets the primary_term of this Dashboard.  # noqa: E501
+
+
+        :return: The primary_term of this Dashboard.  # noqa: E501
+        :rtype: int
+        """
+        return self._primary_term
+
+    @primary_term.setter
+    def primary_term(self, primary_term):
+        """Sets the primary_term of this Dashboard.
+
+
+        :param primary_term: The primary_term of this Dashboard.  # noqa: E501
+        :type: int
+        """
+
+        self._primary_term = primary_term
+
+    @property
+    def propagation_labels(self):
+        """Gets the propagation_labels of this Dashboard.  # noqa: E501
+
+
+        :return: The propagation_labels of this Dashboard.  # noqa: E501
+        :rtype: list[str]
+        """
+        return self._propagation_labels
+
+    @propagation_labels.setter
+    def propagation_labels(self, propagation_labels):
+        """Sets the propagation_labels of this Dashboard.
+
+
+        :param propagation_labels: The propagation_labels of this Dashboard.  # noqa: E501
+        :type: list[str]
+        """
+
+        self._propagation_labels = propagation_labels
+
+    @property
+    def roles(self):
+        """Gets the roles of this Dashboard.  # noqa: E501
+
+        The role assigned to this investigation  # noqa: E501
+
+        :return: The roles of this Dashboard.  # noqa: E501
+        :rtype: list[str]
+        """
+        return self._roles
+
+    @roles.setter
+    def roles(self, roles):
+        """Sets the roles of this Dashboard.
+
+        The role assigned to this investigation  # noqa: E501
+
+        :param roles: The roles of this Dashboard.  # noqa: E501
+        :type: list[str]
+        """
+
+        self._roles = roles
+
+    @property
+    def sequence_number(self):
+        """Gets the sequence_number of this Dashboard.  # noqa: E501
+
+
+        :return: The sequence_number of this Dashboard.  # noqa: E501
+        :rtype: int
+        """
+        return self._sequence_number
+
+    @sequence_number.setter
+    def sequence_number(self, sequence_number):
+        """Sets the sequence_number of this Dashboard.
+
+
+        :param sequence_number: The sequence_number of this Dashboard.  # noqa: E501
+        :type: int
+        """
+
+        self._sequence_number = sequence_number
 
     @property
     def should_commit(self):
@@ -472,6 +948,27 @@ class Dashboard(object):
         self._to_date = to_date
 
     @property
+    def to_server_version(self):
+        """Gets the to_server_version of this Dashboard.  # noqa: E501
+
+
+        :return: The to_server_version of this Dashboard.  # noqa: E501
+        :rtype: Version
+        """
+        return self._to_server_version
+
+    @to_server_version.setter
+    def to_server_version(self, to_server_version):
+        """Sets the to_server_version of this Dashboard.
+
+
+        :param to_server_version: The to_server_version of this Dashboard.  # noqa: E501
+        :type: Version
+        """
+
+        self._to_server_version = to_server_version
+
+    @property
     def vc_should_ignore(self):
         """Gets the vc_should_ignore of this Dashboard.  # noqa: E501
 
@@ -493,6 +990,27 @@ class Dashboard(object):
         self._vc_should_ignore = vc_should_ignore
 
     @property
+    def vc_should_keep_item_legacy_prod_machine(self):
+        """Gets the vc_should_keep_item_legacy_prod_machine of this Dashboard.  # noqa: E501
+
+
+        :return: The vc_should_keep_item_legacy_prod_machine of this Dashboard.  # noqa: E501
+        :rtype: bool
+        """
+        return self._vc_should_keep_item_legacy_prod_machine
+
+    @vc_should_keep_item_legacy_prod_machine.setter
+    def vc_should_keep_item_legacy_prod_machine(self, vc_should_keep_item_legacy_prod_machine):
+        """Sets the vc_should_keep_item_legacy_prod_machine of this Dashboard.
+
+
+        :param vc_should_keep_item_legacy_prod_machine: The vc_should_keep_item_legacy_prod_machine of this Dashboard.  # noqa: E501
+        :type: bool
+        """
+
+        self._vc_should_keep_item_legacy_prod_machine = vc_should_keep_item_legacy_prod_machine
+
+    @property
     def version(self):
         """Gets the version of this Dashboard.  # noqa: E501
 
@@ -512,6 +1030,69 @@ class Dashboard(object):
         """
 
         self._version = version
+
+    @property
+    def xsoar_has_read_only_role(self):
+        """Gets the xsoar_has_read_only_role of this Dashboard.  # noqa: E501
+
+
+        :return: The xsoar_has_read_only_role of this Dashboard.  # noqa: E501
+        :rtype: bool
+        """
+        return self._xsoar_has_read_only_role
+
+    @xsoar_has_read_only_role.setter
+    def xsoar_has_read_only_role(self, xsoar_has_read_only_role):
+        """Sets the xsoar_has_read_only_role of this Dashboard.
+
+
+        :param xsoar_has_read_only_role: The xsoar_has_read_only_role of this Dashboard.  # noqa: E501
+        :type: bool
+        """
+
+        self._xsoar_has_read_only_role = xsoar_has_read_only_role
+
+    @property
+    def xsoar_previous_read_only_roles(self):
+        """Gets the xsoar_previous_read_only_roles of this Dashboard.  # noqa: E501
+
+
+        :return: The xsoar_previous_read_only_roles of this Dashboard.  # noqa: E501
+        :rtype: list[str]
+        """
+        return self._xsoar_previous_read_only_roles
+
+    @xsoar_previous_read_only_roles.setter
+    def xsoar_previous_read_only_roles(self, xsoar_previous_read_only_roles):
+        """Sets the xsoar_previous_read_only_roles of this Dashboard.
+
+
+        :param xsoar_previous_read_only_roles: The xsoar_previous_read_only_roles of this Dashboard.  # noqa: E501
+        :type: list[str]
+        """
+
+        self._xsoar_previous_read_only_roles = xsoar_previous_read_only_roles
+
+    @property
+    def xsoar_read_only_roles(self):
+        """Gets the xsoar_read_only_roles of this Dashboard.  # noqa: E501
+
+
+        :return: The xsoar_read_only_roles of this Dashboard.  # noqa: E501
+        :rtype: list[str]
+        """
+        return self._xsoar_read_only_roles
+
+    @xsoar_read_only_roles.setter
+    def xsoar_read_only_roles(self, xsoar_read_only_roles):
+        """Sets the xsoar_read_only_roles of this Dashboard.
+
+
+        :param xsoar_read_only_roles: The xsoar_read_only_roles of this Dashboard.  # noqa: E501
+        :type: list[str]
+        """
+
+        self._xsoar_read_only_roles = xsoar_read_only_roles
 
     def to_dict(self):
         """Returns the model properties as a dict"""

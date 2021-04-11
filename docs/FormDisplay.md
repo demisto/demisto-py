@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **body_font_color** | **str** |  | [optional] 
 **header_background_color** | **str** |  | [optional] 
 **header_font_color** | **str** |  | [optional] 
+**is_external_rtl** | **bool** |  | [optional] 
 **sender** | **str** |  | [optional] 
 **submit_button_background_color** | **str** |  | [optional] 
 **submit_button_font_color** | **str** |  | [optional] 

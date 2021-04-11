@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    Demisto API
+    Cortex XSOAR API
 
-    This is the public REST API to integrate with the demisto server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Demisto web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Demisto REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Demisto server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Demisto has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Demisto will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
+    This is the public REST API to integrate with the Cortex XSOAR server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Cortex XSOAR web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Cortex XSOAR REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Cortex XSOAR server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Cortex XSOAR has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Cortex XSOAR will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
 
     OpenAPI spec version: 2.0.0
     
@@ -33,31 +33,122 @@ class Group(object):
                             and the value is json key in definition.
     """
     swagger_types = {
+        'color': 'str',
+        'count': 'int',
         'data': 'list[int]',
+        'data_type': 'str',
+        'float_data': 'list[float]',
         'groups': 'Groups',
-        'name': 'str'
+        'name': 'str',
+        'pivot': 'str',
+        'query': 'str',
+        'x': 'float',
+        'y': 'float',
+        'z': 'float'
     }
 
     attribute_map = {
+        'color': 'color',
+        'count': 'count',
         'data': 'data',
+        'data_type': 'dataType',
+        'float_data': 'floatData',
         'groups': 'groups',
-        'name': 'name'
+        'name': 'name',
+        'pivot': 'pivot',
+        'query': 'query',
+        'x': 'x',
+        'y': 'y',
+        'z': 'z'
     }
 
-    def __init__(self, data=None, groups=None, name=None):  # noqa: E501
+    def __init__(self, color=None, count=None, data=None, data_type=None, float_data=None, groups=None, name=None, pivot=None, query=None, x=None, y=None, z=None):  # noqa: E501
         """Group - a model defined in Swagger"""  # noqa: E501
 
+        self._color = None
+        self._count = None
         self._data = None
+        self._data_type = None
+        self._float_data = None
         self._groups = None
         self._name = None
+        self._pivot = None
+        self._query = None
+        self._x = None
+        self._y = None
+        self._z = None
         self.discriminator = None
 
+        if color is not None:
+            self.color = color
+        if count is not None:
+            self.count = count
         if data is not None:
             self.data = data
+        if data_type is not None:
+            self.data_type = data_type
+        if float_data is not None:
+            self.float_data = float_data
         if groups is not None:
             self.groups = groups
         if name is not None:
             self.name = name
+        if pivot is not None:
+            self.pivot = pivot
+        if query is not None:
+            self.query = query
+        if x is not None:
+            self.x = x
+        if y is not None:
+            self.y = y
+        if z is not None:
+            self.z = z
+
+    @property
+    def color(self):
+        """Gets the color of this Group.  # noqa: E501
+
+        color used to identify the group  # noqa: E501
+
+        :return: The color of this Group.  # noqa: E501
+        :rtype: str
+        """
+        return self._color
+
+    @color.setter
+    def color(self, color):
+        """Sets the color of this Group.
+
+        color used to identify the group  # noqa: E501
+
+        :param color: The color of this Group.  # noqa: E501
+        :type: str
+        """
+
+        self._color = color
+
+    @property
+    def count(self):
+        """Gets the count of this Group.  # noqa: E501
+
+        The number of participants in the group  # noqa: E501
+
+        :return: The count of this Group.  # noqa: E501
+        :rtype: int
+        """
+        return self._count
+
+    @count.setter
+    def count(self, count):
+        """Sets the count of this Group.
+
+        The number of participants in the group  # noqa: E501
+
+        :param count: The count of this Group.  # noqa: E501
+        :type: int
+        """
+
+        self._count = count
 
     @property
     def data(self):
@@ -81,6 +172,50 @@ class Group(object):
         """
 
         self._data = data
+
+    @property
+    def data_type(self):
+        """Gets the data_type of this Group.  # noqa: E501
+
+
+        :return: The data_type of this Group.  # noqa: E501
+        :rtype: str
+        """
+        return self._data_type
+
+    @data_type.setter
+    def data_type(self, data_type):
+        """Sets the data_type of this Group.
+
+
+        :param data_type: The data_type of this Group.  # noqa: E501
+        :type: str
+        """
+
+        self._data_type = data_type
+
+    @property
+    def float_data(self):
+        """Gets the float_data of this Group.  # noqa: E501
+
+        The data value provided in array of float values.  # noqa: E501
+
+        :return: The float_data of this Group.  # noqa: E501
+        :rtype: list[float]
+        """
+        return self._float_data
+
+    @float_data.setter
+    def float_data(self, float_data):
+        """Sets the float_data of this Group.
+
+        The data value provided in array of float values.  # noqa: E501
+
+        :param float_data: The float_data of this Group.  # noqa: E501
+        :type: list[float]
+        """
+
+        self._float_data = float_data
 
     @property
     def groups(self):
@@ -123,6 +258,111 @@ class Group(object):
         """
 
         self._name = name
+
+    @property
+    def pivot(self):
+        """Gets the pivot of this Group.  # noqa: E501
+
+
+        :return: The pivot of this Group.  # noqa: E501
+        :rtype: str
+        """
+        return self._pivot
+
+    @pivot.setter
+    def pivot(self, pivot):
+        """Sets the pivot of this Group.
+
+
+        :param pivot: The pivot of this Group.  # noqa: E501
+        :type: str
+        """
+
+        self._pivot = pivot
+
+    @property
+    def query(self):
+        """Gets the query of this Group.  # noqa: E501
+
+
+        :return: The query of this Group.  # noqa: E501
+        :rtype: str
+        """
+        return self._query
+
+    @query.setter
+    def query(self, query):
+        """Sets the query of this Group.
+
+
+        :param query: The query of this Group.  # noqa: E501
+        :type: str
+        """
+
+        self._query = query
+
+    @property
+    def x(self):
+        """Gets the x of this Group.  # noqa: E501
+
+
+        :return: The x of this Group.  # noqa: E501
+        :rtype: float
+        """
+        return self._x
+
+    @x.setter
+    def x(self, x):
+        """Sets the x of this Group.
+
+
+        :param x: The x of this Group.  # noqa: E501
+        :type: float
+        """
+
+        self._x = x
+
+    @property
+    def y(self):
+        """Gets the y of this Group.  # noqa: E501
+
+
+        :return: The y of this Group.  # noqa: E501
+        :rtype: float
+        """
+        return self._y
+
+    @y.setter
+    def y(self, y):
+        """Sets the y of this Group.
+
+
+        :param y: The y of this Group.  # noqa: E501
+        :type: float
+        """
+
+        self._y = y
+
+    @property
+    def z(self):
+        """Gets the z of this Group.  # noqa: E501
+
+
+        :return: The z of this Group.  # noqa: E501
+        :rtype: float
+        """
+        return self._z
+
+    @z.setter
+    def z(self, z):
+        """Sets the z of this Group.
+
+
+        :param z: The z of this Group.  # noqa: E501
+        :type: float
+        """
+
+        self._z = z
 
     def to_dict(self):
         """Returns the model properties as a dict"""

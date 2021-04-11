@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    Demisto API
+    Cortex XSOAR API
 
-    This is the public REST API to integrate with the demisto server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Demisto web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Demisto REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Demisto server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Demisto has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Demisto will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
+    This is the public REST API to integrate with the Cortex XSOAR server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Cortex XSOAR web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Cortex XSOAR REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Cortex XSOAR server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Cortex XSOAR has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Cortex XSOAR will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
 
     OpenAPI spec version: 2.0.0
     
@@ -19,6 +19,8 @@ import six
 from demisto_client.demisto_api.models.custom_fields import CustomFields  # noqa: F401,E501
 from demisto_client.demisto_api.models.expiration_policy import ExpirationPolicy  # noqa: F401,E501
 from demisto_client.demisto_api.models.expiration_source import ExpirationSource  # noqa: F401,E501
+from demisto_client.demisto_api.models.feed_indicator_comment import FeedIndicatorComment  # noqa: F401,E501
+from demisto_client.demisto_api.models.relationships_api import RelationshipsAPI  # noqa: F401,E501
 from demisto_client.demisto_api.models.reliability import Reliability  # noqa: F401,E501
 
 
@@ -38,16 +40,20 @@ class FeedIndicator(object):
     swagger_types = {
         'expiration_source': 'ExpirationSource',
         'bypass_exclusion_list': 'bool',
+        'classifier_id': 'str',
         'classifier_version': 'int',
+        'comments': 'list[FeedIndicatorComment]',
         'expiration_interval': 'int',
         'expiration_policy': 'ExpirationPolicy',
-        'feed_config': 'dict(str, object)',
         'fetch_time': 'datetime',
         'fields': 'CustomFields',
         'is_enrichment': 'bool',
+        'mapper_id': 'str',
+        'mapper_version': 'int',
         'modified_time': 'datetime',
         'module_id': 'str',
         'raw_json': 'dict(str, object)',
+        'relationships': 'RelationshipsAPI',
         'reliability': 'Reliability',
         'score': 'int',
         'source_brand': 'str',
@@ -60,16 +66,20 @@ class FeedIndicator(object):
     attribute_map = {
         'expiration_source': 'ExpirationSource',
         'bypass_exclusion_list': 'bypassExclusionList',
+        'classifier_id': 'classifierId',
         'classifier_version': 'classifierVersion',
+        'comments': 'comments',
         'expiration_interval': 'expirationInterval',
         'expiration_policy': 'expirationPolicy',
-        'feed_config': 'feedConfig',
         'fetch_time': 'fetchTime',
         'fields': 'fields',
         'is_enrichment': 'isEnrichment',
+        'mapper_id': 'mapperId',
+        'mapper_version': 'mapperVersion',
         'modified_time': 'modifiedTime',
         'module_id': 'moduleId',
         'raw_json': 'rawJSON',
+        'relationships': 'relationships',
         'reliability': 'reliability',
         'score': 'score',
         'source_brand': 'sourceBrand',
@@ -79,21 +89,25 @@ class FeedIndicator(object):
         'value': 'value'
     }
 
-    def __init__(self, expiration_source=None, bypass_exclusion_list=None, classifier_version=None, expiration_interval=None, expiration_policy=None, feed_config=None, fetch_time=None, fields=None, is_enrichment=None, modified_time=None, module_id=None, raw_json=None, reliability=None, score=None, source_brand=None, source_instance=None, timestamp=None, type=None, value=None):  # noqa: E501
+    def __init__(self, expiration_source=None, bypass_exclusion_list=None, classifier_id=None, classifier_version=None, comments=None, expiration_interval=None, expiration_policy=None, fetch_time=None, fields=None, is_enrichment=None, mapper_id=None, mapper_version=None, modified_time=None, module_id=None, raw_json=None, relationships=None, reliability=None, score=None, source_brand=None, source_instance=None, timestamp=None, type=None, value=None):  # noqa: E501
         """FeedIndicator - a model defined in Swagger"""  # noqa: E501
 
         self._expiration_source = None
         self._bypass_exclusion_list = None
+        self._classifier_id = None
         self._classifier_version = None
+        self._comments = None
         self._expiration_interval = None
         self._expiration_policy = None
-        self._feed_config = None
         self._fetch_time = None
         self._fields = None
         self._is_enrichment = None
+        self._mapper_id = None
+        self._mapper_version = None
         self._modified_time = None
         self._module_id = None
         self._raw_json = None
+        self._relationships = None
         self._reliability = None
         self._score = None
         self._source_brand = None
@@ -107,26 +121,34 @@ class FeedIndicator(object):
             self.expiration_source = expiration_source
         if bypass_exclusion_list is not None:
             self.bypass_exclusion_list = bypass_exclusion_list
+        if classifier_id is not None:
+            self.classifier_id = classifier_id
         if classifier_version is not None:
             self.classifier_version = classifier_version
+        if comments is not None:
+            self.comments = comments
         if expiration_interval is not None:
             self.expiration_interval = expiration_interval
         if expiration_policy is not None:
             self.expiration_policy = expiration_policy
-        if feed_config is not None:
-            self.feed_config = feed_config
         if fetch_time is not None:
             self.fetch_time = fetch_time
         if fields is not None:
             self.fields = fields
         if is_enrichment is not None:
             self.is_enrichment = is_enrichment
+        if mapper_id is not None:
+            self.mapper_id = mapper_id
+        if mapper_version is not None:
+            self.mapper_version = mapper_version
         if modified_time is not None:
             self.modified_time = modified_time
         if module_id is not None:
             self.module_id = module_id
         if raw_json is not None:
             self.raw_json = raw_json
+        if relationships is not None:
+            self.relationships = relationships
         if reliability is not None:
             self.reliability = reliability
         if score is not None:
@@ -185,6 +207,27 @@ class FeedIndicator(object):
         self._bypass_exclusion_list = bypass_exclusion_list
 
     @property
+    def classifier_id(self):
+        """Gets the classifier_id of this FeedIndicator.  # noqa: E501
+
+
+        :return: The classifier_id of this FeedIndicator.  # noqa: E501
+        :rtype: str
+        """
+        return self._classifier_id
+
+    @classifier_id.setter
+    def classifier_id(self, classifier_id):
+        """Sets the classifier_id of this FeedIndicator.
+
+
+        :param classifier_id: The classifier_id of this FeedIndicator.  # noqa: E501
+        :type: str
+        """
+
+        self._classifier_id = classifier_id
+
+    @property
     def classifier_version(self):
         """Gets the classifier_version of this FeedIndicator.  # noqa: E501
 
@@ -204,6 +247,27 @@ class FeedIndicator(object):
         """
 
         self._classifier_version = classifier_version
+
+    @property
+    def comments(self):
+        """Gets the comments of this FeedIndicator.  # noqa: E501
+
+
+        :return: The comments of this FeedIndicator.  # noqa: E501
+        :rtype: list[FeedIndicatorComment]
+        """
+        return self._comments
+
+    @comments.setter
+    def comments(self, comments):
+        """Sets the comments of this FeedIndicator.
+
+
+        :param comments: The comments of this FeedIndicator.  # noqa: E501
+        :type: list[FeedIndicatorComment]
+        """
+
+        self._comments = comments
 
     @property
     def expiration_interval(self):
@@ -246,27 +310,6 @@ class FeedIndicator(object):
         """
 
         self._expiration_policy = expiration_policy
-
-    @property
-    def feed_config(self):
-        """Gets the feed_config of this FeedIndicator.  # noqa: E501
-
-
-        :return: The feed_config of this FeedIndicator.  # noqa: E501
-        :rtype: dict(str, object)
-        """
-        return self._feed_config
-
-    @feed_config.setter
-    def feed_config(self, feed_config):
-        """Sets the feed_config of this FeedIndicator.
-
-
-        :param feed_config: The feed_config of this FeedIndicator.  # noqa: E501
-        :type: dict(str, object)
-        """
-
-        self._feed_config = feed_config
 
     @property
     def fetch_time(self):
@@ -332,6 +375,48 @@ class FeedIndicator(object):
         self._is_enrichment = is_enrichment
 
     @property
+    def mapper_id(self):
+        """Gets the mapper_id of this FeedIndicator.  # noqa: E501
+
+
+        :return: The mapper_id of this FeedIndicator.  # noqa: E501
+        :rtype: str
+        """
+        return self._mapper_id
+
+    @mapper_id.setter
+    def mapper_id(self, mapper_id):
+        """Sets the mapper_id of this FeedIndicator.
+
+
+        :param mapper_id: The mapper_id of this FeedIndicator.  # noqa: E501
+        :type: str
+        """
+
+        self._mapper_id = mapper_id
+
+    @property
+    def mapper_version(self):
+        """Gets the mapper_version of this FeedIndicator.  # noqa: E501
+
+
+        :return: The mapper_version of this FeedIndicator.  # noqa: E501
+        :rtype: int
+        """
+        return self._mapper_version
+
+    @mapper_version.setter
+    def mapper_version(self, mapper_version):
+        """Sets the mapper_version of this FeedIndicator.
+
+
+        :param mapper_version: The mapper_version of this FeedIndicator.  # noqa: E501
+        :type: int
+        """
+
+        self._mapper_version = mapper_version
+
+    @property
     def modified_time(self):
         """Gets the modified_time of this FeedIndicator.  # noqa: E501
 
@@ -393,6 +478,27 @@ class FeedIndicator(object):
         """
 
         self._raw_json = raw_json
+
+    @property
+    def relationships(self):
+        """Gets the relationships of this FeedIndicator.  # noqa: E501
+
+
+        :return: The relationships of this FeedIndicator.  # noqa: E501
+        :rtype: RelationshipsAPI
+        """
+        return self._relationships
+
+    @relationships.setter
+    def relationships(self, relationships):
+        """Sets the relationships of this FeedIndicator.
+
+
+        :param relationships: The relationships of this FeedIndicator.  # noqa: E501
+        :type: RelationshipsAPI
+        """
+
+        self._relationships = relationships
 
     @property
     def reliability(self):
@@ -503,7 +609,6 @@ class FeedIndicator(object):
     def type(self):
         """Gets the type of this FeedIndicator.  # noqa: E501
 
-        indicator fields  # noqa: E501
 
         :return: The type of this FeedIndicator.  # noqa: E501
         :rtype: str
@@ -514,7 +619,6 @@ class FeedIndicator(object):
     def type(self, type):
         """Sets the type of this FeedIndicator.
 
-        indicator fields  # noqa: E501
 
         :param type: The type of this FeedIndicator.  # noqa: E501
         :type: str

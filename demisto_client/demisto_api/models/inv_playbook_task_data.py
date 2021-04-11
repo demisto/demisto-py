@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    Demisto API
+    Cortex XSOAR API
 
-    This is the public REST API to integrate with the demisto server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Demisto web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Demisto REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Demisto server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Demisto has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Demisto will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
+    This is the public REST API to integrate with the Cortex XSOAR server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Cortex XSOAR web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Cortex XSOAR REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Cortex XSOAR server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Cortex XSOAR has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Cortex XSOAR will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
 
     OpenAPI spec version: 2.0.0
     
@@ -17,6 +17,8 @@ import re  # noqa: F401
 import six
 
 from demisto_client.demisto_api.models.advance_arg import AdvanceArg  # noqa: F401,E501
+from demisto_client.demisto_api.models.task_loop import TaskLoop  # noqa: F401,E501
+from demisto_client.demisto_api.models.task_type import TaskType  # noqa: F401,E501
 
 
 class InvPlaybookTaskData(object):
@@ -36,32 +38,44 @@ class InvPlaybookTaskData(object):
         'add_after': 'bool',
         'automation_script': 'str',
         'description': 'str',
+        'loop': 'TaskLoop',
         'name': 'str',
         'neighbor_inv_pb_task_id': 'str',
+        'playbook_id': 'str',
         'script_arguments': 'dict(str, AdvanceArg)',
-        'tags': 'list[str]'
+        'separate_context': 'bool',
+        'tags': 'list[str]',
+        'type': 'TaskType'
     }
 
     attribute_map = {
         'add_after': 'addAfter',
         'automation_script': 'automationScript',
         'description': 'description',
+        'loop': 'loop',
         'name': 'name',
         'neighbor_inv_pb_task_id': 'neighborInvPBTaskId',
+        'playbook_id': 'playbookId',
         'script_arguments': 'scriptArguments',
-        'tags': 'tags'
+        'separate_context': 'separateContext',
+        'tags': 'tags',
+        'type': 'type'
     }
 
-    def __init__(self, add_after=None, automation_script=None, description=None, name=None, neighbor_inv_pb_task_id=None, script_arguments=None, tags=None):  # noqa: E501
+    def __init__(self, add_after=None, automation_script=None, description=None, loop=None, name=None, neighbor_inv_pb_task_id=None, playbook_id=None, script_arguments=None, separate_context=None, tags=None, type=None):  # noqa: E501
         """InvPlaybookTaskData - a model defined in Swagger"""  # noqa: E501
 
         self._add_after = None
         self._automation_script = None
         self._description = None
+        self._loop = None
         self._name = None
         self._neighbor_inv_pb_task_id = None
+        self._playbook_id = None
         self._script_arguments = None
+        self._separate_context = None
         self._tags = None
+        self._type = None
         self.discriminator = None
 
         if add_after is not None:
@@ -70,14 +84,22 @@ class InvPlaybookTaskData(object):
             self.automation_script = automation_script
         if description is not None:
             self.description = description
+        if loop is not None:
+            self.loop = loop
         if name is not None:
             self.name = name
         if neighbor_inv_pb_task_id is not None:
             self.neighbor_inv_pb_task_id = neighbor_inv_pb_task_id
+        if playbook_id is not None:
+            self.playbook_id = playbook_id
         if script_arguments is not None:
             self.script_arguments = script_arguments
+        if separate_context is not None:
+            self.separate_context = separate_context
         if tags is not None:
             self.tags = tags
+        if type is not None:
+            self.type = type
 
     @property
     def add_after(self):
@@ -143,6 +165,27 @@ class InvPlaybookTaskData(object):
         self._description = description
 
     @property
+    def loop(self):
+        """Gets the loop of this InvPlaybookTaskData.  # noqa: E501
+
+
+        :return: The loop of this InvPlaybookTaskData.  # noqa: E501
+        :rtype: TaskLoop
+        """
+        return self._loop
+
+    @loop.setter
+    def loop(self, loop):
+        """Sets the loop of this InvPlaybookTaskData.
+
+
+        :param loop: The loop of this InvPlaybookTaskData.  # noqa: E501
+        :type: TaskLoop
+        """
+
+        self._loop = loop
+
+    @property
     def name(self):
         """Gets the name of this InvPlaybookTaskData.  # noqa: E501
 
@@ -185,6 +228,27 @@ class InvPlaybookTaskData(object):
         self._neighbor_inv_pb_task_id = neighbor_inv_pb_task_id
 
     @property
+    def playbook_id(self):
+        """Gets the playbook_id of this InvPlaybookTaskData.  # noqa: E501
+
+
+        :return: The playbook_id of this InvPlaybookTaskData.  # noqa: E501
+        :rtype: str
+        """
+        return self._playbook_id
+
+    @playbook_id.setter
+    def playbook_id(self, playbook_id):
+        """Sets the playbook_id of this InvPlaybookTaskData.
+
+
+        :param playbook_id: The playbook_id of this InvPlaybookTaskData.  # noqa: E501
+        :type: str
+        """
+
+        self._playbook_id = playbook_id
+
+    @property
     def script_arguments(self):
         """Gets the script_arguments of this InvPlaybookTaskData.  # noqa: E501
 
@@ -206,6 +270,27 @@ class InvPlaybookTaskData(object):
         self._script_arguments = script_arguments
 
     @property
+    def separate_context(self):
+        """Gets the separate_context of this InvPlaybookTaskData.  # noqa: E501
+
+
+        :return: The separate_context of this InvPlaybookTaskData.  # noqa: E501
+        :rtype: bool
+        """
+        return self._separate_context
+
+    @separate_context.setter
+    def separate_context(self, separate_context):
+        """Sets the separate_context of this InvPlaybookTaskData.
+
+
+        :param separate_context: The separate_context of this InvPlaybookTaskData.  # noqa: E501
+        :type: bool
+        """
+
+        self._separate_context = separate_context
+
+    @property
     def tags(self):
         """Gets the tags of this InvPlaybookTaskData.  # noqa: E501
 
@@ -225,6 +310,27 @@ class InvPlaybookTaskData(object):
         """
 
         self._tags = tags
+
+    @property
+    def type(self):
+        """Gets the type of this InvPlaybookTaskData.  # noqa: E501
+
+
+        :return: The type of this InvPlaybookTaskData.  # noqa: E501
+        :rtype: TaskType
+        """
+        return self._type
+
+    @type.setter
+    def type(self, type):
+        """Sets the type of this InvPlaybookTaskData.
+
+
+        :param type: The type of this InvPlaybookTaskData.  # noqa: E501
+        :type: TaskType
+        """
+
+        self._type = type
 
     def to_dict(self):
         """Returns the model properties as a dict"""

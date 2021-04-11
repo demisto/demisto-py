@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    Demisto API
+    Cortex XSOAR API
 
-    This is the public REST API to integrate with the demisto server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Demisto web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Demisto REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Demisto server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Demisto has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Demisto will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
+    This is the public REST API to integrate with the Cortex XSOAR server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Cortex XSOAR web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Cortex XSOAR REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Cortex XSOAR server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Cortex XSOAR has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Cortex XSOAR will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
 
     OpenAPI spec version: 2.0.0
     
@@ -41,6 +41,7 @@ class IndicatorFilter(object):
         'first_seen': 'DateRangeFilter',
         'from_date': 'datetime',
         'from_date_license': 'datetime',
+        'ignore_workers': 'bool',
         'last_seen': 'DateRangeFilter',
         'later_time_in_page': 'datetime',
         'page': 'int',
@@ -48,7 +49,9 @@ class IndicatorFilter(object):
         'prev_page': 'bool',
         'query': 'str',
         'search_after': 'list[str]',
+        'search_after_elastic': 'list[str]',
         'search_before': 'list[str]',
+        'search_before_elastic': 'list[str]',
         'size': 'int',
         'sort': 'list[Order]',
         'time_frame': 'Duration',
@@ -61,6 +64,7 @@ class IndicatorFilter(object):
         'first_seen': 'firstSeen',
         'from_date': 'fromDate',
         'from_date_license': 'fromDateLicense',
+        'ignore_workers': 'ignoreWorkers',
         'last_seen': 'lastSeen',
         'later_time_in_page': 'laterTimeInPage',
         'page': 'page',
@@ -68,14 +72,16 @@ class IndicatorFilter(object):
         'prev_page': 'prevPage',
         'query': 'query',
         'search_after': 'searchAfter',
+        'search_after_elastic': 'searchAfterElastic',
         'search_before': 'searchBefore',
+        'search_before_elastic': 'searchBeforeElastic',
         'size': 'size',
         'sort': 'sort',
         'time_frame': 'timeFrame',
         'to_date': 'toDate'
     }
 
-    def __init__(self, cache=None, early_time_in_page=None, first_seen=None, from_date=None, from_date_license=None, last_seen=None, later_time_in_page=None, page=None, period=None, prev_page=None, query=None, search_after=None, search_before=None, size=None, sort=None, time_frame=None, to_date=None):  # noqa: E501
+    def __init__(self, cache=None, early_time_in_page=None, first_seen=None, from_date=None, from_date_license=None, ignore_workers=None, last_seen=None, later_time_in_page=None, page=None, period=None, prev_page=None, query=None, search_after=None, search_after_elastic=None, search_before=None, search_before_elastic=None, size=None, sort=None, time_frame=None, to_date=None):  # noqa: E501
         """IndicatorFilter - a model defined in Swagger"""  # noqa: E501
 
         self._cache = None
@@ -83,6 +89,7 @@ class IndicatorFilter(object):
         self._first_seen = None
         self._from_date = None
         self._from_date_license = None
+        self._ignore_workers = None
         self._last_seen = None
         self._later_time_in_page = None
         self._page = None
@@ -90,7 +97,9 @@ class IndicatorFilter(object):
         self._prev_page = None
         self._query = None
         self._search_after = None
+        self._search_after_elastic = None
         self._search_before = None
+        self._search_before_elastic = None
         self._size = None
         self._sort = None
         self._time_frame = None
@@ -107,6 +116,8 @@ class IndicatorFilter(object):
             self.from_date = from_date
         if from_date_license is not None:
             self.from_date_license = from_date_license
+        if ignore_workers is not None:
+            self.ignore_workers = ignore_workers
         if last_seen is not None:
             self.last_seen = last_seen
         if later_time_in_page is not None:
@@ -121,8 +132,12 @@ class IndicatorFilter(object):
             self.query = query
         if search_after is not None:
             self.search_after = search_after
+        if search_after_elastic is not None:
+            self.search_after_elastic = search_after_elastic
         if search_before is not None:
             self.search_before = search_before
+        if search_before_elastic is not None:
+            self.search_before_elastic = search_before_elastic
         if size is not None:
             self.size = size
         if sort is not None:
@@ -238,6 +253,29 @@ class IndicatorFilter(object):
         """
 
         self._from_date_license = from_date_license
+
+    @property
+    def ignore_workers(self):
+        """Gets the ignore_workers of this IndicatorFilter.  # noqa: E501
+
+        Do not use workers mechanism while searching bleve  # noqa: E501
+
+        :return: The ignore_workers of this IndicatorFilter.  # noqa: E501
+        :rtype: bool
+        """
+        return self._ignore_workers
+
+    @ignore_workers.setter
+    def ignore_workers(self, ignore_workers):
+        """Sets the ignore_workers of this IndicatorFilter.
+
+        Do not use workers mechanism while searching bleve  # noqa: E501
+
+        :param ignore_workers: The ignore_workers of this IndicatorFilter.  # noqa: E501
+        :type: bool
+        """
+
+        self._ignore_workers = ignore_workers
 
     @property
     def last_seen(self):
@@ -393,6 +431,29 @@ class IndicatorFilter(object):
         self._search_after = search_after
 
     @property
+    def search_after_elastic(self):
+        """Gets the search_after_elastic of this IndicatorFilter.  # noqa: E501
+
+        Efficient next page, pass max ES sort value from previous page  # noqa: E501
+
+        :return: The search_after_elastic of this IndicatorFilter.  # noqa: E501
+        :rtype: list[str]
+        """
+        return self._search_after_elastic
+
+    @search_after_elastic.setter
+    def search_after_elastic(self, search_after_elastic):
+        """Sets the search_after_elastic of this IndicatorFilter.
+
+        Efficient next page, pass max ES sort value from previous page  # noqa: E501
+
+        :param search_after_elastic: The search_after_elastic of this IndicatorFilter.  # noqa: E501
+        :type: list[str]
+        """
+
+        self._search_after_elastic = search_after_elastic
+
+    @property
     def search_before(self):
         """Gets the search_before of this IndicatorFilter.  # noqa: E501
 
@@ -414,6 +475,29 @@ class IndicatorFilter(object):
         """
 
         self._search_before = search_before
+
+    @property
+    def search_before_elastic(self):
+        """Gets the search_before_elastic of this IndicatorFilter.  # noqa: E501
+
+        Efficient prev page, pass min ES sort value from next page  # noqa: E501
+
+        :return: The search_before_elastic of this IndicatorFilter.  # noqa: E501
+        :rtype: list[str]
+        """
+        return self._search_before_elastic
+
+    @search_before_elastic.setter
+    def search_before_elastic(self, search_before_elastic):
+        """Sets the search_before_elastic of this IndicatorFilter.
+
+        Efficient prev page, pass min ES sort value from next page  # noqa: E501
+
+        :param search_before_elastic: The search_before_elastic of this IndicatorFilter.  # noqa: E501
+        :type: list[str]
+        """
+
+        self._search_before_elastic = search_before_elastic
 
     @property
     def size(self):

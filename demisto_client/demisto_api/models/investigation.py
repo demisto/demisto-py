@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    Demisto API
+    Cortex XSOAR API
 
-    This is the public REST API to integrate with the demisto server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Demisto web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Demisto REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Demisto server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Demisto has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Demisto will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
+    This is the public REST API to integrate with the Cortex XSOAR server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Cortex XSOAR web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Cortex XSOAR REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Cortex XSOAR server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Cortex XSOAR has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Cortex XSOAR will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
 
     OpenAPI spec version: 2.0.0
     
@@ -37,31 +37,42 @@ class Investigation(object):
     """
     swagger_types = {
         'shard_id': 'int',
+        'all_read': 'bool',
+        'all_read_write': 'bool',
         'category': 'str',
         'child_investigations': 'list[str]',
         'closed': 'datetime',
         'closing_user_id': 'str',
         'created': 'datetime',
         'creating_user_id': 'str',
+        'dbot_created_by': 'str',
         'details': 'str',
         'entitlements': 'list[str]',
         'entry_users': 'list[str]',
         'has_role': 'bool',
+        'high_priority': 'bool',
+        'highlight': 'dict(str, list[str])',
         'id': 'str',
         'is_child_investigation': 'bool',
+        'is_debug': 'bool',
         'last_open': 'datetime',
         'mirror_auto_close': 'dict(str, bool)',
         'mirror_types': 'dict(str, str)',
         'modified': 'datetime',
         'name': 'str',
+        'numeric_id': 'int',
         'open_duration': 'int',
         'parent_investigation': 'str',
         'persistent_entitlements': 'dict(str, str)',
+        'previous_all_read': 'bool',
+        'previous_all_read_write': 'bool',
         'previous_roles': 'list[str]',
+        'primary_term': 'int',
         'raw_category': 'str',
         'reason': 'dict(str, str)',
         'roles': 'list[str]',
         'run_status': 'RunStatus',
+        'sequence_number': 'int',
         'slack_mirror_auto_close': 'bool',
         'slack_mirror_type': 'str',
         'sort_values': 'list[str]',
@@ -70,36 +81,50 @@ class Investigation(object):
         'tags': 'list[str]',
         'type': 'InvestigationType',
         'users': 'list[str]',
-        'version': 'int'
+        'version': 'int',
+        'xsoar_has_read_only_role': 'bool',
+        'xsoar_previous_read_only_roles': 'list[str]',
+        'xsoar_read_only_roles': 'list[str]'
     }
 
     attribute_map = {
         'shard_id': 'ShardID',
+        'all_read': 'allRead',
+        'all_read_write': 'allReadWrite',
         'category': 'category',
         'child_investigations': 'childInvestigations',
         'closed': 'closed',
         'closing_user_id': 'closingUserId',
         'created': 'created',
         'creating_user_id': 'creatingUserId',
+        'dbot_created_by': 'dbotCreatedBy',
         'details': 'details',
         'entitlements': 'entitlements',
         'entry_users': 'entryUsers',
         'has_role': 'hasRole',
+        'high_priority': 'highPriority',
+        'highlight': 'highlight',
         'id': 'id',
         'is_child_investigation': 'isChildInvestigation',
+        'is_debug': 'isDebug',
         'last_open': 'lastOpen',
         'mirror_auto_close': 'mirrorAutoClose',
         'mirror_types': 'mirrorTypes',
         'modified': 'modified',
         'name': 'name',
+        'numeric_id': 'numericId',
         'open_duration': 'openDuration',
         'parent_investigation': 'parentInvestigation',
         'persistent_entitlements': 'persistentEntitlements',
+        'previous_all_read': 'previousAllRead',
+        'previous_all_read_write': 'previousAllReadWrite',
         'previous_roles': 'previousRoles',
+        'primary_term': 'primaryTerm',
         'raw_category': 'rawCategory',
         'reason': 'reason',
         'roles': 'roles',
         'run_status': 'runStatus',
+        'sequence_number': 'sequenceNumber',
         'slack_mirror_auto_close': 'slackMirrorAutoClose',
         'slack_mirror_type': 'slackMirrorType',
         'sort_values': 'sortValues',
@@ -108,38 +133,52 @@ class Investigation(object):
         'tags': 'tags',
         'type': 'type',
         'users': 'users',
-        'version': 'version'
+        'version': 'version',
+        'xsoar_has_read_only_role': 'xsoarHasReadOnlyRole',
+        'xsoar_previous_read_only_roles': 'xsoarPreviousReadOnlyRoles',
+        'xsoar_read_only_roles': 'xsoarReadOnlyRoles'
     }
 
-    def __init__(self, shard_id=None, category=None, child_investigations=None, closed=None, closing_user_id=None, created=None, creating_user_id=None, details=None, entitlements=None, entry_users=None, has_role=None, id=None, is_child_investigation=None, last_open=None, mirror_auto_close=None, mirror_types=None, modified=None, name=None, open_duration=None, parent_investigation=None, persistent_entitlements=None, previous_roles=None, raw_category=None, reason=None, roles=None, run_status=None, slack_mirror_auto_close=None, slack_mirror_type=None, sort_values=None, status=None, systems=None, tags=None, type=None, users=None, version=None):  # noqa: E501
+    def __init__(self, shard_id=None, all_read=None, all_read_write=None, category=None, child_investigations=None, closed=None, closing_user_id=None, created=None, creating_user_id=None, dbot_created_by=None, details=None, entitlements=None, entry_users=None, has_role=None, high_priority=None, highlight=None, id=None, is_child_investigation=None, is_debug=None, last_open=None, mirror_auto_close=None, mirror_types=None, modified=None, name=None, numeric_id=None, open_duration=None, parent_investigation=None, persistent_entitlements=None, previous_all_read=None, previous_all_read_write=None, previous_roles=None, primary_term=None, raw_category=None, reason=None, roles=None, run_status=None, sequence_number=None, slack_mirror_auto_close=None, slack_mirror_type=None, sort_values=None, status=None, systems=None, tags=None, type=None, users=None, version=None, xsoar_has_read_only_role=None, xsoar_previous_read_only_roles=None, xsoar_read_only_roles=None):  # noqa: E501
         """Investigation - a model defined in Swagger"""  # noqa: E501
 
         self._shard_id = None
+        self._all_read = None
+        self._all_read_write = None
         self._category = None
         self._child_investigations = None
         self._closed = None
         self._closing_user_id = None
         self._created = None
         self._creating_user_id = None
+        self._dbot_created_by = None
         self._details = None
         self._entitlements = None
         self._entry_users = None
         self._has_role = None
+        self._high_priority = None
+        self._highlight = None
         self._id = None
         self._is_child_investigation = None
+        self._is_debug = None
         self._last_open = None
         self._mirror_auto_close = None
         self._mirror_types = None
         self._modified = None
         self._name = None
+        self._numeric_id = None
         self._open_duration = None
         self._parent_investigation = None
         self._persistent_entitlements = None
+        self._previous_all_read = None
+        self._previous_all_read_write = None
         self._previous_roles = None
+        self._primary_term = None
         self._raw_category = None
         self._reason = None
         self._roles = None
         self._run_status = None
+        self._sequence_number = None
         self._slack_mirror_auto_close = None
         self._slack_mirror_type = None
         self._sort_values = None
@@ -149,10 +188,17 @@ class Investigation(object):
         self._type = None
         self._users = None
         self._version = None
+        self._xsoar_has_read_only_role = None
+        self._xsoar_previous_read_only_roles = None
+        self._xsoar_read_only_roles = None
         self.discriminator = None
 
         if shard_id is not None:
             self.shard_id = shard_id
+        if all_read is not None:
+            self.all_read = all_read
+        if all_read_write is not None:
+            self.all_read_write = all_read_write
         if category is not None:
             self.category = category
         if child_investigations is not None:
@@ -165,6 +211,8 @@ class Investigation(object):
             self.created = created
         if creating_user_id is not None:
             self.creating_user_id = creating_user_id
+        if dbot_created_by is not None:
+            self.dbot_created_by = dbot_created_by
         if details is not None:
             self.details = details
         if entitlements is not None:
@@ -173,10 +221,16 @@ class Investigation(object):
             self.entry_users = entry_users
         if has_role is not None:
             self.has_role = has_role
+        if high_priority is not None:
+            self.high_priority = high_priority
+        if highlight is not None:
+            self.highlight = highlight
         if id is not None:
             self.id = id
         if is_child_investigation is not None:
             self.is_child_investigation = is_child_investigation
+        if is_debug is not None:
+            self.is_debug = is_debug
         if last_open is not None:
             self.last_open = last_open
         if mirror_auto_close is not None:
@@ -187,14 +241,22 @@ class Investigation(object):
             self.modified = modified
         if name is not None:
             self.name = name
+        if numeric_id is not None:
+            self.numeric_id = numeric_id
         if open_duration is not None:
             self.open_duration = open_duration
         if parent_investigation is not None:
             self.parent_investigation = parent_investigation
         if persistent_entitlements is not None:
             self.persistent_entitlements = persistent_entitlements
+        if previous_all_read is not None:
+            self.previous_all_read = previous_all_read
+        if previous_all_read_write is not None:
+            self.previous_all_read_write = previous_all_read_write
         if previous_roles is not None:
             self.previous_roles = previous_roles
+        if primary_term is not None:
+            self.primary_term = primary_term
         if raw_category is not None:
             self.raw_category = raw_category
         if reason is not None:
@@ -203,6 +265,8 @@ class Investigation(object):
             self.roles = roles
         if run_status is not None:
             self.run_status = run_status
+        if sequence_number is not None:
+            self.sequence_number = sequence_number
         if slack_mirror_auto_close is not None:
             self.slack_mirror_auto_close = slack_mirror_auto_close
         if slack_mirror_type is not None:
@@ -221,6 +285,12 @@ class Investigation(object):
             self.users = users
         if version is not None:
             self.version = version
+        if xsoar_has_read_only_role is not None:
+            self.xsoar_has_read_only_role = xsoar_has_read_only_role
+        if xsoar_previous_read_only_roles is not None:
+            self.xsoar_previous_read_only_roles = xsoar_previous_read_only_roles
+        if xsoar_read_only_roles is not None:
+            self.xsoar_read_only_roles = xsoar_read_only_roles
 
     @property
     def shard_id(self):
@@ -242,6 +312,48 @@ class Investigation(object):
         """
 
         self._shard_id = shard_id
+
+    @property
+    def all_read(self):
+        """Gets the all_read of this Investigation.  # noqa: E501
+
+
+        :return: The all_read of this Investigation.  # noqa: E501
+        :rtype: bool
+        """
+        return self._all_read
+
+    @all_read.setter
+    def all_read(self, all_read):
+        """Sets the all_read of this Investigation.
+
+
+        :param all_read: The all_read of this Investigation.  # noqa: E501
+        :type: bool
+        """
+
+        self._all_read = all_read
+
+    @property
+    def all_read_write(self):
+        """Gets the all_read_write of this Investigation.  # noqa: E501
+
+
+        :return: The all_read_write of this Investigation.  # noqa: E501
+        :rtype: bool
+        """
+        return self._all_read_write
+
+    @all_read_write.setter
+    def all_read_write(self, all_read_write):
+        """Sets the all_read_write of this Investigation.
+
+
+        :param all_read_write: The all_read_write of this Investigation.  # noqa: E501
+        :type: bool
+        """
+
+        self._all_read_write = all_read_write
 
     @property
     def category(self):
@@ -382,6 +494,29 @@ class Investigation(object):
         self._creating_user_id = creating_user_id
 
     @property
+    def dbot_created_by(self):
+        """Gets the dbot_created_by of this Investigation.  # noqa: E501
+
+        Who has created this event - relevant only for manual incidents  # noqa: E501
+
+        :return: The dbot_created_by of this Investigation.  # noqa: E501
+        :rtype: str
+        """
+        return self._dbot_created_by
+
+    @dbot_created_by.setter
+    def dbot_created_by(self, dbot_created_by):
+        """Sets the dbot_created_by of this Investigation.
+
+        Who has created this event - relevant only for manual incidents  # noqa: E501
+
+        :param dbot_created_by: The dbot_created_by of this Investigation.  # noqa: E501
+        :type: str
+        """
+
+        self._dbot_created_by = dbot_created_by
+
+    @property
     def details(self):
         """Gets the details of this Investigation.  # noqa: E501
 
@@ -474,6 +609,50 @@ class Investigation(object):
         self._has_role = has_role
 
     @property
+    def high_priority(self):
+        """Gets the high_priority of this Investigation.  # noqa: E501
+
+        HighPriority - tasks of this investigation should run in high priority  # noqa: E501
+
+        :return: The high_priority of this Investigation.  # noqa: E501
+        :rtype: bool
+        """
+        return self._high_priority
+
+    @high_priority.setter
+    def high_priority(self, high_priority):
+        """Sets the high_priority of this Investigation.
+
+        HighPriority - tasks of this investigation should run in high priority  # noqa: E501
+
+        :param high_priority: The high_priority of this Investigation.  # noqa: E501
+        :type: bool
+        """
+
+        self._high_priority = high_priority
+
+    @property
+    def highlight(self):
+        """Gets the highlight of this Investigation.  # noqa: E501
+
+
+        :return: The highlight of this Investigation.  # noqa: E501
+        :rtype: dict(str, list[str])
+        """
+        return self._highlight
+
+    @highlight.setter
+    def highlight(self, highlight):
+        """Sets the highlight of this Investigation.
+
+
+        :param highlight: The highlight of this Investigation.  # noqa: E501
+        :type: dict(str, list[str])
+        """
+
+        self._highlight = highlight
+
+    @property
     def id(self):
         """Gets the id of this Investigation.  # noqa: E501
 
@@ -516,6 +695,29 @@ class Investigation(object):
         """
 
         self._is_child_investigation = is_child_investigation
+
+    @property
+    def is_debug(self):
+        """Gets the is_debug of this Investigation.  # noqa: E501
+
+        IsDebug ...  # noqa: E501
+
+        :return: The is_debug of this Investigation.  # noqa: E501
+        :rtype: bool
+        """
+        return self._is_debug
+
+    @is_debug.setter
+    def is_debug(self, is_debug):
+        """Sets the is_debug of this Investigation.
+
+        IsDebug ...  # noqa: E501
+
+        :param is_debug: The is_debug of this Investigation.  # noqa: E501
+        :type: bool
+        """
+
+        self._is_debug = is_debug
 
     @property
     def last_open(self):
@@ -629,6 +831,27 @@ class Investigation(object):
         self._name = name
 
     @property
+    def numeric_id(self):
+        """Gets the numeric_id of this Investigation.  # noqa: E501
+
+
+        :return: The numeric_id of this Investigation.  # noqa: E501
+        :rtype: int
+        """
+        return self._numeric_id
+
+    @numeric_id.setter
+    def numeric_id(self, numeric_id):
+        """Sets the numeric_id of this Investigation.
+
+
+        :param numeric_id: The numeric_id of this Investigation.  # noqa: E501
+        :type: int
+        """
+
+        self._numeric_id = numeric_id
+
+    @property
     def open_duration(self):
         """Gets the open_duration of this Investigation.  # noqa: E501
 
@@ -698,10 +921,52 @@ class Investigation(object):
         self._persistent_entitlements = persistent_entitlements
 
     @property
+    def previous_all_read(self):
+        """Gets the previous_all_read of this Investigation.  # noqa: E501
+
+
+        :return: The previous_all_read of this Investigation.  # noqa: E501
+        :rtype: bool
+        """
+        return self._previous_all_read
+
+    @previous_all_read.setter
+    def previous_all_read(self, previous_all_read):
+        """Sets the previous_all_read of this Investigation.
+
+
+        :param previous_all_read: The previous_all_read of this Investigation.  # noqa: E501
+        :type: bool
+        """
+
+        self._previous_all_read = previous_all_read
+
+    @property
+    def previous_all_read_write(self):
+        """Gets the previous_all_read_write of this Investigation.  # noqa: E501
+
+
+        :return: The previous_all_read_write of this Investigation.  # noqa: E501
+        :rtype: bool
+        """
+        return self._previous_all_read_write
+
+    @previous_all_read_write.setter
+    def previous_all_read_write(self, previous_all_read_write):
+        """Sets the previous_all_read_write of this Investigation.
+
+
+        :param previous_all_read_write: The previous_all_read_write of this Investigation.  # noqa: E501
+        :type: bool
+        """
+
+        self._previous_all_read_write = previous_all_read_write
+
+    @property
     def previous_roles(self):
         """Gets the previous_roles of this Investigation.  # noqa: E501
 
-        PreviousRoleName - do not change this field manually  # noqa: E501
+        Do not change this field manually  # noqa: E501
 
         :return: The previous_roles of this Investigation.  # noqa: E501
         :rtype: list[str]
@@ -712,13 +977,34 @@ class Investigation(object):
     def previous_roles(self, previous_roles):
         """Sets the previous_roles of this Investigation.
 
-        PreviousRoleName - do not change this field manually  # noqa: E501
+        Do not change this field manually  # noqa: E501
 
         :param previous_roles: The previous_roles of this Investigation.  # noqa: E501
         :type: list[str]
         """
 
         self._previous_roles = previous_roles
+
+    @property
+    def primary_term(self):
+        """Gets the primary_term of this Investigation.  # noqa: E501
+
+
+        :return: The primary_term of this Investigation.  # noqa: E501
+        :rtype: int
+        """
+        return self._primary_term
+
+    @primary_term.setter
+    def primary_term(self, primary_term):
+        """Sets the primary_term of this Investigation.
+
+
+        :param primary_term: The primary_term of this Investigation.  # noqa: E501
+        :type: int
+        """
+
+        self._primary_term = primary_term
 
     @property
     def raw_category(self):
@@ -807,6 +1093,27 @@ class Investigation(object):
         """
 
         self._run_status = run_status
+
+    @property
+    def sequence_number(self):
+        """Gets the sequence_number of this Investigation.  # noqa: E501
+
+
+        :return: The sequence_number of this Investigation.  # noqa: E501
+        :rtype: int
+        """
+        return self._sequence_number
+
+    @sequence_number.setter
+    def sequence_number(self, sequence_number):
+        """Sets the sequence_number of this Investigation.
+
+
+        :param sequence_number: The sequence_number of this Investigation.  # noqa: E501
+        :type: int
+        """
+
+        self._sequence_number = sequence_number
 
     @property
     def slack_mirror_auto_close(self):
@@ -1006,6 +1313,69 @@ class Investigation(object):
         """
 
         self._version = version
+
+    @property
+    def xsoar_has_read_only_role(self):
+        """Gets the xsoar_has_read_only_role of this Investigation.  # noqa: E501
+
+
+        :return: The xsoar_has_read_only_role of this Investigation.  # noqa: E501
+        :rtype: bool
+        """
+        return self._xsoar_has_read_only_role
+
+    @xsoar_has_read_only_role.setter
+    def xsoar_has_read_only_role(self, xsoar_has_read_only_role):
+        """Sets the xsoar_has_read_only_role of this Investigation.
+
+
+        :param xsoar_has_read_only_role: The xsoar_has_read_only_role of this Investigation.  # noqa: E501
+        :type: bool
+        """
+
+        self._xsoar_has_read_only_role = xsoar_has_read_only_role
+
+    @property
+    def xsoar_previous_read_only_roles(self):
+        """Gets the xsoar_previous_read_only_roles of this Investigation.  # noqa: E501
+
+
+        :return: The xsoar_previous_read_only_roles of this Investigation.  # noqa: E501
+        :rtype: list[str]
+        """
+        return self._xsoar_previous_read_only_roles
+
+    @xsoar_previous_read_only_roles.setter
+    def xsoar_previous_read_only_roles(self, xsoar_previous_read_only_roles):
+        """Sets the xsoar_previous_read_only_roles of this Investigation.
+
+
+        :param xsoar_previous_read_only_roles: The xsoar_previous_read_only_roles of this Investigation.  # noqa: E501
+        :type: list[str]
+        """
+
+        self._xsoar_previous_read_only_roles = xsoar_previous_read_only_roles
+
+    @property
+    def xsoar_read_only_roles(self):
+        """Gets the xsoar_read_only_roles of this Investigation.  # noqa: E501
+
+
+        :return: The xsoar_read_only_roles of this Investigation.  # noqa: E501
+        :rtype: list[str]
+        """
+        return self._xsoar_read_only_roles
+
+    @xsoar_read_only_roles.setter
+    def xsoar_read_only_roles(self, xsoar_read_only_roles):
+        """Sets the xsoar_read_only_roles of this Investigation.
+
+
+        :param xsoar_read_only_roles: The xsoar_read_only_roles of this Investigation.  # noqa: E501
+        :type: list[str]
+        """
+
+        self._xsoar_read_only_roles = xsoar_read_only_roles
 
     def to_dict(self):
         """Returns the model properties as a dict"""

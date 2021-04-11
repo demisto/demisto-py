@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    Demisto API
+    Cortex XSOAR API
 
-    This is the public REST API to integrate with the demisto server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Demisto web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Demisto REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Demisto server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Demisto has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Demisto will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
+    This is the public REST API to integrate with the Cortex XSOAR server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Cortex XSOAR web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Cortex XSOAR REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Cortex XSOAR server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Cortex XSOAR has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Cortex XSOAR will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
 
     OpenAPI spec version: 2.0.0
     
@@ -24,6 +24,9 @@ from demisto_client.demisto_api.models.entry_task import EntryTask  # noqa: F401
 from demisto_client.demisto_api.models.entry_type import EntryType  # noqa: F401,E501
 from demisto_client.demisto_api.models.file_metadata import FileMetadata  # noqa: F401,E501
 from demisto_client.demisto_api.models.human_cron import HumanCron  # noqa: F401,E501
+from demisto_client.demisto_api.models.indicator_timeline import IndicatorTimeline  # noqa: F401,E501
+from demisto_client.demisto_api.models.module_args import ModuleArgs  # noqa: F401,E501
+from demisto_client.demisto_api.models.relationships_api import RelationshipsAPI  # noqa: F401,E501
 
 
 class Entry(object):
@@ -40,7 +43,12 @@ class Entry(object):
                             and the value is json key in definition.
     """
     swagger_types = {
+        'indicator_timeline': 'IndicatorTimeline',
+        'instance_id': 'str',
+        'relationships': 'RelationshipsAPI',
         'shard_id': 'int',
+        'all_read': 'bool',
+        'all_read_write': 'bool',
         'brand': 'str',
         'category': 'EntryCategory',
         'contents': 'object',
@@ -48,7 +56,10 @@ class Entry(object):
         'created': 'datetime',
         'cron': 'str',
         'cron_view': 'bool',
+        'dbot_created_by': 'str',
         'deleted': 'bool',
+        'deleted_by': 'str',
+        'deleted_from_fs': 'bool',
         'ending_date': 'datetime',
         'ending_type': 'EndingType',
         'entry_task': 'EntryTask',
@@ -58,25 +69,38 @@ class Entry(object):
         'file_metadata': 'FileMetadata',
         'format': 'str',
         'has_role': 'bool',
+        'highlight': 'dict(str, list[str])',
         'history': 'list[EntryHistory]',
         'human_cron': 'HumanCron',
         'id': 'str',
+        'incident_creation_time': 'datetime',
         'instance': 'str',
         'investigation_id': 'str',
+        'is_todo': 'bool',
+        'mirrored': 'bool',
         'modified': 'datetime',
         'note': 'bool',
+        'numeric_id': 'int',
         'parent_content': 'object',
         'parent_entry_truncated': 'bool',
         'parent_id': 'str',
         'pinned': 'bool',
         'playbook_id': 'str',
+        'polling': 'bool',
+        'polling_args': 'ModuleArgs',
+        'polling_command': 'str',
+        'previous_all_read': 'bool',
+        'previous_all_read_write': 'bool',
         'previous_roles': 'list[str]',
+        'primary_term': 'int',
         'read_only': 'bool',
         'recurrent': 'bool',
         'reputation_size': 'int',
         'reputations': 'list[EntryReputation]',
+        'retry_time': 'datetime',
         'roles': 'list[str]',
         'scheduled': 'bool',
+        'sequence_number': 'int',
         'sort_values': 'list[str]',
         'start_date': 'datetime',
         'system': 'str',
@@ -84,14 +108,24 @@ class Entry(object):
         'tags_raw': 'list[str]',
         'task_id': 'str',
         'times': 'int',
+        'times_ran': 'int',
+        'timezone': 'str',
         'timezone_offset': 'int',
         'type': 'EntryType',
         'user': 'str',
-        'version': 'int'
+        'version': 'int',
+        'xsoar_has_read_only_role': 'bool',
+        'xsoar_previous_read_only_roles': 'list[str]',
+        'xsoar_read_only_roles': 'list[str]'
     }
 
     attribute_map = {
+        'indicator_timeline': 'IndicatorTimeline',
+        'instance_id': 'InstanceID',
+        'relationships': 'Relationships',
         'shard_id': 'ShardID',
+        'all_read': 'allRead',
+        'all_read_write': 'allReadWrite',
         'brand': 'brand',
         'category': 'category',
         'contents': 'contents',
@@ -99,7 +133,10 @@ class Entry(object):
         'created': 'created',
         'cron': 'cron',
         'cron_view': 'cronView',
+        'dbot_created_by': 'dbotCreatedBy',
         'deleted': 'deleted',
+        'deleted_by': 'deletedBy',
+        'deleted_from_fs': 'deletedFromFS',
         'ending_date': 'endingDate',
         'ending_type': 'endingType',
         'entry_task': 'entryTask',
@@ -109,25 +146,38 @@ class Entry(object):
         'file_metadata': 'fileMetadata',
         'format': 'format',
         'has_role': 'hasRole',
+        'highlight': 'highlight',
         'history': 'history',
         'human_cron': 'humanCron',
         'id': 'id',
+        'incident_creation_time': 'incidentCreationTime',
         'instance': 'instance',
         'investigation_id': 'investigationId',
+        'is_todo': 'isTodo',
+        'mirrored': 'mirrored',
         'modified': 'modified',
         'note': 'note',
+        'numeric_id': 'numericId',
         'parent_content': 'parentContent',
         'parent_entry_truncated': 'parentEntryTruncated',
         'parent_id': 'parentId',
         'pinned': 'pinned',
         'playbook_id': 'playbookId',
+        'polling': 'polling',
+        'polling_args': 'pollingArgs',
+        'polling_command': 'pollingCommand',
+        'previous_all_read': 'previousAllRead',
+        'previous_all_read_write': 'previousAllReadWrite',
         'previous_roles': 'previousRoles',
+        'primary_term': 'primaryTerm',
         'read_only': 'readOnly',
         'recurrent': 'recurrent',
         'reputation_size': 'reputationSize',
         'reputations': 'reputations',
+        'retry_time': 'retryTime',
         'roles': 'roles',
         'scheduled': 'scheduled',
+        'sequence_number': 'sequenceNumber',
         'sort_values': 'sortValues',
         'start_date': 'startDate',
         'system': 'system',
@@ -135,16 +185,26 @@ class Entry(object):
         'tags_raw': 'tagsRaw',
         'task_id': 'taskId',
         'times': 'times',
+        'times_ran': 'timesRan',
+        'timezone': 'timezone',
         'timezone_offset': 'timezoneOffset',
         'type': 'type',
         'user': 'user',
-        'version': 'version'
+        'version': 'version',
+        'xsoar_has_read_only_role': 'xsoarHasReadOnlyRole',
+        'xsoar_previous_read_only_roles': 'xsoarPreviousReadOnlyRoles',
+        'xsoar_read_only_roles': 'xsoarReadOnlyRoles'
     }
 
-    def __init__(self, shard_id=None, brand=None, category=None, contents=None, contents_size=None, created=None, cron=None, cron_view=None, deleted=None, ending_date=None, ending_type=None, entry_task=None, error_source=None, file=None, file_id=None, file_metadata=None, format=None, has_role=None, history=None, human_cron=None, id=None, instance=None, investigation_id=None, modified=None, note=None, parent_content=None, parent_entry_truncated=None, parent_id=None, pinned=None, playbook_id=None, previous_roles=None, read_only=None, recurrent=None, reputation_size=None, reputations=None, roles=None, scheduled=None, sort_values=None, start_date=None, system=None, tags=None, tags_raw=None, task_id=None, times=None, timezone_offset=None, type=None, user=None, version=None):  # noqa: E501
+    def __init__(self, indicator_timeline=None, instance_id=None, relationships=None, shard_id=None, all_read=None, all_read_write=None, brand=None, category=None, contents=None, contents_size=None, created=None, cron=None, cron_view=None, dbot_created_by=None, deleted=None, deleted_by=None, deleted_from_fs=None, ending_date=None, ending_type=None, entry_task=None, error_source=None, file=None, file_id=None, file_metadata=None, format=None, has_role=None, highlight=None, history=None, human_cron=None, id=None, incident_creation_time=None, instance=None, investigation_id=None, is_todo=None, mirrored=None, modified=None, note=None, numeric_id=None, parent_content=None, parent_entry_truncated=None, parent_id=None, pinned=None, playbook_id=None, polling=None, polling_args=None, polling_command=None, previous_all_read=None, previous_all_read_write=None, previous_roles=None, primary_term=None, read_only=None, recurrent=None, reputation_size=None, reputations=None, retry_time=None, roles=None, scheduled=None, sequence_number=None, sort_values=None, start_date=None, system=None, tags=None, tags_raw=None, task_id=None, times=None, times_ran=None, timezone=None, timezone_offset=None, type=None, user=None, version=None, xsoar_has_read_only_role=None, xsoar_previous_read_only_roles=None, xsoar_read_only_roles=None):  # noqa: E501
         """Entry - a model defined in Swagger"""  # noqa: E501
 
+        self._indicator_timeline = None
+        self._instance_id = None
+        self._relationships = None
         self._shard_id = None
+        self._all_read = None
+        self._all_read_write = None
         self._brand = None
         self._category = None
         self._contents = None
@@ -152,7 +212,10 @@ class Entry(object):
         self._created = None
         self._cron = None
         self._cron_view = None
+        self._dbot_created_by = None
         self._deleted = None
+        self._deleted_by = None
+        self._deleted_from_fs = None
         self._ending_date = None
         self._ending_type = None
         self._entry_task = None
@@ -162,25 +225,38 @@ class Entry(object):
         self._file_metadata = None
         self._format = None
         self._has_role = None
+        self._highlight = None
         self._history = None
         self._human_cron = None
         self._id = None
+        self._incident_creation_time = None
         self._instance = None
         self._investigation_id = None
+        self._is_todo = None
+        self._mirrored = None
         self._modified = None
         self._note = None
+        self._numeric_id = None
         self._parent_content = None
         self._parent_entry_truncated = None
         self._parent_id = None
         self._pinned = None
         self._playbook_id = None
+        self._polling = None
+        self._polling_args = None
+        self._polling_command = None
+        self._previous_all_read = None
+        self._previous_all_read_write = None
         self._previous_roles = None
+        self._primary_term = None
         self._read_only = None
         self._recurrent = None
         self._reputation_size = None
         self._reputations = None
+        self._retry_time = None
         self._roles = None
         self._scheduled = None
+        self._sequence_number = None
         self._sort_values = None
         self._start_date = None
         self._system = None
@@ -188,14 +264,29 @@ class Entry(object):
         self._tags_raw = None
         self._task_id = None
         self._times = None
+        self._times_ran = None
+        self._timezone = None
         self._timezone_offset = None
         self._type = None
         self._user = None
         self._version = None
+        self._xsoar_has_read_only_role = None
+        self._xsoar_previous_read_only_roles = None
+        self._xsoar_read_only_roles = None
         self.discriminator = None
 
+        if indicator_timeline is not None:
+            self.indicator_timeline = indicator_timeline
+        if instance_id is not None:
+            self.instance_id = instance_id
+        if relationships is not None:
+            self.relationships = relationships
         if shard_id is not None:
             self.shard_id = shard_id
+        if all_read is not None:
+            self.all_read = all_read
+        if all_read_write is not None:
+            self.all_read_write = all_read_write
         if brand is not None:
             self.brand = brand
         if category is not None:
@@ -210,8 +301,14 @@ class Entry(object):
             self.cron = cron
         if cron_view is not None:
             self.cron_view = cron_view
+        if dbot_created_by is not None:
+            self.dbot_created_by = dbot_created_by
         if deleted is not None:
             self.deleted = deleted
+        if deleted_by is not None:
+            self.deleted_by = deleted_by
+        if deleted_from_fs is not None:
+            self.deleted_from_fs = deleted_from_fs
         if ending_date is not None:
             self.ending_date = ending_date
         if ending_type is not None:
@@ -230,20 +327,30 @@ class Entry(object):
             self.format = format
         if has_role is not None:
             self.has_role = has_role
+        if highlight is not None:
+            self.highlight = highlight
         if history is not None:
             self.history = history
         if human_cron is not None:
             self.human_cron = human_cron
         if id is not None:
             self.id = id
+        if incident_creation_time is not None:
+            self.incident_creation_time = incident_creation_time
         if instance is not None:
             self.instance = instance
         if investigation_id is not None:
             self.investigation_id = investigation_id
+        if is_todo is not None:
+            self.is_todo = is_todo
+        if mirrored is not None:
+            self.mirrored = mirrored
         if modified is not None:
             self.modified = modified
         if note is not None:
             self.note = note
+        if numeric_id is not None:
+            self.numeric_id = numeric_id
         if parent_content is not None:
             self.parent_content = parent_content
         if parent_entry_truncated is not None:
@@ -254,8 +361,20 @@ class Entry(object):
             self.pinned = pinned
         if playbook_id is not None:
             self.playbook_id = playbook_id
+        if polling is not None:
+            self.polling = polling
+        if polling_args is not None:
+            self.polling_args = polling_args
+        if polling_command is not None:
+            self.polling_command = polling_command
+        if previous_all_read is not None:
+            self.previous_all_read = previous_all_read
+        if previous_all_read_write is not None:
+            self.previous_all_read_write = previous_all_read_write
         if previous_roles is not None:
             self.previous_roles = previous_roles
+        if primary_term is not None:
+            self.primary_term = primary_term
         if read_only is not None:
             self.read_only = read_only
         if recurrent is not None:
@@ -264,10 +383,14 @@ class Entry(object):
             self.reputation_size = reputation_size
         if reputations is not None:
             self.reputations = reputations
+        if retry_time is not None:
+            self.retry_time = retry_time
         if roles is not None:
             self.roles = roles
         if scheduled is not None:
             self.scheduled = scheduled
+        if sequence_number is not None:
+            self.sequence_number = sequence_number
         if sort_values is not None:
             self.sort_values = sort_values
         if start_date is not None:
@@ -282,6 +405,10 @@ class Entry(object):
             self.task_id = task_id
         if times is not None:
             self.times = times
+        if times_ran is not None:
+            self.times_ran = times_ran
+        if timezone is not None:
+            self.timezone = timezone
         if timezone_offset is not None:
             self.timezone_offset = timezone_offset
         if type is not None:
@@ -290,6 +417,75 @@ class Entry(object):
             self.user = user
         if version is not None:
             self.version = version
+        if xsoar_has_read_only_role is not None:
+            self.xsoar_has_read_only_role = xsoar_has_read_only_role
+        if xsoar_previous_read_only_roles is not None:
+            self.xsoar_previous_read_only_roles = xsoar_previous_read_only_roles
+        if xsoar_read_only_roles is not None:
+            self.xsoar_read_only_roles = xsoar_read_only_roles
+
+    @property
+    def indicator_timeline(self):
+        """Gets the indicator_timeline of this Entry.  # noqa: E501
+
+
+        :return: The indicator_timeline of this Entry.  # noqa: E501
+        :rtype: IndicatorTimeline
+        """
+        return self._indicator_timeline
+
+    @indicator_timeline.setter
+    def indicator_timeline(self, indicator_timeline):
+        """Sets the indicator_timeline of this Entry.
+
+
+        :param indicator_timeline: The indicator_timeline of this Entry.  # noqa: E501
+        :type: IndicatorTimeline
+        """
+
+        self._indicator_timeline = indicator_timeline
+
+    @property
+    def instance_id(self):
+        """Gets the instance_id of this Entry.  # noqa: E501
+
+
+        :return: The instance_id of this Entry.  # noqa: E501
+        :rtype: str
+        """
+        return self._instance_id
+
+    @instance_id.setter
+    def instance_id(self, instance_id):
+        """Sets the instance_id of this Entry.
+
+
+        :param instance_id: The instance_id of this Entry.  # noqa: E501
+        :type: str
+        """
+
+        self._instance_id = instance_id
+
+    @property
+    def relationships(self):
+        """Gets the relationships of this Entry.  # noqa: E501
+
+
+        :return: The relationships of this Entry.  # noqa: E501
+        :rtype: RelationshipsAPI
+        """
+        return self._relationships
+
+    @relationships.setter
+    def relationships(self, relationships):
+        """Sets the relationships of this Entry.
+
+
+        :param relationships: The relationships of this Entry.  # noqa: E501
+        :type: RelationshipsAPI
+        """
+
+        self._relationships = relationships
 
     @property
     def shard_id(self):
@@ -311,6 +507,48 @@ class Entry(object):
         """
 
         self._shard_id = shard_id
+
+    @property
+    def all_read(self):
+        """Gets the all_read of this Entry.  # noqa: E501
+
+
+        :return: The all_read of this Entry.  # noqa: E501
+        :rtype: bool
+        """
+        return self._all_read
+
+    @all_read.setter
+    def all_read(self, all_read):
+        """Sets the all_read of this Entry.
+
+
+        :param all_read: The all_read of this Entry.  # noqa: E501
+        :type: bool
+        """
+
+        self._all_read = all_read
+
+    @property
+    def all_read_write(self):
+        """Gets the all_read_write of this Entry.  # noqa: E501
+
+
+        :return: The all_read_write of this Entry.  # noqa: E501
+        :rtype: bool
+        """
+        return self._all_read_write
+
+    @all_read_write.setter
+    def all_read_write(self, all_read_write):
+        """Sets the all_read_write of this Entry.
+
+
+        :param all_read_write: The all_read_write of this Entry.  # noqa: E501
+        :type: bool
+        """
+
+        self._all_read_write = all_read_write
 
     @property
     def brand(self):
@@ -466,6 +704,29 @@ class Entry(object):
         self._cron_view = cron_view
 
     @property
+    def dbot_created_by(self):
+        """Gets the dbot_created_by of this Entry.  # noqa: E501
+
+        Who has created this event - relevant only for manual incidents  # noqa: E501
+
+        :return: The dbot_created_by of this Entry.  # noqa: E501
+        :rtype: str
+        """
+        return self._dbot_created_by
+
+    @dbot_created_by.setter
+    def dbot_created_by(self, dbot_created_by):
+        """Sets the dbot_created_by of this Entry.
+
+        Who has created this event - relevant only for manual incidents  # noqa: E501
+
+        :param dbot_created_by: The dbot_created_by of this Entry.  # noqa: E501
+        :type: str
+        """
+
+        self._dbot_created_by = dbot_created_by
+
+    @property
     def deleted(self):
         """Gets the deleted of this Entry.  # noqa: E501
 
@@ -485,6 +746,48 @@ class Entry(object):
         """
 
         self._deleted = deleted
+
+    @property
+    def deleted_by(self):
+        """Gets the deleted_by of this Entry.  # noqa: E501
+
+
+        :return: The deleted_by of this Entry.  # noqa: E501
+        :rtype: str
+        """
+        return self._deleted_by
+
+    @deleted_by.setter
+    def deleted_by(self, deleted_by):
+        """Sets the deleted_by of this Entry.
+
+
+        :param deleted_by: The deleted_by of this Entry.  # noqa: E501
+        :type: str
+        """
+
+        self._deleted_by = deleted_by
+
+    @property
+    def deleted_from_fs(self):
+        """Gets the deleted_from_fs of this Entry.  # noqa: E501
+
+
+        :return: The deleted_from_fs of this Entry.  # noqa: E501
+        :rtype: bool
+        """
+        return self._deleted_from_fs
+
+    @deleted_from_fs.setter
+    def deleted_from_fs(self, deleted_from_fs):
+        """Sets the deleted_from_fs of this Entry.
+
+
+        :param deleted_from_fs: The deleted_from_fs of this Entry.  # noqa: E501
+        :type: bool
+        """
+
+        self._deleted_from_fs = deleted_from_fs
 
     @property
     def ending_date(self):
@@ -686,6 +989,27 @@ class Entry(object):
         self._has_role = has_role
 
     @property
+    def highlight(self):
+        """Gets the highlight of this Entry.  # noqa: E501
+
+
+        :return: The highlight of this Entry.  # noqa: E501
+        :rtype: dict(str, list[str])
+        """
+        return self._highlight
+
+    @highlight.setter
+    def highlight(self, highlight):
+        """Sets the highlight of this Entry.
+
+
+        :param highlight: The highlight of this Entry.  # noqa: E501
+        :type: dict(str, list[str])
+        """
+
+        self._highlight = highlight
+
+    @property
     def history(self):
         """Gets the history of this Entry.  # noqa: E501
 
@@ -751,6 +1075,29 @@ class Entry(object):
         self._id = id
 
     @property
+    def incident_creation_time(self):
+        """Gets the incident_creation_time of this Entry.  # noqa: E501
+
+        store the entry based on IncidentCreationTime  # noqa: E501
+
+        :return: The incident_creation_time of this Entry.  # noqa: E501
+        :rtype: datetime
+        """
+        return self._incident_creation_time
+
+    @incident_creation_time.setter
+    def incident_creation_time(self, incident_creation_time):
+        """Sets the incident_creation_time of this Entry.
+
+        store the entry based on IncidentCreationTime  # noqa: E501
+
+        :param incident_creation_time: The incident_creation_time of this Entry.  # noqa: E501
+        :type: datetime
+        """
+
+        self._incident_creation_time = incident_creation_time
+
+    @property
     def instance(self):
         """Gets the instance of this Entry.  # noqa: E501
 
@@ -795,6 +1142,52 @@ class Entry(object):
         self._investigation_id = investigation_id
 
     @property
+    def is_todo(self):
+        """Gets the is_todo of this Entry.  # noqa: E501
+
+        IsTodo  # noqa: E501
+
+        :return: The is_todo of this Entry.  # noqa: E501
+        :rtype: bool
+        """
+        return self._is_todo
+
+    @is_todo.setter
+    def is_todo(self, is_todo):
+        """Sets the is_todo of this Entry.
+
+        IsTodo  # noqa: E501
+
+        :param is_todo: The is_todo of this Entry.  # noqa: E501
+        :type: bool
+        """
+
+        self._is_todo = is_todo
+
+    @property
+    def mirrored(self):
+        """Gets the mirrored of this Entry.  # noqa: E501
+
+        Only used for outbound mirroring to mark that it is already mirrored to remote system  # noqa: E501
+
+        :return: The mirrored of this Entry.  # noqa: E501
+        :rtype: bool
+        """
+        return self._mirrored
+
+    @mirrored.setter
+    def mirrored(self, mirrored):
+        """Sets the mirrored of this Entry.
+
+        Only used for outbound mirroring to mark that it is already mirrored to remote system  # noqa: E501
+
+        :param mirrored: The mirrored of this Entry.  # noqa: E501
+        :type: bool
+        """
+
+        self._mirrored = mirrored
+
+    @property
     def modified(self):
         """Gets the modified of this Entry.  # noqa: E501
 
@@ -837,6 +1230,27 @@ class Entry(object):
         """
 
         self._note = note
+
+    @property
+    def numeric_id(self):
+        """Gets the numeric_id of this Entry.  # noqa: E501
+
+
+        :return: The numeric_id of this Entry.  # noqa: E501
+        :rtype: int
+        """
+        return self._numeric_id
+
+    @numeric_id.setter
+    def numeric_id(self, numeric_id):
+        """Sets the numeric_id of this Entry.
+
+
+        :param numeric_id: The numeric_id of this Entry.  # noqa: E501
+        :type: int
+        """
+
+        self._numeric_id = numeric_id
 
     @property
     def parent_content(self):
@@ -954,10 +1368,117 @@ class Entry(object):
         self._playbook_id = playbook_id
 
     @property
+    def polling(self):
+        """Gets the polling of this Entry.  # noqa: E501
+
+        Only used for polling entries  # noqa: E501
+
+        :return: The polling of this Entry.  # noqa: E501
+        :rtype: bool
+        """
+        return self._polling
+
+    @polling.setter
+    def polling(self, polling):
+        """Sets the polling of this Entry.
+
+        Only used for polling entries  # noqa: E501
+
+        :param polling: The polling of this Entry.  # noqa: E501
+        :type: bool
+        """
+
+        self._polling = polling
+
+    @property
+    def polling_args(self):
+        """Gets the polling_args of this Entry.  # noqa: E501
+
+
+        :return: The polling_args of this Entry.  # noqa: E501
+        :rtype: ModuleArgs
+        """
+        return self._polling_args
+
+    @polling_args.setter
+    def polling_args(self, polling_args):
+        """Sets the polling_args of this Entry.
+
+
+        :param polling_args: The polling_args of this Entry.  # noqa: E501
+        :type: ModuleArgs
+        """
+
+        self._polling_args = polling_args
+
+    @property
+    def polling_command(self):
+        """Gets the polling_command of this Entry.  # noqa: E501
+
+
+        :return: The polling_command of this Entry.  # noqa: E501
+        :rtype: str
+        """
+        return self._polling_command
+
+    @polling_command.setter
+    def polling_command(self, polling_command):
+        """Sets the polling_command of this Entry.
+
+
+        :param polling_command: The polling_command of this Entry.  # noqa: E501
+        :type: str
+        """
+
+        self._polling_command = polling_command
+
+    @property
+    def previous_all_read(self):
+        """Gets the previous_all_read of this Entry.  # noqa: E501
+
+
+        :return: The previous_all_read of this Entry.  # noqa: E501
+        :rtype: bool
+        """
+        return self._previous_all_read
+
+    @previous_all_read.setter
+    def previous_all_read(self, previous_all_read):
+        """Sets the previous_all_read of this Entry.
+
+
+        :param previous_all_read: The previous_all_read of this Entry.  # noqa: E501
+        :type: bool
+        """
+
+        self._previous_all_read = previous_all_read
+
+    @property
+    def previous_all_read_write(self):
+        """Gets the previous_all_read_write of this Entry.  # noqa: E501
+
+
+        :return: The previous_all_read_write of this Entry.  # noqa: E501
+        :rtype: bool
+        """
+        return self._previous_all_read_write
+
+    @previous_all_read_write.setter
+    def previous_all_read_write(self, previous_all_read_write):
+        """Sets the previous_all_read_write of this Entry.
+
+
+        :param previous_all_read_write: The previous_all_read_write of this Entry.  # noqa: E501
+        :type: bool
+        """
+
+        self._previous_all_read_write = previous_all_read_write
+
+    @property
     def previous_roles(self):
         """Gets the previous_roles of this Entry.  # noqa: E501
 
-        PreviousRoleName - do not change this field manually  # noqa: E501
+        Do not change this field manually  # noqa: E501
 
         :return: The previous_roles of this Entry.  # noqa: E501
         :rtype: list[str]
@@ -968,13 +1489,34 @@ class Entry(object):
     def previous_roles(self, previous_roles):
         """Sets the previous_roles of this Entry.
 
-        PreviousRoleName - do not change this field manually  # noqa: E501
+        Do not change this field manually  # noqa: E501
 
         :param previous_roles: The previous_roles of this Entry.  # noqa: E501
         :type: list[str]
         """
 
         self._previous_roles = previous_roles
+
+    @property
+    def primary_term(self):
+        """Gets the primary_term of this Entry.  # noqa: E501
+
+
+        :return: The primary_term of this Entry.  # noqa: E501
+        :rtype: int
+        """
+        return self._primary_term
+
+    @primary_term.setter
+    def primary_term(self, primary_term):
+        """Sets the primary_term of this Entry.
+
+
+        :param primary_term: The primary_term of this Entry.  # noqa: E501
+        :type: int
+        """
+
+        self._primary_term = primary_term
 
     @property
     def read_only(self):
@@ -1067,6 +1609,29 @@ class Entry(object):
         self._reputations = reputations
 
     @property
+    def retry_time(self):
+        """Gets the retry_time of this Entry.  # noqa: E501
+
+        When retry took place  # noqa: E501
+
+        :return: The retry_time of this Entry.  # noqa: E501
+        :rtype: datetime
+        """
+        return self._retry_time
+
+    @retry_time.setter
+    def retry_time(self, retry_time):
+        """Sets the retry_time of this Entry.
+
+        When retry took place  # noqa: E501
+
+        :param retry_time: The retry_time of this Entry.  # noqa: E501
+        :type: datetime
+        """
+
+        self._retry_time = retry_time
+
+    @property
     def roles(self):
         """Gets the roles of this Entry.  # noqa: E501
 
@@ -1111,6 +1676,27 @@ class Entry(object):
         """
 
         self._scheduled = scheduled
+
+    @property
+    def sequence_number(self):
+        """Gets the sequence_number of this Entry.  # noqa: E501
+
+
+        :return: The sequence_number of this Entry.  # noqa: E501
+        :rtype: int
+        """
+        return self._sequence_number
+
+    @sequence_number.setter
+    def sequence_number(self, sequence_number):
+        """Sets the sequence_number of this Entry.
+
+
+        :param sequence_number: The sequence_number of this Entry.  # noqa: E501
+        :type: int
+        """
+
+        self._sequence_number = sequence_number
 
     @property
     def sort_values(self):
@@ -1268,6 +1854,48 @@ class Entry(object):
         self._times = times
 
     @property
+    def times_ran(self):
+        """Gets the times_ran of this Entry.  # noqa: E501
+
+
+        :return: The times_ran of this Entry.  # noqa: E501
+        :rtype: int
+        """
+        return self._times_ran
+
+    @times_ran.setter
+    def times_ran(self, times_ran):
+        """Sets the times_ran of this Entry.
+
+
+        :param times_ran: The times_ran of this Entry.  # noqa: E501
+        :type: int
+        """
+
+        self._times_ran = times_ran
+
+    @property
+    def timezone(self):
+        """Gets the timezone of this Entry.  # noqa: E501
+
+
+        :return: The timezone of this Entry.  # noqa: E501
+        :rtype: str
+        """
+        return self._timezone
+
+    @timezone.setter
+    def timezone(self, timezone):
+        """Sets the timezone of this Entry.
+
+
+        :param timezone: The timezone of this Entry.  # noqa: E501
+        :type: str
+        """
+
+        self._timezone = timezone
+
+    @property
     def timezone_offset(self):
         """Gets the timezone_offset of this Entry.  # noqa: E501
 
@@ -1352,6 +1980,69 @@ class Entry(object):
         """
 
         self._version = version
+
+    @property
+    def xsoar_has_read_only_role(self):
+        """Gets the xsoar_has_read_only_role of this Entry.  # noqa: E501
+
+
+        :return: The xsoar_has_read_only_role of this Entry.  # noqa: E501
+        :rtype: bool
+        """
+        return self._xsoar_has_read_only_role
+
+    @xsoar_has_read_only_role.setter
+    def xsoar_has_read_only_role(self, xsoar_has_read_only_role):
+        """Sets the xsoar_has_read_only_role of this Entry.
+
+
+        :param xsoar_has_read_only_role: The xsoar_has_read_only_role of this Entry.  # noqa: E501
+        :type: bool
+        """
+
+        self._xsoar_has_read_only_role = xsoar_has_read_only_role
+
+    @property
+    def xsoar_previous_read_only_roles(self):
+        """Gets the xsoar_previous_read_only_roles of this Entry.  # noqa: E501
+
+
+        :return: The xsoar_previous_read_only_roles of this Entry.  # noqa: E501
+        :rtype: list[str]
+        """
+        return self._xsoar_previous_read_only_roles
+
+    @xsoar_previous_read_only_roles.setter
+    def xsoar_previous_read_only_roles(self, xsoar_previous_read_only_roles):
+        """Sets the xsoar_previous_read_only_roles of this Entry.
+
+
+        :param xsoar_previous_read_only_roles: The xsoar_previous_read_only_roles of this Entry.  # noqa: E501
+        :type: list[str]
+        """
+
+        self._xsoar_previous_read_only_roles = xsoar_previous_read_only_roles
+
+    @property
+    def xsoar_read_only_roles(self):
+        """Gets the xsoar_read_only_roles of this Entry.  # noqa: E501
+
+
+        :return: The xsoar_read_only_roles of this Entry.  # noqa: E501
+        :rtype: list[str]
+        """
+        return self._xsoar_read_only_roles
+
+    @xsoar_read_only_roles.setter
+    def xsoar_read_only_roles(self, xsoar_read_only_roles):
+        """Sets the xsoar_read_only_roles of this Entry.
+
+
+        :param xsoar_read_only_roles: The xsoar_read_only_roles of this Entry.  # noqa: E501
+        :type: list[str]
+        """
+
+        self._xsoar_read_only_roles = xsoar_read_only_roles
 
     def to_dict(self):
         """Returns the model properties as a dict"""

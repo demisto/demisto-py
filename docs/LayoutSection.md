@@ -5,10 +5,12 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **description** | **str** |  | [optional] 
 **fields** | [**list[LayoutField]**](LayoutField.md) |  | [optional] 
+**highlight** | **dict(str, list[str])** |  | [optional] 
 **id** | **str** |  | [optional] 
 **is_visible** | **bool** |  | [optional] 
 **modified** | **datetime** |  | [optional] 
 **name** | **str** |  | [optional] 
+**numeric_id** | **int** |  | [optional] 
 **primary_term** | **int** |  | [optional] 
 **query** | **object** |  | [optional] 
 **query_type** | **str** |  | [optional] 

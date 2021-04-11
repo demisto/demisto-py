@@ -22,6 +22,7 @@ REQUIRES = [
     "six>=1.10",
     "urllib3>=1.23",
     "tzlocal>=2.0.0",
+    "setuptools-scm==5.0.2",
 ]
 
 with open('README.md', 'r') as f:

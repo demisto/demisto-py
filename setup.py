@@ -17,12 +17,11 @@ NAME = "demisto-py"
 # http://pypi.python.org/pypi/setuptools
 
 REQUIRES = [
-    "certifi==2017.4.17",
-    "python-dateutil==2.5.3",
-    "six==1.10",
-    "urllib3==1.23",
-    "tzlocal==2.0.0",
-    "setuptools-scm==5.0.2",
+    "certifi>=2017.4.17",
+    "python-dateutil>=2.5.3",
+    "six>=1.10",
+    "urllib3>=1.23",
+    "tzlocal>=2.0.0",
 ]
 
 with open('README.md', 'r') as f:

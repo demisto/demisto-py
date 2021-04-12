@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    Cortex XSOAR API
+    Demisto API
 
-    This is the public REST API to integrate with the Cortex XSOAR server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Cortex XSOAR web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Cortex XSOAR REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Cortex XSOAR server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Cortex XSOAR has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Cortex XSOAR will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
+    This is the public REST API to integrate with the demisto server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Demisto web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Demisto REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Demisto server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Demisto has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Demisto will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
 
     OpenAPI spec version: 2.0.0
     
@@ -35,7 +35,6 @@ class FormDisplay(object):
         'body_font_color': 'str',
         'header_background_color': 'str',
         'header_font_color': 'str',
-        'is_external_rtl': 'bool',
         'sender': 'str',
         'submit_button_background_color': 'str',
         'submit_button_font_color': 'str',
@@ -47,21 +46,19 @@ class FormDisplay(object):
         'body_font_color': 'bodyFontColor',
         'header_background_color': 'headerBackgroundColor',
         'header_font_color': 'headerFontColor',
-        'is_external_rtl': 'isExternalRtl',
         'sender': 'sender',
         'submit_button_background_color': 'submitButtonBackgroundColor',
         'submit_button_font_color': 'submitButtonFontColor',
         'submit_text': 'submitText'
     }
 
-    def __init__(self, body_background_color=None, body_font_color=None, header_background_color=None, header_font_color=None, is_external_rtl=None, sender=None, submit_button_background_color=None, submit_button_font_color=None, submit_text=None):  # noqa: E501
+    def __init__(self, body_background_color=None, body_font_color=None, header_background_color=None, header_font_color=None, sender=None, submit_button_background_color=None, submit_button_font_color=None, submit_text=None):  # noqa: E501
         """FormDisplay - a model defined in Swagger"""  # noqa: E501
 
         self._body_background_color = None
         self._body_font_color = None
         self._header_background_color = None
         self._header_font_color = None
-        self._is_external_rtl = None
         self._sender = None
         self._submit_button_background_color = None
         self._submit_button_font_color = None
@@ -76,8 +73,6 @@ class FormDisplay(object):
             self.header_background_color = header_background_color
         if header_font_color is not None:
             self.header_font_color = header_font_color
-        if is_external_rtl is not None:
-            self.is_external_rtl = is_external_rtl
         if sender is not None:
             self.sender = sender
         if submit_button_background_color is not None:
@@ -170,27 +165,6 @@ class FormDisplay(object):
         """
 
         self._header_font_color = header_font_color
-
-    @property
-    def is_external_rtl(self):
-        """Gets the is_external_rtl of this FormDisplay.  # noqa: E501
-
-
-        :return: The is_external_rtl of this FormDisplay.  # noqa: E501
-        :rtype: bool
-        """
-        return self._is_external_rtl
-
-    @is_external_rtl.setter
-    def is_external_rtl(self, is_external_rtl):
-        """Sets the is_external_rtl of this FormDisplay.
-
-
-        :param is_external_rtl: The is_external_rtl of this FormDisplay.  # noqa: E501
-        :type: bool
-        """
-
-        self._is_external_rtl = is_external_rtl
 
     @property
     def sender(self):

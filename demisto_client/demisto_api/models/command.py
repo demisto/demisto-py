@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    Cortex XSOAR API
+    Demisto API
 
-    This is the public REST API to integrate with the Cortex XSOAR server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Cortex XSOAR web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Cortex XSOAR REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Cortex XSOAR server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Cortex XSOAR has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Cortex XSOAR will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
+    This is the public REST API to integrate with the demisto server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Demisto web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Demisto REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Demisto server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Demisto has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Demisto will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
 
     OpenAPI spec version: 2.0.0
     
@@ -39,15 +39,12 @@ class Command(object):
         'cartesian': 'bool',
         'deprecated': 'bool',
         'description': 'str',
-        'docs_hidden': 'bool',
         'execution': 'bool',
         'hidden': 'bool',
         'important': 'list[Important]',
-        'indicator_action': 'bool',
         'name': 'str',
         'outputs': 'list[Output]',
         'permitted': 'bool',
-        'polling': 'bool',
         'sensitive': 'bool',
         'timeout': 'int'
     }
@@ -57,35 +54,29 @@ class Command(object):
         'cartesian': 'cartesian',
         'deprecated': 'deprecated',
         'description': 'description',
-        'docs_hidden': 'docsHidden',
         'execution': 'execution',
         'hidden': 'hidden',
         'important': 'important',
-        'indicator_action': 'indicatorAction',
         'name': 'name',
         'outputs': 'outputs',
         'permitted': 'permitted',
-        'polling': 'polling',
         'sensitive': 'sensitive',
         'timeout': 'timeout'
     }
 
-    def __init__(self, arguments=None, cartesian=None, deprecated=None, description=None, docs_hidden=None, execution=None, hidden=None, important=None, indicator_action=None, name=None, outputs=None, permitted=None, polling=None, sensitive=None, timeout=None):  # noqa: E501
+    def __init__(self, arguments=None, cartesian=None, deprecated=None, description=None, execution=None, hidden=None, important=None, name=None, outputs=None, permitted=None, sensitive=None, timeout=None):  # noqa: E501
         """Command - a model defined in Swagger"""  # noqa: E501
 
         self._arguments = None
         self._cartesian = None
         self._deprecated = None
         self._description = None
-        self._docs_hidden = None
         self._execution = None
         self._hidden = None
         self._important = None
-        self._indicator_action = None
         self._name = None
         self._outputs = None
         self._permitted = None
-        self._polling = None
         self._sensitive = None
         self._timeout = None
         self.discriminator = None
@@ -98,24 +89,18 @@ class Command(object):
             self.deprecated = deprecated
         if description is not None:
             self.description = description
-        if docs_hidden is not None:
-            self.docs_hidden = docs_hidden
         if execution is not None:
             self.execution = execution
         if hidden is not None:
             self.hidden = hidden
         if important is not None:
             self.important = important
-        if indicator_action is not None:
-            self.indicator_action = indicator_action
         if name is not None:
             self.name = name
         if outputs is not None:
             self.outputs = outputs
         if permitted is not None:
             self.permitted = permitted
-        if polling is not None:
-            self.polling = polling
         if sensitive is not None:
             self.sensitive = sensitive
         if timeout is not None:
@@ -206,27 +191,6 @@ class Command(object):
         self._description = description
 
     @property
-    def docs_hidden(self):
-        """Gets the docs_hidden of this Command.  # noqa: E501
-
-
-        :return: The docs_hidden of this Command.  # noqa: E501
-        :rtype: bool
-        """
-        return self._docs_hidden
-
-    @docs_hidden.setter
-    def docs_hidden(self, docs_hidden):
-        """Sets the docs_hidden of this Command.
-
-
-        :param docs_hidden: The docs_hidden of this Command.  # noqa: E501
-        :type: bool
-        """
-
-        self._docs_hidden = docs_hidden
-
-    @property
     def execution(self):
         """Gets the execution of this Command.  # noqa: E501
 
@@ -290,27 +254,6 @@ class Command(object):
         self._important = important
 
     @property
-    def indicator_action(self):
-        """Gets the indicator_action of this Command.  # noqa: E501
-
-
-        :return: The indicator_action of this Command.  # noqa: E501
-        :rtype: bool
-        """
-        return self._indicator_action
-
-    @indicator_action.setter
-    def indicator_action(self, indicator_action):
-        """Sets the indicator_action of this Command.
-
-
-        :param indicator_action: The indicator_action of this Command.  # noqa: E501
-        :type: bool
-        """
-
-        self._indicator_action = indicator_action
-
-    @property
     def name(self):
         """Gets the name of this Command.  # noqa: E501
 
@@ -372,27 +315,6 @@ class Command(object):
         """
 
         self._permitted = permitted
-
-    @property
-    def polling(self):
-        """Gets the polling of this Command.  # noqa: E501
-
-
-        :return: The polling of this Command.  # noqa: E501
-        :rtype: bool
-        """
-        return self._polling
-
-    @polling.setter
-    def polling(self, polling):
-        """Sets the polling of this Command.
-
-
-        :param polling: The polling of this Command.  # noqa: E501
-        :type: bool
-        """
-
-        self._polling = polling
 
     @property
     def sensitive(self):

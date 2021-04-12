@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    Cortex XSOAR API
+    Demisto API
 
-    This is the public REST API to integrate with the Cortex XSOAR server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Cortex XSOAR web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Cortex XSOAR REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Cortex XSOAR server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Cortex XSOAR has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Cortex XSOAR will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
+    This is the public REST API to integrate with the demisto server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Demisto web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Demisto REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Demisto server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Demisto has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Demisto will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
 
     OpenAPI spec version: 2.0.0
     
@@ -40,13 +40,8 @@ class IntegrationScript(object):
         'feed': 'bool',
         'is_fetch': 'bool',
         'is_fetch_credentials': 'bool',
-        'is_fetch_samples': 'bool',
-        'is_mappable': 'bool',
-        'is_remote_sync_in': 'bool',
-        'is_remote_sync_out': 'bool',
         'long_running': 'bool',
         'long_running_port_mapping': 'bool',
-        'reset_context': 'bool',
         'run_once': 'bool',
         'script': 'str',
         'subtype': 'ScriptSubType',
@@ -59,20 +54,15 @@ class IntegrationScript(object):
         'feed': 'feed',
         'is_fetch': 'isFetch',
         'is_fetch_credentials': 'isFetchCredentials',
-        'is_fetch_samples': 'isFetchSamples',
-        'is_mappable': 'isMappable',
-        'is_remote_sync_in': 'isRemoteSyncIn',
-        'is_remote_sync_out': 'isRemoteSyncOut',
         'long_running': 'longRunning',
         'long_running_port_mapping': 'longRunningPortMapping',
-        'reset_context': 'resetContext',
         'run_once': 'runOnce',
         'script': 'script',
         'subtype': 'subtype',
         'type': 'type'
     }
 
-    def __init__(self, commands=None, docker_image=None, feed=None, is_fetch=None, is_fetch_credentials=None, is_fetch_samples=None, is_mappable=None, is_remote_sync_in=None, is_remote_sync_out=None, long_running=None, long_running_port_mapping=None, reset_context=None, run_once=None, script=None, subtype=None, type=None):  # noqa: E501
+    def __init__(self, commands=None, docker_image=None, feed=None, is_fetch=None, is_fetch_credentials=None, long_running=None, long_running_port_mapping=None, run_once=None, script=None, subtype=None, type=None):  # noqa: E501
         """IntegrationScript - a model defined in Swagger"""  # noqa: E501
 
         self._commands = None
@@ -80,13 +70,8 @@ class IntegrationScript(object):
         self._feed = None
         self._is_fetch = None
         self._is_fetch_credentials = None
-        self._is_fetch_samples = None
-        self._is_mappable = None
-        self._is_remote_sync_in = None
-        self._is_remote_sync_out = None
         self._long_running = None
         self._long_running_port_mapping = None
-        self._reset_context = None
         self._run_once = None
         self._script = None
         self._subtype = None
@@ -103,20 +88,10 @@ class IntegrationScript(object):
             self.is_fetch = is_fetch
         if is_fetch_credentials is not None:
             self.is_fetch_credentials = is_fetch_credentials
-        if is_fetch_samples is not None:
-            self.is_fetch_samples = is_fetch_samples
-        if is_mappable is not None:
-            self.is_mappable = is_mappable
-        if is_remote_sync_in is not None:
-            self.is_remote_sync_in = is_remote_sync_in
-        if is_remote_sync_out is not None:
-            self.is_remote_sync_out = is_remote_sync_out
         if long_running is not None:
             self.long_running = long_running
         if long_running_port_mapping is not None:
             self.long_running_port_mapping = long_running_port_mapping
-        if reset_context is not None:
-            self.reset_context = reset_context
         if run_once is not None:
             self.run_once = run_once
         if script is not None:
@@ -232,90 +207,6 @@ class IntegrationScript(object):
         self._is_fetch_credentials = is_fetch_credentials
 
     @property
-    def is_fetch_samples(self):
-        """Gets the is_fetch_samples of this IntegrationScript.  # noqa: E501
-
-
-        :return: The is_fetch_samples of this IntegrationScript.  # noqa: E501
-        :rtype: bool
-        """
-        return self._is_fetch_samples
-
-    @is_fetch_samples.setter
-    def is_fetch_samples(self, is_fetch_samples):
-        """Sets the is_fetch_samples of this IntegrationScript.
-
-
-        :param is_fetch_samples: The is_fetch_samples of this IntegrationScript.  # noqa: E501
-        :type: bool
-        """
-
-        self._is_fetch_samples = is_fetch_samples
-
-    @property
-    def is_mappable(self):
-        """Gets the is_mappable of this IntegrationScript.  # noqa: E501
-
-
-        :return: The is_mappable of this IntegrationScript.  # noqa: E501
-        :rtype: bool
-        """
-        return self._is_mappable
-
-    @is_mappable.setter
-    def is_mappable(self, is_mappable):
-        """Sets the is_mappable of this IntegrationScript.
-
-
-        :param is_mappable: The is_mappable of this IntegrationScript.  # noqa: E501
-        :type: bool
-        """
-
-        self._is_mappable = is_mappable
-
-    @property
-    def is_remote_sync_in(self):
-        """Gets the is_remote_sync_in of this IntegrationScript.  # noqa: E501
-
-
-        :return: The is_remote_sync_in of this IntegrationScript.  # noqa: E501
-        :rtype: bool
-        """
-        return self._is_remote_sync_in
-
-    @is_remote_sync_in.setter
-    def is_remote_sync_in(self, is_remote_sync_in):
-        """Sets the is_remote_sync_in of this IntegrationScript.
-
-
-        :param is_remote_sync_in: The is_remote_sync_in of this IntegrationScript.  # noqa: E501
-        :type: bool
-        """
-
-        self._is_remote_sync_in = is_remote_sync_in
-
-    @property
-    def is_remote_sync_out(self):
-        """Gets the is_remote_sync_out of this IntegrationScript.  # noqa: E501
-
-
-        :return: The is_remote_sync_out of this IntegrationScript.  # noqa: E501
-        :rtype: bool
-        """
-        return self._is_remote_sync_out
-
-    @is_remote_sync_out.setter
-    def is_remote_sync_out(self, is_remote_sync_out):
-        """Sets the is_remote_sync_out of this IntegrationScript.
-
-
-        :param is_remote_sync_out: The is_remote_sync_out of this IntegrationScript.  # noqa: E501
-        :type: bool
-        """
-
-        self._is_remote_sync_out = is_remote_sync_out
-
-    @property
     def long_running(self):
         """Gets the long_running of this IntegrationScript.  # noqa: E501
 
@@ -356,27 +247,6 @@ class IntegrationScript(object):
         """
 
         self._long_running_port_mapping = long_running_port_mapping
-
-    @property
-    def reset_context(self):
-        """Gets the reset_context of this IntegrationScript.  # noqa: E501
-
-
-        :return: The reset_context of this IntegrationScript.  # noqa: E501
-        :rtype: bool
-        """
-        return self._reset_context
-
-    @reset_context.setter
-    def reset_context(self, reset_context):
-        """Sets the reset_context of this IntegrationScript.
-
-
-        :param reset_context: The reset_context of this IntegrationScript.  # noqa: E501
-        :type: bool
-        """
-
-        self._reset_context = reset_context
 
     @property
     def run_once(self):

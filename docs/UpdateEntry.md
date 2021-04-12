@@ -8,8 +8,6 @@ Name | Type | Description | Notes
 **id** | **str** |  | [optional] 
 **investigation_id** | **str** |  | [optional] 
 **markdown** | **bool** |  | [optional] 
-**primary_term** | **int** |  | [optional] 
-**sequence_number** | **int** |  | [optional] 
 **version** | **int** |  | [optional] 
 
 [[Back to Model list]](README.md#documentation-for-models) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to README]](README.md)

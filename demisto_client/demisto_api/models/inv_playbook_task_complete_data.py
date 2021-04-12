@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    Cortex XSOAR API
+    Demisto API
 
-    This is the public REST API to integrate with the Cortex XSOAR server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Cortex XSOAR web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Cortex XSOAR REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Cortex XSOAR server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Cortex XSOAR has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Cortex XSOAR will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
+    This is the public REST API to integrate with the demisto server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Demisto web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Demisto REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Demisto server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Demisto has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Demisto will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
 
     OpenAPI spec version: 2.0.0
     
@@ -34,8 +34,6 @@ class InvPlaybookTaskCompleteData(object):
     """
     swagger_types = {
         'arguments': 'dict(str, object)',
-        'calculated_description': 'str',
-        'calculated_task_name': 'str',
         'completed_by': 'str',
         'completed_count': 'int',
         'completed_date': 'datetime',
@@ -45,14 +43,11 @@ class InvPlaybookTaskCompleteData(object):
         'playbook_inputs': 'dict(str, object)',
         'start_date': 'datetime',
         'state': 'TaskState',
-        'will_not_execute_count': 'int',
-        'will_not_execute_reason': 'str'
+        'will_not_execute_count': 'int'
     }
 
     attribute_map = {
         'arguments': 'arguments',
-        'calculated_description': 'calculatedDescription',
-        'calculated_task_name': 'calculatedTaskName',
         'completed_by': 'completedBy',
         'completed_count': 'completedCount',
         'completed_date': 'completedDate',
@@ -62,16 +57,13 @@ class InvPlaybookTaskCompleteData(object):
         'playbook_inputs': 'playbookInputs',
         'start_date': 'startDate',
         'state': 'state',
-        'will_not_execute_count': 'willNotExecuteCount',
-        'will_not_execute_reason': 'willNotExecuteReason'
+        'will_not_execute_count': 'willNotExecuteCount'
     }
 
-    def __init__(self, arguments=None, calculated_description=None, calculated_task_name=None, completed_by=None, completed_count=None, completed_date=None, entries=None, input=None, outputs=None, playbook_inputs=None, start_date=None, state=None, will_not_execute_count=None, will_not_execute_reason=None):  # noqa: E501
+    def __init__(self, arguments=None, completed_by=None, completed_count=None, completed_date=None, entries=None, input=None, outputs=None, playbook_inputs=None, start_date=None, state=None, will_not_execute_count=None):  # noqa: E501
         """InvPlaybookTaskCompleteData - a model defined in Swagger"""  # noqa: E501
 
         self._arguments = None
-        self._calculated_description = None
-        self._calculated_task_name = None
         self._completed_by = None
         self._completed_count = None
         self._completed_date = None
@@ -82,15 +74,10 @@ class InvPlaybookTaskCompleteData(object):
         self._start_date = None
         self._state = None
         self._will_not_execute_count = None
-        self._will_not_execute_reason = None
         self.discriminator = None
 
         if arguments is not None:
             self.arguments = arguments
-        if calculated_description is not None:
-            self.calculated_description = calculated_description
-        if calculated_task_name is not None:
-            self.calculated_task_name = calculated_task_name
         if completed_by is not None:
             self.completed_by = completed_by
         if completed_count is not None:
@@ -111,8 +98,6 @@ class InvPlaybookTaskCompleteData(object):
             self.state = state
         if will_not_execute_count is not None:
             self.will_not_execute_count = will_not_execute_count
-        if will_not_execute_reason is not None:
-            self.will_not_execute_reason = will_not_execute_reason
 
     @property
     def arguments(self):
@@ -134,48 +119,6 @@ class InvPlaybookTaskCompleteData(object):
         """
 
         self._arguments = arguments
-
-    @property
-    def calculated_description(self):
-        """Gets the calculated_description of this InvPlaybookTaskCompleteData.  # noqa: E501
-
-
-        :return: The calculated_description of this InvPlaybookTaskCompleteData.  # noqa: E501
-        :rtype: str
-        """
-        return self._calculated_description
-
-    @calculated_description.setter
-    def calculated_description(self, calculated_description):
-        """Sets the calculated_description of this InvPlaybookTaskCompleteData.
-
-
-        :param calculated_description: The calculated_description of this InvPlaybookTaskCompleteData.  # noqa: E501
-        :type: str
-        """
-
-        self._calculated_description = calculated_description
-
-    @property
-    def calculated_task_name(self):
-        """Gets the calculated_task_name of this InvPlaybookTaskCompleteData.  # noqa: E501
-
-
-        :return: The calculated_task_name of this InvPlaybookTaskCompleteData.  # noqa: E501
-        :rtype: str
-        """
-        return self._calculated_task_name
-
-    @calculated_task_name.setter
-    def calculated_task_name(self, calculated_task_name):
-        """Sets the calculated_task_name of this InvPlaybookTaskCompleteData.
-
-
-        :param calculated_task_name: The calculated_task_name of this InvPlaybookTaskCompleteData.  # noqa: E501
-        :type: str
-        """
-
-        self._calculated_task_name = calculated_task_name
 
     @property
     def completed_by(self):
@@ -386,27 +329,6 @@ class InvPlaybookTaskCompleteData(object):
         """
 
         self._will_not_execute_count = will_not_execute_count
-
-    @property
-    def will_not_execute_reason(self):
-        """Gets the will_not_execute_reason of this InvPlaybookTaskCompleteData.  # noqa: E501
-
-
-        :return: The will_not_execute_reason of this InvPlaybookTaskCompleteData.  # noqa: E501
-        :rtype: str
-        """
-        return self._will_not_execute_reason
-
-    @will_not_execute_reason.setter
-    def will_not_execute_reason(self, will_not_execute_reason):
-        """Sets the will_not_execute_reason of this InvPlaybookTaskCompleteData.
-
-
-        :param will_not_execute_reason: The will_not_execute_reason of this InvPlaybookTaskCompleteData.  # noqa: E501
-        :type: str
-        """
-
-        self._will_not_execute_reason = will_not_execute_reason
 
     def to_dict(self):
         """Returns the model properties as a dict"""

@@ -4,8 +4,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **arguments** | **dict(str, object)** |  | [optional] 
-**calculated_description** | **str** |  | [optional] 
-**calculated_task_name** | **str** |  | [optional] 
 **completed_by** | **str** |  | [optional] 
 **completed_count** | **int** |  | [optional] 
 **completed_date** | **datetime** |  | [optional] 
@@ -16,7 +14,6 @@ Name | Type | Description | Notes
 **start_date** | **datetime** |  | [optional] 
 **state** | [**TaskState**](TaskState.md) |  | [optional] 
 **will_not_execute_count** | **int** |  | [optional] 
-**will_not_execute_reason** | **str** |  | [optional] 
 
 [[Back to Model list]](README.md#documentation-for-models) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to README]](README.md)
 

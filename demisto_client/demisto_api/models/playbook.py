@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    Cortex XSOAR API
+    Demisto API
 
-    This is the public REST API to integrate with the Cortex XSOAR server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Cortex XSOAR web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Cortex XSOAR REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Cortex XSOAR server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Cortex XSOAR has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Cortex XSOAR will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
+    This is the public REST API to integrate with the demisto server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Demisto web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Demisto REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Demisto server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Demisto has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Demisto will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
 
     OpenAPI spec version: 2.0.0
     
@@ -37,20 +37,15 @@ class Playbook(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'all_read': 'bool',
-        'all_read_write': 'bool',
         'brands': 'list[str]',
         'commands': 'list[str]',
         'comment': 'str',
         'commit_message': 'str',
         'dbot_created_by': 'str',
-        'deprecated': 'bool',
         'detached': 'bool',
-        'enc_tasks': 'str',
         'from_server_version': 'Version',
         'has_role': 'bool',
         'hidden': 'bool',
-        'highlight': 'dict(str, list[str])',
         'id': 'str',
         'inputs': 'PlaybookInputs',
         'item_version': 'Version',
@@ -59,13 +54,9 @@ class Playbook(object):
         'modified': 'datetime',
         'name': 'str',
         'name_raw': 'str',
-        'numeric_id': 'int',
         'outputs': 'PlaybookOutputs',
         'pack_id': 'str',
-        'pack_propagation_labels': 'list[str]',
         'prev_name': 'str',
-        'previous_all_read': 'bool',
-        'previous_all_read_write': 'bool',
         'previous_roles': 'list[str]',
         'primary_term': 'int',
         'private': 'bool',
@@ -84,29 +75,20 @@ class Playbook(object):
         'tasks': 'dict(str, PlaybookTask)',
         'to_server_version': 'Version',
         'vc_should_ignore': 'bool',
-        'vc_should_keep_item_legacy_prod_machine': 'bool',
         'version': 'int',
-        'view': 'PlaybookView',
-        'xsoar_has_read_only_role': 'bool',
-        'xsoar_previous_read_only_roles': 'list[str]',
-        'xsoar_read_only_roles': 'list[str]'
+        'view': 'PlaybookView'
     }
 
     attribute_map = {
-        'all_read': 'allRead',
-        'all_read_write': 'allReadWrite',
         'brands': 'brands',
         'commands': 'commands',
         'comment': 'comment',
         'commit_message': 'commitMessage',
         'dbot_created_by': 'dbotCreatedBy',
-        'deprecated': 'deprecated',
         'detached': 'detached',
-        'enc_tasks': 'encTasks',
         'from_server_version': 'fromServerVersion',
         'has_role': 'hasRole',
         'hidden': 'hidden',
-        'highlight': 'highlight',
         'id': 'id',
         'inputs': 'inputs',
         'item_version': 'itemVersion',
@@ -115,13 +97,9 @@ class Playbook(object):
         'modified': 'modified',
         'name': 'name',
         'name_raw': 'nameRaw',
-        'numeric_id': 'numericId',
         'outputs': 'outputs',
         'pack_id': 'packID',
-        'pack_propagation_labels': 'packPropagationLabels',
         'prev_name': 'prevName',
-        'previous_all_read': 'previousAllRead',
-        'previous_all_read_write': 'previousAllReadWrite',
         'previous_roles': 'previousRoles',
         'primary_term': 'primaryTerm',
         'private': 'private',
@@ -140,31 +118,22 @@ class Playbook(object):
         'tasks': 'tasks',
         'to_server_version': 'toServerVersion',
         'vc_should_ignore': 'vcShouldIgnore',
-        'vc_should_keep_item_legacy_prod_machine': 'vcShouldKeepItemLegacyProdMachine',
         'version': 'version',
-        'view': 'view',
-        'xsoar_has_read_only_role': 'xsoarHasReadOnlyRole',
-        'xsoar_previous_read_only_roles': 'xsoarPreviousReadOnlyRoles',
-        'xsoar_read_only_roles': 'xsoarReadOnlyRoles'
+        'view': 'view'
     }
 
-    def __init__(self, all_read=None, all_read_write=None, brands=None, commands=None, comment=None, commit_message=None, dbot_created_by=None, deprecated=None, detached=None, enc_tasks=None, from_server_version=None, has_role=None, hidden=None, highlight=None, id=None, inputs=None, item_version=None, locked=None, missing_scripts_ids=None, modified=None, name=None, name_raw=None, numeric_id=None, outputs=None, pack_id=None, pack_propagation_labels=None, prev_name=None, previous_all_read=None, previous_all_read_write=None, previous_roles=None, primary_term=None, private=None, propagation_labels=None, quiet=None, roles=None, script_ids=None, sequence_number=None, should_commit=None, sort_values=None, source_playbook_id=None, start_task_id=None, system=None, tags=None, task_ids=None, tasks=None, to_server_version=None, vc_should_ignore=None, vc_should_keep_item_legacy_prod_machine=None, version=None, view=None, xsoar_has_read_only_role=None, xsoar_previous_read_only_roles=None, xsoar_read_only_roles=None):  # noqa: E501
+    def __init__(self, brands=None, commands=None, comment=None, commit_message=None, dbot_created_by=None, detached=None, from_server_version=None, has_role=None, hidden=None, id=None, inputs=None, item_version=None, locked=None, missing_scripts_ids=None, modified=None, name=None, name_raw=None, outputs=None, pack_id=None, prev_name=None, previous_roles=None, primary_term=None, private=None, propagation_labels=None, quiet=None, roles=None, script_ids=None, sequence_number=None, should_commit=None, sort_values=None, source_playbook_id=None, start_task_id=None, system=None, tags=None, task_ids=None, tasks=None, to_server_version=None, vc_should_ignore=None, version=None, view=None):  # noqa: E501
         """Playbook - a model defined in Swagger"""  # noqa: E501
 
-        self._all_read = None
-        self._all_read_write = None
         self._brands = None
         self._commands = None
         self._comment = None
         self._commit_message = None
         self._dbot_created_by = None
-        self._deprecated = None
         self._detached = None
-        self._enc_tasks = None
         self._from_server_version = None
         self._has_role = None
         self._hidden = None
-        self._highlight = None
         self._id = None
         self._inputs = None
         self._item_version = None
@@ -173,13 +142,9 @@ class Playbook(object):
         self._modified = None
         self._name = None
         self._name_raw = None
-        self._numeric_id = None
         self._outputs = None
         self._pack_id = None
-        self._pack_propagation_labels = None
         self._prev_name = None
-        self._previous_all_read = None
-        self._previous_all_read_write = None
         self._previous_roles = None
         self._primary_term = None
         self._private = None
@@ -198,18 +163,10 @@ class Playbook(object):
         self._tasks = None
         self._to_server_version = None
         self._vc_should_ignore = None
-        self._vc_should_keep_item_legacy_prod_machine = None
         self._version = None
         self._view = None
-        self._xsoar_has_read_only_role = None
-        self._xsoar_previous_read_only_roles = None
-        self._xsoar_read_only_roles = None
         self.discriminator = None
 
-        if all_read is not None:
-            self.all_read = all_read
-        if all_read_write is not None:
-            self.all_read_write = all_read_write
         if brands is not None:
             self.brands = brands
         if commands is not None:
@@ -220,20 +177,14 @@ class Playbook(object):
             self.commit_message = commit_message
         if dbot_created_by is not None:
             self.dbot_created_by = dbot_created_by
-        if deprecated is not None:
-            self.deprecated = deprecated
         if detached is not None:
             self.detached = detached
-        if enc_tasks is not None:
-            self.enc_tasks = enc_tasks
         if from_server_version is not None:
             self.from_server_version = from_server_version
         if has_role is not None:
             self.has_role = has_role
         if hidden is not None:
             self.hidden = hidden
-        if highlight is not None:
-            self.highlight = highlight
         if id is not None:
             self.id = id
         if inputs is not None:
@@ -250,20 +201,12 @@ class Playbook(object):
             self.name = name
         if name_raw is not None:
             self.name_raw = name_raw
-        if numeric_id is not None:
-            self.numeric_id = numeric_id
         if outputs is not None:
             self.outputs = outputs
         if pack_id is not None:
             self.pack_id = pack_id
-        if pack_propagation_labels is not None:
-            self.pack_propagation_labels = pack_propagation_labels
         if prev_name is not None:
             self.prev_name = prev_name
-        if previous_all_read is not None:
-            self.previous_all_read = previous_all_read
-        if previous_all_read_write is not None:
-            self.previous_all_read_write = previous_all_read_write
         if previous_roles is not None:
             self.previous_roles = previous_roles
         if primary_term is not None:
@@ -300,60 +243,10 @@ class Playbook(object):
             self.to_server_version = to_server_version
         if vc_should_ignore is not None:
             self.vc_should_ignore = vc_should_ignore
-        if vc_should_keep_item_legacy_prod_machine is not None:
-            self.vc_should_keep_item_legacy_prod_machine = vc_should_keep_item_legacy_prod_machine
         if version is not None:
             self.version = version
         if view is not None:
             self.view = view
-        if xsoar_has_read_only_role is not None:
-            self.xsoar_has_read_only_role = xsoar_has_read_only_role
-        if xsoar_previous_read_only_roles is not None:
-            self.xsoar_previous_read_only_roles = xsoar_previous_read_only_roles
-        if xsoar_read_only_roles is not None:
-            self.xsoar_read_only_roles = xsoar_read_only_roles
-
-    @property
-    def all_read(self):
-        """Gets the all_read of this Playbook.  # noqa: E501
-
-
-        :return: The all_read of this Playbook.  # noqa: E501
-        :rtype: bool
-        """
-        return self._all_read
-
-    @all_read.setter
-    def all_read(self, all_read):
-        """Sets the all_read of this Playbook.
-
-
-        :param all_read: The all_read of this Playbook.  # noqa: E501
-        :type: bool
-        """
-
-        self._all_read = all_read
-
-    @property
-    def all_read_write(self):
-        """Gets the all_read_write of this Playbook.  # noqa: E501
-
-
-        :return: The all_read_write of this Playbook.  # noqa: E501
-        :rtype: bool
-        """
-        return self._all_read_write
-
-    @all_read_write.setter
-    def all_read_write(self, all_read_write):
-        """Sets the all_read_write of this Playbook.
-
-
-        :param all_read_write: The all_read_write of this Playbook.  # noqa: E501
-        :type: bool
-        """
-
-        self._all_read_write = all_read_write
 
     @property
     def brands(self):
@@ -463,27 +356,6 @@ class Playbook(object):
         self._dbot_created_by = dbot_created_by
 
     @property
-    def deprecated(self):
-        """Gets the deprecated of this Playbook.  # noqa: E501
-
-
-        :return: The deprecated of this Playbook.  # noqa: E501
-        :rtype: bool
-        """
-        return self._deprecated
-
-    @deprecated.setter
-    def deprecated(self, deprecated):
-        """Sets the deprecated of this Playbook.
-
-
-        :param deprecated: The deprecated of this Playbook.  # noqa: E501
-        :type: bool
-        """
-
-        self._deprecated = deprecated
-
-    @property
     def detached(self):
         """Gets the detached of this Playbook.  # noqa: E501
 
@@ -503,27 +375,6 @@ class Playbook(object):
         """
 
         self._detached = detached
-
-    @property
-    def enc_tasks(self):
-        """Gets the enc_tasks of this Playbook.  # noqa: E501
-
-
-        :return: The enc_tasks of this Playbook.  # noqa: E501
-        :rtype: str
-        """
-        return self._enc_tasks
-
-    @enc_tasks.setter
-    def enc_tasks(self, enc_tasks):
-        """Sets the enc_tasks of this Playbook.
-
-
-        :param enc_tasks: The enc_tasks of this Playbook.  # noqa: E501
-        :type: str
-        """
-
-        self._enc_tasks = enc_tasks
 
     @property
     def from_server_version(self):
@@ -589,27 +440,6 @@ class Playbook(object):
         """
 
         self._hidden = hidden
-
-    @property
-    def highlight(self):
-        """Gets the highlight of this Playbook.  # noqa: E501
-
-
-        :return: The highlight of this Playbook.  # noqa: E501
-        :rtype: dict(str, list[str])
-        """
-        return self._highlight
-
-    @highlight.setter
-    def highlight(self, highlight):
-        """Sets the highlight of this Playbook.
-
-
-        :param highlight: The highlight of this Playbook.  # noqa: E501
-        :type: dict(str, list[str])
-        """
-
-        self._highlight = highlight
 
     @property
     def id(self):
@@ -780,27 +610,6 @@ class Playbook(object):
         self._name_raw = name_raw
 
     @property
-    def numeric_id(self):
-        """Gets the numeric_id of this Playbook.  # noqa: E501
-
-
-        :return: The numeric_id of this Playbook.  # noqa: E501
-        :rtype: int
-        """
-        return self._numeric_id
-
-    @numeric_id.setter
-    def numeric_id(self, numeric_id):
-        """Sets the numeric_id of this Playbook.
-
-
-        :param numeric_id: The numeric_id of this Playbook.  # noqa: E501
-        :type: int
-        """
-
-        self._numeric_id = numeric_id
-
-    @property
     def outputs(self):
         """Gets the outputs of this Playbook.  # noqa: E501
 
@@ -843,27 +652,6 @@ class Playbook(object):
         self._pack_id = pack_id
 
     @property
-    def pack_propagation_labels(self):
-        """Gets the pack_propagation_labels of this Playbook.  # noqa: E501
-
-
-        :return: The pack_propagation_labels of this Playbook.  # noqa: E501
-        :rtype: list[str]
-        """
-        return self._pack_propagation_labels
-
-    @pack_propagation_labels.setter
-    def pack_propagation_labels(self, pack_propagation_labels):
-        """Sets the pack_propagation_labels of this Playbook.
-
-
-        :param pack_propagation_labels: The pack_propagation_labels of this Playbook.  # noqa: E501
-        :type: list[str]
-        """
-
-        self._pack_propagation_labels = pack_propagation_labels
-
-    @property
     def prev_name(self):
         """Gets the prev_name of this Playbook.  # noqa: E501
 
@@ -885,52 +673,10 @@ class Playbook(object):
         self._prev_name = prev_name
 
     @property
-    def previous_all_read(self):
-        """Gets the previous_all_read of this Playbook.  # noqa: E501
-
-
-        :return: The previous_all_read of this Playbook.  # noqa: E501
-        :rtype: bool
-        """
-        return self._previous_all_read
-
-    @previous_all_read.setter
-    def previous_all_read(self, previous_all_read):
-        """Sets the previous_all_read of this Playbook.
-
-
-        :param previous_all_read: The previous_all_read of this Playbook.  # noqa: E501
-        :type: bool
-        """
-
-        self._previous_all_read = previous_all_read
-
-    @property
-    def previous_all_read_write(self):
-        """Gets the previous_all_read_write of this Playbook.  # noqa: E501
-
-
-        :return: The previous_all_read_write of this Playbook.  # noqa: E501
-        :rtype: bool
-        """
-        return self._previous_all_read_write
-
-    @previous_all_read_write.setter
-    def previous_all_read_write(self, previous_all_read_write):
-        """Sets the previous_all_read_write of this Playbook.
-
-
-        :param previous_all_read_write: The previous_all_read_write of this Playbook.  # noqa: E501
-        :type: bool
-        """
-
-        self._previous_all_read_write = previous_all_read_write
-
-    @property
     def previous_roles(self):
         """Gets the previous_roles of this Playbook.  # noqa: E501
 
-        Do not change this field manually  # noqa: E501
+        PreviousRoleName - do not change this field manually  # noqa: E501
 
         :return: The previous_roles of this Playbook.  # noqa: E501
         :rtype: list[str]
@@ -941,7 +687,7 @@ class Playbook(object):
     def previous_roles(self, previous_roles):
         """Sets the previous_roles of this Playbook.
 
-        Do not change this field manually  # noqa: E501
+        PreviousRoleName - do not change this field manually  # noqa: E501
 
         :param previous_roles: The previous_roles of this Playbook.  # noqa: E501
         :type: list[str]
@@ -1311,27 +1057,6 @@ class Playbook(object):
         self._vc_should_ignore = vc_should_ignore
 
     @property
-    def vc_should_keep_item_legacy_prod_machine(self):
-        """Gets the vc_should_keep_item_legacy_prod_machine of this Playbook.  # noqa: E501
-
-
-        :return: The vc_should_keep_item_legacy_prod_machine of this Playbook.  # noqa: E501
-        :rtype: bool
-        """
-        return self._vc_should_keep_item_legacy_prod_machine
-
-    @vc_should_keep_item_legacy_prod_machine.setter
-    def vc_should_keep_item_legacy_prod_machine(self, vc_should_keep_item_legacy_prod_machine):
-        """Sets the vc_should_keep_item_legacy_prod_machine of this Playbook.
-
-
-        :param vc_should_keep_item_legacy_prod_machine: The vc_should_keep_item_legacy_prod_machine of this Playbook.  # noqa: E501
-        :type: bool
-        """
-
-        self._vc_should_keep_item_legacy_prod_machine = vc_should_keep_item_legacy_prod_machine
-
-    @property
     def version(self):
         """Gets the version of this Playbook.  # noqa: E501
 
@@ -1372,69 +1097,6 @@ class Playbook(object):
         """
 
         self._view = view
-
-    @property
-    def xsoar_has_read_only_role(self):
-        """Gets the xsoar_has_read_only_role of this Playbook.  # noqa: E501
-
-
-        :return: The xsoar_has_read_only_role of this Playbook.  # noqa: E501
-        :rtype: bool
-        """
-        return self._xsoar_has_read_only_role
-
-    @xsoar_has_read_only_role.setter
-    def xsoar_has_read_only_role(self, xsoar_has_read_only_role):
-        """Sets the xsoar_has_read_only_role of this Playbook.
-
-
-        :param xsoar_has_read_only_role: The xsoar_has_read_only_role of this Playbook.  # noqa: E501
-        :type: bool
-        """
-
-        self._xsoar_has_read_only_role = xsoar_has_read_only_role
-
-    @property
-    def xsoar_previous_read_only_roles(self):
-        """Gets the xsoar_previous_read_only_roles of this Playbook.  # noqa: E501
-
-
-        :return: The xsoar_previous_read_only_roles of this Playbook.  # noqa: E501
-        :rtype: list[str]
-        """
-        return self._xsoar_previous_read_only_roles
-
-    @xsoar_previous_read_only_roles.setter
-    def xsoar_previous_read_only_roles(self, xsoar_previous_read_only_roles):
-        """Sets the xsoar_previous_read_only_roles of this Playbook.
-
-
-        :param xsoar_previous_read_only_roles: The xsoar_previous_read_only_roles of this Playbook.  # noqa: E501
-        :type: list[str]
-        """
-
-        self._xsoar_previous_read_only_roles = xsoar_previous_read_only_roles
-
-    @property
-    def xsoar_read_only_roles(self):
-        """Gets the xsoar_read_only_roles of this Playbook.  # noqa: E501
-
-
-        :return: The xsoar_read_only_roles of this Playbook.  # noqa: E501
-        :rtype: list[str]
-        """
-        return self._xsoar_read_only_roles
-
-    @xsoar_read_only_roles.setter
-    def xsoar_read_only_roles(self, xsoar_read_only_roles):
-        """Sets the xsoar_read_only_roles of this Playbook.
-
-
-        :param xsoar_read_only_roles: The xsoar_read_only_roles of this Playbook.  # noqa: E501
-        :type: list[str]
-        """
-
-        self._xsoar_read_only_roles = xsoar_read_only_roles
 
     def to_dict(self):
         """Returns the model properties as a dict"""

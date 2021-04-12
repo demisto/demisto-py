@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    Cortex XSOAR API
+    Demisto API
 
-    This is the public REST API to integrate with the Cortex XSOAR server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Cortex XSOAR web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Cortex XSOAR REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Cortex XSOAR server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Cortex XSOAR has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Cortex XSOAR will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
+    This is the public REST API to integrate with the demisto server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Demisto web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Demisto REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Demisto server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Demisto has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Demisto will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
 
     OpenAPI spec version: 2.0.0
     
@@ -42,12 +42,9 @@ class InvestigationPlaybookData(object):
         'comment': 'str',
         'inputs': 'PlaybookInputs',
         'investigation_id': 'str',
-        'is_tim': 'bool',
         'name': 'str',
         'outputs': 'PlaybookOutputs',
-        'pending_tasks': 'dict(str, object)',
         'playbook_id': 'str',
-        'quiet': 'bool',
         'start_date': 'datetime',
         'start_task_id': 'str',
         'state': 'InvestigationPlaybookState',
@@ -63,12 +60,9 @@ class InvestigationPlaybookData(object):
         'comment': 'comment',
         'inputs': 'inputs',
         'investigation_id': 'investigationId',
-        'is_tim': 'isTIM',
         'name': 'name',
         'outputs': 'outputs',
-        'pending_tasks': 'pendingTasks',
         'playbook_id': 'playbookId',
-        'quiet': 'quiet',
         'start_date': 'startDate',
         'start_task_id': 'startTaskId',
         'state': 'state',
@@ -78,7 +72,7 @@ class InvestigationPlaybookData(object):
         'view': 'view'
     }
 
-    def __init__(self, ready_playbook_inputs=None, auto_extracting=None, comment=None, inputs=None, investigation_id=None, is_tim=None, name=None, outputs=None, pending_tasks=None, playbook_id=None, quiet=None, start_date=None, start_task_id=None, state=None, sub_playbook_inputs=None, sub_playbook_outputs=None, tasks=None, view=None):  # noqa: E501
+    def __init__(self, ready_playbook_inputs=None, auto_extracting=None, comment=None, inputs=None, investigation_id=None, name=None, outputs=None, playbook_id=None, start_date=None, start_task_id=None, state=None, sub_playbook_inputs=None, sub_playbook_outputs=None, tasks=None, view=None):  # noqa: E501
         """InvestigationPlaybookData - a model defined in Swagger"""  # noqa: E501
 
         self._ready_playbook_inputs = None
@@ -86,12 +80,9 @@ class InvestigationPlaybookData(object):
         self._comment = None
         self._inputs = None
         self._investigation_id = None
-        self._is_tim = None
         self._name = None
         self._outputs = None
-        self._pending_tasks = None
         self._playbook_id = None
-        self._quiet = None
         self._start_date = None
         self._start_task_id = None
         self._state = None
@@ -111,18 +102,12 @@ class InvestigationPlaybookData(object):
             self.inputs = inputs
         if investigation_id is not None:
             self.investigation_id = investigation_id
-        if is_tim is not None:
-            self.is_tim = is_tim
         if name is not None:
             self.name = name
         if outputs is not None:
             self.outputs = outputs
-        if pending_tasks is not None:
-            self.pending_tasks = pending_tasks
         if playbook_id is not None:
             self.playbook_id = playbook_id
-        if quiet is not None:
-            self.quiet = quiet
         if start_date is not None:
             self.start_date = start_date
         if start_task_id is not None:
@@ -244,27 +229,6 @@ class InvestigationPlaybookData(object):
         self._investigation_id = investigation_id
 
     @property
-    def is_tim(self):
-        """Gets the is_tim of this InvestigationPlaybookData.  # noqa: E501
-
-
-        :return: The is_tim of this InvestigationPlaybookData.  # noqa: E501
-        :rtype: bool
-        """
-        return self._is_tim
-
-    @is_tim.setter
-    def is_tim(self, is_tim):
-        """Sets the is_tim of this InvestigationPlaybookData.
-
-
-        :param is_tim: The is_tim of this InvestigationPlaybookData.  # noqa: E501
-        :type: bool
-        """
-
-        self._is_tim = is_tim
-
-    @property
     def name(self):
         """Gets the name of this InvestigationPlaybookData.  # noqa: E501
 
@@ -307,29 +271,6 @@ class InvestigationPlaybookData(object):
         self._outputs = outputs
 
     @property
-    def pending_tasks(self):
-        """Gets the pending_tasks of this InvestigationPlaybookData.  # noqa: E501
-
-        Tasks that are marked for running, but cannot yet run due to incomplete parents  # noqa: E501
-
-        :return: The pending_tasks of this InvestigationPlaybookData.  # noqa: E501
-        :rtype: dict(str, object)
-        """
-        return self._pending_tasks
-
-    @pending_tasks.setter
-    def pending_tasks(self, pending_tasks):
-        """Sets the pending_tasks of this InvestigationPlaybookData.
-
-        Tasks that are marked for running, but cannot yet run due to incomplete parents  # noqa: E501
-
-        :param pending_tasks: The pending_tasks of this InvestigationPlaybookData.  # noqa: E501
-        :type: dict(str, object)
-        """
-
-        self._pending_tasks = pending_tasks
-
-    @property
     def playbook_id(self):
         """Gets the playbook_id of this InvestigationPlaybookData.  # noqa: E501
 
@@ -349,27 +290,6 @@ class InvestigationPlaybookData(object):
         """
 
         self._playbook_id = playbook_id
-
-    @property
-    def quiet(self):
-        """Gets the quiet of this InvestigationPlaybookData.  # noqa: E501
-
-
-        :return: The quiet of this InvestigationPlaybookData.  # noqa: E501
-        :rtype: bool
-        """
-        return self._quiet
-
-    @quiet.setter
-    def quiet(self, quiet):
-        """Sets the quiet of this InvestigationPlaybookData.
-
-
-        :param quiet: The quiet of this InvestigationPlaybookData.  # noqa: E501
-        :type: bool
-        """
-
-        self._quiet = quiet
 
     @property
     def start_date(self):

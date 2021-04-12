@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    Cortex XSOAR API
+    Demisto API
 
-    This is the public REST API to integrate with the Cortex XSOAR server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Cortex XSOAR web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Cortex XSOAR REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Cortex XSOAR server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Cortex XSOAR has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Cortex XSOAR will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
+    This is the public REST API to integrate with the demisto server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Demisto web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Demisto REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Demisto server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Demisto has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Demisto will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
 
     OpenAPI spec version: 2.0.0
     
@@ -38,8 +38,6 @@ class UpdateEntry(object):
         'id': 'str',
         'investigation_id': 'str',
         'markdown': 'bool',
-        'primary_term': 'int',
-        'sequence_number': 'int',
         'version': 'int'
     }
 
@@ -49,12 +47,10 @@ class UpdateEntry(object):
         'id': 'id',
         'investigation_id': 'investigationId',
         'markdown': 'markdown',
-        'primary_term': 'primaryTerm',
-        'sequence_number': 'sequenceNumber',
         'version': 'version'
     }
 
-    def __init__(self, args=None, data=None, id=None, investigation_id=None, markdown=None, primary_term=None, sequence_number=None, version=None):  # noqa: E501
+    def __init__(self, args=None, data=None, id=None, investigation_id=None, markdown=None, version=None):  # noqa: E501
         """UpdateEntry - a model defined in Swagger"""  # noqa: E501
 
         self._args = None
@@ -62,8 +58,6 @@ class UpdateEntry(object):
         self._id = None
         self._investigation_id = None
         self._markdown = None
-        self._primary_term = None
-        self._sequence_number = None
         self._version = None
         self.discriminator = None
 
@@ -77,10 +71,6 @@ class UpdateEntry(object):
             self.investigation_id = investigation_id
         if markdown is not None:
             self.markdown = markdown
-        if primary_term is not None:
-            self.primary_term = primary_term
-        if sequence_number is not None:
-            self.sequence_number = sequence_number
         if version is not None:
             self.version = version
 
@@ -188,48 +178,6 @@ class UpdateEntry(object):
         """
 
         self._markdown = markdown
-
-    @property
-    def primary_term(self):
-        """Gets the primary_term of this UpdateEntry.  # noqa: E501
-
-
-        :return: The primary_term of this UpdateEntry.  # noqa: E501
-        :rtype: int
-        """
-        return self._primary_term
-
-    @primary_term.setter
-    def primary_term(self, primary_term):
-        """Sets the primary_term of this UpdateEntry.
-
-
-        :param primary_term: The primary_term of this UpdateEntry.  # noqa: E501
-        :type: int
-        """
-
-        self._primary_term = primary_term
-
-    @property
-    def sequence_number(self):
-        """Gets the sequence_number of this UpdateEntry.  # noqa: E501
-
-
-        :return: The sequence_number of this UpdateEntry.  # noqa: E501
-        :rtype: int
-        """
-        return self._sequence_number
-
-    @sequence_number.setter
-    def sequence_number(self, sequence_number):
-        """Sets the sequence_number of this UpdateEntry.
-
-
-        :param sequence_number: The sequence_number of this UpdateEntry.  # noqa: E501
-        :type: int
-        """
-
-        self._sequence_number = sequence_number
 
     @property
     def version(self):

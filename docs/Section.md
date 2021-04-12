@@ -3,7 +3,6 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**auto_page_break** | **bool** |  | [optional] 
 **automation** | [**ReportAutomation**](ReportAutomation.md) |  | [optional] 
 **data** | **object** |  | [optional] 
 **description** | **str** |  | [optional] 

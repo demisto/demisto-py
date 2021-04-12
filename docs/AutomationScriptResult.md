@@ -4,7 +4,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **python_enabled** | **bool** |  | [optional] 
-**scripts** | [**list[ScriptAPI]**](ScriptAPI.md) |  | [optional] 
+**scripts** | [**list[AutomationScriptAPI]**](AutomationScriptAPI.md) |  | [optional] 
 **selected_script** | **dict(str, object)** |  | [optional] 
 **suggestions** | **list[str]** |  | [optional] 
 

@@ -7,7 +7,6 @@ Name | Type | Description | Notes
 **content_format** | **str** |  | [optional] 
 **context** | **dict(str, object)** |  | [optional] 
 **is_typed_indicator** | **bool** |  | [optional] 
-**reliability** | **str** |  | [optional] 
 **score** | **int** |  | [optional] 
 **score_change_timestamp** | **datetime** | We need to track when the score changes to know if we need to re-calculate the overall score | [optional] 
 **timestamp** | **datetime** |  | [optional] 

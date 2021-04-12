@@ -3,8 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**custom_group_by** | [**CustomGroups**](CustomGroups.md) |  | [optional] 
-**filter** | **object** |  | [optional] 
+**filter** | [**RawMessage**](RawMessage.md) |  | [optional] 
 **group_by** | **list[str]** |  | [optional] 
 **keys** | **list[str]** |  | [optional] 
 **type** | **str** |  | [optional] 

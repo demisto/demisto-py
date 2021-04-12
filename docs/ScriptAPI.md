@@ -18,7 +18,6 @@ Name | Type | Description | Notes
 **name** | **str** |  | [optional] 
 **outputs** | [**list[Output]**](Output.md) |  | [optional] 
 **permitted** | **bool** |  | [optional] 
-**polling** | **bool** |  | [optional] 
 **propagation_labels** | **list[str]** |  | [optional] 
 **roles** | **list[str]** |  | [optional] 
 **run_as** | **str** |  | [optional] 

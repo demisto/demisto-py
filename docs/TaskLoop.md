@@ -8,10 +8,8 @@ Name | Type | Description | Notes
 **exit_condition** | **str** |  | [optional] 
 **for_each** | **bool** |  | [optional] 
 **is_command** | **bool** |  | [optional] 
-**max** | **int** |  | [optional] 
 **script_arguments** | [**dict(str, AdvanceArg)**](AdvanceArg.md) |  | [optional] 
 **script_id** | **str** |  | [optional] 
-**script_name** | **str** |  | [optional] 
 **wait** | **int** |  | [optional] 
 
 [[Back to Model list]](README.md#documentation-for-models) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to README]](README.md)

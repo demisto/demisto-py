@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    Cortex XSOAR API
+    Demisto API
 
-    This is the public REST API to integrate with the Cortex XSOAR server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Cortex XSOAR web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Cortex XSOAR REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Cortex XSOAR server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Cortex XSOAR has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Cortex XSOAR will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
+    This is the public REST API to integrate with the demisto server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Demisto web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Demisto REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Demisto server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Demisto has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Demisto will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
 
     OpenAPI spec version: 2.0.0
     
@@ -36,16 +36,12 @@ class Layout(object):
     swagger_types = {
         'commit_message': 'str',
         'from_server_version': 'Version',
-        'highlight': 'dict(str, list[str])',
         'id': 'str',
         'item_version': 'Version',
         'kind': 'str',
-        'locked': 'bool',
         'modified': 'datetime',
         'name': 'str',
-        'numeric_id': 'int',
         'pack_id': 'str',
-        'pack_propagation_labels': 'list[str]',
         'prev_kind': 'str',
         'prev_type_id': 'str',
         'primary_term': 'int',
@@ -58,23 +54,18 @@ class Layout(object):
         'to_server_version': 'Version',
         'type_id': 'str',
         'vc_should_ignore': 'bool',
-        'vc_should_keep_item_legacy_prod_machine': 'bool',
         'version': 'int'
     }
 
     attribute_map = {
         'commit_message': 'commitMessage',
         'from_server_version': 'fromServerVersion',
-        'highlight': 'highlight',
         'id': 'id',
         'item_version': 'itemVersion',
         'kind': 'kind',
-        'locked': 'locked',
         'modified': 'modified',
         'name': 'name',
-        'numeric_id': 'numericId',
         'pack_id': 'packID',
-        'pack_propagation_labels': 'packPropagationLabels',
         'prev_kind': 'prevKind',
         'prev_type_id': 'prevTypeId',
         'primary_term': 'primaryTerm',
@@ -87,25 +78,20 @@ class Layout(object):
         'to_server_version': 'toServerVersion',
         'type_id': 'typeId',
         'vc_should_ignore': 'vcShouldIgnore',
-        'vc_should_keep_item_legacy_prod_machine': 'vcShouldKeepItemLegacyProdMachine',
         'version': 'version'
     }
 
-    def __init__(self, commit_message=None, from_server_version=None, highlight=None, id=None, item_version=None, kind=None, locked=None, modified=None, name=None, numeric_id=None, pack_id=None, pack_propagation_labels=None, prev_kind=None, prev_type_id=None, primary_term=None, propagation_labels=None, sections=None, sequence_number=None, should_commit=None, sort_values=None, system=None, to_server_version=None, type_id=None, vc_should_ignore=None, vc_should_keep_item_legacy_prod_machine=None, version=None):  # noqa: E501
+    def __init__(self, commit_message=None, from_server_version=None, id=None, item_version=None, kind=None, modified=None, name=None, pack_id=None, prev_kind=None, prev_type_id=None, primary_term=None, propagation_labels=None, sections=None, sequence_number=None, should_commit=None, sort_values=None, system=None, to_server_version=None, type_id=None, vc_should_ignore=None, version=None):  # noqa: E501
         """Layout - a model defined in Swagger"""  # noqa: E501
 
         self._commit_message = None
         self._from_server_version = None
-        self._highlight = None
         self._id = None
         self._item_version = None
         self._kind = None
-        self._locked = None
         self._modified = None
         self._name = None
-        self._numeric_id = None
         self._pack_id = None
-        self._pack_propagation_labels = None
         self._prev_kind = None
         self._prev_type_id = None
         self._primary_term = None
@@ -118,7 +104,6 @@ class Layout(object):
         self._to_server_version = None
         self._type_id = None
         self._vc_should_ignore = None
-        self._vc_should_keep_item_legacy_prod_machine = None
         self._version = None
         self.discriminator = None
 
@@ -126,26 +111,18 @@ class Layout(object):
             self.commit_message = commit_message
         if from_server_version is not None:
             self.from_server_version = from_server_version
-        if highlight is not None:
-            self.highlight = highlight
         if id is not None:
             self.id = id
         if item_version is not None:
             self.item_version = item_version
         if kind is not None:
             self.kind = kind
-        if locked is not None:
-            self.locked = locked
         if modified is not None:
             self.modified = modified
         if name is not None:
             self.name = name
-        if numeric_id is not None:
-            self.numeric_id = numeric_id
         if pack_id is not None:
             self.pack_id = pack_id
-        if pack_propagation_labels is not None:
-            self.pack_propagation_labels = pack_propagation_labels
         if prev_kind is not None:
             self.prev_kind = prev_kind
         if prev_type_id is not None:
@@ -170,8 +147,6 @@ class Layout(object):
             self.type_id = type_id
         if vc_should_ignore is not None:
             self.vc_should_ignore = vc_should_ignore
-        if vc_should_keep_item_legacy_prod_machine is not None:
-            self.vc_should_keep_item_legacy_prod_machine = vc_should_keep_item_legacy_prod_machine
         if version is not None:
             self.version = version
 
@@ -216,27 +191,6 @@ class Layout(object):
         """
 
         self._from_server_version = from_server_version
-
-    @property
-    def highlight(self):
-        """Gets the highlight of this Layout.  # noqa: E501
-
-
-        :return: The highlight of this Layout.  # noqa: E501
-        :rtype: dict(str, list[str])
-        """
-        return self._highlight
-
-    @highlight.setter
-    def highlight(self, highlight):
-        """Sets the highlight of this Layout.
-
-
-        :param highlight: The highlight of this Layout.  # noqa: E501
-        :type: dict(str, list[str])
-        """
-
-        self._highlight = highlight
 
     @property
     def id(self):
@@ -302,27 +256,6 @@ class Layout(object):
         self._kind = kind
 
     @property
-    def locked(self):
-        """Gets the locked of this Layout.  # noqa: E501
-
-
-        :return: The locked of this Layout.  # noqa: E501
-        :rtype: bool
-        """
-        return self._locked
-
-    @locked.setter
-    def locked(self, locked):
-        """Sets the locked of this Layout.
-
-
-        :param locked: The locked of this Layout.  # noqa: E501
-        :type: bool
-        """
-
-        self._locked = locked
-
-    @property
     def modified(self):
         """Gets the modified of this Layout.  # noqa: E501
 
@@ -365,27 +298,6 @@ class Layout(object):
         self._name = name
 
     @property
-    def numeric_id(self):
-        """Gets the numeric_id of this Layout.  # noqa: E501
-
-
-        :return: The numeric_id of this Layout.  # noqa: E501
-        :rtype: int
-        """
-        return self._numeric_id
-
-    @numeric_id.setter
-    def numeric_id(self, numeric_id):
-        """Sets the numeric_id of this Layout.
-
-
-        :param numeric_id: The numeric_id of this Layout.  # noqa: E501
-        :type: int
-        """
-
-        self._numeric_id = numeric_id
-
-    @property
     def pack_id(self):
         """Gets the pack_id of this Layout.  # noqa: E501
 
@@ -405,27 +317,6 @@ class Layout(object):
         """
 
         self._pack_id = pack_id
-
-    @property
-    def pack_propagation_labels(self):
-        """Gets the pack_propagation_labels of this Layout.  # noqa: E501
-
-
-        :return: The pack_propagation_labels of this Layout.  # noqa: E501
-        :rtype: list[str]
-        """
-        return self._pack_propagation_labels
-
-    @pack_propagation_labels.setter
-    def pack_propagation_labels(self, pack_propagation_labels):
-        """Sets the pack_propagation_labels of this Layout.
-
-
-        :param pack_propagation_labels: The pack_propagation_labels of this Layout.  # noqa: E501
-        :type: list[str]
-        """
-
-        self._pack_propagation_labels = pack_propagation_labels
 
     @property
     def prev_kind(self):
@@ -678,27 +569,6 @@ class Layout(object):
         """
 
         self._vc_should_ignore = vc_should_ignore
-
-    @property
-    def vc_should_keep_item_legacy_prod_machine(self):
-        """Gets the vc_should_keep_item_legacy_prod_machine of this Layout.  # noqa: E501
-
-
-        :return: The vc_should_keep_item_legacy_prod_machine of this Layout.  # noqa: E501
-        :rtype: bool
-        """
-        return self._vc_should_keep_item_legacy_prod_machine
-
-    @vc_should_keep_item_legacy_prod_machine.setter
-    def vc_should_keep_item_legacy_prod_machine(self, vc_should_keep_item_legacy_prod_machine):
-        """Sets the vc_should_keep_item_legacy_prod_machine of this Layout.
-
-
-        :param vc_should_keep_item_legacy_prod_machine: The vc_should_keep_item_legacy_prod_machine of this Layout.  # noqa: E501
-        :type: bool
-        """
-
-        self._vc_should_keep_item_legacy_prod_machine = vc_should_keep_item_legacy_prod_machine
 
     @property
     def version(self):

@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    Cortex XSOAR API
+    Demisto API
 
-    This is the public REST API to integrate with the Cortex XSOAR server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Cortex XSOAR web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Cortex XSOAR REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Cortex XSOAR server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Cortex XSOAR has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Cortex XSOAR will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
+    This is the public REST API to integrate with the demisto server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Demisto web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Demisto REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Demisto server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Demisto has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Demisto will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
 
     OpenAPI spec version: 2.0.0
     
@@ -38,19 +38,15 @@ class Task(object):
         'comment': 'str',
         'conditions': 'list[str]',
         'description': 'str',
-        'highlight': 'dict(str, list[str])',
         'id': 'str',
         'is_command': 'bool',
         'is_locked': 'bool',
+        'is_system_task': 'bool',
         'is_title_task': 'bool',
         'modified': 'datetime',
         'name': 'str',
-        'numeric_id': 'int',
         'playbook_id': 'str',
-        'playbook_name': 'str',
-        'primary_term': 'int',
         'script_id': 'str',
-        'sequence_number': 'int',
         'sort_values': 'list[str]',
         'tags': 'list[str]',
         'type': 'TaskType',
@@ -63,26 +59,22 @@ class Task(object):
         'comment': 'comment',
         'conditions': 'conditions',
         'description': 'description',
-        'highlight': 'highlight',
         'id': 'id',
         'is_command': 'isCommand',
         'is_locked': 'isLocked',
+        'is_system_task': 'isSystemTask',
         'is_title_task': 'isTitleTask',
         'modified': 'modified',
         'name': 'name',
-        'numeric_id': 'numericId',
         'playbook_id': 'playbookId',
-        'playbook_name': 'playbookName',
-        'primary_term': 'primaryTerm',
         'script_id': 'scriptId',
-        'sequence_number': 'sequenceNumber',
         'sort_values': 'sortValues',
         'tags': 'tags',
         'type': 'type',
         'version': 'version'
     }
 
-    def __init__(self, brand=None, cloned_from=None, comment=None, conditions=None, description=None, highlight=None, id=None, is_command=None, is_locked=None, is_title_task=None, modified=None, name=None, numeric_id=None, playbook_id=None, playbook_name=None, primary_term=None, script_id=None, sequence_number=None, sort_values=None, tags=None, type=None, version=None):  # noqa: E501
+    def __init__(self, brand=None, cloned_from=None, comment=None, conditions=None, description=None, id=None, is_command=None, is_locked=None, is_system_task=None, is_title_task=None, modified=None, name=None, playbook_id=None, script_id=None, sort_values=None, tags=None, type=None, version=None):  # noqa: E501
         """Task - a model defined in Swagger"""  # noqa: E501
 
         self._brand = None
@@ -90,19 +82,15 @@ class Task(object):
         self._comment = None
         self._conditions = None
         self._description = None
-        self._highlight = None
         self._id = None
         self._is_command = None
         self._is_locked = None
+        self._is_system_task = None
         self._is_title_task = None
         self._modified = None
         self._name = None
-        self._numeric_id = None
         self._playbook_id = None
-        self._playbook_name = None
-        self._primary_term = None
         self._script_id = None
-        self._sequence_number = None
         self._sort_values = None
         self._tags = None
         self._type = None
@@ -119,32 +107,24 @@ class Task(object):
             self.conditions = conditions
         if description is not None:
             self.description = description
-        if highlight is not None:
-            self.highlight = highlight
         if id is not None:
             self.id = id
         if is_command is not None:
             self.is_command = is_command
         if is_locked is not None:
             self.is_locked = is_locked
+        if is_system_task is not None:
+            self.is_system_task = is_system_task
         if is_title_task is not None:
             self.is_title_task = is_title_task
         if modified is not None:
             self.modified = modified
         if name is not None:
             self.name = name
-        if numeric_id is not None:
-            self.numeric_id = numeric_id
         if playbook_id is not None:
             self.playbook_id = playbook_id
-        if playbook_name is not None:
-            self.playbook_name = playbook_name
-        if primary_term is not None:
-            self.primary_term = primary_term
         if script_id is not None:
             self.script_id = script_id
-        if sequence_number is not None:
-            self.sequence_number = sequence_number
         if sort_values is not None:
             self.sort_values = sort_values
         if tags is not None:
@@ -260,27 +240,6 @@ class Task(object):
         self._description = description
 
     @property
-    def highlight(self):
-        """Gets the highlight of this Task.  # noqa: E501
-
-
-        :return: The highlight of this Task.  # noqa: E501
-        :rtype: dict(str, list[str])
-        """
-        return self._highlight
-
-    @highlight.setter
-    def highlight(self, highlight):
-        """Sets the highlight of this Task.
-
-
-        :param highlight: The highlight of this Task.  # noqa: E501
-        :type: dict(str, list[str])
-        """
-
-        self._highlight = highlight
-
-    @property
     def id(self):
         """Gets the id of this Task.  # noqa: E501
 
@@ -342,6 +301,27 @@ class Task(object):
         """
 
         self._is_locked = is_locked
+
+    @property
+    def is_system_task(self):
+        """Gets the is_system_task of this Task.  # noqa: E501
+
+
+        :return: The is_system_task of this Task.  # noqa: E501
+        :rtype: bool
+        """
+        return self._is_system_task
+
+    @is_system_task.setter
+    def is_system_task(self, is_system_task):
+        """Sets the is_system_task of this Task.
+
+
+        :param is_system_task: The is_system_task of this Task.  # noqa: E501
+        :type: bool
+        """
+
+        self._is_system_task = is_system_task
 
     @property
     def is_title_task(self):
@@ -407,27 +387,6 @@ class Task(object):
         self._name = name
 
     @property
-    def numeric_id(self):
-        """Gets the numeric_id of this Task.  # noqa: E501
-
-
-        :return: The numeric_id of this Task.  # noqa: E501
-        :rtype: int
-        """
-        return self._numeric_id
-
-    @numeric_id.setter
-    def numeric_id(self, numeric_id):
-        """Sets the numeric_id of this Task.
-
-
-        :param numeric_id: The numeric_id of this Task.  # noqa: E501
-        :type: int
-        """
-
-        self._numeric_id = numeric_id
-
-    @property
     def playbook_id(self):
         """Gets the playbook_id of this Task.  # noqa: E501
 
@@ -449,48 +408,6 @@ class Task(object):
         self._playbook_id = playbook_id
 
     @property
-    def playbook_name(self):
-        """Gets the playbook_name of this Task.  # noqa: E501
-
-
-        :return: The playbook_name of this Task.  # noqa: E501
-        :rtype: str
-        """
-        return self._playbook_name
-
-    @playbook_name.setter
-    def playbook_name(self, playbook_name):
-        """Sets the playbook_name of this Task.
-
-
-        :param playbook_name: The playbook_name of this Task.  # noqa: E501
-        :type: str
-        """
-
-        self._playbook_name = playbook_name
-
-    @property
-    def primary_term(self):
-        """Gets the primary_term of this Task.  # noqa: E501
-
-
-        :return: The primary_term of this Task.  # noqa: E501
-        :rtype: int
-        """
-        return self._primary_term
-
-    @primary_term.setter
-    def primary_term(self, primary_term):
-        """Sets the primary_term of this Task.
-
-
-        :param primary_term: The primary_term of this Task.  # noqa: E501
-        :type: int
-        """
-
-        self._primary_term = primary_term
-
-    @property
     def script_id(self):
         """Gets the script_id of this Task.  # noqa: E501
 
@@ -510,27 +427,6 @@ class Task(object):
         """
 
         self._script_id = script_id
-
-    @property
-    def sequence_number(self):
-        """Gets the sequence_number of this Task.  # noqa: E501
-
-
-        :return: The sequence_number of this Task.  # noqa: E501
-        :rtype: int
-        """
-        return self._sequence_number
-
-    @sequence_number.setter
-    def sequence_number(self, sequence_number):
-        """Sets the sequence_number of this Task.
-
-
-        :param sequence_number: The sequence_number of this Task.  # noqa: E501
-        :type: int
-        """
-
-        self._sequence_number = sequence_number
 
     @property
     def sort_values(self):

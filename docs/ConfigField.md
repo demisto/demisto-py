@@ -5,10 +5,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **default_value** | **str** |  | [optional] 
 **display** | **str** |  | [optional] 
-**display_password** | **str** |  | [optional] 
 **hidden** | **bool** |  | [optional] 
-**hidden_password** | **bool** |  | [optional] 
-**hidden_username** | **bool** |  | [optional] 
 **info** | **str** |  | [optional] 
 **name** | **str** |  | [optional] 
 **options** | **list[str]** |  | [optional] 

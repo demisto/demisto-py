@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    Cortex XSOAR API
+    Demisto API
 
-    This is the public REST API to integrate with the Cortex XSOAR server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Cortex XSOAR web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Cortex XSOAR REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Cortex XSOAR server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Cortex XSOAR has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Cortex XSOAR will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
+    This is the public REST API to integrate with the demisto server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Demisto web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Demisto REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Demisto server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Demisto has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Demisto will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
 
     OpenAPI spec version: 2.0.0
     
@@ -39,10 +39,8 @@ class TaskLoop(object):
         'exit_condition': 'str',
         'for_each': 'bool',
         'is_command': 'bool',
-        'max': 'int',
         'script_arguments': 'dict(str, AdvanceArg)',
         'script_id': 'str',
-        'script_name': 'str',
         'wait': 'int'
     }
 
@@ -52,14 +50,12 @@ class TaskLoop(object):
         'exit_condition': 'exitCondition',
         'for_each': 'forEach',
         'is_command': 'isCommand',
-        'max': 'max',
         'script_arguments': 'scriptArguments',
         'script_id': 'scriptId',
-        'script_name': 'scriptName',
         'wait': 'wait'
     }
 
-    def __init__(self, brand=None, builtin_condition=None, exit_condition=None, for_each=None, is_command=None, max=None, script_arguments=None, script_id=None, script_name=None, wait=None):  # noqa: E501
+    def __init__(self, brand=None, builtin_condition=None, exit_condition=None, for_each=None, is_command=None, script_arguments=None, script_id=None, wait=None):  # noqa: E501
         """TaskLoop - a model defined in Swagger"""  # noqa: E501
 
         self._brand = None
@@ -67,10 +63,8 @@ class TaskLoop(object):
         self._exit_condition = None
         self._for_each = None
         self._is_command = None
-        self._max = None
         self._script_arguments = None
         self._script_id = None
-        self._script_name = None
         self._wait = None
         self.discriminator = None
 
@@ -84,14 +78,10 @@ class TaskLoop(object):
             self.for_each = for_each
         if is_command is not None:
             self.is_command = is_command
-        if max is not None:
-            self.max = max
         if script_arguments is not None:
             self.script_arguments = script_arguments
         if script_id is not None:
             self.script_id = script_id
-        if script_name is not None:
-            self.script_name = script_name
         if wait is not None:
             self.wait = wait
 
@@ -201,27 +191,6 @@ class TaskLoop(object):
         self._is_command = is_command
 
     @property
-    def max(self):
-        """Gets the max of this TaskLoop.  # noqa: E501
-
-
-        :return: The max of this TaskLoop.  # noqa: E501
-        :rtype: int
-        """
-        return self._max
-
-    @max.setter
-    def max(self, max):
-        """Sets the max of this TaskLoop.
-
-
-        :param max: The max of this TaskLoop.  # noqa: E501
-        :type: int
-        """
-
-        self._max = max
-
-    @property
     def script_arguments(self):
         """Gets the script_arguments of this TaskLoop.  # noqa: E501
 
@@ -262,27 +231,6 @@ class TaskLoop(object):
         """
 
         self._script_id = script_id
-
-    @property
-    def script_name(self):
-        """Gets the script_name of this TaskLoop.  # noqa: E501
-
-
-        :return: The script_name of this TaskLoop.  # noqa: E501
-        :rtype: str
-        """
-        return self._script_name
-
-    @script_name.setter
-    def script_name(self, script_name):
-        """Sets the script_name of this TaskLoop.
-
-
-        :param script_name: The script_name of this TaskLoop.  # noqa: E501
-        :type: str
-        """
-
-        self._script_name = script_name
 
     @property
     def wait(self):

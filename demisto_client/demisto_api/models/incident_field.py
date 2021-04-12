@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    Cortex XSOAR API
+    Demisto API
 
-    This is the public REST API to integrate with the Cortex XSOAR server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Cortex XSOAR web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Cortex XSOAR REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Cortex XSOAR server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Cortex XSOAR has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Cortex XSOAR will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
+    This is the public REST API to integrate with the demisto server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Demisto web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Demisto REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Demisto server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Demisto has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Demisto will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
 
     OpenAPI spec version: 2.0.0
     
@@ -17,9 +17,7 @@ import re  # noqa: F401
 import six
 
 from demisto_client.demisto_api.models.field_group import FieldGroup  # noqa: F401,E501
-from demisto_client.demisto_api.models.field_merge_strategy import FieldMergeStrategy  # noqa: F401,E501
 from demisto_client.demisto_api.models.grid_column import GridColumn  # noqa: F401,E501
-from demisto_client.demisto_api.models.version import Version  # noqa: F401,E501
 
 
 class IncidentField(object):
@@ -49,38 +47,26 @@ class IncidentField(object):
         'description': 'str',
         'edit_form': 'bool',
         'field_calc_script': 'str',
-        'from_server_version': 'Version',
         'group': 'FieldGroup',
         'hidden': 'bool',
-        'highlight': 'dict(str, list[str])',
         'id': 'str',
         'is_read_only': 'bool',
-        'item_version': 'Version',
         'locked': 'bool',
-        'merge_strategy': 'FieldMergeStrategy',
         'modified': 'datetime',
         'name': 'str',
         'never_set_as_required': 'bool',
-        'numeric_id': 'int',
         'owner_only': 'bool',
-        'pack_id': 'str',
-        'pack_propagation_labels': 'list[str]',
         'placeholder': 'str',
         'prev_name': 'str',
-        'primary_term': 'int',
-        'propagation_labels': 'list[str]',
         'required': 'bool',
-        'run_script_after_update': 'bool',
         'script': 'str',
         'select_values': 'list[str]',
-        'sequence_number': 'int',
         'should_commit': 'bool',
         'sla': 'int',
         'sort_values': 'list[str]',
         'system': 'bool',
         'system_associated_types': 'list[str]',
         'threshold': 'float',
-        'to_server_version': 'Version',
         'type': 'str',
         'unmapped': 'bool',
         'unsearchable': 'bool',
@@ -88,7 +74,6 @@ class IncidentField(object):
         'validated_error': 'str',
         'validation_regex': 'str',
         'vc_should_ignore': 'bool',
-        'vc_should_keep_item_legacy_prod_machine': 'bool',
         'version': 'int'
     }
 
@@ -106,38 +91,26 @@ class IncidentField(object):
         'description': 'description',
         'edit_form': 'editForm',
         'field_calc_script': 'fieldCalcScript',
-        'from_server_version': 'fromServerVersion',
         'group': 'group',
         'hidden': 'hidden',
-        'highlight': 'highlight',
         'id': 'id',
         'is_read_only': 'isReadOnly',
-        'item_version': 'itemVersion',
         'locked': 'locked',
-        'merge_strategy': 'mergeStrategy',
         'modified': 'modified',
         'name': 'name',
         'never_set_as_required': 'neverSetAsRequired',
-        'numeric_id': 'numericId',
         'owner_only': 'ownerOnly',
-        'pack_id': 'packID',
-        'pack_propagation_labels': 'packPropagationLabels',
         'placeholder': 'placeholder',
         'prev_name': 'prevName',
-        'primary_term': 'primaryTerm',
-        'propagation_labels': 'propagationLabels',
         'required': 'required',
-        'run_script_after_update': 'runScriptAfterUpdate',
         'script': 'script',
         'select_values': 'selectValues',
-        'sequence_number': 'sequenceNumber',
         'should_commit': 'shouldCommit',
         'sla': 'sla',
         'sort_values': 'sortValues',
         'system': 'system',
         'system_associated_types': 'systemAssociatedTypes',
         'threshold': 'threshold',
-        'to_server_version': 'toServerVersion',
         'type': 'type',
         'unmapped': 'unmapped',
         'unsearchable': 'unsearchable',
@@ -145,11 +118,10 @@ class IncidentField(object):
         'validated_error': 'validatedError',
         'validation_regex': 'validationRegex',
         'vc_should_ignore': 'vcShouldIgnore',
-        'vc_should_keep_item_legacy_prod_machine': 'vcShouldKeepItemLegacyProdMachine',
         'version': 'version'
     }
 
-    def __init__(self, associated_to_all=None, associated_types=None, breach_script=None, case_insensitive=None, cli_name=None, close_form=None, columns=None, commit_message=None, content=None, default_rows=None, description=None, edit_form=None, field_calc_script=None, from_server_version=None, group=None, hidden=None, highlight=None, id=None, is_read_only=None, item_version=None, locked=None, merge_strategy=None, modified=None, name=None, never_set_as_required=None, numeric_id=None, owner_only=None, pack_id=None, pack_propagation_labels=None, placeholder=None, prev_name=None, primary_term=None, propagation_labels=None, required=None, run_script_after_update=None, script=None, select_values=None, sequence_number=None, should_commit=None, sla=None, sort_values=None, system=None, system_associated_types=None, threshold=None, to_server_version=None, type=None, unmapped=None, unsearchable=None, use_as_kpi=None, validated_error=None, validation_regex=None, vc_should_ignore=None, vc_should_keep_item_legacy_prod_machine=None, version=None):  # noqa: E501
+    def __init__(self, associated_to_all=None, associated_types=None, breach_script=None, case_insensitive=None, cli_name=None, close_form=None, columns=None, commit_message=None, content=None, default_rows=None, description=None, edit_form=None, field_calc_script=None, group=None, hidden=None, id=None, is_read_only=None, locked=None, modified=None, name=None, never_set_as_required=None, owner_only=None, placeholder=None, prev_name=None, required=None, script=None, select_values=None, should_commit=None, sla=None, sort_values=None, system=None, system_associated_types=None, threshold=None, type=None, unmapped=None, unsearchable=None, use_as_kpi=None, validated_error=None, validation_regex=None, vc_should_ignore=None, version=None):  # noqa: E501
         """IncidentField - a model defined in Swagger"""  # noqa: E501
 
         self._associated_to_all = None
@@ -165,38 +137,26 @@ class IncidentField(object):
         self._description = None
         self._edit_form = None
         self._field_calc_script = None
-        self._from_server_version = None
         self._group = None
         self._hidden = None
-        self._highlight = None
         self._id = None
         self._is_read_only = None
-        self._item_version = None
         self._locked = None
-        self._merge_strategy = None
         self._modified = None
         self._name = None
         self._never_set_as_required = None
-        self._numeric_id = None
         self._owner_only = None
-        self._pack_id = None
-        self._pack_propagation_labels = None
         self._placeholder = None
         self._prev_name = None
-        self._primary_term = None
-        self._propagation_labels = None
         self._required = None
-        self._run_script_after_update = None
         self._script = None
         self._select_values = None
-        self._sequence_number = None
         self._should_commit = None
         self._sla = None
         self._sort_values = None
         self._system = None
         self._system_associated_types = None
         self._threshold = None
-        self._to_server_version = None
         self._type = None
         self._unmapped = None
         self._unsearchable = None
@@ -204,7 +164,6 @@ class IncidentField(object):
         self._validated_error = None
         self._validation_regex = None
         self._vc_should_ignore = None
-        self._vc_should_keep_item_legacy_prod_machine = None
         self._version = None
         self.discriminator = None
 
@@ -234,56 +193,34 @@ class IncidentField(object):
             self.edit_form = edit_form
         if field_calc_script is not None:
             self.field_calc_script = field_calc_script
-        if from_server_version is not None:
-            self.from_server_version = from_server_version
         if group is not None:
             self.group = group
         if hidden is not None:
             self.hidden = hidden
-        if highlight is not None:
-            self.highlight = highlight
         if id is not None:
             self.id = id
         if is_read_only is not None:
             self.is_read_only = is_read_only
-        if item_version is not None:
-            self.item_version = item_version
         if locked is not None:
             self.locked = locked
-        if merge_strategy is not None:
-            self.merge_strategy = merge_strategy
         if modified is not None:
             self.modified = modified
         if name is not None:
             self.name = name
         if never_set_as_required is not None:
             self.never_set_as_required = never_set_as_required
-        if numeric_id is not None:
-            self.numeric_id = numeric_id
         if owner_only is not None:
             self.owner_only = owner_only
-        if pack_id is not None:
-            self.pack_id = pack_id
-        if pack_propagation_labels is not None:
-            self.pack_propagation_labels = pack_propagation_labels
         if placeholder is not None:
             self.placeholder = placeholder
         if prev_name is not None:
             self.prev_name = prev_name
-        if primary_term is not None:
-            self.primary_term = primary_term
-        if propagation_labels is not None:
-            self.propagation_labels = propagation_labels
         if required is not None:
             self.required = required
-        if run_script_after_update is not None:
-            self.run_script_after_update = run_script_after_update
         if script is not None:
             self.script = script
         if select_values is not None:
             self.select_values = select_values
-        if sequence_number is not None:
-            self.sequence_number = sequence_number
         if should_commit is not None:
             self.should_commit = should_commit
         if sla is not None:
@@ -296,8 +233,6 @@ class IncidentField(object):
             self.system_associated_types = system_associated_types
         if threshold is not None:
             self.threshold = threshold
-        if to_server_version is not None:
-            self.to_server_version = to_server_version
         if type is not None:
             self.type = type
         if unmapped is not None:
@@ -312,8 +247,6 @@ class IncidentField(object):
             self.validation_regex = validation_regex
         if vc_should_ignore is not None:
             self.vc_should_ignore = vc_should_ignore
-        if vc_should_keep_item_legacy_prod_machine is not None:
-            self.vc_should_keep_item_legacy_prod_machine = vc_should_keep_item_legacy_prod_machine
         if version is not None:
             self.version = version
 
@@ -593,27 +526,6 @@ class IncidentField(object):
         self._field_calc_script = field_calc_script
 
     @property
-    def from_server_version(self):
-        """Gets the from_server_version of this IncidentField.  # noqa: E501
-
-
-        :return: The from_server_version of this IncidentField.  # noqa: E501
-        :rtype: Version
-        """
-        return self._from_server_version
-
-    @from_server_version.setter
-    def from_server_version(self, from_server_version):
-        """Sets the from_server_version of this IncidentField.
-
-
-        :param from_server_version: The from_server_version of this IncidentField.  # noqa: E501
-        :type: Version
-        """
-
-        self._from_server_version = from_server_version
-
-    @property
     def group(self):
         """Gets the group of this IncidentField.  # noqa: E501
 
@@ -654,27 +566,6 @@ class IncidentField(object):
         """
 
         self._hidden = hidden
-
-    @property
-    def highlight(self):
-        """Gets the highlight of this IncidentField.  # noqa: E501
-
-
-        :return: The highlight of this IncidentField.  # noqa: E501
-        :rtype: dict(str, list[str])
-        """
-        return self._highlight
-
-    @highlight.setter
-    def highlight(self, highlight):
-        """Sets the highlight of this IncidentField.
-
-
-        :param highlight: The highlight of this IncidentField.  # noqa: E501
-        :type: dict(str, list[str])
-        """
-
-        self._highlight = highlight
 
     @property
     def id(self):
@@ -719,27 +610,6 @@ class IncidentField(object):
         self._is_read_only = is_read_only
 
     @property
-    def item_version(self):
-        """Gets the item_version of this IncidentField.  # noqa: E501
-
-
-        :return: The item_version of this IncidentField.  # noqa: E501
-        :rtype: Version
-        """
-        return self._item_version
-
-    @item_version.setter
-    def item_version(self, item_version):
-        """Sets the item_version of this IncidentField.
-
-
-        :param item_version: The item_version of this IncidentField.  # noqa: E501
-        :type: Version
-        """
-
-        self._item_version = item_version
-
-    @property
     def locked(self):
         """Gets the locked of this IncidentField.  # noqa: E501
 
@@ -759,27 +629,6 @@ class IncidentField(object):
         """
 
         self._locked = locked
-
-    @property
-    def merge_strategy(self):
-        """Gets the merge_strategy of this IncidentField.  # noqa: E501
-
-
-        :return: The merge_strategy of this IncidentField.  # noqa: E501
-        :rtype: FieldMergeStrategy
-        """
-        return self._merge_strategy
-
-    @merge_strategy.setter
-    def merge_strategy(self, merge_strategy):
-        """Sets the merge_strategy of this IncidentField.
-
-
-        :param merge_strategy: The merge_strategy of this IncidentField.  # noqa: E501
-        :type: FieldMergeStrategy
-        """
-
-        self._merge_strategy = merge_strategy
 
     @property
     def modified(self):
@@ -845,27 +694,6 @@ class IncidentField(object):
         self._never_set_as_required = never_set_as_required
 
     @property
-    def numeric_id(self):
-        """Gets the numeric_id of this IncidentField.  # noqa: E501
-
-
-        :return: The numeric_id of this IncidentField.  # noqa: E501
-        :rtype: int
-        """
-        return self._numeric_id
-
-    @numeric_id.setter
-    def numeric_id(self, numeric_id):
-        """Sets the numeric_id of this IncidentField.
-
-
-        :param numeric_id: The numeric_id of this IncidentField.  # noqa: E501
-        :type: int
-        """
-
-        self._numeric_id = numeric_id
-
-    @property
     def owner_only(self):
         """Gets the owner_only of this IncidentField.  # noqa: E501
 
@@ -885,48 +713,6 @@ class IncidentField(object):
         """
 
         self._owner_only = owner_only
-
-    @property
-    def pack_id(self):
-        """Gets the pack_id of this IncidentField.  # noqa: E501
-
-
-        :return: The pack_id of this IncidentField.  # noqa: E501
-        :rtype: str
-        """
-        return self._pack_id
-
-    @pack_id.setter
-    def pack_id(self, pack_id):
-        """Sets the pack_id of this IncidentField.
-
-
-        :param pack_id: The pack_id of this IncidentField.  # noqa: E501
-        :type: str
-        """
-
-        self._pack_id = pack_id
-
-    @property
-    def pack_propagation_labels(self):
-        """Gets the pack_propagation_labels of this IncidentField.  # noqa: E501
-
-
-        :return: The pack_propagation_labels of this IncidentField.  # noqa: E501
-        :rtype: list[str]
-        """
-        return self._pack_propagation_labels
-
-    @pack_propagation_labels.setter
-    def pack_propagation_labels(self, pack_propagation_labels):
-        """Sets the pack_propagation_labels of this IncidentField.
-
-
-        :param pack_propagation_labels: The pack_propagation_labels of this IncidentField.  # noqa: E501
-        :type: list[str]
-        """
-
-        self._pack_propagation_labels = pack_propagation_labels
 
     @property
     def placeholder(self):
@@ -971,48 +757,6 @@ class IncidentField(object):
         self._prev_name = prev_name
 
     @property
-    def primary_term(self):
-        """Gets the primary_term of this IncidentField.  # noqa: E501
-
-
-        :return: The primary_term of this IncidentField.  # noqa: E501
-        :rtype: int
-        """
-        return self._primary_term
-
-    @primary_term.setter
-    def primary_term(self, primary_term):
-        """Sets the primary_term of this IncidentField.
-
-
-        :param primary_term: The primary_term of this IncidentField.  # noqa: E501
-        :type: int
-        """
-
-        self._primary_term = primary_term
-
-    @property
-    def propagation_labels(self):
-        """Gets the propagation_labels of this IncidentField.  # noqa: E501
-
-
-        :return: The propagation_labels of this IncidentField.  # noqa: E501
-        :rtype: list[str]
-        """
-        return self._propagation_labels
-
-    @propagation_labels.setter
-    def propagation_labels(self, propagation_labels):
-        """Sets the propagation_labels of this IncidentField.
-
-
-        :param propagation_labels: The propagation_labels of this IncidentField.  # noqa: E501
-        :type: list[str]
-        """
-
-        self._propagation_labels = propagation_labels
-
-    @property
     def required(self):
         """Gets the required of this IncidentField.  # noqa: E501
 
@@ -1032,27 +776,6 @@ class IncidentField(object):
         """
 
         self._required = required
-
-    @property
-    def run_script_after_update(self):
-        """Gets the run_script_after_update of this IncidentField.  # noqa: E501
-
-
-        :return: The run_script_after_update of this IncidentField.  # noqa: E501
-        :rtype: bool
-        """
-        return self._run_script_after_update
-
-    @run_script_after_update.setter
-    def run_script_after_update(self, run_script_after_update):
-        """Sets the run_script_after_update of this IncidentField.
-
-
-        :param run_script_after_update: The run_script_after_update of this IncidentField.  # noqa: E501
-        :type: bool
-        """
-
-        self._run_script_after_update = run_script_after_update
 
     @property
     def script(self):
@@ -1095,27 +818,6 @@ class IncidentField(object):
         """
 
         self._select_values = select_values
-
-    @property
-    def sequence_number(self):
-        """Gets the sequence_number of this IncidentField.  # noqa: E501
-
-
-        :return: The sequence_number of this IncidentField.  # noqa: E501
-        :rtype: int
-        """
-        return self._sequence_number
-
-    @sequence_number.setter
-    def sequence_number(self, sequence_number):
-        """Sets the sequence_number of this IncidentField.
-
-
-        :param sequence_number: The sequence_number of this IncidentField.  # noqa: E501
-        :type: int
-        """
-
-        self._sequence_number = sequence_number
 
     @property
     def should_commit(self):
@@ -1242,27 +944,6 @@ class IncidentField(object):
         """
 
         self._threshold = threshold
-
-    @property
-    def to_server_version(self):
-        """Gets the to_server_version of this IncidentField.  # noqa: E501
-
-
-        :return: The to_server_version of this IncidentField.  # noqa: E501
-        :rtype: Version
-        """
-        return self._to_server_version
-
-    @to_server_version.setter
-    def to_server_version(self, to_server_version):
-        """Sets the to_server_version of this IncidentField.
-
-
-        :param to_server_version: The to_server_version of this IncidentField.  # noqa: E501
-        :type: Version
-        """
-
-        self._to_server_version = to_server_version
 
     @property
     def type(self):
@@ -1410,27 +1091,6 @@ class IncidentField(object):
         """
 
         self._vc_should_ignore = vc_should_ignore
-
-    @property
-    def vc_should_keep_item_legacy_prod_machine(self):
-        """Gets the vc_should_keep_item_legacy_prod_machine of this IncidentField.  # noqa: E501
-
-
-        :return: The vc_should_keep_item_legacy_prod_machine of this IncidentField.  # noqa: E501
-        :rtype: bool
-        """
-        return self._vc_should_keep_item_legacy_prod_machine
-
-    @vc_should_keep_item_legacy_prod_machine.setter
-    def vc_should_keep_item_legacy_prod_machine(self, vc_should_keep_item_legacy_prod_machine):
-        """Sets the vc_should_keep_item_legacy_prod_machine of this IncidentField.
-
-
-        :param vc_should_keep_item_legacy_prod_machine: The vc_should_keep_item_legacy_prod_machine of this IncidentField.  # noqa: E501
-        :type: bool
-        """
-
-        self._vc_should_keep_item_legacy_prod_machine = vc_should_keep_item_legacy_prod_machine
 
     @property
     def version(self):

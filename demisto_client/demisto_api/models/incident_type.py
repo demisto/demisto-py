@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    Cortex XSOAR API
+    Demisto API
 
-    This is the public REST API to integrate with the Cortex XSOAR server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Cortex XSOAR web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Cortex XSOAR REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Cortex XSOAR server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Cortex XSOAR has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Cortex XSOAR will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
+    This is the public REST API to integrate with the demisto server. HTTP request can be sent using any HTTP-client.  For an example dedicated client take a look at: https://github.com/demisto/demisto-py.  Requests must include API-key that can be generated in the Demisto web client under 'Settings' -> 'Integrations' -> 'API keys'   Optimistic Locking and Versioning\\:  When using Demisto REST API, you will need to make sure to work on the latest version of the item (incident, entry, etc.), otherwise, you will get a DB version error (which not allow you to override a newer item). In addition, you can pass 'version\\: -1' to force data override (make sure that other users data might be lost).  Assume that Alice and Bob both read the same data from Demisto server, then they both changed the data, and then both tried to write the new versions back to the server. Whose changes should be saved? Alice’s? Bob’s? To solve this, each data item in Demisto has a numeric incremental version. If Alice saved an item with version 4 and Bob trying to save the same item with version 3, Demisto will rollback Bob request and returns a DB version conflict error. Bob will need to get the latest item and work on it so Alice work will not get lost.  Example request using 'curl'\\:  ``` curl 'https://hostname:443/incidents/search' -H 'content-type: application/json' -H 'accept: application/json' -H 'Authorization: <API Key goes here>' --data-binary '{\"filter\":{\"query\":\"-status:closed -category:job\",\"period\":{\"by\":\"day\",\"fromValue\":7}}}' --compressed ```  # noqa: E501
 
     OpenAPI spec version: 2.0.0
     
@@ -16,9 +16,7 @@ import re  # noqa: F401
 
 import six
 
-from demisto_client.demisto_api.models.incident_type_extract_settings import IncidentTypeExtractSettings  # noqa: F401,E501
 from demisto_client.demisto_api.models.reputation_calc_alg import ReputationCalcAlg  # noqa: F401,E501
-from demisto_client.demisto_api.models.version import Version  # noqa: F401,E501
 
 
 class IncidentType(object):
@@ -42,39 +40,24 @@ class IncidentType(object):
         'days': 'int',
         'days_r': 'int',
         'default': 'bool',
-        'detached': 'bool',
         'disabled': 'bool',
-        'extract_settings': 'IncidentTypeExtractSettings',
-        'from_server_version': 'Version',
-        'highlight': 'dict(str, list[str])',
         'hours': 'int',
         'hours_r': 'int',
         'id': 'str',
-        'item_version': 'Version',
-        'layout': 'str',
         'locked': 'bool',
         'modified': 'datetime',
         'name': 'str',
-        'numeric_id': 'int',
-        'on_change_rep_alg': 'ReputationCalcAlg',
-        'pack_id': 'str',
-        'pack_propagation_labels': 'list[str]',
         'playbook_id': 'str',
         'pre_processing_script': 'str',
         'prev_name': 'str',
-        'primary_term': 'int',
-        'propagation_labels': 'list[str]',
         'readonly': 'bool',
         'reputation_calc': 'ReputationCalcAlg',
-        'sequence_number': 'int',
         'should_commit': 'bool',
         'sla': 'int',
         'sla_reminder': 'int',
         'sort_values': 'list[str]',
         'system': 'bool',
-        'to_server_version': 'Version',
         'vc_should_ignore': 'bool',
-        'vc_should_keep_item_legacy_prod_machine': 'bool',
         'version': 'int',
         'weeks': 'int',
         'weeks_r': 'int'
@@ -88,45 +71,30 @@ class IncidentType(object):
         'days': 'days',
         'days_r': 'daysR',
         'default': 'default',
-        'detached': 'detached',
         'disabled': 'disabled',
-        'extract_settings': 'extractSettings',
-        'from_server_version': 'fromServerVersion',
-        'highlight': 'highlight',
         'hours': 'hours',
         'hours_r': 'hoursR',
         'id': 'id',
-        'item_version': 'itemVersion',
-        'layout': 'layout',
         'locked': 'locked',
         'modified': 'modified',
         'name': 'name',
-        'numeric_id': 'numericId',
-        'on_change_rep_alg': 'onChangeRepAlg',
-        'pack_id': 'packID',
-        'pack_propagation_labels': 'packPropagationLabels',
         'playbook_id': 'playbookId',
         'pre_processing_script': 'preProcessingScript',
         'prev_name': 'prevName',
-        'primary_term': 'primaryTerm',
-        'propagation_labels': 'propagationLabels',
         'readonly': 'readonly',
         'reputation_calc': 'reputationCalc',
-        'sequence_number': 'sequenceNumber',
         'should_commit': 'shouldCommit',
         'sla': 'sla',
         'sla_reminder': 'slaReminder',
         'sort_values': 'sortValues',
         'system': 'system',
-        'to_server_version': 'toServerVersion',
         'vc_should_ignore': 'vcShouldIgnore',
-        'vc_should_keep_item_legacy_prod_machine': 'vcShouldKeepItemLegacyProdMachine',
         'version': 'version',
         'weeks': 'weeks',
         'weeks_r': 'weeksR'
     }
 
-    def __init__(self, autorun=None, closure_script=None, color=None, commit_message=None, days=None, days_r=None, default=None, detached=None, disabled=None, extract_settings=None, from_server_version=None, highlight=None, hours=None, hours_r=None, id=None, item_version=None, layout=None, locked=None, modified=None, name=None, numeric_id=None, on_change_rep_alg=None, pack_id=None, pack_propagation_labels=None, playbook_id=None, pre_processing_script=None, prev_name=None, primary_term=None, propagation_labels=None, readonly=None, reputation_calc=None, sequence_number=None, should_commit=None, sla=None, sla_reminder=None, sort_values=None, system=None, to_server_version=None, vc_should_ignore=None, vc_should_keep_item_legacy_prod_machine=None, version=None, weeks=None, weeks_r=None):  # noqa: E501
+    def __init__(self, autorun=None, closure_script=None, color=None, commit_message=None, days=None, days_r=None, default=None, disabled=None, hours=None, hours_r=None, id=None, locked=None, modified=None, name=None, playbook_id=None, pre_processing_script=None, prev_name=None, readonly=None, reputation_calc=None, should_commit=None, sla=None, sla_reminder=None, sort_values=None, system=None, vc_should_ignore=None, version=None, weeks=None, weeks_r=None):  # noqa: E501
         """IncidentType - a model defined in Swagger"""  # noqa: E501
 
         self._autorun = None
@@ -136,39 +104,24 @@ class IncidentType(object):
         self._days = None
         self._days_r = None
         self._default = None
-        self._detached = None
         self._disabled = None
-        self._extract_settings = None
-        self._from_server_version = None
-        self._highlight = None
         self._hours = None
         self._hours_r = None
         self._id = None
-        self._item_version = None
-        self._layout = None
         self._locked = None
         self._modified = None
         self._name = None
-        self._numeric_id = None
-        self._on_change_rep_alg = None
-        self._pack_id = None
-        self._pack_propagation_labels = None
         self._playbook_id = None
         self._pre_processing_script = None
         self._prev_name = None
-        self._primary_term = None
-        self._propagation_labels = None
         self._readonly = None
         self._reputation_calc = None
-        self._sequence_number = None
         self._should_commit = None
         self._sla = None
         self._sla_reminder = None
         self._sort_values = None
         self._system = None
-        self._to_server_version = None
         self._vc_should_ignore = None
-        self._vc_should_keep_item_legacy_prod_machine = None
         self._version = None
         self._weeks = None
         self._weeks_r = None
@@ -188,56 +141,30 @@ class IncidentType(object):
             self.days_r = days_r
         if default is not None:
             self.default = default
-        if detached is not None:
-            self.detached = detached
         if disabled is not None:
             self.disabled = disabled
-        if extract_settings is not None:
-            self.extract_settings = extract_settings
-        if from_server_version is not None:
-            self.from_server_version = from_server_version
-        if highlight is not None:
-            self.highlight = highlight
         if hours is not None:
             self.hours = hours
         if hours_r is not None:
             self.hours_r = hours_r
         if id is not None:
             self.id = id
-        if item_version is not None:
-            self.item_version = item_version
-        if layout is not None:
-            self.layout = layout
         if locked is not None:
             self.locked = locked
         if modified is not None:
             self.modified = modified
         if name is not None:
             self.name = name
-        if numeric_id is not None:
-            self.numeric_id = numeric_id
-        if on_change_rep_alg is not None:
-            self.on_change_rep_alg = on_change_rep_alg
-        if pack_id is not None:
-            self.pack_id = pack_id
-        if pack_propagation_labels is not None:
-            self.pack_propagation_labels = pack_propagation_labels
         if playbook_id is not None:
             self.playbook_id = playbook_id
         if pre_processing_script is not None:
             self.pre_processing_script = pre_processing_script
         if prev_name is not None:
             self.prev_name = prev_name
-        if primary_term is not None:
-            self.primary_term = primary_term
-        if propagation_labels is not None:
-            self.propagation_labels = propagation_labels
         if readonly is not None:
             self.readonly = readonly
         if reputation_calc is not None:
             self.reputation_calc = reputation_calc
-        if sequence_number is not None:
-            self.sequence_number = sequence_number
         if should_commit is not None:
             self.should_commit = should_commit
         if sla is not None:
@@ -248,12 +175,8 @@ class IncidentType(object):
             self.sort_values = sort_values
         if system is not None:
             self.system = system
-        if to_server_version is not None:
-            self.to_server_version = to_server_version
         if vc_should_ignore is not None:
             self.vc_should_ignore = vc_should_ignore
-        if vc_should_keep_item_legacy_prod_machine is not None:
-            self.vc_should_keep_item_legacy_prod_machine = vc_should_keep_item_legacy_prod_machine
         if version is not None:
             self.version = version
         if weeks is not None:
@@ -409,27 +332,6 @@ class IncidentType(object):
         self._default = default
 
     @property
-    def detached(self):
-        """Gets the detached of this IncidentType.  # noqa: E501
-
-
-        :return: The detached of this IncidentType.  # noqa: E501
-        :rtype: bool
-        """
-        return self._detached
-
-    @detached.setter
-    def detached(self, detached):
-        """Sets the detached of this IncidentType.
-
-
-        :param detached: The detached of this IncidentType.  # noqa: E501
-        :type: bool
-        """
-
-        self._detached = detached
-
-    @property
     def disabled(self):
         """Gets the disabled of this IncidentType.  # noqa: E501
 
@@ -449,69 +351,6 @@ class IncidentType(object):
         """
 
         self._disabled = disabled
-
-    @property
-    def extract_settings(self):
-        """Gets the extract_settings of this IncidentType.  # noqa: E501
-
-
-        :return: The extract_settings of this IncidentType.  # noqa: E501
-        :rtype: IncidentTypeExtractSettings
-        """
-        return self._extract_settings
-
-    @extract_settings.setter
-    def extract_settings(self, extract_settings):
-        """Sets the extract_settings of this IncidentType.
-
-
-        :param extract_settings: The extract_settings of this IncidentType.  # noqa: E501
-        :type: IncidentTypeExtractSettings
-        """
-
-        self._extract_settings = extract_settings
-
-    @property
-    def from_server_version(self):
-        """Gets the from_server_version of this IncidentType.  # noqa: E501
-
-
-        :return: The from_server_version of this IncidentType.  # noqa: E501
-        :rtype: Version
-        """
-        return self._from_server_version
-
-    @from_server_version.setter
-    def from_server_version(self, from_server_version):
-        """Sets the from_server_version of this IncidentType.
-
-
-        :param from_server_version: The from_server_version of this IncidentType.  # noqa: E501
-        :type: Version
-        """
-
-        self._from_server_version = from_server_version
-
-    @property
-    def highlight(self):
-        """Gets the highlight of this IncidentType.  # noqa: E501
-
-
-        :return: The highlight of this IncidentType.  # noqa: E501
-        :rtype: dict(str, list[str])
-        """
-        return self._highlight
-
-    @highlight.setter
-    def highlight(self, highlight):
-        """Sets the highlight of this IncidentType.
-
-
-        :param highlight: The highlight of this IncidentType.  # noqa: E501
-        :type: dict(str, list[str])
-        """
-
-        self._highlight = highlight
 
     @property
     def hours(self):
@@ -577,48 +416,6 @@ class IncidentType(object):
         self._id = id
 
     @property
-    def item_version(self):
-        """Gets the item_version of this IncidentType.  # noqa: E501
-
-
-        :return: The item_version of this IncidentType.  # noqa: E501
-        :rtype: Version
-        """
-        return self._item_version
-
-    @item_version.setter
-    def item_version(self, item_version):
-        """Sets the item_version of this IncidentType.
-
-
-        :param item_version: The item_version of this IncidentType.  # noqa: E501
-        :type: Version
-        """
-
-        self._item_version = item_version
-
-    @property
-    def layout(self):
-        """Gets the layout of this IncidentType.  # noqa: E501
-
-
-        :return: The layout of this IncidentType.  # noqa: E501
-        :rtype: str
-        """
-        return self._layout
-
-    @layout.setter
-    def layout(self, layout):
-        """Sets the layout of this IncidentType.
-
-
-        :param layout: The layout of this IncidentType.  # noqa: E501
-        :type: str
-        """
-
-        self._layout = layout
-
-    @property
     def locked(self):
         """Gets the locked of this IncidentType.  # noqa: E501
 
@@ -680,90 +477,6 @@ class IncidentType(object):
         """
 
         self._name = name
-
-    @property
-    def numeric_id(self):
-        """Gets the numeric_id of this IncidentType.  # noqa: E501
-
-
-        :return: The numeric_id of this IncidentType.  # noqa: E501
-        :rtype: int
-        """
-        return self._numeric_id
-
-    @numeric_id.setter
-    def numeric_id(self, numeric_id):
-        """Sets the numeric_id of this IncidentType.
-
-
-        :param numeric_id: The numeric_id of this IncidentType.  # noqa: E501
-        :type: int
-        """
-
-        self._numeric_id = numeric_id
-
-    @property
-    def on_change_rep_alg(self):
-        """Gets the on_change_rep_alg of this IncidentType.  # noqa: E501
-
-
-        :return: The on_change_rep_alg of this IncidentType.  # noqa: E501
-        :rtype: ReputationCalcAlg
-        """
-        return self._on_change_rep_alg
-
-    @on_change_rep_alg.setter
-    def on_change_rep_alg(self, on_change_rep_alg):
-        """Sets the on_change_rep_alg of this IncidentType.
-
-
-        :param on_change_rep_alg: The on_change_rep_alg of this IncidentType.  # noqa: E501
-        :type: ReputationCalcAlg
-        """
-
-        self._on_change_rep_alg = on_change_rep_alg
-
-    @property
-    def pack_id(self):
-        """Gets the pack_id of this IncidentType.  # noqa: E501
-
-
-        :return: The pack_id of this IncidentType.  # noqa: E501
-        :rtype: str
-        """
-        return self._pack_id
-
-    @pack_id.setter
-    def pack_id(self, pack_id):
-        """Sets the pack_id of this IncidentType.
-
-
-        :param pack_id: The pack_id of this IncidentType.  # noqa: E501
-        :type: str
-        """
-
-        self._pack_id = pack_id
-
-    @property
-    def pack_propagation_labels(self):
-        """Gets the pack_propagation_labels of this IncidentType.  # noqa: E501
-
-
-        :return: The pack_propagation_labels of this IncidentType.  # noqa: E501
-        :rtype: list[str]
-        """
-        return self._pack_propagation_labels
-
-    @pack_propagation_labels.setter
-    def pack_propagation_labels(self, pack_propagation_labels):
-        """Sets the pack_propagation_labels of this IncidentType.
-
-
-        :param pack_propagation_labels: The pack_propagation_labels of this IncidentType.  # noqa: E501
-        :type: list[str]
-        """
-
-        self._pack_propagation_labels = pack_propagation_labels
 
     @property
     def playbook_id(self):
@@ -829,48 +542,6 @@ class IncidentType(object):
         self._prev_name = prev_name
 
     @property
-    def primary_term(self):
-        """Gets the primary_term of this IncidentType.  # noqa: E501
-
-
-        :return: The primary_term of this IncidentType.  # noqa: E501
-        :rtype: int
-        """
-        return self._primary_term
-
-    @primary_term.setter
-    def primary_term(self, primary_term):
-        """Sets the primary_term of this IncidentType.
-
-
-        :param primary_term: The primary_term of this IncidentType.  # noqa: E501
-        :type: int
-        """
-
-        self._primary_term = primary_term
-
-    @property
-    def propagation_labels(self):
-        """Gets the propagation_labels of this IncidentType.  # noqa: E501
-
-
-        :return: The propagation_labels of this IncidentType.  # noqa: E501
-        :rtype: list[str]
-        """
-        return self._propagation_labels
-
-    @propagation_labels.setter
-    def propagation_labels(self, propagation_labels):
-        """Sets the propagation_labels of this IncidentType.
-
-
-        :param propagation_labels: The propagation_labels of this IncidentType.  # noqa: E501
-        :type: list[str]
-        """
-
-        self._propagation_labels = propagation_labels
-
-    @property
     def readonly(self):
         """Gets the readonly of this IncidentType.  # noqa: E501
 
@@ -911,27 +582,6 @@ class IncidentType(object):
         """
 
         self._reputation_calc = reputation_calc
-
-    @property
-    def sequence_number(self):
-        """Gets the sequence_number of this IncidentType.  # noqa: E501
-
-
-        :return: The sequence_number of this IncidentType.  # noqa: E501
-        :rtype: int
-        """
-        return self._sequence_number
-
-    @sequence_number.setter
-    def sequence_number(self, sequence_number):
-        """Sets the sequence_number of this IncidentType.
-
-
-        :param sequence_number: The sequence_number of this IncidentType.  # noqa: E501
-        :type: int
-        """
-
-        self._sequence_number = sequence_number
 
     @property
     def should_commit(self):
@@ -1039,27 +689,6 @@ class IncidentType(object):
         self._system = system
 
     @property
-    def to_server_version(self):
-        """Gets the to_server_version of this IncidentType.  # noqa: E501
-
-
-        :return: The to_server_version of this IncidentType.  # noqa: E501
-        :rtype: Version
-        """
-        return self._to_server_version
-
-    @to_server_version.setter
-    def to_server_version(self, to_server_version):
-        """Sets the to_server_version of this IncidentType.
-
-
-        :param to_server_version: The to_server_version of this IncidentType.  # noqa: E501
-        :type: Version
-        """
-
-        self._to_server_version = to_server_version
-
-    @property
     def vc_should_ignore(self):
         """Gets the vc_should_ignore of this IncidentType.  # noqa: E501
 
@@ -1079,27 +708,6 @@ class IncidentType(object):
         """
 
         self._vc_should_ignore = vc_should_ignore
-
-    @property
-    def vc_should_keep_item_legacy_prod_machine(self):
-        """Gets the vc_should_keep_item_legacy_prod_machine of this IncidentType.  # noqa: E501
-
-
-        :return: The vc_should_keep_item_legacy_prod_machine of this IncidentType.  # noqa: E501
-        :rtype: bool
-        """
-        return self._vc_should_keep_item_legacy_prod_machine
-
-    @vc_should_keep_item_legacy_prod_machine.setter
-    def vc_should_keep_item_legacy_prod_machine(self, vc_should_keep_item_legacy_prod_machine):
-        """Sets the vc_should_keep_item_legacy_prod_machine of this IncidentType.
-
-
-        :param vc_should_keep_item_legacy_prod_machine: The vc_should_keep_item_legacy_prod_machine of this IncidentType.  # noqa: E501
-        :type: bool
-        """
-
-        self._vc_should_keep_item_legacy_prod_machine = vc_should_keep_item_legacy_prod_machine
 
     @property
     def version(self):

@@ -24,6 +24,7 @@ Method | HTTP request | Description
 [**delete_widget**](DefaultApi.md#delete_widget) | **DELETE** /widgets/{id} | Remove existing widget
 [**download_file**](DefaultApi.md#download_file) | **GET** /entry/download/{entryid} | Download file
 [**download_latest_report**](DefaultApi.md#download_latest_report) | **GET** /report/{id}/latest | Get latest report by ID
+[**download_latest_report_0**](DefaultApi.md#download_latest_report_0) | **GET** /reports/{id}/latest | Get latest report by ID
 [**edit_ad_hoc_task**](DefaultApi.md#edit_ad_hoc_task) | **POST** /inv-playbook/task/edit/{investigationId} | Edit ad-hoc task
 [**entry_export_artifact**](DefaultApi.md#entry_export_artifact) | **POST** /entry/exportArtifact | Export Artifact
 [**execute_report**](DefaultApi.md#execute_report) | **POST** /report/{id}/{requestId}/execute | Execute report

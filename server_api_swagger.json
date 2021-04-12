@@ -1756,6 +1756,33 @@
         }
       }
     },
+    "/reports/{id}/latest": {
+      "get": {
+        "description": "Get the latest report by its ID",
+        "produces": [
+          "application/octet-stream"
+        ],
+        "summary": "Get latest report by ID",
+        "operationId": "downloadLatestReport",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "the ID of the report to get",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a report file",
+            "schema": {
+              "type": "file"
+            }
+          }
+        }
+      }
+    },
     "/settings/audits": {
       "post": {
         "description": "Get audits by filter",

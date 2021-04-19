@@ -1858,7 +1858,7 @@
             "required": true
           },
           {
-            "type": "file",
+            "type": "string",
             "description": "the answers to the task form. Answers are keyed by numerical question id",
             "name": "answers",
             "in": "formData",
@@ -1868,19 +1868,6 @@
             "type": "file",
             "description": "Files to attach to the task",
             "name": "file",
-            "in": "formData",
-            "required": true
-          },
-          {
-            "type": "string",
-            "description": "file names separated by %###% (only if files provided)",
-            "name": "fileNames",
-            "in": "formData"
-          },
-          {
-            "type": "string",
-            "description": "file comment separated by %###% (only if files provided)",
-            "name": "fileComments",
             "in": "formData"
           }
         ],
@@ -9919,4 +9906,3 @@
     }
   ]
 }
-

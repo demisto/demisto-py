@@ -6474,55 +6474,51 @@ class DefaultApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def submit_task_form(self, investigation_id, task_id, answers, file, **kwargs):  # noqa: E501
+    def submit_task_form(self, investigation_id, task_id, answers, **kwargs):  # noqa: E501
         """Complete a task  # noqa: E501
 
         Submit a data collection task with given answers and multiple file attachments  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.submit_task_form(investigation_id, task_id, answers, file, async_req=True)
+        >>> thread = api.submit_task_form(investigation_id, task_id, answers, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool
         :param str investigation_id: investigation ID (required)
         :param str task_id: Task Id (required)
-        :param file answers: the answers to the task form. Answers are keyed by numerical question id (required)
-        :param file file: Files to attach to the task (required)
-        :param str file_names: file names separated by %###% (only if files provided)
-        :param str file_comments: file comment separated by %###% (only if files provided)
+        :param str answers: the answers to the task form. Answers are keyed by numerical question id (required)
+        :param file file: Files to attach to the task
         :return: InvestigationPlaybook
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async_req'):
-            return self.submit_task_form_with_http_info(investigation_id, task_id, answers, file, **kwargs)  # noqa: E501
+            return self.submit_task_form_with_http_info(investigation_id, task_id, answers, **kwargs)  # noqa: E501
         else:
-            (data) = self.submit_task_form_with_http_info(investigation_id, task_id, answers, file, **kwargs)  # noqa: E501
+            (data) = self.submit_task_form_with_http_info(investigation_id, task_id, answers, **kwargs)  # noqa: E501
             return data
 
-    def submit_task_form_with_http_info(self, investigation_id, task_id, answers, file, **kwargs):  # noqa: E501
+    def submit_task_form_with_http_info(self, investigation_id, task_id, answers, **kwargs):  # noqa: E501
         """Complete a task  # noqa: E501
 
         Submit a data collection task with given answers and multiple file attachments  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.submit_task_form_with_http_info(investigation_id, task_id, answers, file, async_req=True)
+        >>> thread = api.submit_task_form_with_http_info(investigation_id, task_id, answers, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool
         :param str investigation_id: investigation ID (required)
         :param str task_id: Task Id (required)
-        :param file answers: the answers to the task form. Answers are keyed by numerical question id (required)
-        :param file file: Files to attach to the task (required)
-        :param str file_names: file names separated by %###% (only if files provided)
-        :param str file_comments: file comment separated by %###% (only if files provided)
+        :param str answers: the answers to the task form. Answers are keyed by numerical question id (required)
+        :param file file: Files to attach to the task
         :return: InvestigationPlaybook
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['investigation_id', 'task_id', 'answers', 'file', 'file_names', 'file_comments']  # noqa: E501
+        all_params = ['investigation_id', 'task_id', 'answers', 'file']  # noqa: E501
         all_params.append('async_req')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -6549,10 +6545,6 @@ class DefaultApi(object):
         if ('answers' not in params or
                 params['answers'] is None):
             raise ValueError("Missing the required parameter `answers` when calling `submit_task_form`")  # noqa: E501
-        # verify the required parameter 'file' is set
-        if ('file' not in params or
-                params['file'] is None):
-            raise ValueError("Missing the required parameter `file` when calling `submit_task_form`")  # noqa: E501
 
         collection_formats = {}
 
@@ -6569,13 +6561,9 @@ class DefaultApi(object):
         if 'task_id' in params:
             form_params.append(('taskId', params['task_id']))  # noqa: E501
         if 'answers' in params:
-            local_var_files['answers'] = params['answers']  # noqa: E501
+            form_params.append(('answers', params['answers']))  # noqa: E501
         if 'file' in params:
             local_var_files['file'] = params['file']  # noqa: E501
-        if 'file_names' in params:
-            form_params.append(('fileNames', params['file_names']))  # noqa: E501
-        if 'file_comments' in params:
-            form_params.append(('fileComments', params['file_comments']))  # noqa: E501
 
         body_params = None
         # HTTP header `Accept`

@@ -3,6 +3,10 @@
 [PyPI History][1]
 
 [1]: https://pypi.org/project/demisto-py/#history
+## 3.0.0
+* Drop support for Python 2. demisto-py now requires Python 3.7 or later. Pin to demisto-py <2.0.24 to maintain 2.7 support.
+* Fixed bug in arguments required for the route: `/v2/inv-playbook/task/form/submit`.
+
 ## 2.0.23
 * Support for adding feed indicators via the route: `/indicators/feed/json`.
 

@@ -3218,7 +3218,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **submit_task_form**
-> InvestigationPlaybook submit_task_form(investigation_id, task_id, answers, file, file_names=file_names, file_comments=file_comments)
+> InvestigationPlaybook submit_task_form(investigation_id, task_id, answers, file=file)
 
 Complete a task
 
@@ -3236,14 +3236,12 @@ from pprint import pprint
 api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 investigation_id = 'investigation_id_example' # str | investigation ID
 task_id = 'task_id_example' # str | Task Id
-answers = '/path/to/file.txt' # file | the answers to the task form. Answers are keyed by numerical question id
-file = '/path/to/file.txt' # file | Files to attach to the task
-file_names = 'file_names_example' # str | file names separated by %###% (only if files provided) (optional)
-file_comments = 'file_comments_example' # str | file comment separated by %###% (only if files provided) (optional)
+answers = 'answers_example' # str | the answers to the task form. Answers are keyed by numerical question id
+file = '/path/to/file.txt' # file | Files to attach to the task (optional)
 
 try:
     # Complete a task
-    api_response = api_instance.submit_task_form(investigation_id, task_id, answers, file, file_names=file_names, file_comments=file_comments)
+    api_response = api_instance.submit_task_form(investigation_id, task_id, answers, file=file)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->submit_task_form: %s\n" % e)
@@ -3255,10 +3253,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **investigation_id** | **str**| investigation ID | 
  **task_id** | **str**| Task Id | 
- **answers** | **file**| the answers to the task form. Answers are keyed by numerical question id | 
- **file** | **file**| Files to attach to the task | 
- **file_names** | **str**| file names separated by %###% (only if files provided) | [optional] 
- **file_comments** | **str**| file comment separated by %###% (only if files provided) | [optional] 
+ **answers** | **str**| the answers to the task form. Answers are keyed by numerical question id | 
+ **file** | **file**| Files to attach to the task | [optional] 
 
 ### Return type
 

@@ -67,6 +67,9 @@ class ApiClient(object):
             configuration = Configuration()
         self.configuration = configuration
 
+        if os.getenv("GITLAB_CI"):
+            self.configuration.connection_pool_maxsize = 180
+
         # Use the pool property to lazily initialize the ThreadPool.
         self._pool = None
         self.rest_client = rest.RESTClientObject(configuration)

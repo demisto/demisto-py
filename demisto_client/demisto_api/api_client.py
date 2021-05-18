@@ -67,9 +67,8 @@ class ApiClient(object):
             configuration = Configuration()
         self.configuration = configuration
 
-        demisto_conn_max_pool_size = os.getenv("DEMISTO_CONNECTION_POOL_MAXSIZE")
-        if demisto_conn_max_pool_size and demisto_conn_max_pool_size.isdigit():
-            self.configuration.connection_pool_maxsize = int(demisto_conn_max_pool_size)
+        if os.getenv("GITLAB_CI"):
+            self.configuration.connection_pool_maxsize = 180
 
         # Use the pool property to lazily initialize the ThreadPool.
         self._pool = None

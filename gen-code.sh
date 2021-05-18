@@ -120,9 +120,8 @@ sed -i "${INPLACE[@]}" -e 's/PRIMITIVE_TYPES = (float, bool, bytes, six.text_typ
 
 sed -i "${INPLACE[@]}" -e 's/self.configuration = configuration/self.configuration = configuration\
 \
-        demisto_conn_max_pool_size = os.getenv("DEMISTO_CONNECTION_POOL_MAXSIZE")\
-        if demisto_conn_max_pool_size and demisto_conn_max_pool_size.isdigit():\
-            self.configuration.connection_pool_maxsize = int(demisto_conn_max_pool_size)/' demisto_client/demisto_api/api_client.py
+        if os.getenv("GITLAB_CI"):\
+            self.configuration.connection_pool_maxsize = 180/' demisto_client/demisto_api/api_client.py
 
 # remove files not used
 rm .travis.yml

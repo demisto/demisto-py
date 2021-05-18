@@ -112,16 +112,11 @@ sed -i "${INPLACE[@]}" -e "${start}a\\
 \ \ \ \ \ \ \ \ \ \ \ \ data = classifier_json_file.read()\\
 \ \ \ \ \ \ \ \ classifier_data_json = json.loads(data)\\
 \ \ \ \ \ \ \ \ classifier_id = classifier_data_json.get('id')" demisto_client/demisto_api/api/default_api.py
-# End fix import_classifier
 
 sed -i "${INPLACE[@]}" -e 's/PRIMITIVE_TYPES = (float, bool, bytes, six.text_type) + six.integer_types/CACHE_LAST_RESPONSE = not os.environ.get("DONT_CACHE_LAST_RESPONSE", False)\
     PRIMITIVE_TYPES = (float, bool, bytes, six.text_type) + six.integer_types/' -e 's/self.last_response = response_data/if self.CACHE_LAST_RESPONSE:\
             self.last_response = response_data/' demisto_client/demisto_api/api_client.py
-
-sed -i "${INPLACE[@]}" -e 's/self.configuration = configuration/self.configuration = configuration\
-\
-        if os.getenv("GITLAB_CI"):\
-            self.configuration.connection_pool_maxsize = 180/' demisto_client/demisto_api/api_client.py
+# End fix import_classifier
 
 # remove files not used
 rm .travis.yml

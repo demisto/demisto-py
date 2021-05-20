@@ -42,8 +42,8 @@ def configure(base_url=None, api_key=None, verify_ssl=None, proxy=None, username
         will default to True.
     :param proxy: dict - Dict object of your proxy settings.
     :param ssl_ca_cert: str - specify an alternate certificate bundle
-    :param connection_pool_maxsize: int - specify a connection max pool size
     :param debug: bool - Include verbose logging.
+    :param connection_pool_maxsize: int - specify a connection max pool size
     :return: Returns an API client configuration identical to the Configuration() method.
     """
     if api_key is None:
@@ -62,6 +62,11 @@ def configure(base_url=None, api_key=None, verify_ssl=None, proxy=None, username
             verify_ssl = True
     if connection_pool_maxsize is None:
         connection_pool_maxsize = os.getenv('DEMISTO_CONNECTION_POOL_MAXSIZE')
+        if connection_pool_maxsize:
+            if not connection_pool_maxsize.isdigit():
+                raise ValueError('DEMISTO_CONNECTION_POOL_MAXSIZE env variable should be set to a number')
+            else:
+                connection_pool_maxsize = int(connection_pool_maxsize)
     configuration = Configuration()
     configuration.api_key['Authorization'] = api_key
     configuration.host = base_url or os.getenv('DEMISTO_BASE_URL', None)
@@ -71,8 +76,7 @@ def configure(base_url=None, api_key=None, verify_ssl=None, proxy=None, username
     configuration.proxy = proxy
     configuration.debug = debug
     configuration.ssl_ca_cert = ssl_ca_cert
-    if connection_pool_maxsize and connection_pool_maxsize.isdigit():
-        connection_pool_maxsize = int(connection_pool_maxsize)
+    if connection_pool_maxsize:
         configuration.connection_pool_maxsize = connection_pool_maxsize
 
     if not configuration.host:
@@ -103,9 +107,12 @@ def login(base_url=None, username=None, password=None, verify_ssl=True, proxy=No
     configuration_orig.proxy = proxy
     configuration_orig.debug = debug
     connection_pool_maxsize = os.getenv('DEMISTO_CONNECTION_POOL_MAXSIZE')
-    if connection_pool_maxsize and connection_pool_maxsize.isdigit():
-        connection_pool_maxsize = int(connection_pool_maxsize)
-        configuration_orig.connection_pool_maxsize = connection_pool_maxsize
+    if connection_pool_maxsize:
+        if connection_pool_maxsize.isdigit():
+            connection_pool_maxsize = int(connection_pool_maxsize)
+            configuration_orig.connection_pool_maxsize = connection_pool_maxsize
+        else:
+            raise ValueError('DEMISTO_CONNECTION_POOL_MAXSIZE env variable should be set to a number')
     api_client = ApiClient(configuration_orig)
     api_client.user_agent = 'demisto-py/' + __version__
     api_instance = demisto_api.DefaultApi(api_client)

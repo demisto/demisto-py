@@ -18,7 +18,7 @@ except DistributionNotFound:
 
 
 def configure(base_url=None, api_key=None, verify_ssl=None, proxy=None, username=None, password=None,
-              ssl_ca_cert=None, connection_pool_maxsize=None, debug=False):
+              ssl_ca_cert=None, debug=False, connection_pool_maxsize=None):
     """
     This wrapper provides an easier to use method of configuring the API client. The base
     Configuration method is still exposed if you wish to further configure the API Client.

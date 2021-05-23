@@ -64,7 +64,9 @@ def configure(base_url=None, api_key=None, verify_ssl=None, proxy=None, username
         connection_pool_maxsize = os.getenv('DEMISTO_CONNECTION_POOL_MAXSIZE')
         if connection_pool_maxsize:
             if not connection_pool_maxsize.isdigit():
-                raise ValueError('DEMISTO_CONNECTION_POOL_MAXSIZE env variable should be set to a number')
+                err_msg = ('DEMISTO_CONNECTION_POOL_MAXSIZE env variable should be set to a number'
+                           f' but instead received "{connection_pool_maxsize}"')
+                raise ValueError(err_msg)
             else:
                 connection_pool_maxsize = int(connection_pool_maxsize)
     configuration = Configuration()
@@ -112,7 +114,9 @@ def login(base_url=None, username=None, password=None, verify_ssl=True, proxy=No
             connection_pool_maxsize = int(connection_pool_maxsize)
             configuration_orig.connection_pool_maxsize = connection_pool_maxsize
         else:
-            raise ValueError('DEMISTO_CONNECTION_POOL_MAXSIZE env variable should be set to a number')
+            err_msg = ('DEMISTO_CONNECTION_POOL_MAXSIZE env variable should be set to a number'
+                       f' but instead received "{connection_pool_maxsize}"')
+            raise ValueError(err_msg)
     api_client = ApiClient(configuration_orig)
     api_client.user_agent = 'demisto-py/' + __version__
     api_instance = demisto_api.DefaultApi(api_client)

@@ -1631,6 +1631,39 @@
         }
       }
     },
+    "/reports/upload": {
+      "post": {
+        "description": "Upload report file to Demisto",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "Upload report file to Demisto",
+        "operationId": "uploadReport",
+        "parameters": [
+          {
+            "type": "file",
+            "description": "file",
+            "name": "file",
+            "in": "formData",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of all the reports in the instance",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Report"
+              }
+            }
+          }
+        }
+      }
+    },
     "/settings/audits": {
       "post": {
         "description": "Get audits by filter",

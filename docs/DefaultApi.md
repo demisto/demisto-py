@@ -76,6 +76,7 @@ Method | HTTP request | Description
 [**task_un_complete**](DefaultApi.md#task_un_complete) | **POST** /inv-playbook/task/uncomplete | Un complete a task
 [**update_entry_note**](DefaultApi.md#update_entry_note) | **POST** /entry/note | Mark entry as note
 [**update_entry_tags_op**](DefaultApi.md#update_entry_tags_op) | **POST** /entry/tags | Set entry tags
+[**upload_report**](DefaultApi.md#upload_report) | **POST** /reports/upload | Upload report file to Demisto
 
 
 # **add_ad_hoc_task**
@@ -3555,6 +3556,54 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json, application/xml
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **upload_report**
+> list[Report] upload_report(file)
+
+Upload report file to Demisto
+
+Upload report file to Demisto
+
+### Example
+```python
+from __future__ import print_function
+import time
+import demisto_client
+import demisto_client.demisto_api
+from demisto_client.demisto_api.rest import ApiException
+from pprint import pprint
+
+api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
+file = '/path/to/file.txt' # file | file
+
+try:
+    # Upload report file to Demisto
+    api_response = api_instance.upload_report(file)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->upload_report: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **file** | **file**| file | 
+
+### Return type
+
+[**list[Report]**](Report.md)
+
+### Authorization
+
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+
+### HTTP request headers
+
+ - **Content-Type**: multipart/form-data
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)

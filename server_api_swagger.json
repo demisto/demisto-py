@@ -1634,8 +1634,11 @@
     "/reports/upload": {
       "post": {
         "description": "Upload report file to Demisto",
-        "produces": [
+        "consumes": [
           "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
         ],
         "summary": "Upload report file to Demisto",
         "operationId": "uploadReport",

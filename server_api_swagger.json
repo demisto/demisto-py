@@ -1765,7 +1765,7 @@
           "application/json"
         ],
         "summary": "Upload an pack as zip",
-        "operationId": "zippedPackUpload",
+        "operationId": "uploadContentPacks",
         "parameters": [
           {
             "type": "file",

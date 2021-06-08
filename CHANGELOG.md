@@ -6,7 +6,7 @@
 
 
 ## 3.0.3
-* Support `zipped_pack_upload` to upload zipped pack to marketplace.
+* Support `upload_content_packs` to upload zipped pack to marketplace.
 
 ## 3.0.2
 * Support `upload_report` to upload a new report/ update existing report.

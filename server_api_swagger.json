@@ -1755,6 +1755,33 @@
         }
       }
     },
+    "/contentpacks/installed/upload": {
+      "post": {
+        "description": "Upload an pack to marketplace in Demisto",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "Upload an pack as zip",
+        "operationId": "zippedPackUpload",
+        "parameters": [
+          {
+            "type": "file",
+            "description": "file",
+            "name": "file",
+            "in": "formData",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The pack was successfully uploaded"
+          }
+        }
+      }
+    },
     "/statistics/dashboards/query": {
       "post": {
         "description": "Get a given dashboard statistics result.",

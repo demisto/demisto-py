@@ -1757,14 +1757,14 @@
     },
     "/contentpacks/installed/upload": {
       "post": {
-        "description": "Upload an pack to marketplace in Demisto",
+        "description": "Upload a Pack to the marketplace in the Server. Can be used to upload a Pack for an offline scenario or a Pack that hasn't been released.",
         "consumes": [
           "multipart/form-data"
         ],
         "produces": [
           "application/json"
         ],
-        "summary": "Upload an pack as zip",
+        "summary": "Upload a Pack as zip file. The zip file maybe a single Pack or a zip containing multiple zipped Packs (a zip of zips)",
         "operationId": "uploadContentPacks",
         "parameters": [
           {

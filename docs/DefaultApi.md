@@ -76,7 +76,7 @@ Method | HTTP request | Description
 [**task_un_complete**](DefaultApi.md#task_un_complete) | **POST** /inv-playbook/task/uncomplete | Un complete a task
 [**update_entry_note**](DefaultApi.md#update_entry_note) | **POST** /entry/note | Mark entry as note
 [**update_entry_tags_op**](DefaultApi.md#update_entry_tags_op) | **POST** /entry/tags | Set entry tags
-[**upload_content_packs**](DefaultApi.md#upload_content_packs) | **POST** /contentpacks/installed/upload | Upload an pack as zip
+[**upload_content_packs**](DefaultApi.md#upload_content_packs) | **POST** /contentpacks/installed/upload | Upload a Pack as zip file. The zip file maybe a single Pack or a zip containing multiple zipped Packs (a zip of zips)
 [**upload_report**](DefaultApi.md#upload_report) | **POST** /reports/upload | Upload report file to Demisto
 
 
@@ -3564,9 +3564,9 @@ Name | Type | Description  | Notes
 # **upload_content_packs**
 > upload_content_packs(file)
 
-Upload an pack as zip
+Upload a Pack as zip file. The zip file maybe a single Pack or a zip containing multiple zipped Packs (a zip of zips)
 
-Upload an pack to marketplace in Demisto
+Upload a Pack to the marketplace in the Server. Can be used to upload a Pack for an offline scenario or a Pack that hasn't been released.
 
 ### Example
 ```python
@@ -3581,7 +3581,7 @@ api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", 
 file = '/path/to/file.txt' # file | file
 
 try:
-    # Upload an pack as zip
+    # Upload a Pack as zip file. The zip file maybe a single Pack or a zip containing multiple zipped Packs (a zip of zips)
     api_instance.upload_content_packs(file)
 except ApiException as e:
     print("Exception when calling DefaultApi->upload_content_packs: %s\n" % e)

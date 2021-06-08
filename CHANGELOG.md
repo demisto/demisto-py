@@ -4,12 +4,9 @@
 
 [1]: https://pypi.org/project/demisto-py/#history
 
-
-## 3.0.3
-* Support `upload_content_packs` to upload zipped pack to marketplace.
-
 ## 3.0.2
 * Support `upload_report` to upload a new report/ update existing report.
+* Support `upload_content_packs` to upload zipped pack to marketplace.
 
 ## 3.0.1
 * Support setting the number of parallel connections to a single host via the `DEMISTO_CONNECTION_POOL_MAXSIZE` environment variable.

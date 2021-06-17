@@ -26,7 +26,6 @@ Method | HTTP request | Description
 [**edit_ad_hoc_task**](DefaultApi.md#edit_ad_hoc_task) | **POST** /inv-playbook/task/edit/{investigationId} | Edit ad-hoc task
 [**entry_export_artifact**](DefaultApi.md#entry_export_artifact) | **POST** /entry/exportArtifact | Export Artifact
 [**execute_report**](DefaultApi.md#execute_report) | **POST** /report/{id}/{requestId}/execute | Execute report
-[**export_incidents_to_csv_batch**](DefaultApi.md#export_incidents_to_csv_batch) | **POST** /incident/batch/exportToCsv | Batch export incidents to csv
 [**export_indicators_to_csv_batch**](DefaultApi.md#export_indicators_to_csv_batch) | **POST** /indicators/batch/exportToCsv | Batch export indicators to csv
 [**export_indicators_to_stix_batch**](DefaultApi.md#export_indicators_to_stix_batch) | **POST** /indicators/batch/export/stix | Batch export indicators to STIX
 [**get_all_reports**](DefaultApi.md#get_all_reports) | **GET** /reports | Get all reports
@@ -1178,7 +1177,10 @@ from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
 api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
-update_data_batch = demisto_client.demisto_api.UpdateDataBatch() # UpdateDataBatch |  (optional)
+update_data_batch = demisto_client.demisto_api.UpdateDataBatch(
+    columns=["id", "name", "severity"]  # Columns are the CSV headers. If not provided, no results will be presented
+) # UpdateDataBatch
+
 
 try:
     # Batch export incidents to csv

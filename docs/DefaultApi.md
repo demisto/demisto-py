@@ -1178,7 +1178,10 @@ from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
 api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
-update_data_batch = demisto_client.demisto_api.UpdateDataBatch() # UpdateDataBatch |  (optional)
+update_data_batch = demisto_client.demisto_api.UpdateDataBatch(
+    columns=["id", "name", "severity"]  # Columns are the CSV headers. If not provided, no results will be presented
+) # UpdateDataBatch
+
 
 try:
     # Batch export incidents to csv

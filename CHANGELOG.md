@@ -4,9 +4,6 @@
 
 [1]: https://pypi.org/project/demisto-py/#history
 
-## 3.0.3
-* Fixed bug in `update_automation_example` where the objects passed to the `save_or_update_script` script were uninitialized.
-
 ## 3.0.2
 * Support `upload_report` to upload a new report/ update existing report.
 * Support `upload_content_packs` to upload zipped packs to marketplace.

@@ -4,9 +4,6 @@
 
 [1]: https://pypi.org/project/demisto-py/#history
 
-## 3.0.3
-* Making sure theres a problem
-
 ## 3.0.2
 * Support `upload_report` to upload a new report/ update existing report.
 * Support `upload_content_packs` to upload zipped packs to marketplace.

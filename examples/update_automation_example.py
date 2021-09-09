@@ -9,8 +9,8 @@ base_url = 'YOUR DEMISTO URL'
 # create an instance of the API class
 api_instance = demisto_client.configure(base_url=base_url, api_key=api_key, debug=True)
 automation_script_filter_wrapper = demisto_client.demisto_api.AutomationScriptFilterWrapper()
-script = demisto_client.demisto_api.AutomationScript
-args = demisto_client.demisto_api.Argument
+script = demisto_client.demisto_api.AutomationScript()
+args = demisto_client.demisto_api.Argument()
 
 # Create Arguments
 args.name = 'system'

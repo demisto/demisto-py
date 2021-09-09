@@ -1,8 +1,8 @@
-# NOTE: any requirements added here should also be added to setup.py REQUIRES list
+# NOTE: any requirements added here should also be added to setup.py REQUIRES list.
 certifi >= 2017.4.17
 six >= 1.10
 python_dateutil >= 2.5.3
 setuptools >= 21.0.0
 urllib3 >= 1.23
-tzlocal >= 2.0.0
-# NOTE: any requirements added here should also be added to setup.py REQUIRES list
+tzlocal == 2.1.0
+# NOTE: any requirements added here should also be added to setup.py REQUIRES list.

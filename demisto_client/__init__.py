@@ -28,8 +28,6 @@ def configure(base_url=None, api_key=None, verify_ssl=None, proxy=None, username
 
     * DEMISTO_BASE_URL
     * DEMISTO_API_KEY
-    * DEMISTO_USERNAME
-    * DEMISTO_PASSWORD
     * DEMISTO_VERIFY_SSL (true/false. Default: true)
     * SSL_CERT_FILE (specify an alternate certificate bundle)
     * DEMISTO_CONNECTION_POOL_MAXSIZE (specify a connection pool max size)

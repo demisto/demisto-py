@@ -21,8 +21,6 @@ as the following environment variables (env variables will be used if parameters
 
  * DEMISTO_BASE_URL
  * DEMISTO_API_KEY
- * DEMISTO_USERNAME
- * DEMISTO_PASSWORD
  * DEMISTO_VERIFY_SSL (true/false. Default: true)
  * SSL_CERT_FILE (specify an alternate certificate bundle)
 

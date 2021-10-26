@@ -16,13 +16,8 @@ NAME = "demisto-py"
 # prerequisite: setuptools
 # http://pypi.python.org/pypi/setuptools
 
-REQUIRES = [
-    "certifi>=2017.4.17",
-    "python-dateutil>=2.5.3",
-    "six>=1.10",
-    "urllib3>=1.23",
-    "tzlocal>=2.0.0",
-]
+with open('requirements.txt') as f:
+    REQUIRES = f.read().splitlines()
 
 with open('README.md', 'r') as f:
     readme = f.read()
@@ -40,6 +35,7 @@ setup(
     keywords=["Swagger", "Demisto API"],
     install_requires=REQUIRES,
     packages=find_packages(),
+    python_requires='>=3.7',
     include_package_data=True,
     long_description=readme,
     long_description_content_type='text/markdown',
@@ -48,10 +44,11 @@ setup(
         'Intended Audience :: Developers',
         'Natural Language :: English',
         'License :: OSI Approved :: Apache Software License',
-        'Programming Language :: Python',
-        'Programming Language :: Python :: 2.7',        
+        'Programming Language :: Python',    
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: Implementation :: CPython'
     ],
 )

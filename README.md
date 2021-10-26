@@ -130,7 +130,7 @@ If the `license/cla` status check remains on *Pending*, even though all contribu
 
 ## Dev Environment Setup
 
-We build for both python 2 and 3. We recommend installing both development environments. You can use pyenv to manage multiple python versions (see: <https://github.com/pyenv/pyenv>). We use [tox](https://github.com/tox-dev/tox) for managing environments and running unit tests.
+We recommend installing both development environments. We use [tox](https://github.com/tox-dev/tox) for managing environments and running unit tests.
 
 Install `tox`:
 
@@ -144,7 +144,7 @@ List configured environments:
 tox -l
 ```
 
-Then setup dev virtual envs for both python 2 and 3 (will also install all necessary requirements):
+Then setup dev virtual envs for python 3 (will also install all necessary requirements):
 
 ```bash
 tox --devenv py37
@@ -199,7 +199,7 @@ Steps to publish a production release:
 * Make sure [CHANGELOG.md](CHANGELOG.md) is up to date.
 * Create and push a tag with the release version using git. For example:
 
-  ```BASH
+  ```bash
   git tag v2.0.19
   git push origin v2.0.19
   ```

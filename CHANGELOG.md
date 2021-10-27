@@ -4,6 +4,9 @@
 
 [1]: https://pypi.org/project/demisto-py/#history
 
+## 3.1.0
+* Drop support for Python 2 from PyPi.
+
 ## 3.0.2
 * Support `upload_report` to upload a new report/ update existing report.
 * Support `upload_content_packs` to upload zipped packs to marketplace.

@@ -7,8 +7,6 @@ A Python library for the Demisto API.
 
 Version 2.x is compatible with Demisto server version 4.5 and later.
 
-**Note:** You are viewing the demisto-py 2.x development branch. demisto-py 1.x is officially deprecated (maintenance-mode only) and can be obtained at: <https://github.com/demisto/demisto-py/releases>.
-
 ## Demisto for Python Usage
 
 This section covers the steps you need to take to get the client configured.
@@ -130,7 +128,7 @@ If the `license/cla` status check remains on *Pending*, even though all contribu
 
 ## Dev Environment Setup
 
-We build for both python 2 and 3. We recommend installing both development environments. You can use pyenv to manage multiple python versions (see: <https://github.com/pyenv/pyenv>). We use [tox](https://github.com/tox-dev/tox) for managing environments and running unit tests.
+We recommend installing both development environments. We use [tox](https://github.com/tox-dev/tox) for managing environments and running unit tests.
 
 Install `tox`:
 
@@ -144,7 +142,7 @@ List configured environments:
 tox -l
 ```
 
-Then setup dev virtual envs for both python 2 and 3 (will also install all necessary requirements):
+Then setup dev virtual envs for python 3 (will also install all necessary requirements):
 
 ```bash
 tox --devenv py37
@@ -199,7 +197,7 @@ Steps to publish a production release:
 * Make sure [CHANGELOG.md](CHANGELOG.md) is up to date.
 * Create and push a tag with the release version using git. For example:
 
-  ```BASH
+  ```bash
   git tag v2.0.19
   git push origin v2.0.19
   ```

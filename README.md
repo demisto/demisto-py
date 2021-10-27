@@ -7,8 +7,6 @@ A Python library for the Demisto API.
 
 Version 2.x is compatible with Demisto server version 4.5 and later.
 
-**Note:** You are viewing the demisto-py 2.x development branch. demisto-py 1.x is officially deprecated (maintenance-mode only) and can be obtained at: <https://github.com/demisto/demisto-py/releases>.
-
 ## Demisto for Python Usage
 
 This section covers the steps you need to take to get the client configured.

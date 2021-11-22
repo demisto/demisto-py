@@ -1773,6 +1773,12 @@
             "name": "file",
             "in": "formData",
             "required": true
+          },
+          {
+            "type": "boolean",
+            "description": "skip_verify",
+            "name": "skip_verify",
+            "in": "query"
           }
         ],
         "responses": {

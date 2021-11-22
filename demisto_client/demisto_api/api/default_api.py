@@ -7174,6 +7174,7 @@ class DefaultApi(object):
 
         :param async_req bool
         :param file file: file (required)
+        :param bool skip_verify: skip_verify
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -7196,12 +7197,13 @@ class DefaultApi(object):
 
         :param async_req bool
         :param file file: file (required)
+        :param bool skip_verify: skip_verify
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['file']  # noqa: E501
+        all_params = ['file', 'skip_verify']  # noqa: E501
         all_params.append('async_req')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -7226,6 +7228,8 @@ class DefaultApi(object):
         path_params = {}
 
         query_params = []
+        if 'skip_verify' in params:
+            query_params.append(('skip_verify', params['skip_verify']))  # noqa: E501
 
         header_params = {}
 

@@ -7206,6 +7206,7 @@ class DefaultApi(object):
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
+        all_params.append('query_params')
 
         params = locals()
         for key, val in six.iteritems(params['kwargs']):
@@ -7225,7 +7226,7 @@ class DefaultApi(object):
 
         path_params = {}
 
-        query_params = []
+        query_params = kwargs.get('query_params') if 'query_params' in kwargs else []
 
         header_params = {}
 

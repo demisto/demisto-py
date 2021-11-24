@@ -3592,8 +3592,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **file** | **file**| file | 
- **skip_verify** | [**object**](.md)| If true will skip pack signature verification. Use when uploading a custom or | [optional] 
+ **skip_verify** | **boolean** | If true will skip pack signature verification. Use when uploading a custom or |
 
 ### Return type
 

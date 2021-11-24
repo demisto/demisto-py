@@ -1178,10 +1178,7 @@ from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
 api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
-update_data_batch = demisto_client.demisto_api.UpdateDataBatch(
-    columns=["id", "name", "severity"]  # Columns are the CSV headers. If not provided, no results will be presented
-) # UpdateDataBatch
-
+update_data_batch = demisto_client.demisto_api.UpdateDataBatch() # UpdateDataBatch |  (optional)
 
 try:
     # Batch export incidents to csv
@@ -3565,7 +3562,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **upload_content_packs**
-> upload_content_packs(file)
+> upload_content_packs(file, skip_verify=skip_verify)
 
 Upload a Pack as zip file. The zip file maybe a single Pack or a zip containing multiple zipped Packs (a zip of zips)
 
@@ -3582,10 +3579,11 @@ from pprint import pprint
 
 api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 file = '/path/to/file.txt' # file | file
+skip_verify = NULL # object | If true will skip pack signature verification. Use when uploading a custom or (optional)
 
 try:
     # Upload a Pack as zip file. The zip file maybe a single Pack or a zip containing multiple zipped Packs (a zip of zips)
-    api_instance.upload_content_packs(file)
+    api_instance.upload_content_packs(file, skip_verify=skip_verify)
 except ApiException as e:
     print("Exception when calling DefaultApi->upload_content_packs: %s\n" % e)
 ```
@@ -3595,6 +3593,7 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **file** | **file**| file | 
+ **skip_verify** | [**object**](.md)| If true will skip pack signature verification. Use when uploading a custom or | [optional] 
 
 ### Return type
 

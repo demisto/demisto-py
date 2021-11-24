@@ -1775,10 +1775,9 @@
             "required": true
           },
           {
-            "type": "boolean",
-            "description": "skip_verify",
-            "name": "skip_verify",
-            "in": "query"
+            "description": "If true will skip pack signature verification. Use when uploading a custom or",
+            "name": "skipVerify",
+            "in": "formData"
           }
         ],
         "responses": {

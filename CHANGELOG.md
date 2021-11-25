@@ -6,6 +6,7 @@
 
 ## 3.1.0
 * Drop support for Python 2 from PyPi.
+* Support `skipVerify` argument in `upload_content_packs` to skip pack signature verification, Use when uploading a custom or dev pack.
 
 ## 3.0.2
 * Support `upload_report` to upload a new report/ update existing report.

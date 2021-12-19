@@ -3144,7 +3144,7 @@ filter = demisto_client.demisto_api.InvestigationFilter() # InvestigationFilter 
 
 try:
     # Search investigations by filter
-    api_response = api_instance.search_investigations(filter=filter)
+    api_response = api_instance.search_investigations(filter={'filter': filter})
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->search_investigations: %s\n" % e)

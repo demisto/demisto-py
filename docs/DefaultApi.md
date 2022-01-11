@@ -3144,7 +3144,7 @@ filter = demisto_client.demisto_api.InvestigationFilter() # InvestigationFilter 
 
 try:
     # Search investigations by filter
-    api_response = api_instance.search_investigations(filter={'filter': filter})
+    api_response = api_instance.search_investigations(filter=filter)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->search_investigations: %s\n" % e)
@@ -3562,7 +3562,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **upload_content_packs**
-> upload_content_packs(file, skip_verify=skip_verify)
+> upload_content_packs(file, skip_validation=skip_validation, skip_verify=skip_verify)
 
 Upload a Pack as zip file. The zip file maybe a single Pack or a zip containing multiple zipped Packs (a zip of zips)
 
@@ -3579,11 +3579,12 @@ from pprint import pprint
 
 api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 file = '/path/to/file.txt' # file | file
-skip_verify = NULL # object | If true will skip pack signature verification. Use when uploading a custom or (optional)
+skip_validation = NULL # object | if true will skip upload packs validation, use when migrate existing custom content to packs. (optional)
+skip_verify = NULL # object | If true will skip pack signature verification. Use when uploading a custom or dev pack (optional)
 
 try:
     # Upload a Pack as zip file. The zip file maybe a single Pack or a zip containing multiple zipped Packs (a zip of zips)
-    api_instance.upload_content_packs(file, skip_verify=skip_verify)
+    api_instance.upload_content_packs(file, skip_validation=skip_validation, skip_verify=skip_verify)
 except ApiException as e:
     print("Exception when calling DefaultApi->upload_content_packs: %s\n" % e)
 ```
@@ -3592,7 +3593,8 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **skip_verify** | **boolean** | If true will skip pack signature verification. Use when uploading a custom or |
+ **skip_validation** | **boolean** | if true will skip upload packs validation, use when migrate existing custom content to packs. | optional
+ **skip_verify** | **boolean** | If true will skip pack signature verification. Use when uploading a custom or dev pack | optional
 
 ### Return type
 

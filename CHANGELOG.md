@@ -4,6 +4,9 @@
 
 [1]: https://pypi.org/project/demisto-py/#history
 
+## 3.1.1
+* Support `skipValidation` argument in `upload_content_packs` to skip upload packs validation, use when migrate existing custom content to packs.
+
 ## 3.1.0
 * Drop support for Python 2 from PyPi.
 * Support `skipVerify` argument in `upload_content_packs` to skip pack signature verification, Use when uploading a custom or dev pack.

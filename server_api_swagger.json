@@ -1775,7 +1775,7 @@
             "required": true
           },
           {
-            "description": "if true will skip upload packs validation, use when migrate existing custom content to packs.",
+            "description": "if true will skip upload packs validation, use when migrating existing custom content to packs.",
             "name": "skipValidation",
             "in": "formData"
           },

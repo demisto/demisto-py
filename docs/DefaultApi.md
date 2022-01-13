@@ -3579,7 +3579,7 @@ from pprint import pprint
 
 api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 file = '/path/to/file.txt' # file | file
-skip_validation = NULL # object | if true will skip upload packs validation, use when migrate existing custom content to packs. (optional)
+skip_validation = NULL # object | if true will skip upload packs validation, use when migrating existing custom content to packs. (optional)
 skip_verify = NULL # object | If true will skip pack signature verification. Use when uploading a custom or dev pack (optional)
 
 try:

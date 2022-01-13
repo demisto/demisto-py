@@ -7174,7 +7174,7 @@ class DefaultApi(object):
 
         :param async_req bool
         :param file file: file (required)
-        :param object skip_validation: if true will skip upload packs validation, use when migrate existing custom content to packs.
+        :param object skip_validation: if true will skip upload packs validation, use when migrating existing custom content to packs.
         :param object skip_verify: If true will skip pack signature verification. Use when uploading a custom or dev pack
         :return: None
                  If the method is called asynchronously,

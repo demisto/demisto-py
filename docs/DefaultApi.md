@@ -3593,7 +3593,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **skip_validation** | **boolean** | if true will skip upload packs validation, use when migrate existing custom content to packs. | optional
+ **skip_validation** | **boolean** | if true will skip upload packs validation, use when migrating existing custom content to packs. | optional
  **skip_verify** | **boolean** | If true will skip pack signature verification. Use when uploading a custom or dev pack | optional
 
 ### Return type

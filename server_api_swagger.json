@@ -1775,7 +1775,12 @@
             "required": true
           },
           {
-            "description": "If true will skip pack signature verification. Use when uploading a custom or",
+            "description": "if true will skip upload packs validation, use when migrating existing custom content to packs.",
+            "name": "skipValidation",
+            "in": "formData"
+          },
+          {
+            "description": "If true will skip pack signature verification. Use when uploading a custom or dev pack",
             "name": "skipVerify",
             "in": "formData"
           }

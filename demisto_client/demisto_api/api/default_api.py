@@ -7174,7 +7174,8 @@ class DefaultApi(object):
 
         :param async_req bool
         :param file file: file (required)
-        :param object skip_verify: If true will skip pack signature verification. Use when uploading a custom or
+        :param object skip_validation: if true will skip upload packs validation, use when migrating existing custom content to packs.
+        :param object skip_verify: If true will skip pack signature verification. Use when uploading a custom or dev pack
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -7197,13 +7198,14 @@ class DefaultApi(object):
 
         :param async_req bool
         :param file file: file (required)
-        :param object skip_verify: If true will skip pack signature verification. Use when uploading a custom or
+        :param object skip_validation: if true will skip upload packs validation, use when migrating existing custom content to packs.
+        :param object skip_verify: If true will skip pack signature verification. Use when uploading a custom or dev pack
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['file', 'skip_verify']  # noqa: E501
+        all_params = ['file', 'skip_validation', 'skip_verify']  # noqa: E501
         all_params.append('async_req')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -7235,6 +7237,8 @@ class DefaultApi(object):
         local_var_files = {}
         if 'file' in params:
             local_var_files['file'] = params['file']  # noqa: E501
+        if 'skip_validation' in params:
+            form_params.append(('skipValidation', params['skip_validation']))  # noqa: E501
         if 'skip_verify' in params:
             form_params.append(('skipVerify', params['skip_verify']))  # noqa: E501
 

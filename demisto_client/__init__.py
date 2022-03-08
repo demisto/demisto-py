@@ -18,7 +18,7 @@ except DistributionNotFound:
 
 
 def configure(base_url=None, api_key=None, verify_ssl=None, proxy=None, username=None, password=None,
-              ssl_ca_cert=None, debug=False, connection_pool_maxsize=None):
+              ssl_ca_cert=None, debug=False, connection_pool_maxsize=None, auth_id=None):
     """
     This wrapper provides an easier to use method of configuring the API client. The base
     Configuration method is still exposed if you wish to further configure the API Client.
@@ -28,6 +28,7 @@ def configure(base_url=None, api_key=None, verify_ssl=None, proxy=None, username
 
     * DEMISTO_BASE_URL
     * DEMISTO_API_KEY
+    * DEMISTO_AUTH_ID
     * DEMISTO_USERNAME
     * DEMISTO_PASSWORD
     * DEMISTO_VERIFY_SSL (true/false. Default: true)
@@ -44,10 +45,15 @@ def configure(base_url=None, api_key=None, verify_ssl=None, proxy=None, username
     :param ssl_ca_cert: str - specify an alternate certificate bundle
     :param debug: bool - Include verbose logging.
     :param connection_pool_maxsize: int - specify a connection max pool size
+    :param auth_id: str - api_key_id only for the xsiam
     :return: Returns an API client configuration identical to the Configuration() method.
     """
+    if base_url is None:
+        base_url = os.getenv('DEMISTO_BASE_URL')
     if api_key is None:
         api_key = os.getenv('DEMISTO_API_KEY')
+    if auth_id is None:
+        auth_id = os.getenv('DEMISTO_AUTH_ID')
     if username is None:
         username = os.getenv('DEMISTO_USERNAME')
     if password is None:
@@ -71,9 +77,12 @@ def configure(base_url=None, api_key=None, verify_ssl=None, proxy=None, username
                 connection_pool_maxsize = int(connection_pool_maxsize)
     configuration = Configuration()
     configuration.api_key['Authorization'] = api_key
-    configuration.host = base_url or os.getenv('DEMISTO_BASE_URL', None)
+    configuration.host = base_url
     if isinstance(configuration.host, str):
         configuration.host = configuration.host.rstrip('/')
+    if auth_id:
+        configuration.api_key['x-xdr-auth-id'] = auth_id
+        configuration.host = f'{configuration.host}/xsoar'
     configuration.verify_ssl = verify_ssl
     configuration.proxy = proxy
     configuration.debug = debug

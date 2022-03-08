@@ -9965,6 +9965,11 @@
       "type": "apiKey",
       "name": "X-XSRF-TOKEN",
       "in": "header"
+    },
+    "x-xdr-auth-id": {
+      "type": "apiKey",
+      "name": "x-xdr-auth-id",
+      "in": "header"
     }
   },
   "security": [
@@ -9973,6 +9978,9 @@
     },
     {
       "csrf_token": []
+    },
+    {
+      "x-xdr-auth-id": []
     }
   ]
 }

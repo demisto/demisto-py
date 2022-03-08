@@ -121,7 +121,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -169,7 +169,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -229,7 +229,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -291,7 +291,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -339,7 +339,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -387,7 +387,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -434,7 +434,7 @@ void (empty response body)
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -482,7 +482,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -526,7 +526,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -574,7 +574,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -622,7 +622,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -672,7 +672,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -719,7 +719,7 @@ void (empty response body)
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -766,7 +766,7 @@ void (empty response body)
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -814,7 +814,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -862,7 +862,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -909,7 +909,7 @@ void (empty response body)
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -957,7 +957,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -1005,7 +1005,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -1055,7 +1055,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -1103,7 +1103,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -1152,7 +1152,7 @@ void (empty response body)
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -1200,7 +1200,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -1248,7 +1248,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -1296,7 +1296,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -1340,7 +1340,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -1383,7 +1383,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -1431,7 +1431,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -1479,7 +1479,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -1523,7 +1523,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -1571,7 +1571,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -1619,7 +1619,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -1667,7 +1667,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -1715,7 +1715,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -1763,7 +1763,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -1811,7 +1811,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -1855,7 +1855,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -1899,7 +1899,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -1947,7 +1947,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -1997,7 +1997,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -2045,7 +2045,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -2093,7 +2093,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -2141,7 +2141,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -2191,7 +2191,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -2239,7 +2239,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -2287,7 +2287,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -2335,7 +2335,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -2394,7 +2394,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -2442,7 +2442,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -2490,7 +2490,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -2540,7 +2540,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -2588,7 +2588,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -2636,7 +2636,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -2684,7 +2684,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -2732,7 +2732,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -2780,7 +2780,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -2828,7 +2828,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -2874,7 +2874,7 @@ void (empty response body)
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -2922,7 +2922,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -2970,7 +2970,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -3018,7 +3018,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -3066,7 +3066,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -3114,7 +3114,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -3162,7 +3162,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -3210,7 +3210,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -3264,7 +3264,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -3312,7 +3312,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -3360,7 +3360,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -3408,7 +3408,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -3456,7 +3456,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -3504,7 +3504,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -3552,7 +3552,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -3593,8 +3593,9 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **skip_validation** | **boolean** | if true will skip upload packs validation, use when migrating existing custom content to packs. | optional
- **skip_verify** | **boolean** | If true will skip pack signature verification. Use when uploading a custom or dev pack | optional
+ **file** | **file**| file | 
+ **skip_validation** | [**object**](.md)| if true will skip upload packs validation, use when migrating existing custom content to packs. | [optional] 
+ **skip_verify** | [**object**](.md)| If true will skip pack signature verification. Use when uploading a custom or dev pack | [optional] 
 
 ### Return type
 
@@ -3602,7 +3603,7 @@ void (empty response body)
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 
@@ -3650,7 +3651,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](README.md#api_key), [csrf_token](README.md#csrf_token)
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
 
 ### HTTP request headers
 

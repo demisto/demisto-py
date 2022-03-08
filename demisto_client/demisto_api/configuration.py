@@ -235,6 +235,13 @@ class Configuration(object):
                     'key': 'X-XSRF-TOKEN',
                     'value': self.get_api_key_with_prefix('X-XSRF-TOKEN')
                 },
+            'x-xdr-auth-id':
+                {
+                    'type': 'api_key',
+                    'in': 'header',
+                    'key': 'x-xdr-auth-id',
+                    'value': self.get_api_key_with_prefix('x-xdr-auth-id')
+                },
 
         }
 

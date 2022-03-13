@@ -25,6 +25,7 @@ as the following environment variables (env variables will be used if parameters
 * DEMISTO_API_KEY
 * DEMISTO_USERNAME
 * DEMISTO_PASSWORD
+* DEMISTO_AUTH_ID (for XSIAM, If is set it means we should use the XSIAM api)
 * DEMISTO_VERIFY_SSL (true/false. Default: true)
 * SSL_CERT_FILE (specify an alternate certificate bundle)
 
@@ -41,7 +42,20 @@ api_instance = demisto_client.configure(base_url=host, api_key=api_key)
 
 ```
 
-**Alternatively, you can login with username and password:**
+**on the XSIAM we nead to add the auth_id**
+```python
+import demisto_client
+
+# Also possible to set env variables: DEMISTO_API_KEY and DEMISTO_BASE_URL
+api_key = 'YOUR_API_KEY'
+auth_id = 'THE AUTHORIZATION ID'
+host = 'https://YOUR_XSIAM_HOST'
+
+api_instance = demisto_client.configure(base_url=host, api_key=api_key, auth_id=auth_id)
+
+```
+
+**Alternatively, you can login with username and password (only in xsoar):**
 
 ```python
 import demisto_client

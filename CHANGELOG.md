@@ -4,6 +4,9 @@
 
 [1]: https://pypi.org/project/demisto-py/#history
 
+## 3.1.2
+* Added auth_id to support `XSIAM` instances.
+
 ## 3.1.1
 * Support `skipValidation` argument in `upload_content_packs` to skip upload packs validation, use when migrating existing custom content to packs.
 

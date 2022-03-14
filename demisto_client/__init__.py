@@ -28,10 +28,10 @@ def configure(base_url=None, api_key=None, verify_ssl=None, proxy=None, username
 
     * DEMISTO_BASE_URL
     * DEMISTO_API_KEY
-    * DEMISTO_AUTH_ID
     * DEMISTO_USERNAME
     * DEMISTO_PASSWORD
     * DEMISTO_VERIFY_SSL (true/false. Default: true)
+    * XSIAM_AUTH_ID
     * SSL_CERT_FILE (specify an alternate certificate bundle)
     * DEMISTO_CONNECTION_POOL_MAXSIZE (specify a connection pool max size)
 
@@ -53,7 +53,7 @@ def configure(base_url=None, api_key=None, verify_ssl=None, proxy=None, username
     if api_key is None:
         api_key = os.getenv('DEMISTO_API_KEY')
     if auth_id is None:
-        auth_id = os.getenv('DEMISTO_AUTH_ID')
+        auth_id = os.getenv('XSIAM_AUTH_ID')
     if username is None:
         username = os.getenv('DEMISTO_USERNAME')
     if password is None:

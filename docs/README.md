@@ -272,6 +272,12 @@ Method | HTTP request | Description
 - **API key parameter name**: X-XSRF-TOKEN
 - **Location**: HTTP header
 
+## x-xdr-auth-id
+
+- **Type**: API key
+- **API key parameter name**: x-xdr-auth-id
+- **Location**: HTTP header
+
 
 
 

@@ -18,7 +18,7 @@ except DistributionNotFound:
 
 
 def configure(base_url=None, api_key=None, verify_ssl=None, proxy=None, username=None, password=None,
-              ssl_ca_cert=None, debug=False, connection_pool_maxsize=None):
+              ssl_ca_cert=None, debug=False, connection_pool_maxsize=None, auth_id=None):
     """
     This wrapper provides an easier to use method of configuring the API client. The base
     Configuration method is still exposed if you wish to further configure the API Client.
@@ -31,6 +31,7 @@ def configure(base_url=None, api_key=None, verify_ssl=None, proxy=None, username
     * DEMISTO_USERNAME
     * DEMISTO_PASSWORD
     * DEMISTO_VERIFY_SSL (true/false. Default: true)
+    * XSIAM_AUTH_ID
     * SSL_CERT_FILE (specify an alternate certificate bundle)
     * DEMISTO_CONNECTION_POOL_MAXSIZE (specify a connection pool max size)
 
@@ -44,10 +45,15 @@ def configure(base_url=None, api_key=None, verify_ssl=None, proxy=None, username
     :param ssl_ca_cert: str - specify an alternate certificate bundle
     :param debug: bool - Include verbose logging.
     :param connection_pool_maxsize: int - specify a connection max pool size
+    :param auth_id: str - api_key_id only for the xsiam
     :return: Returns an API client configuration identical to the Configuration() method.
     """
+    if base_url is None:
+        base_url = os.getenv('DEMISTO_BASE_URL')
     if api_key is None:
         api_key = os.getenv('DEMISTO_API_KEY')
+    if auth_id is None:
+        auth_id = os.getenv('XSIAM_AUTH_ID')
     if username is None:
         username = os.getenv('DEMISTO_USERNAME')
     if password is None:
@@ -69,11 +75,23 @@ def configure(base_url=None, api_key=None, verify_ssl=None, proxy=None, username
                 raise ValueError(err_msg)
             else:
                 connection_pool_maxsize = int(connection_pool_maxsize)
+    if not base_url:
+        raise ValueError('You must specify base_url either as a parameter or via env variable: DEMISTO_BASE_URL')
+    if not api_key and not username:
+        raise ValueError('You must specify either api_key or username/password either as parameters or use env variables:\n'
+                         '* DEMISTO_API_KEY\n'
+                         '* DEMISTO_USERNAME\n'
+                         '* DEMISTO_PASSWORD'
+                         )
+    if auth_id and not api_key:
+        raise ValueError('You must specify either api_key or use env variable DEMISTO_API_KEY to use Cortex XSIAM api, '
+                         'or remove the auth_id and/or the env variable XSIAM_AUTH_ID to use Cortex XSOAR api:\n')
     configuration = Configuration()
     configuration.api_key['Authorization'] = api_key
-    configuration.host = base_url or os.getenv('DEMISTO_BASE_URL', None)
-    if isinstance(configuration.host, str):
-        configuration.host = configuration.host.rstrip('/')
+    configuration.host = os.path.join(base_url)
+    if auth_id:
+        configuration.api_key['x-xdr-auth-id'] = auth_id
+        configuration.host = os.path.join(configuration.host, 'xsoar')
     configuration.verify_ssl = verify_ssl
     configuration.proxy = proxy
     configuration.debug = debug
@@ -81,14 +99,6 @@ def configure(base_url=None, api_key=None, verify_ssl=None, proxy=None, username
     if connection_pool_maxsize:
         configuration.connection_pool_maxsize = connection_pool_maxsize
 
-    if not configuration.host:
-        raise ValueError('You must specify base_url either as a parameter or via env variable: DEMISTO_BASE_URL')
-    if not api_key and not username:
-        raise ValueError('You must specify either api_key or username/password either as parameters or use env variables:\n'
-                         '* DEMISTO_API_KEY\n'
-                         '* DEMISTO_USERNAME\n'
-                         '* DEMISTO_PASSWORD'  
-                         )
     if username is None:
         api_client = ApiClient(configuration)
         api_client.user_agent = 'demisto-py/' + __version__

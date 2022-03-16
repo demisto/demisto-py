@@ -26,6 +26,7 @@ as the following environment variables (env variables will be used if parameters
 * DEMISTO_USERNAME
 * DEMISTO_PASSWORD
 * DEMISTO_VERIFY_SSL (true/false. Default: true)
+* XSIAM_AUTH_ID (for Cortex XSIAM only. If set, Cortex XSIAM API will be used)
 * SSL_CERT_FILE (specify an alternate certificate bundle)
 
 ### 2. Create a Demisto client instance with the api-key and server-url
@@ -41,7 +42,20 @@ api_instance = demisto_client.configure(base_url=host, api_key=api_key)
 
 ```
 
-**Alternatively, you can login with username and password:**
+**For Cortex XSIAM, we need to set the auth_id**
+```python
+import demisto_client
+
+# Also possible to set env variables: DEMISTO_API_KEY, DEMISTO_BASE_URL and XSIAM_AUTH_ID
+api_key = 'YOUR_API_KEY'
+auth_id = 'THE AUTHORIZATION ID'
+host = 'https://YOUR_XSIAM_HOST'
+
+api_instance = demisto_client.configure(base_url=host, api_key=api_key, auth_id=auth_id)
+
+```
+
+**Alternatively, you can login with username and password (only in xsoar):**
 
 ```python
 import demisto_client

@@ -120,7 +120,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/inv-playbook/task/add/{investigationId}', 'POST',
@@ -215,7 +215,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/incident/batchClose', 'POST',
@@ -358,7 +358,7 @@ class DefaultApi(object):
             ['multipart/form-data'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/inv-playbook/task/complete', 'POST',
@@ -501,7 +501,7 @@ class DefaultApi(object):
             ['multipart/form-data'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/v2/inv-playbook/task/complete', 'POST',
@@ -596,7 +596,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/automation/copy', 'POST',
@@ -691,7 +691,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/settings/docker-images', 'POST',
@@ -790,7 +790,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/indicators/feed/json', 'POST',
@@ -885,7 +885,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/incident', 'POST',
@@ -976,7 +976,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/incident/json', 'POST',
@@ -1071,7 +1071,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/incident/batch', 'POST',
@@ -1166,7 +1166,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/incidenttype', 'POST',
@@ -1273,7 +1273,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/inv-playbook/task/delete/{investigationId}/{invPBTaskId}', 'POST',
@@ -1368,7 +1368,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/automation/delete', 'POST',
@@ -1463,7 +1463,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/evidence/delete', 'POST',
@@ -1558,7 +1558,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/incident/batchDelete', 'POST',
@@ -1653,7 +1653,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/indicators/batchDelete', 'POST',
@@ -1752,7 +1752,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/widgets/{id}', 'DELETE',
@@ -1851,7 +1851,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/entry/download/{entryid}', 'GET',
@@ -1950,7 +1950,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/reports/{id}/latest', 'GET',
@@ -2053,7 +2053,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/inv-playbook/task/edit/{investigationId}', 'POST',
@@ -2148,7 +2148,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/entry/exportArtifact', 'POST',
@@ -2255,7 +2255,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/report/{id}/{requestId}/execute', 'POST',
@@ -2350,7 +2350,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/incident/batch/exportToCsv', 'POST',
@@ -2445,7 +2445,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/indicators/batch/exportToCsv', 'POST',
@@ -2540,7 +2540,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/indicators/batch/export/stix', 'POST',
@@ -2631,7 +2631,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/reports', 'GET',
@@ -2722,7 +2722,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/widgets', 'GET',
@@ -2817,7 +2817,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/settings/audits', 'POST',
@@ -2912,7 +2912,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/automation/search', 'POST',
@@ -3003,7 +3003,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/settings/docker-images', 'GET',
@@ -3102,7 +3102,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/entry/artifact/{id}', 'GET',
@@ -3201,7 +3201,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/incident/csv/{id}', 'GET',
@@ -3300,7 +3300,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/incidentfields/associatedTypes/{type}', 'GET',
@@ -3399,7 +3399,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/indicators/csv/{id}', 'GET',
@@ -3498,7 +3498,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/indicators/stix/v2/{id}', 'GET',
@@ -3597,7 +3597,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/reports/{id}', 'GET',
@@ -3688,7 +3688,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/statistics/dashboards/query', 'POST',
@@ -3779,7 +3779,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/statistics/widgets/query', 'POST',
@@ -3878,7 +3878,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/widgets/{id}', 'GET',
@@ -3988,7 +3988,7 @@ class DefaultApi(object):
             ['multipart/form-data'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/classifier/import', 'POST',
@@ -4087,7 +4087,7 @@ class DefaultApi(object):
             ['multipart/form-data'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/dashboards/import', 'POST',
@@ -4186,7 +4186,7 @@ class DefaultApi(object):
             ['multipart/form-data'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/incidentfields/import', 'POST',
@@ -4285,7 +4285,7 @@ class DefaultApi(object):
             ['multipart/form-data'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/incidenttypes/import', 'POST',
@@ -4397,7 +4397,7 @@ class DefaultApi(object):
             ['multipart/form-data'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             demisto_client.get_layouts_url_for_demisto_version(self.api_client, params), 'POST',
@@ -4496,7 +4496,7 @@ class DefaultApi(object):
             ['multipart/form-data'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/playbook/save/yaml', 'POST',
@@ -4595,7 +4595,7 @@ class DefaultApi(object):
             ['multipart/form-data'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/automation/import', 'POST',
@@ -4694,7 +4694,7 @@ class DefaultApi(object):
             ['multipart/form-data'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/widgets/import', 'POST',
@@ -4821,7 +4821,7 @@ class DefaultApi(object):
             ['multipart/form-data'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/incident/upload/{id}', 'POST',
@@ -4916,7 +4916,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/indicator/whitelist', 'POST',
@@ -5011,7 +5011,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/indicator/create', 'POST',
@@ -5114,7 +5114,7 @@ class DefaultApi(object):
             ['multipart/form-data'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/indicators/upload', 'POST',
@@ -5209,7 +5209,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/indicator/edit', 'POST',
@@ -5304,7 +5304,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/indicators/search', 'POST',
@@ -5403,7 +5403,7 @@ class DefaultApi(object):
             ['multipart/form-data'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/settings/integration-conf/upload', 'POST',
@@ -5498,7 +5498,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/entry/execute/sync', 'POST',
@@ -5593,7 +5593,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/entry', 'POST',
@@ -5688,7 +5688,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/entry/formatted', 'POST',
@@ -5787,7 +5787,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/apikeys/revoke/user/{username}', 'POST',
@@ -5882,7 +5882,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/evidence', 'POST',
@@ -5977,7 +5977,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/automation', 'POST',
@@ -6072,7 +6072,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/widgets', 'POST',
@@ -6167,7 +6167,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/evidence/search', 'POST',
@@ -6266,7 +6266,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/incidents/search', 'POST',
@@ -6361,7 +6361,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/investigations/search', 'POST',
@@ -6456,7 +6456,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/inv-playbook/task/complete/simple', 'POST',
@@ -6575,7 +6575,7 @@ class DefaultApi(object):
             ['multipart/form-data'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/v2/inv-playbook/task/form/submit', 'POST',
@@ -6670,7 +6670,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/inv-playbook/task/note/add', 'POST',
@@ -6765,7 +6765,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/inv-playbook/task/assign', 'POST',
@@ -6860,7 +6860,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/inv-playbook/task/due', 'POST',
@@ -6955,7 +6955,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/inv-playbook/task/uncomplete', 'POST',
@@ -7050,7 +7050,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/entry/note', 'POST',
@@ -7145,7 +7145,7 @@ class DefaultApi(object):
             ['application/json', 'application/xml'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/entry/tags', 'POST',
@@ -7252,7 +7252,7 @@ class DefaultApi(object):
             ['multipart/form-data'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/contentpacks/installed/upload', 'POST',
@@ -7351,7 +7351,7 @@ class DefaultApi(object):
             ['multipart/form-data'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['api_key', 'csrf_token']  # noqa: E501
+        auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
             '/reports/upload', 'POST',

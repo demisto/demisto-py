@@ -75,14 +75,23 @@ def configure(base_url=None, api_key=None, verify_ssl=None, proxy=None, username
                 raise ValueError(err_msg)
             else:
                 connection_pool_maxsize = int(connection_pool_maxsize)
+    if not base_url:
+        raise ValueError('You must specify base_url either as a parameter or via env variable: DEMISTO_BASE_URL')
+    if not api_key and not username:
+        raise ValueError('You must specify either api_key or username/password either as parameters or use env variables:\n'
+                         '* DEMISTO_API_KEY\n'
+                         '* DEMISTO_USERNAME\n'
+                         '* DEMISTO_PASSWORD'
+                         )
+    if auth_id and not api_key:
+        raise ValueError('You must specify either api_key or use env variable DEMISTO_API_KEY to use Cortex XSIAM api, '
+                         'or remove the auth_id and/or the env variable XSIAM_AUTH_ID to use Cortex XSOAR api:\n')
     configuration = Configuration()
     configuration.api_key['Authorization'] = api_key
-    configuration.host = base_url
-    if isinstance(configuration.host, str):
-        configuration.host = configuration.host.rstrip('/')
+    configuration.host = os.path.join(base_url)
     if auth_id:
         configuration.api_key['x-xdr-auth-id'] = auth_id
-        configuration.host = f'{configuration.host}/xsoar'
+        configuration.host = os.path.join(configuration.host, 'xsoar')
     configuration.verify_ssl = verify_ssl
     configuration.proxy = proxy
     configuration.debug = debug
@@ -90,14 +99,6 @@ def configure(base_url=None, api_key=None, verify_ssl=None, proxy=None, username
     if connection_pool_maxsize:
         configuration.connection_pool_maxsize = connection_pool_maxsize
 
-    if not configuration.host:
-        raise ValueError('You must specify base_url either as a parameter or via env variable: DEMISTO_BASE_URL')
-    if not api_key and not username:
-        raise ValueError('You must specify either api_key or username/password either as parameters or use env variables:\n'
-                         '* DEMISTO_API_KEY\n'
-                         '* DEMISTO_USERNAME\n'
-                         '* DEMISTO_PASSWORD'  
-                         )
     if username is None:
         api_client = ApiClient(configuration)
         api_client.user_agent = 'demisto-py/' + __version__

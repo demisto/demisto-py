@@ -264,7 +264,7 @@ def generic_request_func(self, path, method, body=None, **kwargs):
         [params.get('content_type', 'application/json')])  # noqa: E501
 
     # Authentication setting
-    auth_settings = ['api_key']  # noqa: E501
+    auth_settings = ['api_key', 'x-xdr-auth-id']  # noqa: E501
 
     return self.api_client.call_api(
         path, method,

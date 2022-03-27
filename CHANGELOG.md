@@ -6,7 +6,7 @@
 
 ## Unreleased
 
-* Upgraded tzlocal from verison 2.1 to 4.1
+* Upgraded tzlocal from version 2.1 to 4.1.
 
 ## 3.1.2
 

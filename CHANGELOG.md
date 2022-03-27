@@ -4,7 +4,7 @@
 
 [1]: https://pypi.org/project/demisto-py/#history
 
-## Unreleased
+## 3.1.3
 
 * Upgraded tzlocal from version 2.1 to 4.1.
 

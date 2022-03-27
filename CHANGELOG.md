@@ -4,6 +4,9 @@
 
 [1]: https://pypi.org/project/demisto-py/#history
 
+## 3.1.3
+* Add support to Cortex XSIAM to the `generic_request`.
+
 ## 3.1.2
 * Add support to Cortex XSIAM.
 

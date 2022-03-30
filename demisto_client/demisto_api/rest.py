@@ -221,7 +221,7 @@ class RESTClientObject(object):
             # we need to decode it to string.
             if six.PY3 and r.getheader("Content-Type") != "application/octet-stream":
                 try:
-                    r.data = r.data.decode('utf8')
+                    r.data = r.data.decode("utf8")
                 except UnicodeDecodeError:
                     pass
 

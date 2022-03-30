@@ -66,7 +66,7 @@ sed -i "${INPLACE[@]}" -e 's#if six\.PY3:#if six.PY3 and r.getheader("Content-Ty
 sed -i "${INPLACE[@]}" -e 's/r.data = r.data.decode("utf8")/\
                 try:\
                     r.data = r.data.decode("utf8")\
-                except UnicodeEncodeError:\
+                except UnicodeDecodeError:\
                     pass' demisto_client/demisto_api/rest.py
 # Disable sensitive logging by default
 sed -i "${INPLACE[@]}" -e 's/import ssl/import ssl\

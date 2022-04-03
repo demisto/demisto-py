@@ -62,7 +62,7 @@ sed -i "${INPLACE[@]}" -e 's/import six/import six\
 import demisto_client/g' demisto_client/demisto_api/api/default_api.py
 echo -e "\n    def generic_request(self, path, method, body=None, **kwargs):  # noqa: E501\n        return demisto_client.generic_request_func(self, path, method, body, **kwargs)" >> demisto_client/demisto_api/api/default_api.py
 # fix bug where binary data is decoded on py3
-sed -i "${INPLACE[@]}" -e 's#if six\.PY3:#if six.PY3 and r.getheader("Content-Type") != "application/octet-stream":#' demisto_client/demisto_api/rest.py
+sed -i "${INPLACE[@]}" -e 's#if six\.PY3:#if six.PY3 and r.getheader("Content-Type") != "application/octet-stream" and r.getheader("Content-Type") != "application/gzip":#' demisto_client/demisto_api/rest.py
 # Disable sensitive logging by default
 sed -i "${INPLACE[@]}" -e 's/import ssl/import ssl\
 import os/g' demisto_client/demisto_api/rest.py

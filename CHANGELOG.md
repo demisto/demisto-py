@@ -1,5 +1,7 @@
 # Changelog
 
+* Fixed an issue where demisto-py failed when receiving `application/gzip`-encoded responses.
+
 [PyPI History][1]
 
 [1]: https://pypi.org/project/demisto-py/#history

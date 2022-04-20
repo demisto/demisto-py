@@ -2,40 +2,57 @@
 ### This configuration file is used by CircleCI build server
 ### https://circleci.com/docs/config-sample
 ### =============================================================
-version: 2
+version: 2.1
+parameters:
+  python-orb-version:
+    type: string
+    default: "2.0.3"
+  pythonversion:
+    type: string
+    default: "3.7"
+
+orbs: 
+  python: circleci/python@<< pipeline.parameters.python-orb-version >>
+
 jobs:
-  # using tox
-  toxify:
+  test:
+    docker:
+      - image: cimg/python:<< pipeline.parameters.pythonversion >>
+    steps:
+      - checkout
+      - python/install-packages:
+          pkg-manager: poetry
+      - run: poetry run pytest -v tests
+      - run:
+          name: verify
+          command: |
+            # Verify that code-gen.sh doesn't generate a diff
+            bash -x ./gen-code.sh 
+            # we diff only the code
+            if git diff -- demisto_client; then
+                echo "./gen-code.sh modified the source code. gen-code.sh should not modify the source code. If needed, run gen-code.sh before committing."
+                echo "git diff -- demisto_client output:"
+                echo "$DIFF_OUT"
+                exit 1
+            fi
+            echo "All is good"
+      - run: 
+          name: build
+          command: "poetry build --no-ansi"
+      - run:
+          name: deploy on tag change
+          command: |
+            if echo "${CIRCLE_TAG}" | grep -E "^v[0-9]+\.[0-9]+\.[0-9]+$"
+            then
+              poetry publish -u __token__ -p "${PYPI_TOKEN}" --dry-run
+            fi
 
-      machine:
-        image: ubuntu-1604:202007-01
-
-      steps:
-        - checkout
-        - run:
-            name: Setup Python
-            command: |
-              pyenv versions
-              pyenv global 3.8.3 3.7.8
-        - run:
-            name: tox build
-            command: |
-              pip install tox
-              tox -q
-        - run:
-            name: verify
-            command: |
-              ./verify.sh
-        - run: 
-            name: deploy
-            command: |
-              ./deploy.sh
 
 workflows:
   version: 2
   build_and_release:
     jobs:
-      - toxify:
+      - test:
           filters:
             tags:
               only: /^v\d+\.\d+\.\d+$/

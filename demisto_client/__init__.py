@@ -7,13 +7,12 @@ import json
 
 from demisto_client.demisto_api import ApiClient
 from demisto_client.demisto_api.configuration import Configuration
-from pkg_resources import get_distribution, DistributionNotFound
+from importlib.metadata import version, PackageNotFoundError
 from distutils.version import LooseVersion
 
 try:
-    __version__ = get_distribution(__name__).version
-except DistributionNotFound:
-    # package is not installed
+    __version__ = version(__name__)
+except PackageNotFoundError:
     __version__ = 'dev'
 
 

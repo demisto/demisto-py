@@ -1,6 +1,0 @@
-pytest
-urllib3_mock
-requests
-mock
-flake8
-pytest-mock

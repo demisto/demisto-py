@@ -42,7 +42,7 @@ def configure(base_url=None, api_key=None, verify_ssl=None, proxy=None, username
     :param password: str - Password of the user account.
     :param verify_ssl: bool - Indicates if valid SSLs are required for connection. If not specified (None)
         will default to True.
-    :param proxy: dict - Dict object of your proxy settings.
+    :param proxy: str - The URL of the proxy to be used.
     :param ssl_ca_cert: str - specify an alternate certificate bundle
     :param debug: bool - Include verbose logging.
     :param connection_pool_maxsize: int - specify a connection max pool size
@@ -68,9 +68,9 @@ def configure(base_url=None, api_key=None, verify_ssl=None, proxy=None, username
         else:
             verify_ssl = True
     if proxy is None:
-        if base_url.startswith('http'):
+        if base_url.lower().startswith('http'):
             proxy = os.getenv('HTTP_PROXY')
-        elif base_url.startswith('https'):
+        elif base_url.lower().startswith('https'):
             proxy = os.getenv('HTTPS_PROXY')
     if connection_pool_maxsize is None:
         connection_pool_maxsize = os.getenv('DEMISTO_CONNECTION_POOL_MAXSIZE')

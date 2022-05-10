@@ -3,6 +3,9 @@
 [PyPI History][1]
 [1]: https://pypi.org/project/demisto-py/#history
 
+## 3.1.7
+* Replaced the usage of the deprecated function pytz.localize().
+
 ## 3.1.6
 * Added a proxy environment variable that uses BASE_URL_DEMISTO.
 

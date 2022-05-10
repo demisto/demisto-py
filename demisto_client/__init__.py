@@ -202,7 +202,8 @@ def to_extended_dict(o):
                 ))
             elif isinstance(value, datetime.datetime):
                 if not value.tzinfo:  # no tz defined -> use machine local
-                    value = tzlocal.get_localzone().localize(value)
+                    local_tz = tzlocal.get_localzone()
+                    value = value.replace(tzinfo=local_tz)
                 result[o_map[attr]] = value.isoformat()
             else:
                 result[o_map[attr]] = value

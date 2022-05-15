@@ -23,6 +23,8 @@ jobs:
       - python/install-packages:
           pkg-manager: poetry
       - run: poetry run pytest -v tests
+      - setup_remote_docker:
+          version: 20.10.12
       - run:
           name: verify
           command: |

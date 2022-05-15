@@ -3,7 +3,7 @@
 [PyPI History][1]
 [1]: <https://pypi.org/project/demisto-py/#history>
 
-# Unreleased
+## Unreleased
 
 * Drop support for Python 3.7. demisto-py now requires Python 3.8 or later.
 

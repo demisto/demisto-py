@@ -9,7 +9,7 @@ parameters:
     default: "2.0.3"
   pythonversion:
     type: string
-    default: "3.7"
+    default: "3.8"
 
 orbs: 
   python: circleci/python@<< pipeline.parameters.python-orb-version >>

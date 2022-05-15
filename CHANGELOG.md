@@ -1,15 +1,22 @@
 # Changelog
 
 [PyPI History][1]
-[1]: https://pypi.org/project/demisto-py/#history
+[1]: <https://pypi.org/project/demisto-py/#history>
+
+# Unreleased
+
+* Drop support for Python 3.7. demisto-py now requires Python 3.8 or later.
 
 ## 3.1.7
+
 * Replaced the usage of the deprecated function `pytz.localize()`.
 
 ## 3.1.6
+
 * Added a proxy environment variable that uses BASE_URL_DEMISTO.
 
 ## 3.1.5
+
 * Fixed an issue where demisto-py failed when receiving `application/gzip`-encoded responses.
 
 ## 3.1.4

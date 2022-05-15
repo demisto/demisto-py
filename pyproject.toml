@@ -27,6 +27,7 @@ setuptools = ">=21.0.0"
 urllib3 = ">=1.26.7"
 tzlocal = "4.*"
 importlib-metadata = "<4.3"
+packaging = "^21.3"
 
 
 [tool.poetry.dev-dependencies]

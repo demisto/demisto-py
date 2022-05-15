@@ -8,7 +8,7 @@ import json
 from demisto_client.demisto_api import ApiClient
 from demisto_client.demisto_api.configuration import Configuration
 from importlib.metadata import version, PackageNotFoundError
-from distutils.version import LooseVersion
+from packaging.version import Version
 
 try:
     __version__ = version(__name__)
@@ -299,6 +299,6 @@ def get_layouts_url_for_demisto_version(api_client, params):
         '_preload_content', True))
     if 200 == status_code:
         server_details = json.loads(server_details.replace('\'', '"'))
-        if LooseVersion(server_details.get('demistoVersion')) >= LooseVersion('6.0.0'):
+        if Version(server_details.get('demistoVersion')) >= Version('6.0.0'):
             url = '/layouts/import'
     return url

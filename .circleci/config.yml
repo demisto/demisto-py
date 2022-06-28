@@ -8,7 +8,7 @@ jobs:
   toxify:
 
       machine:
-        image: ubuntu-1604:202007-01
+        image: cimg/python:3.10.5
 
       steps:
         - checkout

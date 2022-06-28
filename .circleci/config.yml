@@ -15,7 +15,8 @@ jobs:
             name: Setup Python
             command: |
               pyenv versions
-              pyenv global 3.10.2
+              pyenv install 3.9.13
+              pyenv global 3.10.2 3.9.13
         - run:
             name: tox build
             command: |

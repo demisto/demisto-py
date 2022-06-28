@@ -6,28 +6,28 @@ version: 2
 jobs:
   # using tox
   toxify:
-    docker:
-      image: cimg/python:3.10.5
-    steps:
-      - checkout
-      - run:
-          name: Setup Python
-          command: |
-            pyenv versions
-            pyenv global 3.8.3 3.7.8
-      - run:
-          name: tox build
-          command: |
-            pip install tox
-            tox -q
-      - run:
-          name: verify
-          command: |
-            ./verify.sh
-      - run: 
-          name: deploy
-          command: |
-            ./deploy.sh
+      docker:
+        image: cimg/python:3.10.5
+      steps:
+        - checkout
+        - run:
+            name: Setup Python
+            command: |
+              pyenv versions
+              pyenv global 3.8.3 3.7.8
+        - run:
+            name: tox build
+            command: |
+              pip install tox
+              tox -q
+        - run:
+            name: verify
+            command: |
+              ./verify.sh
+        - run: 
+            name: deploy
+            command: |
+              ./deploy.sh
 
 workflows:
   version: 2

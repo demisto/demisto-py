@@ -12,12 +12,6 @@ jobs:
       steps:
         - checkout
         - run:
-            name: Setup Python
-            command: |
-              pyenv versions
-              pyenv install 3.8.13
-              pyenv global 3.8.13 3.10.5
-        - run:
             name: tox build
             command: |
               pip install tox

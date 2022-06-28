@@ -6,14 +6,15 @@ version: 2
 jobs:
   # using tox
   toxify:
-      docker:
-        - image: cimg/python:3.10.5
+    docker:
+      - image: cimg/python:3.10.5
       steps:
         - checkout
         - run:
             name: Setup Python
             command: |
               pyenv versions
+              pyenv install 3.8.3 3.7.8
               pyenv global 3.8.3 3.7.8
         - run:
             name: tox build

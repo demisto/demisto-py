@@ -7,7 +7,7 @@ jobs:
   # using tox
   toxify:
 
-      machine:
+      docker:
         image: cimg/python:3.10.4
 
       steps:

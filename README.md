@@ -159,13 +159,13 @@ tox -l
 Then setup dev virtual envs for python 3 (will also install all necessary requirements):
 
 ```bash
-tox --devenv py37
+tox --devenv py310
 ```
 
 Switch to python 3 env by running:
 
 ```bash
-. py37/bin/activate
+. py310/bin/activate
 ```
 
 ## Running Unit Tests
@@ -176,7 +176,7 @@ We use pytest to run unit tests. Inside a virtual env you can run unit test usin
 python -m pytest -v
 ```
 
-Additionally, our build uses tox to run on multiple envs. To use tox to run on all supported environments (py36, py37), run:
+Additionally, our build uses tox to run on multiple envs. To use tox to run on all supported environments (py39, py310), run:
 
 ```bash
 tox -q  

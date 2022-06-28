@@ -15,7 +15,6 @@ jobs:
             name: Setup Python
             command: |
               pyenv versions
-              pyenv install --list
               pyenv install 3.9.10
               pyenv global 3.10.2 3.9.10
         - run:

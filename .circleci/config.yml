@@ -12,7 +12,7 @@ jobs:
       steps:
         - checkout
         - run:
-        name: Setup Python
+            name: Setup Python
             command: |
               pyenv versions
               pyenv global 3.10.5

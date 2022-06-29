@@ -3,6 +3,9 @@
 [PyPI History][1]
 [1]: https://pypi.org/project/demisto-py/#history
 
+## 3.2.1
+* Raising an error when `base_url` is not provided.
+
 ## 3.2.0
 * Removed testing with Python 3.7 and 3.8, and added testing with Python 3.9 and 3.10.
 

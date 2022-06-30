@@ -23,7 +23,7 @@ def configure(base_url=None, api_key=None, verify_ssl=None, proxy=None, username
     This wrapper provides an easier to use method of configuring the API client. The base
     Configuration method is still exposed if you wish to further configure the API Client.
 
-    To avoid hard coding configurations in your code, it is possible to specify configruation params
+    To avoid hard coding configurations in your code, it is possible to specify configuration params
     as the following environment variables (env variables will be used if parameters are not specified):
 
     * DEMISTO_BASE_URL
@@ -51,6 +51,8 @@ def configure(base_url=None, api_key=None, verify_ssl=None, proxy=None, username
     """
     if base_url is None:
         base_url = os.getenv('DEMISTO_BASE_URL')
+        if not base_url:
+            raise RuntimeError('the DEMISTO_BASE_URL value is not set.')
     if api_key is None:
         api_key = os.getenv('DEMISTO_API_KEY')
     if auth_id is None:

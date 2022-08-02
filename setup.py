@@ -35,7 +35,7 @@ setup(
     keywords=["Swagger", "Demisto API"],
     install_requires=REQUIRES,
     packages=find_packages(),
-    python_requires='>=3.9',
+    python_requires='>=3.8',
     include_package_data=True,
     long_description=readme,
     long_description_content_type='text/markdown',
@@ -45,6 +45,7 @@ setup(
         'Natural Language :: English',
         'License :: OSI Approved :: Apache Software License',
         'Programming Language :: Python',    
+        'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: Implementation :: CPython'

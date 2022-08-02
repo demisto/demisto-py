@@ -176,7 +176,7 @@ We use pytest to run unit tests. Inside a virtual env you can run unit test usin
 python -m pytest -v
 ```
 
-Additionally, our build uses tox to run on multiple envs. To use tox to run on all supported environments (py39, py310), run:
+Additionally, our build uses tox to run on multiple envs. To use tox to run on all supported environments (py38, py39, py310), run:
 
 ```bash
 tox -q  

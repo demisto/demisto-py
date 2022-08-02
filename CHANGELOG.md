@@ -3,6 +3,10 @@
 [PyPI History][1]
 [1]: https://pypi.org/project/demisto-py/#history
 
+
+## 3.2.2
+* Re-added Python 3.8 support.
+
 ## 3.2.1
 * Raising an error when `base_url` is not provided.
 

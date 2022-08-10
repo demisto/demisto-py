@@ -1664,6 +1664,36 @@
         }
       }
     },
+    "/reputation/import": {
+      "post": {
+        "description": "Import a reputation type to XSOAR",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "Import a reputation type",
+        "operationId": "importReputationHandler",
+        "parameters": [
+          {
+            "type": "file",
+            "description": "file",
+            "name": "file",
+            "in": "formData",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The saved reputation type",
+            "schema": {
+              "$ref": "#/definitions/reputationsWithErrors"
+            }
+          }
+        }
+      }
+    },
     "/settings/audits": {
       "post": {
         "description": "Get audits by filter",
@@ -9864,6 +9894,23 @@
           "type": "integer",
           "format": "int64",
           "x-go-name": "Version"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/web"
+    },
+    "reputationsWithErrors": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string",
+          "x-go-name": "Error"
+        },
+        "reputations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Reputation"
+          },
+          "x-go-name": "Reputations"
         }
       },
       "x-go-package": "github.com/demisto/server/web"

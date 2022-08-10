@@ -49,6 +49,7 @@ Method | HTTP request | Description
 [**import_incident_types_handler**](DefaultApi.md#import_incident_types_handler) | **POST** /incidenttypes/import | Import an incident type
 [**import_layout**](DefaultApi.md#import_layout) | **POST** /v2/layouts/import | Import a layout
 [**import_playbook**](DefaultApi.md#import_playbook) | **POST** /playbook/save/yaml | Import and override playbook
+[**import_reputation_handler**](DefaultApi.md#import_reputation_handler) | **POST** /reputation/import | Import a reputation type
 [**import_script**](DefaultApi.md#import_script) | **POST** /automation/import | Upload an automation
 [**import_widget**](DefaultApi.md#import_widget) | **POST** /widgets/import | Import a widget
 [**incident_file_upload**](DefaultApi.md#incident_file_upload) | **POST** /incident/upload/{id} | 
@@ -218,6 +219,7 @@ Method | HTTP request | Description
  - [ReportQuery](ReportQuery.md)
  - [ReputationCalcAlg](ReputationCalcAlg.md)
  - [ReputationData](ReputationData.md)
+ - [ReputationsWithErrors](ReputationsWithErrors.md)
  - [RunStatus](RunStatus.md)
  - [SLA](SLA.md)
  - [SLAState](SLAState.md)

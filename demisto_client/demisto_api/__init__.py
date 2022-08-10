@@ -158,6 +158,7 @@ from demisto_client.demisto_api.models.report_fields_decoder import ReportFields
 from demisto_client.demisto_api.models.report_query import ReportQuery
 from demisto_client.demisto_api.models.reputation_calc_alg import ReputationCalcAlg
 from demisto_client.demisto_api.models.reputation_data import ReputationData
+from demisto_client.demisto_api.models.reputations_with_errors import ReputationsWithErrors
 from demisto_client.demisto_api.models.run_status import RunStatus
 from demisto_client.demisto_api.models.sla import SLA
 from demisto_client.demisto_api.models.sla_state import SLAState

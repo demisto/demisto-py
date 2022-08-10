@@ -49,6 +49,7 @@ Method | HTTP request | Description
 [**import_incident_types_handler**](DefaultApi.md#import_incident_types_handler) | **POST** /incidenttypes/import | Import an incident type
 [**import_layout**](DefaultApi.md#import_layout) | **POST** /v2/layouts/import | Import a layout
 [**import_playbook**](DefaultApi.md#import_playbook) | **POST** /playbook/save/yaml | Import and override playbook
+[**import_reputation_handler**](DefaultApi.md#import_reputation_handler) | **POST** /reputation/import | Import a reputation type
 [**import_script**](DefaultApi.md#import_script) | **POST** /automation/import | Upload an automation
 [**import_widget**](DefaultApi.md#import_widget) | **POST** /widgets/import | Import a widget
 [**incident_file_upload**](DefaultApi.md#incident_file_upload) | **POST** /incident/upload/{id} | 
@@ -2236,6 +2237,54 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Playbook**](Playbook.md)
+
+### Authorization
+
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
+
+### HTTP request headers
+
+ - **Content-Type**: multipart/form-data
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **import_reputation_handler**
+> ReputationsWithErrors import_reputation_handler(file)
+
+Import a reputation type
+
+Import a reputation type to XSOAR
+
+### Example
+```python
+from __future__ import print_function
+import time
+import demisto_client
+import demisto_client.demisto_api
+from demisto_client.demisto_api.rest import ApiException
+from pprint import pprint
+
+api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
+file = '/path/to/file.txt' # file | file
+
+try:
+    # Import a reputation type
+    api_response = api_instance.import_reputation_handler(file)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->import_reputation_handler: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **file** | **file**| file | 
+
+### Return type
+
+[**ReputationsWithErrors**](ReputationsWithErrors.md)
 
 ### Authorization
 

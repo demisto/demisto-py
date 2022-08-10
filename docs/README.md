@@ -217,6 +217,7 @@ Method | HTTP request | Description
  - [ReportAutomation](ReportAutomation.md)
  - [ReportFieldsDecoder](ReportFieldsDecoder.md)
  - [ReportQuery](ReportQuery.md)
+ - [Reputation](Reputation.md)
  - [ReputationCalcAlg](ReputationCalcAlg.md)
  - [ReputationData](ReputationData.md)
  - [ReputationsWithErrors](ReputationsWithErrors.md)

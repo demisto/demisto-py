@@ -8491,6 +8491,236 @@
       },
       "x-go-package": "github.com/demisto/server/domain"
     },
+    "Reputation": {
+      "description": "This struct is store in the BOLT data store and not indexed into bleve",
+      "type": "object",
+      "title": "Reputation holds information about the reputation of the entry contents.",
+      "properties": {
+        "cacheVersn": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "CacheVersn"
+        },
+        "commitMessage": {
+          "type": "string",
+          "x-go-name": "CommitMessage"
+        },
+        "contextPath": {
+          "type": "string",
+          "x-go-name": "ContextPath"
+        },
+        "contextValue": {
+          "type": "string",
+          "x-go-name": "ContextValue"
+        },
+        "defaultMapping": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/AdvanceArg"
+          },
+          "x-go-name": "DefaultMapping"
+        },
+        "definitionId": {
+          "type": "string",
+          "x-go-name": "DefinitionID"
+        },
+        "details": {
+          "type": "string",
+          "x-go-name": "Details"
+        },
+        "disabled": {
+          "type": "boolean",
+          "x-go-name": "Disabled"
+        },
+        "enhancementScriptNames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "EnhancementScriptNames"
+        },
+        "excludedBrands": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "ExcludedBrands"
+        },
+        "expiration": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "ExpirationInMinutes"
+        },
+        "file": {
+          "type": "boolean",
+          "x-go-name": "FileReputation"
+        },
+        "fileHashesPriority": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "FileHashesPriority"
+        },
+        "formatScript": {
+          "type": "string",
+          "x-go-name": "FormatScript"
+        },
+        "fromServerVersion": {
+          "$ref": "#/definitions/Version"
+        },
+        "highlight": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "x-go-name": "Highlight"
+        },
+        "id": {
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "itemVersion": {
+          "$ref": "#/definitions/Version"
+        },
+        "layout": {
+          "type": "string",
+          "x-go-name": "Layout"
+        },
+        "legacyNames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "LegacyNames"
+        },
+        "locked": {
+          "type": "boolean",
+          "x-go-name": "Locked"
+        },
+        "manualMapping": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/AdvanceArg"
+          },
+          "x-go-name": "ManualMapping"
+        },
+        "mergeContext": {
+          "type": "boolean",
+          "x-go-name": "MergeContext"
+        },
+        "modified": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "Modified"
+        },
+        "numericId": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "NumericID"
+        },
+        "packID": {
+          "type": "string",
+          "x-go-name": "PackID"
+        },
+        "packName": {
+          "type": "string",
+          "x-go-name": "PackName"
+        },
+        "packPropagationLabels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "PackPropagationLabels"
+        },
+        "prevDetails": {
+          "type": "string",
+          "x-go-name": "PrevDetails"
+        },
+        "primaryTerm": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "PrimaryTerm"
+        },
+        "propagationLabels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "PropagationLabels"
+        },
+        "regex": {
+          "type": "string",
+          "x-go-name": "Regex"
+        },
+        "remote": {
+          "type": "boolean",
+          "x-go-name": "Remote"
+        },
+        "reputationCommand": {
+          "type": "string",
+          "x-go-name": "ReputationCommand"
+        },
+        "reputationScriptName": {
+          "type": "string",
+          "x-go-name": "ReputationScriptName"
+        },
+        "sequenceNumber": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "SeqNum"
+        },
+        "shouldCommit": {
+          "type": "boolean",
+          "x-go-name": "ShouldCommit"
+        },
+        "shouldShareComments": {
+          "type": "boolean",
+          "x-go-name": "ShouldShareComments"
+        },
+        "sortValues": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "SortValues"
+        },
+        "syncHash": {
+          "type": "string",
+          "x-go-name": "SyncHash"
+        },
+        "system": {
+          "type": "boolean",
+          "x-go-name": "System"
+        },
+        "toServerVersion": {
+          "$ref": "#/definitions/Version"
+        },
+        "updateAfter": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "UpdateAfter"
+        },
+        "vcShouldIgnore": {
+          "type": "boolean",
+          "x-go-name": "VCShouldIgnore"
+        },
+        "vcShouldKeepItemLegacyProdMachine": {
+          "type": "boolean",
+          "x-go-name": "VCShouldKeepItemLegacyProdMachine"
+        },
+        "version": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Versn"
+        }
+      },
+      "x-go-package": "github.com/demisto/server/domain"
+    },
     "ReputationCalcAlg": {
       "type": "number",
       "format": "double",

@@ -28,6 +28,8 @@ as the following environment variables (env variables will be used if parameters
 * DEMISTO_VERIFY_SSL (true/false. Default: true)
 * XSIAM_AUTH_ID (for Cortex XSIAM only. If set, Cortex XSIAM API will be used)
 * SSL_CERT_FILE (specify an alternate certificate bundle)
+* HTTP_PROXY
+* HTTPS_PROXY
 
 ### 2. Create a Demisto client instance with the api-key and server-url
 

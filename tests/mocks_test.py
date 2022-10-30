@@ -4,6 +4,10 @@ from urllib3_mock import Responses
 import demisto_client
 from datetime import datetime
 import json
+import urllib3
+import tempfile
+from demisto_client.demisto_api import rest
+
 responses = Responses('requests.packages.urllib3')
 
 api_key = 'sample_api_key'
@@ -382,3 +386,27 @@ class TestFailedGenericRequestWithEnv(unittest.TestCase):
                 assert 1 == 1
         run()
         assert_reset()
+
+
+def test_import_incidentfields(mocker):
+    """
+    Given:
+        A path for a incidentfield.
+    When:
+        Importing incidentfields with partial errors.
+    Then:
+        Make sure the partial error is returned.
+    """
+
+    api_instance = demisto_client.configure(base_url=host, api_key=api_key, debug=False)
+
+    raw_http_response = urllib3.response.HTTPResponse(body=b'{"incidentFields":[{"id":"evidence_description"}],'
+                                                           b'"error":"Partial Error Description"}\n', status=200)
+    mocker.patch.object(rest.RESTClientObject, 'POST', return_value=raw_http_response)
+    with tempfile.NamedTemporaryFile() as tmp:
+        res = api_instance.import_incident_fields(tmp.name)
+    if isinstance(res, dict):
+        assert res.get('error') == 'Partial Error Description'
+    else:
+        assert hasattr(res, 'error')
+        assert res.error == 'Partial Error Description'

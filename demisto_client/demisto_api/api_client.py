@@ -240,7 +240,11 @@ class ApiClient(object):
         except ValueError:
             data = response.data
 
-        return self.__deserialize(data, response_type)
+        deserialized_response = self.__deserialize(data, response_type)
+        if isinstance(data, dict) and 'error' in data.keys():
+            error_message = data.get('error')
+            return {'response': deserialized_response, 'error': error_message}
+        return deserialized_response
 
     def __deserialize(self, data, klass):
         """Deserializes dict, list, str into an object.

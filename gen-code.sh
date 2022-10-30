@@ -117,7 +117,17 @@ sed -i "${INPLACE[@]}" -e 's/PRIMITIVE_TYPES = (float, bool, bytes, six.text_typ
     PRIMITIVE_TYPES = (float, bool, bytes, six.text_type) + six.integer_types/' -e 's/self.last_response = response_data/if self.CACHE_LAST_RESPONSE:\
             self.last_response = response_data/' demisto_client/demisto_api/api_client.py
 # End fix import_classifier
-
+# Fix return partial errors
+select_line=`grep "return self.__deserialize(data, response_type)" demisto_client/demisto_api/api_client.py -n | cut -f1 -d: | tail -1 | tr -d "\\n"`
+start_line=$((select_line))
+sed -i "${INPLACE[@]}" -e "${start_line}a\\
+\ \ \ \ \ \ \ \ deserialized_response = self.__deserialize(data, response_type)\\
+\ \ \ \ \ \ \ \ if isinstance(data, dict) and 'error' in data.keys():\\
+\ \ \ \ \ \ \ \ \ \ \ \ error_message = data.get('error')\\
+\ \ \ \ \ \ \ \ \ \ \ \ return {'response': deserialized_response, 'error': error_message}\\
+\ \ \ \ \ \ \ \ return deserialized_response" demisto_client/demisto_api/api_client.py
+sed -i "${INPLACE[@]}" -e "${start_line}d" demisto_client/demisto_api/api_client.py
+# End fix return partial errors
 # remove files not used
 rm .travis.yml
 rm git_push.sh

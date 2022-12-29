@@ -107,7 +107,7 @@ def configure(base_url=None, api_key=None, verify_ssl=None, proxy=None, username
     if connection_pool_maxsize:
         configuration.connection_pool_maxsize = connection_pool_maxsize
 
-    if username is None:
+    if username is None or auth_id:
         api_client = ApiClient(configuration)
         api_client.user_agent = 'demisto-py/' + __version__
         api_instance = demisto_api.DefaultApi(api_client)

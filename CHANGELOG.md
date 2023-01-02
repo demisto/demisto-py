@@ -3,11 +3,14 @@
 [PyPI History][1]
 [1]: https://pypi.org/project/demisto-py/#history
 
-## 3.2.4
+## 3.2.5
 * Fixed an issue where demisto-py failed to upload content to XSIAM when `DEMISTO_USERNAME` environment variable is set.
 
-## 3.2.3
+## 3.2.4
 * Fixed an issue where demisto-py did not return partial errors when importing incident fields.
+
+## 3.2.3
+* Add reputation routes.
 
 ## 3.2.2
 * Re-added Python 3.8 support.

@@ -1,5 +1,7 @@
 # Changelog
 
+:hide-the-pain:
+
 [PyPI History][1]
 [1]: https://pypi.org/project/demisto-py/#history
 

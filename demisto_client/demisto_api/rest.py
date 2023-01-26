@@ -97,6 +97,7 @@ class RESTClientObject(object):
                 ca_certs=ca_certs,
                 cert_file=configuration.cert_file,
                 key_file=configuration.key_file,
+                proxy_headers=proxy_headers,
                 proxy_url=configuration.proxy,
                 **addition_pool_args
             )

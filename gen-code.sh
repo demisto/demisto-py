@@ -80,7 +80,8 @@ sed -i "${INPLACE[@]}" -e 's/if configuration.proxy:/if configuration.proxy:\
                 proxy_headers = urllib3.util.make_headers(proxy_basic_auth=parsed_proxy_url.auth)\
 /' demisto_client/demisto_api/rest.py
 
-proxy_url=configuration.proxy,
+sed -i "${INPLACE[@]}" -e 's/proxy_url=configuration.proxy,/proxy_headers=proxy_headers,\
+                proxy_url=configuration.proxy,/' demisto_client/demisto_api/rest.py
 
 sed -i "${INPLACE[@]}" -e 's#        if self.headers:#        if self.headers and sensitive_logging:#' demisto_client/demisto_api/rest.py
 # Fix import layout command

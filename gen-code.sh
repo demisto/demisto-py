@@ -72,6 +72,16 @@ sed -i "${INPLACE[@]}" -e 's/"""Custom error messages for exception"""/"""Custom
             sensitive_logging = sensitive_env.lower() in ["true", "1", "yes"]\
         else:\
             sensitive_logging = False/' demisto_client/demisto_api/rest.py
+
+sed -i "${INPLACE[@]}" -e 's/if configuration.proxy:/if configuration.proxy:\
+            proxy_headers = None\
+            parsed_proxy_url = urllib3.util.parse_url(configuration.proxy)\
+            if parsed_proxy_url.auth is not None:\
+                proxy_headers = urllib3.util.make_headers(proxy_basic_auth=parsed_proxy_url.auth)\
+/' demisto_client/demisto_api/rest.py
+
+proxy_url=configuration.proxy,
+
 sed -i "${INPLACE[@]}" -e 's#        if self.headers:#        if self.headers and sensitive_logging:#' demisto_client/demisto_api/rest.py
 # Fix import layout command
 start=`grep "verify the required parameter 'type'" demisto_client/demisto_api/api/default_api.py -n | cut -f1 -d: | tail -1 | tr -d "\\n"`

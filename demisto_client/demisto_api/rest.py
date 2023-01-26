@@ -85,6 +85,11 @@ class RESTClientObject(object):
 
         # https pool manager
         if configuration.proxy:
+            proxy_headers = None
+            parsed_proxy_url = urllib3.util.parse_url(configuration.proxy)
+            if parsed_proxy_url.auth is not None:
+                proxy_headers = urllib3.util.make_headers(proxy_basic_auth=parsed_proxy_url.auth)
+
             self.pool_manager = urllib3.ProxyManager(
                 num_pools=pools_size,
                 maxsize=maxsize,

@@ -3,6 +3,9 @@
 [PyPI History][1]
 [1]: https://pypi.org/project/demisto-py/#history
 
+## 3.2.6
+* Added support for proxy basic authentication.
+
 ## 3.2.5
 * Fixed an issue where demisto-py failed to upload content to XSIAM when `DEMISTO_USERNAME` environment variable is set.
 

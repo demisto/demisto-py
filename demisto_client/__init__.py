@@ -97,11 +97,11 @@ def configure(base_url=None, api_key=None, verify_ssl=None, proxy=None, username
     configuration = Configuration()
     configuration.api_key['Authorization'] = api_key
     configuration.host = os.path.join(base_url)
-    if auth_id and not configuration.host.startswith("https://api-"):
-        configuration.host = configuration.host.replace('https://', 'https://api-')
     if auth_id:
         configuration.api_key['x-xdr-auth-id'] = auth_id
         configuration.host = os.path.join(configuration.host, 'xsoar')
+        if not configuration.host.startswith("https://api-"):
+            configuration.host = configuration.host.replace('https://', 'https://api-')
     configuration.verify_ssl = verify_ssl
     configuration.proxy = proxy
     configuration.debug = debug

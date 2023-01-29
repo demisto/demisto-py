@@ -97,9 +97,8 @@ def configure(base_url=None, api_key=None, verify_ssl=None, proxy=None, username
     configuration = Configuration()
     configuration.api_key['Authorization'] = api_key
     configuration.host = os.path.join(base_url)
-    if auth_id and not str(configuration.host).startswith("https://api-"):
-        raise ValueError(f'Using XSIAM, DEMISTO_BASE_URL should start with `https://api-`. '
-                         f'Your current URL is: {configuration.host}')
+    if auth_id and not configuration.host.startswith("https://api-"):
+        configuration.host = configuration.host.replace('https://', 'https://api-')
     if auth_id:
         configuration.api_key['x-xdr-auth-id'] = auth_id
         configuration.host = os.path.join(configuration.host, 'xsoar')

@@ -100,6 +100,8 @@ def configure(base_url=None, api_key=None, verify_ssl=None, proxy=None, username
     if auth_id:
         configuration.api_key['x-xdr-auth-id'] = auth_id
         configuration.host = os.path.join(configuration.host, 'xsoar')
+        if not configuration.host.startswith("https://api-"):
+            configuration.host = configuration.host.replace('https://', 'https://api-')
     configuration.verify_ssl = verify_ssl
     configuration.proxy = proxy
     configuration.debug = debug

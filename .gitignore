@@ -94,3 +94,6 @@ git_push.sh
 .pytest_cache
 py27
 py37
+
+# PyCharm configurtion files
+.idea/

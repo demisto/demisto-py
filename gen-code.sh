@@ -127,7 +127,37 @@ sed -i "${INPLACE[@]}" -e "${start}a\\
 sed -i "${INPLACE[@]}" -e 's/PRIMITIVE_TYPES = (float, bool, bytes, six.text_type) + six.integer_types/CACHE_LAST_RESPONSE = not os.environ.get("DONT_CACHE_LAST_RESPONSE", False)\
     PRIMITIVE_TYPES = (float, bool, bytes, six.text_type) + six.integer_types/' -e 's/self.last_response = response_data/if self.CACHE_LAST_RESPONSE:\
             self.last_response = response_data/' demisto_client/demisto_api/api_client.py
+
 # End fix import_classifier
+
+# Start session timeouts handling
+sed -i "${INPLACE[@]}" -e 's/self.cookie = cookie/self.cookie = cookie\
+        self._login_success = False/' demisto_client/demisto_api/api_client.py
+
+select_line=`grep "response_data = self.request(" demisto_client/demisto_api/api_client.py -n | cut -f1 -d: | tail -1 | tr -d "\\n"`
+start_line=$((select_line))
+select_line=`grep "_request_timeout=_request_timeout)" demisto_client/demisto_api/api_client.py -n | cut -f1 -d: | tail -1 | tr -d "\\n"`
+end_line=$((select_line))
+
+sed -i "${INPLACE[@]}" -e "${end_line}a\\
+\ \ \ \ \ \ \ \ try:\\
+\ \ \ \ \ \ \ \ \ \ \ \ response_data = self.request(\\
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ method, url, query_params=query_params, headers=header_params, post_params=post_params,\\
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ body=body, _preload_content=_preload_content, _request_timeout=_request_timeout)\\
+\ \ \ \ \ \ \ \ \ \ \ \ self._login_success = True\\
+\ \ \ \ \ \ \ \ except rest.ApiException as exc:\\
+\ \ \ \ \ \ \ \ \ \ \ \ if self._login_success and exc.status == 401:\\
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self._login_success = False\\
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.rest_client = rest.RESTClientObject(self.configuration)\\
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ response_data = self.request(\\
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ method, url, query_params=query_params, headers=header_params, post_params=post_params,\\
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ body=body, _preload_content=_preload_content, _request_timeout=_request_timeout)\\
+\ \ \ \ \ \ \ \ \ \ \ \ else:\\
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ raise exc" demisto_client/demisto_api/api_client.py
+
+sed -i "${INPLACE[@]}" -e "${start_line},${end_line}d" demisto_client/demisto_api/api_client.py
+
+
 # Fix return partial errors
 select_line=`grep "return self.__deserialize(data, response_type)" demisto_client/demisto_api/api_client.py -n | cut -f1 -d: | tail -1 | tr -d "\\n"`
 start_line=$((select_line))

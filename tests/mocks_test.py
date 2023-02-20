@@ -410,3 +410,37 @@ def test_import_incidentfields(mocker):
     else:
         assert hasattr(res, 'error')
         assert res.error == 'Partial Error Description'
+
+
+def test_retry_on_session_timeouts(mocker):
+    """
+    Given:
+        Api responses where in the second call we got 401 on session timeout.
+
+    When:
+        running 3 api calls (generic requests)
+
+    Then:
+        1. make sure in the first generic request that session timeouts retry mechanism was not triggerd.
+        2. make sure in the second generic request session timeouts retry mechanism was triggerd properly.
+        3. make sure in the last api call that session timeouts retry mechanism was not triggerd.
+    """
+    api_instance = demisto_client.configure(base_url=host, api_key=api_key, debug=False)
+    raw_http_responses = [
+        urllib3.response.HTTPResponse(body=b'{}', status=200),
+        rest.ApiException(http_resp=urllib3.response.HTTPResponse(body=b'{}', status=401)),
+        urllib3.response.HTTPResponse(body=b'{}', status=200),
+        urllib3.response.HTTPResponse(body=b'{}', status=200)
+    ]
+
+    requests_client = mocker.patch.object(rest.RESTClientObject, 'GET', side_effect=raw_http_responses)
+
+    api_instance.generic_request(path='/about', method='GET')
+    assert requests_client.call_count == 1
+    assert api_instance.api_client._login_success
+    api_instance.generic_request(path='/about', method='GET')
+    assert not api_instance.api_client._login_success
+    assert requests_client.call_count == 3
+    api_instance.generic_request(path='/about', method='GET')
+    assert api_instance.api_client._login_success
+    assert requests_client.call_count == 4

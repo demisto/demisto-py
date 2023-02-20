@@ -74,6 +74,7 @@ class ApiClient(object):
         if header_name is not None:
             self.default_headers[header_name] = header_value
         self.cookie = cookie
+        self._login_success = False
         # Set default User-Agent.
         self.user_agent = 'Swagger-Codegen/2.0.0/python'
 
@@ -155,11 +156,20 @@ class ApiClient(object):
         url = self.configuration.host + resource_path
 
         # perform request and return response
-        response_data = self.request(
-            method, url, query_params=query_params, headers=header_params,
-            post_params=post_params, body=body,
-            _preload_content=_preload_content,
-            _request_timeout=_request_timeout)
+        try:
+            response_data = self.request(
+               method, url, query_params=query_params, headers=header_params, post_params=post_params,
+               body=body, _preload_content=_preload_content, _request_timeout=_request_timeout)
+            self._login_success = True
+        except rest.ApiException as exc:
+            if self._login_success and exc.status == 401:
+                self._login_success = False
+                self.rest_client = rest.RESTClientObject(self.configuration)
+                response_data = self.request(
+                   method, url, query_params=query_params, headers=header_params, post_params=post_params,
+                   body=body, _preload_content=_preload_content, _request_timeout=_request_timeout)
+            else:
+                raise exc
 
         if self.CACHE_LAST_RESPONSE:
             self.last_response = response_data

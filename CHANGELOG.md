@@ -3,6 +3,9 @@
 [PyPI History][1]
 [1]: https://pypi.org/project/demisto-py/#history
 
+# 3.2.8
+* Fixed an issue where clients could receive session timeouts in some occasions. 
+
 ## 3.2.7
 * Added an ability to change `DEMISTO_BASE_URL` environment variable to api url, when using XSIAM.
 

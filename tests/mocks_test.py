@@ -422,8 +422,8 @@ def test_retry_on_session_timeouts(mocker):
 
     Then:
         1. make sure in the first generic request that session timeouts retry mechanism was not triggerd.
-        2. make sure in the second generic request session timeouts retry mechanism was triggerd properly.
-        3. make sure in the last api call that session timeouts retry mechanism was not triggerd.
+        2. make sure in the second generic request that session timeouts retry mechanism was triggerd properly.
+        3. make sure in the last generic request that session timeouts retry mechanism was not triggerd.
     """
     api_instance = demisto_client.configure(base_url=host, api_key=api_key, debug=False)
     raw_http_responses = [

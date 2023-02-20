@@ -155,8 +155,9 @@ sed -i "${INPLACE[@]}" -e "${end_line}a\\
 \ \ \ \ \ \ \ \ \ \ \ \ else:\\
 \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ raise exc" demisto_client/demisto_api/api_client.py
 
+# remove the old lines
 sed -i "${INPLACE[@]}" -e "${start_line},${end_line}d" demisto_client/demisto_api/api_client.py
-
+# End session timeouts handling
 
 # Fix return partial errors
 select_line=`grep "return self.__deserialize(data, response_type)" demisto_client/demisto_api/api_client.py -n | cut -f1 -d: | tail -1 | tr -d "\\n"`

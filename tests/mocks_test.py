@@ -425,15 +425,17 @@ def test_retry_on_session_timeouts(mocker):
         2. make sure in the second generic request that session timeouts retry mechanism was triggerd properly.
         3. make sure in the last generic request that session timeouts retry mechanism was not triggerd.
     """
+    from urllib3 import PoolManager
+
     api_instance = demisto_client.configure(base_url=host, api_key=api_key, debug=False)
     raw_http_responses = [
         urllib3.response.HTTPResponse(body=b'{}', status=200),
-        rest.ApiException(http_resp=urllib3.response.HTTPResponse(body=b'{}', status=401)),
+        urllib3.response.HTTPResponse(body=b'{}', status=401),
         urllib3.response.HTTPResponse(body=b'{}', status=200),
         urllib3.response.HTTPResponse(body=b'{}', status=200)
     ]
 
-    requests_client = mocker.patch.object(rest.RESTClientObject, 'GET', side_effect=raw_http_responses)
+    requests_client = mocker.patch.object(PoolManager, 'request', side_effect=raw_http_responses)
 
     api_instance.generic_request(path='/about', method='GET')
     assert requests_client.call_count == 1

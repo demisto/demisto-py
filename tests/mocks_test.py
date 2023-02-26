@@ -481,6 +481,6 @@ def test_configure_client_env_vars(mocker, _api_key, username, should_login_call
     mocker.patch.object(os, 'getenv', side_effect=getenv_side_effect)
 
     login_mocker = mocker.patch.object(demisto_client, 'login')
-    demisto_client.configure(base_url='test.com', api_key=_api_key, username=username)
+    demisto_client.configure(base_url='test.com')
 
     assert login_mocker.called == should_login_called

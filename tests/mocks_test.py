@@ -457,7 +457,20 @@ def test_configure_client_no_env_vars(mocker, _api_key, username, should_login_c
     CONFIGURE_TEST_PARAMS
 )
 def test_configure_client_env_vars(mocker, _api_key, username, should_login_called):
+    """
+    Given:
+        Case A: both api key and username were provided through environment variables
+        Case B: only username was provided through environment variable
+        Case C: only api key was provided through environment variable
 
+    When:
+        configuring the client
+
+    Then:
+        Case A: make sure login was not called and authentication is via api key
+        Case B: make sure login was called and authentication is via username/password
+        Case C: make sure login was not called and authentication is via api key
+    """
     def getenv_side_effect(parameter):
         if parameter == 'DEMISTO_API_KEY':
             return _api_key

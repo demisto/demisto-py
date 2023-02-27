@@ -1,5 +1,6 @@
+import os
 import unittest
-
+import pytest
 from urllib3_mock import Responses
 import demisto_client
 from datetime import datetime
@@ -410,3 +411,86 @@ def test_import_incidentfields(mocker):
     else:
         assert hasattr(res, 'error')
         assert res.error == 'Partial Error Description'
+
+
+CONFIGURE_TEST_PARAMS = [
+        (
+            'api_key', 'username', False
+        ),
+        (
+            None, 'username', True
+        ),
+        (
+            'api_key', None, False
+        ),
+        (
+             None, None, False
+        ),
+    ]
+
+
+@pytest.mark.parametrize(
+    "_api_key, username, should_login_called",
+    CONFIGURE_TEST_PARAMS
+)
+def test_configure_client_no_env_vars(mocker, _api_key, username, should_login_called):
+    """
+    Given:
+        Case A: both api key and username were provided
+        Case B: only username was provided
+        Case C: only api key was provided
+
+    When:
+        configuring the client
+
+    Then:
+        Case A: make sure login was not called and authentication is via api key
+        Case B: make sure login was called and authentication is via username/password
+        Case C: make sure login was not called and authentication is via api key
+    """
+    login_mocker = mocker.patch.object(demisto_client, 'login')
+    if not _api_key and not username:
+        with pytest.raises(ValueError):
+            demisto_client.configure(base_url='test.com', api_key=_api_key, username=username)
+    else:
+        demisto_client.configure(base_url='test.com', api_key=_api_key, username=username)
+
+    assert login_mocker.called == should_login_called
+
+
+@pytest.mark.parametrize(
+    "_api_key, username, should_login_called",
+    CONFIGURE_TEST_PARAMS
+)
+def test_configure_client_env_vars(mocker, _api_key, username, should_login_called):
+    """
+    Given:
+        Case A: both api key and username were provided through environment variables
+        Case B: only username was provided through environment variable
+        Case C: only api key was provided through environment variable
+
+    When:
+        configuring the client
+
+    Then:
+        Case A: make sure login was not called and authentication is via api key
+        Case B: make sure login was called and authentication is via username/password
+        Case C: make sure login was not called and authentication is via api key
+    """
+    def getenv_side_effect(parameter):
+        if parameter == 'DEMISTO_API_KEY':
+            return _api_key
+        elif parameter == 'DEMISTO_USERNAME':
+            return username
+        return None
+
+    mocker.patch.object(os, 'getenv', side_effect=getenv_side_effect)
+
+    login_mocker = mocker.patch.object(demisto_client, 'login')
+    if not _api_key and not username:
+        with pytest.raises(ValueError):
+            demisto_client.configure(base_url='test.com')
+    else:
+        demisto_client.configure(base_url='test.com')
+
+    assert login_mocker.called == should_login_called

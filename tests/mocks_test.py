@@ -423,7 +423,9 @@ CONFIGURE_TEST_PARAMS = [
         (
             'api_key', None, False
         ),
-
+        (
+             None, None, False
+        ),
     ]
 
 
@@ -447,7 +449,11 @@ def test_configure_client_no_env_vars(mocker, _api_key, username, should_login_c
         Case C: make sure login was not called and authentication is via api key
     """
     login_mocker = mocker.patch.object(demisto_client, 'login')
-    demisto_client.configure(base_url='test.com', api_key=_api_key, username=username)
+    if not _api_key and not username:
+        with pytest.raises(ValueError):
+            demisto_client.configure(base_url='test.com', api_key=_api_key, username=username)
+    else:
+        demisto_client.configure(base_url='test.com', api_key=_api_key, username=username)
 
     assert login_mocker.called == should_login_called
 
@@ -481,6 +487,10 @@ def test_configure_client_env_vars(mocker, _api_key, username, should_login_call
     mocker.patch.object(os, 'getenv', side_effect=getenv_side_effect)
 
     login_mocker = mocker.patch.object(demisto_client, 'login')
-    demisto_client.configure(base_url='test.com')
+    if not _api_key and not username:
+        with pytest.raises(ValueError):
+            demisto_client.configure(base_url='test.com')
+    else:
+        demisto_client.configure(base_url='test.com')
 
     assert login_mocker.called == should_login_called

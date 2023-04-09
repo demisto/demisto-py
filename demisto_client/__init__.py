@@ -18,7 +18,7 @@ except DistributionNotFound:
 
 
 def configure(base_url=None, api_key=None, verify_ssl=None, proxy=None, username=None, password=None,
-              ssl_ca_cert=None, debug=False, connection_pool_maxsize=None, auth_id=None):
+              ssl_ca_cert=None, debug=False, connection_pool_maxsize=None, auth_id=None, additional_headers=None):
     """
     This wrapper provides an easier to use method of configuring the API client. The base
     Configuration method is still exposed if you wish to further configure the API Client.
@@ -31,6 +31,7 @@ def configure(base_url=None, api_key=None, verify_ssl=None, proxy=None, username
     * DEMISTO_USERNAME
     * DEMISTO_PASSWORD
     * DEMISTO_VERIFY_SSL (true/false. Default: true)
+    * DEMISTO_HTTP_HEADERS (header1=value1,header2=value2,header3=value3)
     * XSIAM_AUTH_ID
     * SSL_CERT_FILE (specify an alternate certificate bundle)
     * DEMISTO_CONNECTION_POOL_MAXSIZE (specify a connection pool max size)
@@ -47,6 +48,7 @@ def configure(base_url=None, api_key=None, verify_ssl=None, proxy=None, username
     :param debug: bool - Include verbose logging.
     :param connection_pool_maxsize: int - specify a connection max pool size
     :param auth_id: str - api_key_id only for the xsiam
+    :param additional_headers: dict - additional_headers to send to every http request to demisto.
     :return: Returns an API client configuration identical to the Configuration() method.
     """
     if base_url is None:
@@ -61,6 +63,11 @@ def configure(base_url=None, api_key=None, verify_ssl=None, proxy=None, username
         username = os.getenv('DEMISTO_USERNAME')
     if password is None:
         password = os.getenv('DEMISTO_PASSWORD')
+    if additional_headers is None:
+        if headers := os.getenv('DEMISTO_HTTP_HEADERS'):
+            additional_headers = dict(header.split('=') for header in headers.split(','))
+        else:
+            additional_headers = {}
     if ssl_ca_cert is None:
         ssl_ca_cert = os.getenv('SSL_CERT_FILE')
     if verify_ssl is None:
@@ -112,15 +119,19 @@ def configure(base_url=None, api_key=None, verify_ssl=None, proxy=None, username
     if api_key or auth_id:
         api_client = ApiClient(configuration)
         api_client.user_agent = 'demisto-py/' + __version__
+        api_client.default_headers.update(additional_headers)
         api_instance = demisto_api.DefaultApi(api_client)
         return api_instance
     else:
         api_instance = login(base_url=base_url, username=username, password=password,
-                             verify_ssl=verify_ssl, proxy=proxy, debug=debug)
+                             verify_ssl=verify_ssl, proxy=proxy, debug=debug, additional_headers=additional_headers)
         return api_instance
 
 
-def login(base_url=None, username=None, password=None, verify_ssl=True, proxy=None, debug=False):
+def login(
+    base_url=None, username=None, password=None, verify_ssl=True, proxy=None, debug=False, additional_headers=None
+):
+    additional_headers = additional_headers or {}
     configuration_orig = Configuration()
     configuration_orig.host = base_url or os.getenv('DEMISTO_BASE_URL', None)
     if isinstance(configuration_orig.host, str):
@@ -139,6 +150,7 @@ def login(base_url=None, username=None, password=None, verify_ssl=True, proxy=No
             raise ValueError(err_msg)
     api_client = ApiClient(configuration_orig)
     api_client.user_agent = 'demisto-py/' + __version__
+    api_client.default_headers.update(additional_headers)
     api_instance = demisto_api.DefaultApi(api_client)
     body = {
         "user": username,
@@ -162,6 +174,7 @@ def login(base_url=None, username=None, password=None, verify_ssl=True, proxy=No
     api_client = ApiClient(configuration, header_name="X-XSRF-TOKEN", header_value=xsrf_token,
                            cookie=cookies)
     api_client.user_agent = 'demisto-py/' + __version__
+    api_client.default_headers.update(additional_headers)
     mid_client = demisto_api.DefaultApi(api_client)
     second_call = generic_request_func(self=mid_client, path='/login', method='POST', body=body,
                                        accept='application/json', content_type='application/json')
@@ -169,6 +182,7 @@ def login(base_url=None, username=None, password=None, verify_ssl=True, proxy=No
     mid_api_client = ApiClient(configuration, header_name="X-XSRF-TOKEN", header_value=xsrf_token,
                                cookie=updated_cookies)
     mid_api_client.user_agent = 'demisto-py/' + __version__
+    mid_api_client.default_headers.update(additional_headers)
     final_api_client = demisto_api.DefaultApi(mid_api_client)
 
     return final_api_client
@@ -314,3 +328,4 @@ def get_layouts_url_for_demisto_version(api_client, params):
         if LooseVersion(server_details.get('demistoVersion')) >= LooseVersion('6.0.0'):
             url = '/layouts/import'
     return url
+

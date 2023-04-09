@@ -20,6 +20,22 @@ def assert_reset():
     assert len(responses.calls) == 0
 
 
+def get_login_mocker(mocker, num_of_http_requests_mock=0):
+    from urllib3 import PoolManager
+
+    raw_http_responses = [
+        urllib3.response.HTTPResponse(body=b'{}', status=200, headers={'Set-Cookie': 'XSRF-TOKEN=1234;'}),
+        urllib3.response.HTTPResponse(body=b'{}', status=200, headers={'Set-Cookie': '1234'}),
+    ]
+
+    for i in range(num_of_http_requests_mock):
+        raw_http_responses.append(
+            urllib3.response.HTTPResponse(body=b'{}', status=200)
+        )
+
+    return mocker.patch.object(PoolManager, 'request', side_effect=raw_http_responses)
+
+
 def test_get_docker_images():
     '''Check GET docker images.'''
 
@@ -413,84 +429,166 @@ def test_import_incidentfields(mocker):
         assert res.error == 'Partial Error Description'
 
 
-CONFIGURE_TEST_PARAMS = [
+class TestConfigureClient:
+
+    CONFIGURE_TEST_PARAMS = [
         (
-            'api_key', 'username', False
+            'api_key', 'username', {"header1": "value1", "header2": "value2"}, False
         ),
         (
-            None, 'username', True
+            None, 'username', {"header1": "value1"}, True
         ),
         (
-            'api_key', None, False
+            'api_key', None, None, False
         ),
         (
-             None, None, False
+            None, None, None, False
         ),
     ]
 
+    CONFIGURE_TEST_PARAMS_ENV_VARIABLE = [
+        (
+            'api_key', 'username', "header1=value1,header2=value2", False
+        ),
+        (
+            None, 'username', "header1=value1", True
+        ),
+        (
+            'api_key', None, None, False
+        ),
+        (
+            None, None, None, False
+        ),
+    ]
 
-@pytest.mark.parametrize(
-    "_api_key, username, should_login_called",
-    CONFIGURE_TEST_PARAMS
-)
-def test_configure_client_no_env_vars(mocker, _api_key, username, should_login_called):
-    """
-    Given:
-        Case A: both api key and username were provided
-        Case B: only username was provided
-        Case C: only api key was provided
+    @staticmethod
+    def getenv_decorator(username=None, _api_key=None, additional_headers=None):
+        def getenv_side_effect(parameter):
+            if parameter == 'DEMISTO_API_KEY':
+                return _api_key
+            elif parameter == 'DEMISTO_USERNAME':
+                return username
+            elif parameter == 'DEMISTO_HTTP_HEADERS':
+                return additional_headers
+            return None
 
-    When:
-        configuring the client
+        return getenv_side_effect
 
-    Then:
-        Case A: make sure login was not called and authentication is via api key
-        Case B: make sure login was called and authentication is via username/password
-        Case C: make sure login was not called and authentication is via api key
-    """
-    login_mocker = mocker.patch.object(demisto_client, 'login')
-    if not _api_key and not username:
-        with pytest.raises(ValueError):
-            demisto_client.configure(base_url='test.com', api_key=_api_key, username=username)
-    else:
-        demisto_client.configure(base_url='test.com', api_key=_api_key, username=username)
+    @staticmethod
+    def configure_client(_api_key=None, username=None, additional_headers=None):
+        if not (_api_key or os.getenv('DEMISTO_API_KEY')) and not (username or os.getenv('DEMISTO_USERNAME')):
+            with pytest.raises(ValueError):
+                demisto_client.configure(
+                    base_url=host, api_key=_api_key, username=username, additional_headers=additional_headers
+                )
+        else:
+            return demisto_client.configure(
+                base_url=host, api_key=_api_key, username=username, additional_headers=additional_headers
+            )
 
-    assert login_mocker.called == should_login_called
+    def validate_additional_headers(
+        self, api_instance, http_request_mocker, num_of_http_requests_mock, expected_additional_headers
+    ):
+        if not expected_additional_headers.items() <= api_instance.api_client.default_headers.items():
+            return False
 
+        self.run_http_request(api_instance, num_of_http_requests_mock=num_of_http_requests_mock)
 
-@pytest.mark.parametrize(
-    "_api_key, username, should_login_called",
-    CONFIGURE_TEST_PARAMS
-)
-def test_configure_client_env_vars(mocker, _api_key, username, should_login_called):
-    """
-    Given:
-        Case A: both api key and username were provided through environment variables
-        Case B: only username was provided through environment variable
-        Case C: only api key was provided through environment variable
+        for i in range(len(http_request_mocker.call_args_list)):
+            if not expected_additional_headers.items() <= http_request_mocker.call_args_list[i].kwargs['headers'].items():
+                return False
 
-    When:
-        configuring the client
+        return True
 
-    Then:
-        Case A: make sure login was not called and authentication is via api key
-        Case B: make sure login was called and authentication is via username/password
-        Case C: make sure login was not called and authentication is via api key
-    """
-    def getenv_side_effect(parameter):
-        if parameter == 'DEMISTO_API_KEY':
-            return _api_key
-        elif parameter == 'DEMISTO_USERNAME':
-            return username
-        return None
+    @staticmethod
+    def run_http_request(api_instance, num_of_http_requests_mock):
+        for i in range(num_of_http_requests_mock):
+            api_instance.generic_request(path='/about', method='GET')
 
-    mocker.patch.object(os, 'getenv', side_effect=getenv_side_effect)
+    @pytest.mark.parametrize(
+        "_api_key, username, additional_headers, should_login_called",
+        CONFIGURE_TEST_PARAMS
+    )
+    def test_configure_client_no_env_vars(self, mocker, _api_key, username, additional_headers, should_login_called):
+        """
+        Given:
+            Case A: api key, username and additional headers were provided
+            Case B: username and additional headers were provided
+            Case C: only api key was provided
+            Case D: neither of api key / username was provided
 
-    login_mocker = mocker.patch.object(demisto_client, 'login')
-    if not _api_key and not username:
-        with pytest.raises(ValueError):
-            demisto_client.configure(base_url='test.com')
-    else:
-        demisto_client.configure(base_url='test.com')
+        When:
+            configuring the client
 
-    assert login_mocker.called == should_login_called
+        Then:
+            Case A: make sure login was not called, authentication is via api key and
+                    additional headers were sent in each request
+            Case B: make sure login was called, authentication is via username/password and
+                    additional headers were sent in each request
+            Case C: make sure login was not called and authentication is via api key
+            Case D: make sure an exception is raised
+        """
+        num_of_http_requests_mock = 5
+        http_request_mocker = get_login_mocker(mocker, num_of_http_requests_mock=num_of_http_requests_mock)
+
+        api_instance = self.configure_client(
+            _api_key=_api_key, username=username, additional_headers=additional_headers
+        )
+
+        assert http_request_mocker.called == should_login_called
+
+        if api_instance and additional_headers is not None:
+            assert self.validate_additional_headers(
+                api_instance,
+                http_request_mocker,
+                num_of_http_requests_mock=num_of_http_requests_mock,
+                expected_additional_headers=additional_headers
+            )
+
+    @pytest.mark.parametrize(
+        "_api_key, username, additional_headers, should_login_called",
+        CONFIGURE_TEST_PARAMS_ENV_VARIABLE
+    )
+    def test_configure_client_env_vars(self, mocker, _api_key, username, additional_headers, should_login_called):
+        """
+        Given:
+            Case A: api key, username and additional headers were provided through environment variables
+            Case B: username and additional headers were provided through environment variables
+            Case C: only api key was provided through environment variable
+            Case D: neither of api key / username was provided at all
+
+        When:
+            configuring the client
+
+        Then:
+            Case A: make sure login was not called, authentication is via api key and
+                    additional headers were sent in each request
+            Case B: make sure login was called, authentication is via username/password, and
+                    additional headers were sent in each request
+            Case C: make sure login was not called and authentication is via api key
+            Case D: make sure an exception is raised
+        """
+        num_of_http_requests_mock = 5
+
+        http_request_mocker = get_login_mocker(mocker, num_of_http_requests_mock=num_of_http_requests_mock)
+        mocker.patch.object(
+            os,
+            'getenv',
+            side_effect=self.getenv_decorator(
+                username=username, _api_key=_api_key, additional_headers=additional_headers
+            )
+        )
+
+        api_instance = self.configure_client()
+        assert http_request_mocker.called == should_login_called
+
+        if api_instance and additional_headers is not None:
+            expected_additional_headers = dict(header.split('=') for header in additional_headers.split(','))
+
+            assert self.validate_additional_headers(
+                api_instance,
+                http_request_mocker,
+                num_of_http_requests_mock=num_of_http_requests_mock,
+                expected_additional_headers=expected_additional_headers
+            )
+

@@ -3,6 +3,9 @@
 [PyPI History][1]
 [1]: https://pypi.org/project/demisto-py/#history
 
+#3.2.9
+* Added the ability to use custom headers for each request.
+
 # 3.2.8
 * Fixed an issue where demisto-py used username/password authentication even when api-key was provided.
 

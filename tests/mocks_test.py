@@ -592,3 +592,43 @@ class TestConfigureClient:
                 expected_additional_headers=expected_additional_headers
             )
 
+    @pytest.mark.parametrize(
+        "invalid_additional_headers",
+        [
+            "header1:value1,header2:value2",
+            "header1,value1,header2,value2",
+            "header1=value1,header2,value2",
+            "header1=value1,header2value2",
+            "header1=value1header2=value2",
+            "test",
+            "{header1:value1,header2:value2}",
+            "test=test,",
+            "test=test,test2=",
+            "test=test, test2=a",
+            "arg=arg,  c=d",
+            "arg-arg,  c=d"
+        ]
+    )
+    def test_configure_client_invalid_additional_headers_form_env_var(self, mocker, invalid_additional_headers):
+        """
+        Given:
+            invalid form of http headers
+
+        When:
+            configuring the client
+
+        Then:
+            make sure an exception is raised saying the format for invalid_additional_headers is invalid
+        """
+        mocker.patch.object(
+            os,
+            'getenv',
+            side_effect=self.getenv_decorator(additional_headers=invalid_additional_headers)
+        )
+
+        with pytest.raises(ValueError) as exc:
+            demisto_client.configure(base_url=host, api_key=api_key)
+
+        assert exc.value.args[0] == f'{invalid_additional_headers} has invalid format, must be in the format ' \
+                                    f'of header1=value1,header2=value2,...headerN=valueN'
+

@@ -1,3 +1,5 @@
+import re
+
 import demisto_client.demisto_api as demisto_api
 import six
 import os
@@ -15,6 +17,9 @@ try:
 except DistributionNotFound:
     # package is not installed
     __version__ = 'dev'
+
+
+DEMISTO_HTTP_HEADERS_PATTERN = r'^\w+=\w+(,\w+=\w+)*$'
 
 
 def configure(base_url=None, api_key=None, verify_ssl=None, proxy=None, username=None, password=None,
@@ -65,7 +70,12 @@ def configure(base_url=None, api_key=None, verify_ssl=None, proxy=None, username
         password = os.getenv('DEMISTO_PASSWORD')
     if additional_headers is None:
         if headers := os.getenv('DEMISTO_HTTP_HEADERS'):
-            additional_headers = dict(header.split('=') for header in headers.split(','))
+            if re.match(DEMISTO_HTTP_HEADERS_PATTERN, headers):
+                additional_headers = dict(header.split('=') for header in headers.split(','))
+            else:
+                raise ValueError(
+                    f'{headers} has invalid format, must be in the format of header1=value1,header2=value2,...headerN=valueN'
+                )
         else:
             additional_headers = {}
     if ssl_ca_cert is None:

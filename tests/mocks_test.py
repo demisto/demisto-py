@@ -20,7 +20,7 @@ def assert_reset():
     assert len(responses.calls) == 0
 
 
-def get_login_mocker(mocker, num_of_http_requests_mock=0):
+def get_login_mocker(mocker, num_of_http_requests_mock: int=0):
     from urllib3 import PoolManager
 
     raw_http_responses = [

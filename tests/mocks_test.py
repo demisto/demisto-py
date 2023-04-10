@@ -702,4 +702,4 @@ class TestConfigureClient:
         )
 
         client = demisto_client.configure(base_url=host, api_key=api_key)
-        assert dict(header.split('=') for header in valid_additional_headers.split(',')).items() <= client.api_client.default_headers.items()
+        assert expected_headers_as_dict.items() <= client.api_client.default_headers.items()

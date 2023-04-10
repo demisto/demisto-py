@@ -606,7 +606,8 @@ class TestConfigureClient:
             "test=test,test2=",
             "test=test, test2=a",
             "arg=arg,  c=d",
-            "arg-arg,  c=d"
+            "arg-arg,  c=d",
+            "1=2,3=",
         ]
     )
     def test_configure_client_invalid_additional_headers_form_env_var(self, mocker, invalid_additional_headers):

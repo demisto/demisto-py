@@ -36,7 +36,7 @@ def configure(base_url=None, api_key=None, verify_ssl=None, proxy=None, username
     * DEMISTO_USERNAME
     * DEMISTO_PASSWORD
     * DEMISTO_VERIFY_SSL (true/false. Default: true)
-    * DEMISTO_HTTP_HEADERS (header1=value1,header2=value2,header3=value3)
+    * DEMISTO_HTTP_HEADERS (must be in the form of: header1=value1,header2=value2,header3=value3,...headerN=valueN)
     * XSIAM_AUTH_ID
     * SSL_CERT_FILE (specify an alternate certificate bundle)
     * DEMISTO_CONNECTION_POOL_MAXSIZE (specify a connection pool max size)

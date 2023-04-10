@@ -611,7 +611,10 @@ class TestConfigureClient:
             "name=john,",
             "name=john age=42",
             "bar=",
-            "name,"
+            "name,",
+            "header1=value1 header2=value2",
+            "!=1 d",
+            "!=1\nd"
         ]
     )
     def test_configure_client_invalid_additional_headers_form_env_var(self, mocker, invalid_additional_headers):
@@ -637,3 +640,66 @@ class TestConfigureClient:
         assert exc.value.args[0] == f'{invalid_additional_headers} has invalid format, must be in the format ' \
                                     f'of header1=value1,header2=value2,...headerN=valueN'
 
+    @pytest.mark.parametrize(
+        "valid_additional_headers, expected_headers_as_dict",
+        [
+            (
+                "header1=value1,header2=value2",
+                {'header1': 'value1', 'header2': 'value2'}
+            ),
+            (
+                "header1=value1",
+                {'header1': 'value1'}
+            ),
+            (
+                "blabla=1!,headers=2@",
+                {'blabla': '1!', 'headers': '2@'}
+            ),
+            (
+                "header1=with space,header2=another space",
+                {'header1': 'with space', 'header2': 'another space'}
+            ),
+            (
+                "header-1=value-1,header-2=value-2",
+                {'header-1': 'value-1', 'header-2': 'value-2'}
+            ),
+            (
+                "header1=header1,header2=header2,header3=header3,header4=header4,header5=header5",
+                {'header1': 'header1', 'header2': 'header2', 'header3': 'header3', 'header4': 'header4', 'header5': 'header5'}
+            ),
+            (
+                "PROXY=@$%#!djaj,PROXY2=[123]#%",
+                {'PROXY': '@$%#!djaj', 'PROXY2': '[123]#%'}
+            ),
+            (
+                "Proxy-Authorization=#$32dll1223--ds,header2=dkkfff",
+                {'Proxy-Authorization': '#$32dll1223--ds', 'header2': 'dkkfff'}
+            ),
+            (
+                "Content-type=123",
+                {'Content-type': '123'}
+            ),
+        ]
+    )
+    def test_configure_client_valid_additional_headers_form_env_var(
+        self, mocker, valid_additional_headers, expected_headers_as_dict
+    ):
+        """
+        Given:
+            valid form of http headers
+
+        When:
+            configuring the client
+
+        Then:
+            make sure the client is configured correctly, no exception is raised and
+            headers were added to default headers for every http request
+        """
+        mocker.patch.object(
+            os,
+            'getenv',
+            side_effect=self.getenv_decorator(additional_headers=valid_additional_headers)
+        )
+
+        client = demisto_client.configure(base_url=host, api_key=api_key)
+        assert dict(header.split('=') for header in valid_additional_headers.split(',')).items() <= client.api_client.default_headers.items()

@@ -19,7 +19,7 @@ except DistributionNotFound:
     __version__ = 'dev'
 
 
-DEMISTO_HTTP_HEADERS_REGEX_PATTERN = r'^\w+=\w+(,\w+=\w+)*$'
+DEMISTO_HTTP_HEADERS_REGEX_PATTERN = r'^([\w-]+=[^=,\n]+)(,[\w-]+=[^=,\n]+)*$'
 
 
 def configure(base_url=None, api_key=None, verify_ssl=None, proxy=None, username=None, password=None,
@@ -71,7 +71,7 @@ def configure(base_url=None, api_key=None, verify_ssl=None, proxy=None, username
     if additional_headers is None:
         if headers := os.getenv('DEMISTO_HTTP_HEADERS'):
             if re.match(DEMISTO_HTTP_HEADERS_REGEX_PATTERN, headers):
-                additional_headers = dict(header.split('=') for header in headers.split(','))
+                additional_headers = dict(header.strip().split('=') for header in headers.split(','))
             else:
                 raise ValueError(
                     f'{headers} has invalid format, must be in the format of header1=value1,header2=value2,...headerN=valueN'

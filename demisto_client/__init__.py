@@ -70,7 +70,9 @@ def configure(base_url=None, api_key=None, verify_ssl=None, proxy=None, username
         password = os.getenv('DEMISTO_PASSWORD')
     if additional_headers is None:
         if headers := os.getenv('DEMISTO_HTTP_HEADERS'):
-            if re.match(DEMISTO_HTTP_HEADERS_REGEX_PATTERN, headers):
+            if re.match(r'^ *$', headers):
+                additional_headers = {}
+            elif re.match(DEMISTO_HTTP_HEADERS_REGEX_PATTERN, headers):
                 additional_headers = dict(header.strip().split('=') for header in headers.split(','))
             else:
                 raise ValueError(

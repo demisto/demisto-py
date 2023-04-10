@@ -679,6 +679,14 @@ class TestConfigureClient:
                 "Content-type=123",
                 {'Content-type': '123'}
             ),
+            (
+                "  ",
+                {}
+            ),
+            (
+                "",
+                {}
+            ),
         ]
     )
     def test_configure_client_valid_additional_headers_form_env_var(

@@ -610,7 +610,8 @@ class TestConfigureClient:
             "1=2,3=",
             "name=john,",
             "name=john age=42",
-            "bar="
+            "bar=",
+            "name,"
         ]
     )
     def test_configure_client_invalid_additional_headers_form_env_var(self, mocker, invalid_additional_headers):

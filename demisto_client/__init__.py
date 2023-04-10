@@ -53,7 +53,7 @@ def configure(base_url=None, api_key=None, verify_ssl=None, proxy=None, username
     :param debug: bool - Include verbose logging.
     :param connection_pool_maxsize: int - specify a connection max pool size
     :param auth_id: str - api_key_id only for the xsiam
-    :param additional_headers: dict - additional_headers to send to every http request to demisto.
+    :param additional_headers: dict - any additional headers to send to every http request to demisto.
     :return: Returns an API client configuration identical to the Configuration() method.
     """
     if base_url is None:

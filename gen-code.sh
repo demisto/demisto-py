@@ -32,6 +32,7 @@ mv README.md.org README.md
 sed -i "${INPLACE[@]}" -e 's/^from demisto_client.demisto_api.models.advance_arg import AdvanceArg/# &/' demisto_client/demisto_api/models/operator_argument.py
 sed -i "${INPLACE[@]}" -e 's/^from demisto_client.demisto_api.models.group import Group/# &/' demisto_client/demisto_api/models/groups.py
 sed -i "${INPLACE[@]}" -e 's/^from demisto_client.demisto_api.models.investigation_playbook import InvestigationPlaybook/# &/' demisto_client/demisto_api/models/investigation_playbook_task.py
+
 # __api_call needs to work with dict objects and not Classes when updating data such as POST requests
 sed -i "${INPLACE[@]}" -e 's/config = self.configuration/&; body = demisto_client.to_extended_dict(body)  # noqa: E702/' demisto_client/demisto_api/api_client.py
 # Update the docs
@@ -73,11 +74,14 @@ sed -i "${INPLACE[@]}" -e 's/"""Custom error messages for exception"""/"""Custom
         else:\
             sensitive_logging = False/' demisto_client/demisto_api/rest.py
 
+sed -i "${INPLACE[@]}" -e 's/import urllib3/import urllib3\
+    import urllib'  demisto_client/demisto_api/rest.py
 sed -i "${INPLACE[@]}" -e 's/if configuration.proxy:/if configuration.proxy:\
             proxy_headers = None\
             parsed_proxy_url = urllib3.util.parse_url(configuration.proxy)\
             if parsed_proxy_url.auth is not None:\
-                proxy_headers = urllib3.util.make_headers(proxy_basic_auth=parsed_proxy_url.auth)\
+                auth = urllib.parse.unquote(parsed_proxy_url.auth)\
+                proxy_headers = urllib3.util.make_headers(proxy_basic_auth=auth)\
 /' demisto_client/demisto_api/rest.py
 
 sed -i "${INPLACE[@]}" -e 's/proxy_url=configuration.proxy,/proxy_headers=proxy_headers,\

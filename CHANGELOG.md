@@ -3,6 +3,9 @@
 [PyPI History][1]
 [1]: https://pypi.org/project/demisto-py/#history
 
+## 3.2.10
+* Added URL decoding of proxy url credentials.
+
 ## 3.2.9
 * Added the ability to add custom request headers.
 

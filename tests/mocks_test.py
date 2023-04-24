@@ -422,8 +422,8 @@ class TestWithProxyBasicAuthentication(unittest.TestCase):
         if sys.version_info[0] > 2:
             from unittest import mock
 
-            @mock.patch.dict(os.environ, {"HTTP_PROXY": "http://user1:pass!!$&1@localhost:8080"})
-            @mock.patch.dict(os.environ, {"HTTPS_PROXY": "http://user1:pass!!$&1@localhost:8080"})
+            @mock.patch.dict(os.environ, {"HTTP_PROXY": "http://user1:pass%21%23%24%25%5E@localhost:8080"})
+            @mock.patch.dict(os.environ, {"HTTPS_PROXY": "http://user1:pass%21%23%24%25%5E@localhost:8080"})
             @responses.activate
             def run():
                 responses.add('POST', 'http://localhost:8080/test',
@@ -441,7 +441,7 @@ class TestWithProxyBasicAuthentication(unittest.TestCase):
                 assert responses.calls[0].request.url == 'http://localhost:8080/test'
                 assert responses.calls[0].request.host == 'localhost'
                 assert responses.calls[0].request.scheme == 'http'
-                assert api_instance.api_client.configuration.proxy_auth == 'user1:pass!!$&1'
+                assert api_instance.api_client.configuration.proxy_auth == 'user1:pass!#$%^'
                 
         else:
             def run():

@@ -80,8 +80,8 @@ sed -i "${INPLACE[@]}" -e 's/if configuration.proxy:/if configuration.proxy:\
             proxy_headers = None\
             parsed_proxy_url = urllib3.util.parse_url(configuration.proxy)\
             if parsed_proxy_url.auth is not None:\
-                auth = urllib.parse.unquote(parsed_proxy_url.auth)\
-                proxy_headers = urllib3.util.make_headers(proxy_basic_auth=auth)\
+                configuration.proxy_auth = urllib.parse.unquote(parsed_proxy_url.auth)\
+                proxy_headers = urllib3.util.make_headers(proxy_basic_auth=configuration.proxy_auth)\
 /' demisto_client/demisto_api/rest.py
 
 sed -i "${INPLACE[@]}" -e 's/proxy_url=configuration.proxy,/proxy_headers=proxy_headers,\

@@ -75,7 +75,7 @@ sed -i "${INPLACE[@]}" -e 's/"""Custom error messages for exception"""/"""Custom
             sensitive_logging = False/' demisto_client/demisto_api/rest.py
 
 sed -i "${INPLACE[@]}" -e 's/import urllib3/import urllib3\
-    import urllib'  demisto_client/demisto_api/rest.py
+    import urllib/'  demisto_client/demisto_api/rest.py
 sed -i "${INPLACE[@]}" -e 's/if configuration.proxy:/if configuration.proxy:\
             proxy_headers = None\
             parsed_proxy_url = urllib3.util.parse_url(configuration.proxy)\

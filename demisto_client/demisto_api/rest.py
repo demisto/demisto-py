@@ -27,6 +27,7 @@ from six.moves.urllib.parse import urlencode
 
 try:
     import urllib3
+    import urllib
 except ImportError:
     raise ImportError('Swagger python client requires urllib3.')
 
@@ -88,7 +89,8 @@ class RESTClientObject(object):
             proxy_headers = None
             parsed_proxy_url = urllib3.util.parse_url(configuration.proxy)
             if parsed_proxy_url.auth is not None:
-                proxy_headers = urllib3.util.make_headers(proxy_basic_auth=parsed_proxy_url.auth)
+                configuration.proxy_auth = urllib.parse.unquote(parsed_proxy_url.auth)
+                proxy_headers = urllib3.util.make_headers(proxy_basic_auth=configuration.proxy_auth)
 
             self.pool_manager = urllib3.ProxyManager(
                 num_pools=pools_size,

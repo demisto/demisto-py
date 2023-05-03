@@ -405,6 +405,51 @@ class TestFailedGenericRequestWithEnv(unittest.TestCase):
         assert_reset()
 
 
+class TestWithProxyBasicAuthentication(unittest.TestCase):
+
+    def test_generic_request(self):
+        """
+        Given:
+        - Request which use proxy authentication
+        When:
+        - Environment variable HTTP_PROXY and HTTPS_PROXY which contains a username and password with special characters
+        Then:
+        - Ensure the request made to the correct url via correct proxy username and password. Special character should be decoded.
+        """
+        import sys
+        # Error should be the same in both Py2 and Py3, but Py2 does not support unittest mock in
+        # the same way
+        if sys.version_info[0] > 2:
+            from unittest import mock
+
+            @mock.patch.dict(os.environ, {"HTTP_PROXY": "http://user1:pass%21%23%24%25%5E@localhost:8080"})
+            @mock.patch.dict(os.environ, {"HTTPS_PROXY": "http://user1:pass%21%23%24%25%5E@localhost:8080"})
+            @responses.activate
+            def run():
+                responses.add('POST', 'http://localhost:8080/test',
+                              body="Good",
+                              status=200,
+                              content_type='text/plain')
+                api_instance = demisto_client.configure(base_url=host, api_key=api_key, debug=False)
+
+                api_instance.generic_request('/test', 'POST',
+                                            body="this is a test",
+                                            content_type='text/plain',
+                                            accept='text/plain')
+
+                assert len(responses.calls) == 1
+                assert responses.calls[0].request.url == 'http://localhost:8080/test'
+                assert responses.calls[0].request.host == 'localhost'
+                assert responses.calls[0].request.scheme == 'http'
+                assert api_instance.api_client.configuration.proxy_auth == 'user1:pass!#$%^'
+                
+        else:
+            def run():
+                assert 1 == 1
+        run()
+        assert_reset()
+
+
 def test_import_incidentfields(mocker):
     """
     Given:

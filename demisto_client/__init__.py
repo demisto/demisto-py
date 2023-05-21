@@ -56,18 +56,14 @@ def configure(base_url=None, api_key=None, verify_ssl=None, proxy=None, username
     :param additional_headers: dict - any additional headers to send to every http request to demisto.
     :return: Returns an API client configuration identical to the Configuration() method.
     """
-    if base_url is None:
-        base_url = os.getenv('DEMISTO_BASE_URL')
-        if not base_url:
-            raise RuntimeError('the DEMISTO_BASE_URL value is not set.')
-    if api_key is None:
-        api_key = os.getenv('DEMISTO_API_KEY')
-    if auth_id is None:
-        auth_id = os.getenv('XSIAM_AUTH_ID')
-    if username is None:
-        username = os.getenv('DEMISTO_USERNAME')
-    if password is None:
-        password = os.getenv('DEMISTO_PASSWORD')
+    base_url = base_url or os.getenv('DEMISTO_BASE_URL')
+    if not base_url:
+        raise RuntimeError('the DEMISTO_BASE_URL value is not set.')
+    api_key = api_key or os.getenv('DEMISTO_API_KEY')
+    auth_id = auth_id or os.getenv('DEMISTO_API_KEY_ID') or os.getenv('XSIAM_AUTH_ID')
+    username = username or os.getenv('DEMISTO_USERNAME')
+    password = password or os.getenv('DEMISTO_PASSWORD')
+
     if additional_headers is None:
         if headers := os.getenv('DEMISTO_HTTP_HEADERS'):
             if re.match(r'^ *$', headers):  # catch any case of empty string
@@ -340,4 +336,3 @@ def get_layouts_url_for_demisto_version(api_client, params):
         if LooseVersion(server_details.get('demistoVersion')) >= LooseVersion('6.0.0'):
             url = '/layouts/import'
     return url
-

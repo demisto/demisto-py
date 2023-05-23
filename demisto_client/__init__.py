@@ -38,7 +38,7 @@ def configure(base_url=None, api_key=None, advanced_api_key=None, verify_ssl=Non
     * DEMISTO_PASSWORD
     * DEMISTO_VERIFY_SSL (true/false. Default: true)
     * DEMISTO_HTTP_HEADERS (must be in the form of: header1=value1,header2=value2,header3=value3,...headerN=valueN)
-    * XSIAM_AUTH_ID
+    * DEMISTO_API_KEY_ID
     * SSL_CERT_FILE (specify an alternate certificate bundle)
     * DEMISTO_CONNECTION_POOL_MAXSIZE (specify a connection pool max size)
     * HTTP_PROXY or HTTPS_PROXY (If you are using a proxy)
@@ -112,7 +112,7 @@ def configure(base_url=None, api_key=None, advanced_api_key=None, verify_ssl=Non
                          )
     if auth_id and not (api_key or advanced_api_key):
         raise ValueError('You must specify either api_key or advanced_api_key or use env variable DEMISTO_API_KEY or DEMISTO_ADVANCED_API_KEY ' 
-                         'to use Cortex XSIAM api or XSOAR 8+, or remove the auth_id and/or the env variable XSIAM_AUTH_ID '
+                         'to use Cortex XSIAM api or XSOAR 8+, or remove the auth_id and/or the env variable DEMISTO_API_KEY_ID '
                          'to use Cortex XSOAR api:\n')
     configuration = Configuration()
     if advanced_api_key:

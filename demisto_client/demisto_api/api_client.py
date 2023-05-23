@@ -27,6 +27,12 @@ from demisto_client.demisto_api.configuration import Configuration
 import demisto_client.demisto_api.models
 from demisto_client.demisto_api import rest
 
+import secrets
+import string
+from hashlib import sha256
+
+NONCE_POSSIBLE_VALUES = string.ascii_letters + string.digits
+
 
 class ApiClient(object):
     """Generic API client for Swagger client library builds.
@@ -112,6 +118,15 @@ class ApiClient(object):
         # header parameters
         header_params = header_params or {}
         header_params.update(self.default_headers)
+        auth_signed_key = getattr(self.configuration, 'auth_signed_key')
+        if auth_signed_key:
+            nonce: str = ''.join(secrets.choice(NONCE_POSSIBLE_VALUES) for _ in range(64))
+            timestamp = str(int(datetime.utcnow().timestamp()) * 1000)
+            header_params.update({
+                'x-xdr-timestamp': timestamp,
+                'x-xdr-nonce': nonce,
+                'Authorization': sha256(f'{auth_signed_key}{nonce}{timestamp}'.encode()).hexdigest(),
+            })
         if self.cookie:
             header_params['Cookie'] = self.cookie
         if header_params:

@@ -146,7 +146,7 @@ sed -i "${INPLACE[@]}" -e "s/header_params.update(self.default_headers)/header_p
         auth_signed_key = getattr(self.configuration, 'auth_signed_key')\\
         if auth_signed_key:\\
             nonce: str = ''.join(secrets.choice(NONCE_POSSIBLE_VALUES) for _ in range(64))\\
-            timestamp = str(int(datetime.utcnow().timestamp()) * 1000)\\
+            timestamp = str(int(datetime.datetime.now(datetime.timezone.utc).timestamp()) * 1000)\\
             header_params.update({\\
                 'x-xdr-timestamp': timestamp,\\
                 'x-xdr-nonce': nonce,\\

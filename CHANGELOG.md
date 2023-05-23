@@ -3,6 +3,10 @@
 [PyPI History][1]
 [1]: https://pypi.org/project/demisto-py/#history
 
+## 3.2.11
+* Added advanced key authentication support for XSIAM and XSOAR 8+.
+* Added support for `DEMISTO_API_KEY_ID` and deprecated old `XSIAM_AUTH_ID`.
+
 ## 3.2.10
 * Added URL decoding of proxy url credentials.
 

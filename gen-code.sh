@@ -142,6 +142,23 @@ sed -i "${INPLACE[@]}" -e "${start_line}a\\
 \ \ \ \ \ \ \ \ \ \ \ \ return {'response': deserialized_response, 'error': error_message}\\
 \ \ \ \ \ \ \ \ return deserialized_response" demisto_client/demisto_api/api_client.py
 sed -i "${INPLACE[@]}" -e "${start_line}d" demisto_client/demisto_api/api_client.py
+sed -i "${INPLACE[@]}" -e "s/header_params.update(self.default_headers)/header_params.update(self.default_headers)\\
+        auth_signed_key = getattr(self.configuration, 'auth_signed_key', None)\\
+        if auth_signed_key:\\
+            nonce: str = ''.join(secrets.choice(NONCE_POSSIBLE_VALUES) for _ in range(64))\\
+            timestamp = str(int(datetime.datetime.now(datetime.timezone.utc).timestamp()) * 1000)\\
+            header_params.update({\\
+                'x-xdr-timestamp': timestamp,\\
+                'x-xdr-nonce': nonce,\\
+                'Authorization': sha256(f'{auth_signed_key}{nonce}{timestamp}'.encode()).hexdigest(),\\
+            })/" demisto_client/demisto_api/api_client.py
+sed -i "${INPLACE[@]}" -e "s/from demisto_client.demisto_api import rest/from demisto_client.demisto_api import rest\\
+\\
+import secrets\\
+import string\\
+from hashlib import sha256\\
+\\
+NONCE_POSSIBLE_VALUES = string.ascii_letters + string.digits/" demisto_client/demisto_api/api_client.py
 # End fix return partial errors
 # remove files not used
 rm .travis.yml

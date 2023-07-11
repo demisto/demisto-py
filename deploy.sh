@@ -9,6 +9,11 @@ function deploy_to_pypi () {
     python3 setup.py sdist bdist_wheel
     TWINE_USERNAME=__token__ twine upload dist/*
 }
+function deploy_to_pypi_po () {
+    git checkout .
+    poetry build
+    poetry publish -u __token__ -p ${PYPI_TOKEN}
+}
 
 if [[ "${CIRCLE_BRANCH}" == "master" ]]; then
     echo "Deploying to Pypi test site."

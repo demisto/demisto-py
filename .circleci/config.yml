@@ -18,6 +18,15 @@ jobs:
               pyenv install 3.9.10
               pyenv install 3.8.12
               pyenv global 3.10.2 3.9.10 3.8.12
+       
+        - run:
+          name: Install Poetry
+          command: |
+            # in old images we need to remove existing poetry  TODO: check with ilan if this is still needed
+            rm -rf $HOME/.poetry/bin/poetry
+            sudo curl -sSL https://install.python-poetry.org | python3 -
+            poetry --version
+       
         - run:
             name: poetry build
             command: |
@@ -40,3 +49,47 @@ workflows:
           filters:
             tags:
               only: /^v\d+\.\d+\.\d+$/
+
+jobs:
+  build_and_release:
+    executor: python
+    steps:
+      - checkout
+
+      # Install Poetry
+      - run:
+          name: Install Poetry
+          command: |
+            pip install poetry
+
+      # Install project dependencies
+      - run:
+          name: Install Project Dependencies
+          command: |
+            poetry install
+
+      # Run tests (optional)
+      # - run:
+      #     name: Run Tests
+      #     command: |
+      #       poetry run pytest
+
+      # Build the package
+      - run:
+          name: Build Package
+          command: |
+            poetry build
+
+      # Publish to TestPyPI if not a release branch
+      - run:
+          name: Publish to TestPyPI
+          command: |
+            if [[ "${CIRCLE_BRANCH}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+              echo "Release branch. Publishing to PyPI."
+              poetry config pypi-token.pypi $PYPI_TOKEN
+              poetry publish --build
+            else
+              echo "Non-release branch. Publishing to TestPyPI."
+              poetry config pypi-token.pypi $TEST_PYPI_TOKEN
+              poetry publish -r testpypi --build
+            fi

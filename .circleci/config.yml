@@ -43,16 +43,14 @@ workflows:
             parameters:
               pythonversion: ["3.8", "3.9", "3.10"]   
           name: run-unit-tests-<< matrix.pythonversion >>
-      - run-verify:
-        - run:
-              name: verify
-              command: |
-                ./verify.sh
-      - run-build:
-        - run:
-            name: Build Package
+      - run:
+            name: verify
             command: |
-              poetry build
+              ./verify.sh
+      - run:
+          name: Build Package
+          command: |
+            poetry build
 
       # Publish to TestPyPI if not a release branch
       - run:

@@ -38,6 +38,7 @@ jobs:
     docker:
         - image: cimg/python:3.10-node
     steps:
+      - checkout
       - run:
           name: Verify
           command: |

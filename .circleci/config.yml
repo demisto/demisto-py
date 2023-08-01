@@ -2,79 +2,52 @@
 ### This configuration file is used by CircleCI build server
 ### https://circleci.com/docs/config-sample
 ### =============================================================
-version: 2
+
+install_poetry: &install_poetry
+    - run:
+        name: Install Poetry
+        command: |
+          # in old images we need to remove existing poetry
+          rm -rf $HOME/.poetry/bin/poetry
+          sudo curl -sSL https://install.python-poetry.org | python3 -
+          poetry --version
+
+install_project_dependencies: &install_project_dependencies
+    - run:
+        name: Install Project Dependencies
+        command: |
+          poetry install
 jobs:
-  # using tox
-  toxify:
-      machine:
-        image: ubuntu-2004:202201-02
-
-      steps:
-        - checkout
-        - run:
-            name: Setup Python
-            command: |
-              pyenv versions
-              pyenv install 3.9.10
-              pyenv install 3.8.12
-              pyenv global 3.10.2 3.9.10 3.8.12
-       
-        - run:
-          name: Install Poetry
+  run-unit-tests:
+    parameters:
+      pythonversion:
+        type: string
+    docker:
+      - image: cimg/python:<< parameters.pythonversion >>-node
+    steps:
+      - checkout
+      - <<: *install_poetry
+      - <<: *install_project_dependencies
+      - run:
+          name: Run Unit Tests
           command: |
-            # in old images we need to remove existing poetry  TODO: check with ilan if this is still needed
-            rm -rf $HOME/.poetry/bin/poetry
-            sudo curl -sSL https://install.python-poetry.org | python3 -
-            poetry --version
-       
-        - run:
-            name: poetry build
-            command: |
-              poetry build
+            poetry run pytest -v tests
 
-        - run:
+workflows:
+  version: 2.1
+  build_and_release:
+    jobs:
+      - run-unit-tests:
+          <<: *tag_filter
+          matrix:
+            parameters:
+              pythonversion: ["3.8", "3.9", "3.10"]   
+          name: run-unit-tests-<< matrix.pythonversion >>
+
+      - run:
             name: verify
             command: |
               ./verify.sh
-        - run: 
-            name: deploy
-            command: |
-              ./deploy.sh
-
-workflows:
-  version: 2
-  build_and_release:
-    jobs:
-      - toxify:
-          filters:
-            tags:
-              only: /^v\d+\.\d+\.\d+$/
-
-jobs:
-  build_and_release:
-    executor: python
-    steps:
-      - checkout
-
-      # Install Poetry
-      - run:
-          name: Install Poetry
-          command: |
-            pip install poetry
-
-      # Install project dependencies
-      - run:
-          name: Install Project Dependencies
-          command: |
-            poetry install
-
-      # Run tests (optional)
-      # - run:
-      #     name: Run Tests
-      #     command: |
-      #       poetry run pytest
-
-      # Build the package
       - run:
           name: Build Package
           command: |
@@ -84,12 +57,14 @@ jobs:
       - run:
           name: Publish to TestPyPI
           command: |
-            if [[ "${CIRCLE_BRANCH}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-              echo "Release branch. Publishing to PyPI."
-              poetry config pypi-token.pypi $PYPI_TOKEN
-              poetry publish --build
-            else
-              echo "Non-release branch. Publishing to TestPyPI."
-              poetry config pypi-token.pypi $TEST_PYPI_TOKEN
-              poetry publish -r testpypi --build
-            fi
+            echo "Non-release branch. Publishing to TestPyPI."
+            poetry config pypi-token.pypi $TEST_PYPI_TOKEN
+            poetry publish -r testpypi --build
+           
+
+# if [[ "${CIRCLE_BRANCH}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            #   echo "Release branch. Publishing to PyPI."
+            #   poetry config pypi-token.pypi $PYPI_TOKEN
+            #   poetry publish --build
+            # else
+          # fi

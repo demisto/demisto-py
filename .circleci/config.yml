@@ -2,6 +2,7 @@
 ### This configuration file is used by CircleCI build server
 ### https://circleci.com/docs/config-sample
 ### =============================================================
+version: 2.1
 
 references:
   install_poetry: &install_poetry
@@ -33,9 +34,35 @@ jobs:
           name: Run Unit Tests
           command: |
             poetry run pytest -v tests
+  verify:
+    steps:
+      - run:
+          name: Verify
+          command: |
+            ./verify.sh
+
+  publish-to-test-pypi:
+    docker:
+      - image: cimg/python:3.10-node
+    steps:
+      - run:
+        name: Publish Package Test PyPI
+        command: |
+            poetry config pypi-token.testpypi $TEST_PYPI_TOKEN
+            poetry publish -r testpypi --build
+
+  # publish-to-pypi:
+  #   docker:
+  #     - image: cimg/python:3.10-node
+  #   steps:
+  #     - run:
+  #       name: Publish Package PyPI
+  #       command: |
+  #           poetry config pypi-token.pypi $PYPI_TOKEN
+  #           poetry publish 
+
 
 workflows:
-  version: 2.1
   build_and_release:
     jobs:
       - run-unit-tests:
@@ -43,27 +70,17 @@ workflows:
             parameters:
               pythonversion: ["3.8", "3.9", "3.10"]   
           name: run-unit-tests-<< matrix.pythonversion >>
-      - run:
-            name: verify
-            command: |
-              ./verify.sh
-      - run:
-          name: Build Package
-          command: |
-            poetry build
-
-      # Publish to TestPyPI if not a release branch
-      - run:
-          name: Publish to TestPyPI
-          command: |
-            echo "Non-release branch. Publishing to TestPyPI."
-            poetry config pypi-token.pypi $TEST_PYPI_TOKEN
-            poetry publish -r testpypi --build
-           
-
-# if [[ "${CIRCLE_BRANCH}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-            #   echo "Release branch. Publishing to PyPI."
-            #   poetry config pypi-token.pypi $PYPI_TOKEN
-            #   poetry publish --build
-            # else
-          # fi
+      - verify
+      - publish-to-test-pypi:
+          filters:
+            branches:
+              only: master
+          requires:
+            - run-unit-tests
+      # - publish-to-pypi:
+      #     requires:
+      #       - run-unit-tests
+      #     filters:
+      #       tags:
+      #         only: /^v\d+\.\d+\.\d+$/ # only run on tags
+          

@@ -3,20 +3,21 @@
 ### https://circleci.com/docs/config-sample
 ### =============================================================
 
-install_poetry: &install_poetry
-    - run:
-        name: Install Poetry
-        command: |
-          # in old images we need to remove existing poetry
-          rm -rf $HOME/.poetry/bin/poetry
-          sudo curl -sSL https://install.python-poetry.org | python3 -
-          poetry --version
+references:
+  install_poetry: &install_poetry
+      - run:
+          name: Install Poetry
+          command: |
+            # in old images we need to remove existing poetry
+            rm -rf $HOME/.poetry/bin/poetry
+            sudo curl -sSL https://install.python-poetry.org | python3 -
+            poetry --version
 
-install_project_dependencies: &install_project_dependencies
-    - run:
-        name: Install Project Dependencies
-        command: |
-          poetry install
+  install_project_dependencies: &install_project_dependencies
+      - run:
+          name: Install Project Dependencies
+          command: |
+            poetry install
 jobs:
   run-unit-tests:
     parameters:

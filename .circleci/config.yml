@@ -35,6 +35,8 @@ jobs:
           command: |
             poetry run pytest -v tests
   verify:
+    docker:
+        - image: cimg/python:3.10-node
     steps:
       - run:
           name: Verify
@@ -46,20 +48,20 @@ jobs:
       - image: cimg/python:3.10-node
     steps:
       - run:
-        name: Publish Package Test PyPI
-        command: |
-            poetry config pypi-token.testpypi $TEST_PYPI_TOKEN
-            poetry publish -r testpypi --build
+          name: Publish Package Test PyPI
+          command: |
+              poetry config pypi-token.testpypi $TEST_PYPI_TOKEN
+              poetry publish -r testpypi --build
 
   # publish-to-pypi:
   #   docker:
   #     - image: cimg/python:3.10-node
   #   steps:
   #     - run:
-  #       name: Publish Package PyPI
-  #       command: |
-  #           poetry config pypi-token.pypi $PYPI_TOKEN
-  #           poetry publish 
+    #       name: Publish Package PyPI
+    #       command: |
+    #           poetry config pypi-token.pypi $PYPI_TOKEN
+    #           poetry publish 
 
 
 workflows:

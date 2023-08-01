@@ -74,12 +74,12 @@ workflows:
               pythonversion: ["3.8", "3.9", "3.10"]   
           name: run-unit-tests-<< matrix.pythonversion >>
       - verify
-      - publish-to-test-pypi:
-          filters:
-            branches:
-              only: master
-          requires:
-            - run-unit-tests
+      - publish-to-test-pypi
+          # filters:
+          #   branches:
+          #     only: master
+          # requires:
+          #   - run-unit-tests
       # - publish-to-pypi:
       #     requires:
       #       - run-unit-tests

@@ -50,6 +50,17 @@ jobs:
           command: |
             ./verify.sh
 
+  build:
+    docker:
+      - image: cimg/python:3.10-node
+    steps:
+      - checkout
+      - run:
+          name: Build Package
+          command: |
+            poetry build
+            poetry version
+  
   publish-to-test-pypi:
     docker:
       - image: cimg/python:3.10-node
@@ -59,8 +70,9 @@ jobs:
       - run:
           name: Publish Package Test PyPI
           command: |
+              poetry config repositories.testpypi https://test.pypi.org/legacy/
               poetry config pypi-token.testpypi ${PYPI_TEST_TOKEN}
-              poetry publish -r testpypi --build --no-ansi --no-interaction
+              poetry publish -r testpypi
               # poetry publish -u __token__ -p ${PYPI_TEST_TOKEN} --repository testpypi --build
 
   # publish-to-pypi:
@@ -83,6 +95,7 @@ workflows:
               pythonversion: ["3.8", "3.9", "3.10"]   
           name: run-unit-tests-<< matrix.pythonversion >>
       - verify
+      - build
       - publish-to-test-pypi
       # - publish-to-pypi:
       #     requires:

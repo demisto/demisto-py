@@ -23,7 +23,7 @@ references:
       - run:
           name: Install Project Dependencies
           command: |
-            poetry install --no-interaction  --no-ansi --no-root
+            poetry install --no-root
 jobs:
   run-unit-tests:
     parameters:

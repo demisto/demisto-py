@@ -55,6 +55,7 @@ jobs:
       - image: cimg/python:3.10-node
     steps:
       # - <<: *poetry_build
+      - checkout
       - run:
           name: Publish Package Test PyPI
           command: |

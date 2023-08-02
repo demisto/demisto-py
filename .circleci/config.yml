@@ -18,7 +18,7 @@ references:
       - run:
           name: Install Project Dependencies
           command: |
-            poetry install --no-ansi
+            poetry install --no-interaction  --no-ansi
 jobs:
   run-unit-tests:
     parameters:

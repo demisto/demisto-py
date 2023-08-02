@@ -55,6 +55,8 @@ jobs:
       - image: cimg/python:3.10-node
     steps:
       - checkout
+      - attach_workspace:
+          at: ~/project
       # - <<: *poetry_build
       - run:
           name: Publish Package Test PyPI

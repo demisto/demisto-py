@@ -46,8 +46,16 @@ jobs:
     steps:
       - checkout
         # needed because we are using docker command inside verify.sh file 
-      - setup_remote_docker:
-          version: 20.10.12
+      - run:
+          name: Install Java and Swagger Codegen CLI
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y openjdk-8-jdk
+            wget https://repo1.maven.org/maven2/io/swagger/codegen/v3/swagger-codegen-cli/3.0.27/swagger-codegen-cli-3.0.27.jar -O swagger-codegen-cli.jar
+            echo '#!/bin/bash' > swagger-codegen
+            echo 'java -jar /usr/local/bin/swagger-codegen-cli.jar "$@"' >> swagger-codegen
+            chmod +x swagger-codegen
+            sudo mv swagger-codegen /usr/local/bin/
       - run:
           name: Verify
           command: |
@@ -92,7 +100,7 @@ workflows:
             - verify
           filters:
             branches:
-              only: sk_change_to_-poetry
+              only: master
       - publish-to-pypi:
           requires:
             - run-unit-tests
@@ -100,4 +108,6 @@ workflows:
           filters:
             tags:
               only: /^v\d+\.\d+\.\d+$/ # only run on tags [e.g. v0.0.0]
+            branches:
+              ignore: /.*/
           

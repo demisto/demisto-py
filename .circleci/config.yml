@@ -18,7 +18,7 @@ references:
       - run:
           name: Install Project Dependencies
           command: |
-            poetry install -v
+            poetry install --no-ansi
 jobs:
   run-unit-tests:
     parameters:
@@ -75,9 +75,9 @@ workflows:
           name: run-unit-tests-<< matrix.pythonversion >>
       - verify
       - publish-to-test-pypi:
-          # filters:
-          #   branches:
-          #     only: master
+          filters:
+            branches:
+              only: master
           requires:
             - run-unit-tests
       # - publish-to-pypi:

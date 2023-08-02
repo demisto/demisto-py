@@ -59,11 +59,8 @@ jobs:
       - run:
           name: Publish Package Test PyPI
           command: |
-              poetry config --list
               poetry build
-              poetry config repositories.testpypi https://test.pypi.org/legacy/
-              poetry config pypi-token.testpypi ${PYPI_TEST_TOKEN}
-              poetry publish -r testpypi
+              poetry publish -u __token__ -p ${PYPI_TEST_TOKEN} -r testpypi
 
   # publish-to-pypi:
   #   docker:

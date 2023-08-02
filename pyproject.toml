@@ -5,7 +5,7 @@ description = "\"A Python library for the Demisto SDK\""
 authors = ["Demisto"]
 license = "Apache Software License"
 readme = "README.md"
-packages = [{include = "demisto_client"}, {include = "demisto-py"}]
+packages = [{include = "demisto-py"}]
 homepage = "https://github.com/demisto/demisto-py"
 keywords=["Swagger", "Demisto API"]
 classifiers=[

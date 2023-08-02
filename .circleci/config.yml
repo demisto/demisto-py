@@ -60,7 +60,7 @@ jobs:
           name: Publish Package Test PyPI
           command: |
               poetry config pypi-token.testpypi ${PYPI_TEST_TOKEN}
-              poetry publish -r testpypi --build --no-ansi
+              poetry publish -r testpypi --build --no-ansi --no-interaction
               # poetry publish -u __token__ -p ${PYPI_TEST_TOKEN} --repository testpypi --build
 
   # publish-to-pypi:

@@ -3,8 +3,6 @@
 ### https://circleci.com/docs/config-sample
 ### =============================================================
 version: 2.1
-orbs:
-    python: circleci/python@2.1.1
 
 references:
   install_poetry: &install_poetry
@@ -20,7 +18,7 @@ references:
       - run:
           name: Install Project Dependencies
           command: |
-            poetry install --no-root
+            poetry install
 
 jobs:
   run-unit-tests:
@@ -32,10 +30,7 @@ jobs:
     steps:
       - checkout
       - <<: *install_poetry
-      # - <<: *install_project_dependencies
-      - python/install-packages:
-          pkg-manager: poetry
-          args: --no-root
+      - <<: *install_project_dependencies
       - run:
           name: Run Unit Tests
           command: |

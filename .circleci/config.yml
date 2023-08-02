@@ -45,6 +45,8 @@ jobs:
         - image: cimg/python:3.10-node
     steps:
       - checkout
+      - setup_remote_docker:
+          version: 20.10.12
       - run:
           name: Verify
           command: |

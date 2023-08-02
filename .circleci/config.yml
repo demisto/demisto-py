@@ -54,6 +54,7 @@ jobs:
     docker:
       - image: cimg/python:3.10-node
     steps:
+      - <<: *poetry_build
       - run:
           name: Publish Package Test PyPI
           command: |
@@ -81,8 +82,7 @@ workflows:
               pythonversion: ["3.8", "3.9", "3.10"]   
           name: run-unit-tests-<< matrix.pythonversion >>
       - verify
-      - publish-to-test-pypi:
-        - <<: *poetry_build
+      - publish-to-test-pypi
       # - publish-to-pypi:
       #     requires:
       #       - run-unit-tests

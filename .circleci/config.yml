@@ -60,14 +60,10 @@ jobs:
           name: Publish Package Test PyPI
           command: |
               poetry build
-              echo "After build"
               poetry config repositories.testpypi https://test.pypi.org/legacy/
-              echo "After config 1"
+              poetry config --list
               poetry config pypi-token.testpypi ${PYPI_TEST_TOKEN}
-              echo "After config 2"
               poetry publish -r testpypi
-              echo "After publish"
-              # poetry publish -u __token__ -p ${PYPI_TEST_TOKEN} --repository testpypi --build
 
   # publish-to-pypi:
   #   docker:

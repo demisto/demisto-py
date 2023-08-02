@@ -14,16 +14,12 @@ references:
             sudo curl -sSL https://install.python-poetry.org | python3 -
             poetry --version
 
-  install_project_dependencies: &install_project_dependencies
-      - run:
-        name: Print Python and Poetry versions
-        command: |
-          python3 --version
-          poetry --version
+  install_project_dependencies: &install_project_dependencies    
       - run:
           name: Install Project Dependencies
           command: |
             poetry install --no-root
+
 jobs:
   run-unit-tests:
     parameters:

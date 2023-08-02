@@ -42,9 +42,10 @@ jobs:
             poetry run python -m pytest -v tests
   verify:
     docker:
-        - image: cimg/python:3.10-node
+        - image: cimg/python:3.11.4-node
     steps:
       - checkout
+        # needed because we are using docker command inside verify.sh file 
       - setup_remote_docker:
           version: 20.10.12
       - run:
@@ -54,29 +55,27 @@ jobs:
   
   publish-to-test-pypi:
     docker:
-      - image: cimg/python:3.10-node
+      - image: cimg/python:3.11.4-node
     steps:
       - checkout
-      - attach_workspace:
-          at: ~/project
-      # - <<: *poetry_build
+      - <<: *poetry_build
       - run:
           name: Publish Package Test PyPI
           command: |
-              poetry build
               poetry config repositories.testpypi https://test.pypi.org/legacy/
               poetry publish -u __token__ -p ${PYPI_TEST_TOKEN} -r testpypi
     
 
-  # publish-to-pypi:
-  #   docker:
-  #     - image: cimg/python:3.10-node
-  #   steps:
-  #     - run:
-    #       name: Publish Package PyPI
-    #       command: |
-    #           poetry config pypi-token.pypi $PYPI_TOKEN
-    #           poetry publish 
+  publish-to-pypi:
+    docker:
+      - image: cimg/python:3.11.4-node
+    steps:
+      - checkout
+      - <<: *poetry_build
+      - run:
+          name: Publish Package PyPI
+          command: |
+              poetry publish -u __token__ -p ${PYPI_TOKEN}
 
 
 workflows:
@@ -88,11 +87,16 @@ workflows:
               pythonversion: ["3.8", "3.9", "3.10"]   
           name: run-unit-tests-<< matrix.pythonversion >>
       - verify
-      - publish-to-test-pypi
-      # - publish-to-pypi:
-      #     requires:
-      #       - run-unit-tests
-      #     filters:
-      #       tags:
-      #         only: /^v\d+\.\d+\.\d+$/ # only run on tags
+      - publish-to-test-pypi:
+          requires:
+            - run-unit-tests
+          filters:
+            branches:
+              only: master
+      - publish-to-pypi:
+          requires:
+            - run-unit-tests
+          filters:
+            tags:
+              only: /^v\d+\.\d+\.\d+$/ # only run on tags [e.g. v0.0.0]
           

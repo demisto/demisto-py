@@ -55,10 +55,11 @@ jobs:
       - image: cimg/python:3.10-node
     steps:
       - checkout
-      - <<: *poetry_build
+      # - <<: *poetry_build
       - run:
           name: Publish Package Test PyPI
           command: |
+              poetry build
               poetry config repositories.testpypi https://test.pypi.org/legacy/
               poetry config pypi-token.testpypi ${PYPI_TEST_TOKEN}
               poetry publish -r testpypi

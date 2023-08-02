@@ -49,24 +49,13 @@ jobs:
           name: Verify
           command: |
             ./verify.sh
-
-  build:
-    docker:
-      - image: cimg/python:3.10-node
-    steps:
-      - checkout
-      - run:
-          name: Build Package
-          command: |
-            poetry build
-            poetry version
   
   publish-to-test-pypi:
     docker:
       - image: cimg/python:3.10-node
     steps:
-      # - <<: *poetry_build
       - checkout
+      - <<: *poetry_build
       - run:
           name: Publish Package Test PyPI
           command: |
@@ -95,7 +84,6 @@ workflows:
               pythonversion: ["3.8", "3.9", "3.10"]   
           name: run-unit-tests-<< matrix.pythonversion >>
       - verify
-      - build
       - publish-to-test-pypi
       # - publish-to-pypi:
       #     requires:

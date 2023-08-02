@@ -51,7 +51,7 @@ jobs:
           command: |
             sudo apt-get update
             sudo apt-get install -y openjdk-8-jdk
-            wget https://repo1.maven.org/maven2/io/swagger/codegen/v3/swagger-codegen-cli/3.0.27/swagger-codegen-cli-3.0.27.jar -O swagger-codegen-cli.jar
+            wget https://repo1.maven.org/maven2/io/swagger/codegen/v3/swagger-codegen-cli/3.0.27/swagger-codegen-cli-3.0.27.jar -O /usr/local/bin/swagger-codegen-cli.jar
             echo '#!/bin/bash' > swagger-codegen
             echo 'java -jar /usr/local/bin/swagger-codegen-cli.jar "$@"' >> swagger-codegen
             chmod +x swagger-codegen

@@ -42,7 +42,7 @@ jobs:
             poetry run python -m pytest -v tests
   verify:
     docker:
-        - image: cimg/python:3.11.4-node
+        - image: cimg/python:3.10-node
     steps:
       - checkout
         # needed because we are using docker command inside verify.sh file 
@@ -55,7 +55,7 @@ jobs:
   
   publish-to-test-pypi:
     docker:
-      - image: cimg/python:3.11.4-node
+      - image: cimg/python:3.10-node
     steps:
       - checkout
       - <<: *poetry_build
@@ -68,14 +68,14 @@ jobs:
 
   publish-to-pypi:
     docker:
-      - image: cimg/python:3.11.4-node
+      - image: cimg/python:3.10-node
     steps:
       - checkout
       - <<: *poetry_build
       - run:
           name: Publish Package PyPI
-          command: |
-              poetry publish -u __token__ -p ${PYPI_TOKEN}
+          # command: |
+          #     poetry publish -u __token__ -p ${}
 
 
 workflows:
@@ -90,12 +90,14 @@ workflows:
       - publish-to-test-pypi:
           requires:
             - run-unit-tests
+            - verify
           filters:
             branches:
               only: sk_change_to_-poetry
       - publish-to-pypi:
           requires:
             - run-unit-tests
+            - verify
           filters:
             tags:
               only: /^v\d+\.\d+\.\d+$/ # only run on tags [e.g. v0.0.0]

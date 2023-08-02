@@ -34,7 +34,7 @@ jobs:
       - run:
           name: Run Unit Tests
           command: |
-            poetry run pytest -v tests
+            poetry run python -m pytest -v tests
   verify:
     docker:
         - image: cimg/python:3.10-node

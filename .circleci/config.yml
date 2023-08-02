@@ -75,12 +75,7 @@ workflows:
               pythonversion: ["3.8", "3.9", "3.10"]   
           name: run-unit-tests-<< matrix.pythonversion >>
       - verify
-      - publish-to-test-pypi:
-          filters:
-            branches:
-              only: sk_change_to-poetry
-          requires:
-            - run-unit-tests
+      - publish-to-test-pypi
       # - publish-to-pypi:
       #     requires:
       #       - run-unit-tests

@@ -74,9 +74,8 @@ jobs:
       - <<: *poetry_build
       - run:
           name: Publish Package PyPI
-          # command: |
-          #     poetry publish -u __token__ -p ${}
-
+          command: |
+            poetry version
 
 workflows:
   build_and_release:

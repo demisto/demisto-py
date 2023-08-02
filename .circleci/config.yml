@@ -20,6 +20,11 @@ references:
           command: |
             poetry install --no-interaction --no-ansi --no-root
 
+  poetry_build: &poetry_build
+      - run:
+          name: Build Package
+          command: |
+            poetry build
 jobs:
   run-unit-tests:
     parameters:
@@ -52,8 +57,9 @@ jobs:
       - run:
           name: Publish Package Test PyPI
           command: |
-              poetry config pypi-token.testpypi $TEST_PYPI_TOKEN
+              poetry config pypi-token.testpypi ${PYPI_TEST_TOKEN}
               poetry publish -r testpypi --build
+              # poetry publish -u __token__ -p ${PYPI_TEST_TOKEN} --repository testpypi --build
 
   # publish-to-pypi:
   #   docker:
@@ -75,7 +81,8 @@ workflows:
               pythonversion: ["3.8", "3.9", "3.10"]   
           name: run-unit-tests-<< matrix.pythonversion >>
       - verify
-      - publish-to-test-pypi
+      - publish-to-test-pypi:
+        - <<: *poetry_build
       # - publish-to-pypi:
       #     requires:
       #       - run-unit-tests

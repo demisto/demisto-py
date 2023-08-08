@@ -44,18 +44,6 @@ jobs:
     machine:
         image: ubuntu-2004:202201-02
     steps:
-      - checkout
-        # needed because we are using docker command inside verify.sh file 
-      - run:
-          name: Install Java and Swagger Codegen CLI
-          command: |
-            sudo apt-get update
-            sudo apt-get install -y openjdk-8-jdk
-            sudo wget https://repo1.maven.org/maven2/io/swagger/codegen/v3/swagger-codegen-cli/3.0.27/swagger-codegen-cli-3.0.27.jar -O /usr/local/bin/swagger-codegen-cli.jar
-            echo '#!/bin/bash' > swagger-codegen
-            echo 'java -jar /usr/local/bin/swagger-codegen-cli.jar "$@"' >> swagger-codegen
-            chmod +x swagger-codegen
-            sudo mv swagger-codegen /usr/local/bin/
       - run:
           name: Verify
           command: |

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "demisto-py"
-version = "3.3.0"
+version = "3.3.1"
 description = "\"A Python library for the Demisto SDK\""
 authors = ["Demisto"]
 license = "Apache-2.0"

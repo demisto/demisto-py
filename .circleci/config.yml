@@ -41,8 +41,8 @@ jobs:
           command: |
             poetry run python -m pytest -v tests
   verify:
-    docker:
-        - image: ubuntu-2004:202201-02
+    machine:
+        image: ubuntu-2004:202201-02
     steps:
       - checkout
         # needed because we are using docker command inside verify.sh file 

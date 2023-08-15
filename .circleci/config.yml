@@ -59,8 +59,7 @@ jobs:
       - run:
           name: Publish Package Test PyPI
           command: |
-              poetry config repositories.testpypi https://test.pypi.org/legacy/
-              poetry publish -u __token__ -p ${PYPI_TEST_TOKEN} -r testpypi
+            poetry version
     
 
   publish-to-pypi:
@@ -72,7 +71,8 @@ jobs:
       - run:
           name: Publish Package PyPI
           command: |
-            poetry version
+            poetry config repositories.testpypi https://test.pypi.org/legacy/
+            poetry publish -u __token__ -p ${PYPI_TEST_TOKEN} -r testpypi
 
 workflows:
   build_and_release:
@@ -90,7 +90,7 @@ workflows:
           filters:
             branches:
               only: sk_change_to_-poetry
-      - publish-to-test-pypi:
+      - publish-to-pypi:
           requires:
             - run-unit-tests
             - verify

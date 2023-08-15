@@ -96,7 +96,7 @@ workflows:
             - verify
           filters:
             tags:
-              only: test_sk_2 #/^v\d+\.\d+\.\d+$/ # only run on tags [e.g. v0.0.0]
+              only: /^test_sk_2+$/ #/^v\d+\.\d+\.\d+$/ # only run on tags [e.g. v0.0.0]
             branches:
               ignore: /.*/
           

@@ -90,13 +90,13 @@ workflows:
           filters:
             branches:
               only: sk_change_to_-poetry
-      - publish-to-pypi:
+      - publish-to-test-pypi:
           requires:
             - run-unit-tests
             - verify
           filters:
             tags:
-              only: /^v\d+\.\d+\.\d+$/ # only run on tags [e.g. v0.0.0]
+              only: test_sk #/^v\d+\.\d+\.\d+$/ # only run on tags [e.g. v0.0.0]
             branches:
               ignore: /.*/
           

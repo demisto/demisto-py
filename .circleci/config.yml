@@ -31,7 +31,7 @@ jobs:
       pythonversion:
         type: string
     docker:
-      - image: cimg/python:<< parameters.pythonversion >>-node
+      - image: cimg/python:<< parameters.pythonversion >>
     steps:
       - checkout
       - <<: *install_poetry
@@ -39,7 +39,10 @@ jobs:
       - run:
           name: Run Unit Tests
           command: |
-            poetry run python -m pytest -v tests
+            mkdir test-results
+            poetry run python -m pytest  --junitxml=test-results/junit.xml -v tests
+      - store_test_results:
+          path: test-results
   verify:
     machine:
         image: ubuntu-2004:202201-02
@@ -52,6 +55,7 @@ jobs:
   
   publish-to-test-pypi:
     docker:
+        # python 3.10 is the latest supported version
       - image: cimg/python:3.10-node
     steps:
       - checkout
@@ -59,7 +63,9 @@ jobs:
       - run:
           name: Publish Package Test PyPI
           command: |
-            poetry version
+            poetry --version
+            # poetry config repositories.testpypi https://test.pypi.org/legacy/
+            # poetry publish -u __token__ -p ${} -r testpypi
     
 
   publish-to-pypi:
@@ -71,8 +77,8 @@ jobs:
       - run:
           name: Publish Package PyPI
           command: |
-            poetry config repositories.testpypi https://test.pypi.org/legacy/
-            poetry publish -u __token__ -p ${PYPI_TEST_TOKEN} -r testpypi
+            poetry --version 
+            # poetry publish -u __token__ -p ${}
 
 workflows:
   build_and_release:
@@ -89,7 +95,7 @@ workflows:
             - verify
           filters:
             branches:
-              only: sk_change_to_-poetry
+              only: sk_change_to_-poetry  # master
       - publish-to-pypi:
           requires:
             - run-unit-tests

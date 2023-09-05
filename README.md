@@ -1,7 +1,8 @@
+# Demisto Client for Python
+
 [![PyPI version](https://badge.fury.io/py/demisto-py.svg)](https://badge.fury.io/py/demisto-py)
 [![CircleCI](https://circleci.com/gh/demisto/demisto-py/tree/master.svg?style=svg)](https://circleci.com/gh/demisto/demisto-py/tree/master)
 
-# Demisto Client for Python
 
 A Python library for the Demisto API.
 
@@ -97,9 +98,13 @@ except ApiException as e:
 
 Additional examples available in the [docs](docs/README.md) and under the [examples folder](examples/).
 
+---
+
 ## API Documentation
 
 API Documentation based upon the Demisto Server Swagger API is available [here](docs/README.md)
+
+---
 
 ## Troubleshooting
 
@@ -132,6 +137,8 @@ Content-Type: text/plain; charset=utf-8
 {"demistoVersion":"5.5.0", ...}
 ```
 
+---
+
 ## Contributing
 
 Contributions are welcome and appreciated. To contribute follow the instructions below and submit a PR.
@@ -142,47 +149,42 @@ When you open a new pull request, a bot will evaluate whether you have signed th
 
 If the `license/cla` status check remains on *Pending*, even though all contributors have accepted the CLA, you can recheck the CLA status by visiting the following link (replace **[PRID]** with the ID of your PR): <https://cla-assistant.io/check/demisto/demisto-py?pullRequest=[PRID>] .
 
+---
+
 ## Dev Environment Setup
 
-We recommend installing both development environments. We use [tox](https://github.com/tox-dev/tox) for managing environments and running unit tests.
+We will now setup a quick virtualenv in which we will install the `demisto-py` version you are currently working on.
+This will be used as your testing environment, you do not need to update it again or re-run in any way.
 
-Install `tox`:
+1. Make sure you have python3 installed.
 
-```bash
-pip install tox
+2. Make sure you have [Poetry](https://python-poetry.org/) installed.
+
+3. run `poetry install`
+
+4. For further reading about Poetry, you can refer to [Poetry documentation](https://python-poetry.org/).
+
+You have now setup the your `demisto-py` dev environment!
+
+To activate it simply run: `poetry shell`.
+
+To deactivate the virtual environment and return simply run: `exit`.
+
+---
+
+## Running unit-tests using Pytest
+
+We use [pytest](https://github.com/pytest-dev/pytest) to run unit tests.
+
+Simply use `poetry` to run your tests on a relevant folder. For example:
+```
+poetry run python -m pytest tests
 ```
 
-List configured environments:
+If you want to run with a specific python version (see the [demisto-py PyPi page](https://pypi.org/project/demisto-py/) for the current supported versions), use [poetry environments](https://python-poetry.org/docs/managing-environments/) to switch to a different env with a different python version.
 
-```bash
-tox -l
-```
+---
 
-Then setup dev virtual envs for python 3 (will also install all necessary requirements):
-
-```bash
-tox --devenv py310
-```
-
-Switch to python 3 env by running:
-
-```bash
-. py310/bin/activate
-```
-
-## Running Unit Tests
-
-We use pytest to run unit tests. Inside a virtual env you can run unit test using:
-
-```bash
-python -m pytest -v
-```
-
-Additionally, our build uses tox to run on multiple envs. To use tox to run on all supported environments (py38, py39, py310), run:
-
-```bash
-tox -q  
-```
 
 ## Code Generation
 
@@ -199,10 +201,13 @@ To generate the code run (requires bash, sed and docker):
 ./gen-code.sh
 ```
 
+---
+
 ## Publishing a Release (demisto devs)
 
 After merging to `master`, a test deployment will be pushed to: <https://test.pypi.org/project/demisto-py/> .
-You can test the test package by following the pip install instructions. For example:
+You can test the test package by following the pip install instructions.
+For example:
 
 ```bash
 pip install -i https://test.pypi.org/simple/ demisto-py
@@ -211,7 +216,9 @@ pip install -i https://test.pypi.org/simple/ demisto-py
 Steps to publish a production release:
 
 * Make sure [CHANGELOG.md](CHANGELOG.md) is up to date.
-* Create and push a tag with the release version using git. For example:
+* Update the version number in the `pyproject.toml` file to the new version.
+* Create and push a tag with the release version using git.
+For example:
 
   ```bash
   git tag v2.0.19
@@ -223,6 +230,7 @@ Steps to publish a production release:
 
 Congratulations! The release is now public.
 
+---
 ## License
 
 Apache 2.0 - See [LICENSE](LICENSE) for more information.

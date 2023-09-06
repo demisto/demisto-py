@@ -4,6 +4,13 @@
 ### =============================================================
 version: 2.1
 
+parameters:
+  docker_image_for_publishing:
+    # python 3.10 is the latest supported version
+    description: "Docker image to use for the build"
+    type: string
+    default: cimg/python:3.10
+
 references:
   install_poetry: &install_poetry
       - run:
@@ -55,8 +62,7 @@ jobs:
   
   publish-to-test-pypi:
     docker:
-        # python 3.10 is the latest supported version
-      - image: cimg/python:3.10
+      - image: << pipeline.parameters.docker_image_for_publishing >>
     steps:
       - checkout
       - <<: *poetry_build
@@ -69,7 +75,7 @@ jobs:
 
   publish-to-pypi:
     docker:
-      - image: cimg/python:3.10
+      - image: << pipeline.parameters.docker_image_for_publishing >>
     steps:
       - checkout
       - <<: *poetry_build

@@ -20,7 +20,7 @@ classifiers=[
     ]
 
 [tool.poetry.dependencies]
-python = ">=3.8.1"
+python = ">=3.8,<3.11"
 certifi = ">=2017.4.17"
 six = ">=1.10"
 python-dateutil = ">=2.5.3"

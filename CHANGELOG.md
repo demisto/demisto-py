@@ -3,10 +3,12 @@
 [PyPI History][1]
 [1]: https://pypi.org/project/demisto-py/#history
 
-## 3.3.0
+## Unreleased
+
 * Changed package management from pip to Poetry for better dependency handling and packaging.
- 
-## 3.2.11
+* Replaced `tox` with `Poetry` to run `pytest`.
+* Changed the publish process to PyPI from using `twine` to `Poetry`.
+* Moved the handling of `Poetry` publish to `CircleCI`.
 * Added advanced key authentication support for XSIAM and XSOAR 8+.
 * Added support for `DEMISTO_API_KEY_ID` and deprecated old `XSIAM_AUTH_ID`.
 

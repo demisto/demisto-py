@@ -161,7 +161,7 @@ from hashlib import sha256\\
 NONCE_POSSIBLE_VALUES = string.ascii_letters + string.digits/" demisto_client/demisto_api/api_client.py
 # End fix return partial errors
 # Fix return str response
-select_start_line=$(grep 'with open(path, "wb") as f:' demisto_client/demisto_api/api_client.py -n | cut -f1 -d: | tail -1 | tr -d "\\n")
+select_start_line=`grep 'with open(path, "wb") as f:' demisto_client/demisto_api/api_client.py -n | cut -f1 -d: | tail -1 | tr -d "\\n"`
 select_end_line=$((select_start_line + 1))
 sed -i "${INPLACE[@]}" -e "${select_start_line},${select_end_line}d" demisto_client/demisto_api/api_client.py
 sed -i "${INPLACE[@]}" -e "${select_start_line}i\\

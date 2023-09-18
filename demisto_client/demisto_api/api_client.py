@@ -555,7 +555,7 @@ class ApiClient(object):
             path = os.path.join(os.path.dirname(path), filename)
 
         if isinstance(response.data, str):
-            with open(response.data, 'w') as f:
+            with open(path, 'w') as f:
                 f.write(response.data)
         elif isinstance(response.data, bytes):
             with open(path, 'wb') as f:

@@ -166,7 +166,7 @@ select_end_line=$((select_start_line + 1))
 sed -i "${INPLACE[@]}" -e "${select_start_line},${select_end_line}d" demisto_client/demisto_api/api_client.py
 sed -i "${INPLACE[@]}" -e "${select_start_line}i\\
 \ \ \ \ \ \ \ \ if isinstance(response.data, str):\\
-\ \ \ \ \ \ \ \ \ \ \ \ with open(response.data, 'w') as f:\\
+\ \ \ \ \ \ \ \ \ \ \ \ with open(path, 'w') as f:\\
 \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ f.write(response.data)\\
 \ \ \ \ \ \ \ \ elif isinstance(response.data, bytes):\\
 \ \ \ \ \ \ \ \ \ \ \ \ with open(path, 'wb') as f:\\

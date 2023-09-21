@@ -3,6 +3,9 @@
 [PyPI History][1]
 [1]: https://pypi.org/project/demisto-py/#history
 
+## 3.2.12
+* Fixed an issue where download command would fail when trying to convert bytes types to string.
+
 ## 3.2.11
 * Added advanced key authentication support for XSIAM and XSOAR 8+.
 * Added support for `DEMISTO_API_KEY_ID` and deprecated old `XSIAM_AUTH_ID`.

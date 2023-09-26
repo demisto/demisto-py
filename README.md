@@ -181,7 +181,7 @@ Simply use `poetry` to run your tests on a relevant folder. For example:
 poetry run python -m pytest tests
 ```
 
-If you want to run with a specific python version (see the [demisto-py PyPi page](https://pypi.org/project/demisto-py/) for the current supported versions), use [poetry environments](https://python-poetry.org/docs/managing-environments/) to switch to a different env with a different python version.
+To run with a specific python version (see the [demisto-py PyPi page](https://pypi.org/project/demisto-py/) for the current supported versions), use [poetry environments](https://python-poetry.org/docs/managing-environments/) to switch to a different env with a different python version.
 
 ---
 

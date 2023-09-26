@@ -1,6 +1,6 @@
 ### =============================================================
 ### This configuration file is used by CircleCI build server
-### https://circleci.com/docs/config-sample
+### https://circleci.com/docs/sample-config
 ### =============================================================
 version: 2.1
 
@@ -67,7 +67,7 @@ jobs:
       - checkout
       - <<: *poetry_build
       - run:
-          name: Publish Package Test PyPI
+          name: Publish Package To Test PyPI
           command: |
             poetry config repositories.testpypi https://test.pypi.org/legacy/
             poetry publish -u __token__ -p ${PYPI_TEST_TOKEN} -r testpypi
@@ -80,7 +80,7 @@ jobs:
       - checkout
       - <<: *poetry_build
       - run:
-          name: Publish Package PyPI
+          name: Publish Package To PyPI
           command: |
             poetry publish -u __token__ -p ${PYPI_TOKEN}
 

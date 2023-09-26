@@ -3,7 +3,7 @@
 # exit on errors
 set -e
 
-# Script to run extra verifications after running tests
+# Script to run extra verifications
 
 # Verify that code-gen.sh doesn't generate a diff
 bash -x ./gen-code.sh 

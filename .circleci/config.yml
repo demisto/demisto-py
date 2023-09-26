@@ -36,6 +36,8 @@ references:
   version_tag_regex: &version_tag_regex
     /^v\d+\.\d+\.\d+$/ # version regex vx.x.x (i.e. v1.2.3)
   
+  # step only run if is match the filter
+  # the step run on all branches
   tag_filter: &tag_filter
     filters:
       tags:
@@ -98,13 +100,13 @@ workflows:
   build_and_release:
     jobs:
       - run-unit-tests:
-          <<: *tag_filter
+          <<: *tag_filter  # we add it for the publish-to-pypi step
           matrix:
             parameters:
               pythonversion: ["3.8", "3.9", "3.10"]   
           name: run-unit-tests-<< matrix.pythonversion >>
       - verify:
-            <<: *tag_filter
+            <<: *tag_filter # we add it for the publish-to-pypi step
       - publish-to-test-pypi:
           requires:
             - run-unit-tests

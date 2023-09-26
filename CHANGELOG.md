@@ -6,10 +6,6 @@
 ## Unreleased
 
 * Changed package management from pip to Poetry for better dependency handling and packaging.
-* Replaced `tox` with `Poetry` to run `pytest`.
-* Changed the publish process to PyPI from using `twine` to `Poetry`.
-* Update the README.md to reflect the new changes.
-* Moved the handling of `Poetry` publish to `CircleCI`.
 
 ## 3.2.12
 * Fixed an issue where download command would fail when trying to convert bytes types to string.

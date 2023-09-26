@@ -32,6 +32,18 @@ references:
           name: Build Package
           command: |
             poetry build
+
+  version_tag_regex: &version_tag_regex
+    /^v\d+\.\d+\.\d+$/ # version regex vx.x.x (i.e. v1.2.3)
+  
+  # step only run if is match the filter
+  # the step run on all branches
+  tag_filter: &tag_filter
+    filters:
+      tags:
+        only: *version_tag_regex
+
+
 jobs:
   run-unit-tests:
     parameters:
@@ -88,11 +100,13 @@ workflows:
   build_and_release:
     jobs:
       - run-unit-tests:
+          <<: *tag_filter  # we add it for the publish-to-pypi step
           matrix:
             parameters:
               pythonversion: ["3.8", "3.9", "3.10"]   
           name: run-unit-tests-<< matrix.pythonversion >>
-      - verify
+      - verify:
+            <<: *tag_filter # we add it for the publish-to-pypi step
       - publish-to-test-pypi:
           requires:
             - run-unit-tests
@@ -106,7 +120,7 @@ workflows:
             - verify
           filters:
             tags:
-              only: /^v\d+\.\d+\.\d+$/ # only run on tags [e.g. v0.0.0]
+              only: *version_tag_regex
             branches:
               ignore: /.*/
           

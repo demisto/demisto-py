@@ -5,6 +5,7 @@
 
 ## Unreleased
 
+## 3.2.13
 * Changed package management from pip to Poetry for better dependency handling and packaging.
 
 ## 3.2.12

@@ -1,0 +1,41 @@
+[tool.poetry]
+name = "demisto-py"
+version = "3.2.12"
+description = "\"A Python library for the Demisto API\""
+authors = ["Demisto"]
+license = "Apache-2.0"
+readme = "README.md"
+packages = [{include = "demisto_client"}]
+homepage = "https://github.com/demisto/demisto-py"
+keywords=["Swagger", "Demisto API"]
+classifiers=[
+        'Intended Audience :: Developers',
+        'Natural Language :: English',
+        'License :: OSI Approved :: Apache Software License',
+        'Programming Language :: Python',    
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: Implementation :: CPython'
+    ]
+
+[tool.poetry.dependencies]
+python = ">=3.8,<3.11"
+certifi = ">=2017.4.17"
+six = ">=1.10"
+python-dateutil = ">=2.5.3"
+urllib3 = ">=1.26.7"
+tzlocal = ">=4.0.0,<5.0.0"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.0"
+urllib3-mock = "^0.3.3"
+requests = "^2.31.0"
+mock = "^5.1.0"
+flake8 = "5.0.4"  # The last version that supports Python 3.8, the next version is 6.0.0 which only supports 3.8.1+
+pytest-mock = "^3.11.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

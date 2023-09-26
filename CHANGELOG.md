@@ -3,6 +3,10 @@
 [PyPI History][1]
 [1]: https://pypi.org/project/demisto-py/#history
 
+## Unreleased
+
+* Changed package management from pip to Poetry for better dependency handling and packaging.
+
 ## 3.2.12
 * Fixed an issue where download command would fail when trying to convert bytes types to string.
 

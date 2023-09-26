@@ -3,7 +3,7 @@
 # exit on errors
 set -e
 
-# Script to run extra verifications after tox build completes
+# Script to run extra verifications after running tests
 
 # Verify that code-gen.sh doesn't generate a diff
 bash -x ./gen-code.sh 

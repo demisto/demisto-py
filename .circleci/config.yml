@@ -107,13 +107,14 @@ workflows:
           name: run-unit-tests-<< matrix.pythonversion >>
       - verify:
             <<: *tag_filter # we add it for the publish-to-pypi step
-      - publish-to-test-pypi:
-          requires:
-            - run-unit-tests
-            - verify
-          filters:
-            branches:
-              only: master
+      # comment out the publish-to-test-pypi step until we automate version bumping
+      # - publish-to-test-pypi:
+      #     requires:
+      #       - run-unit-tests
+      #       - verify
+      #     filters:
+      #       branches:
+      #         only: master
       - publish-to-pypi:
           requires:
             - run-unit-tests

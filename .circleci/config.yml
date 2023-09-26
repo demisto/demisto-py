@@ -118,7 +118,7 @@ workflows:
             - verify
           filters:
             tags:
-              only: /^v\d+\.\d+\.\d+$/ # only run on tags [e.g. v0.0.0]
+              only: *version_tag_regex
             branches:
               ignore: /.*/
           

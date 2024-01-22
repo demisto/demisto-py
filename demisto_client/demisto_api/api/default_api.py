@@ -7354,7 +7354,7 @@ class DefaultApi(object):
         auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
-            '/contentpacks/installed/upload', 'POST',
+            '/contentpacks/installed/upload/custom', 'POST',
             path_params,
             query_params,
             header_params,

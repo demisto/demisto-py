@@ -7280,10 +7280,16 @@ class DefaultApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
+        use_custom_upload_endpoint_pack = kwargs.get("use_custom_upload_endpoint_pack")
         if kwargs.get('async_req'):
+            if use_custom_upload_endpoint_pack:
+                return self.upload_content_packs_with_http_info_custom_endpoint(file, **kwargs)
             return self.upload_content_packs_with_http_info(file, **kwargs)  # noqa: E501
         else:
-            (data) = self.upload_content_packs_with_http_info(file, **kwargs)  # noqa: E501
+            if use_custom_upload_endpoint_pack:
+                (data) = self.upload_content_packs_with_http_info_custom_endpoint(file, **kwargs)
+            else:
+                (data) = self.upload_content_packs_with_http_info(file, **kwargs)  # noqa: E501
             return data
 
     def upload_content_packs_with_http_info(self, file, **kwargs):  # noqa: E501

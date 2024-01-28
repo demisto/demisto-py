@@ -9,7 +9,7 @@ parameters:
     # python 3.10 is the latest supported version
     description: "Docker image to use for the build"
     type: string
-    default: cimg/python:3.10
+    default: cimg/python:3.12
 
 references:
   install_poetry: &install_poetry
@@ -103,7 +103,7 @@ workflows:
           <<: *tag_filter  # we add it for the publish-to-pypi step
           matrix:
             parameters:
-              pythonversion: ["3.8", "3.9", "3.10"]   
+              pythonversion: ["3.8", "3.9", "3.10", "3.11", "3.12"]
           name: run-unit-tests-<< matrix.pythonversion >>
       - verify:
             <<: *tag_filter # we add it for the publish-to-pypi step

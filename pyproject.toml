@@ -35,7 +35,6 @@ pytest = "^7.4.0"
 urllib3-mock = "^0.3.3"
 requests = "^2.31.0"
 mock = "^5.1.0"
-flake8 = "5.0.4"  # The last version that supports Python 3.8, the next version is 6.0.0 which only supports 3.8.1+
 pytest-mock = "^3.11.1"
 
 [build-system]

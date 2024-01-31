@@ -36,20 +36,12 @@ logger = logging.getLogger(__name__)
 
 
 class RESTResponse(io.IOBase):
-
     def __init__(self, resp):
         self.urllib3_response = resp
         self.status = resp.status
         self.reason = resp.reason
         self.data = resp.data
-
-    def getheaders(self):
-        """Returns a dictionary of the response headers."""
-        return self.urllib3_response.getheaders()
-
-    def getheader(self, name, default=None):
-        """Returns a given response header."""
-        return self.urllib3_response.getheader(name, default)
+        self.headers = resp.headers
 
 
 class RESTClientObject(object):
@@ -227,7 +219,7 @@ class RESTClientObject(object):
 
             # In the python 3, the response.data is bytes.
             # we need to decode it to string.
-            if six.PY3 and r.getheader("Content-Type") != "application/octet-stream" and r.getheader("Content-Type") != "application/gzip":
+            if six.PY3 and r.headers.get("Content-Type") != "application/octet-stream" and r.headers.get("Content-Type") != "application/gzip":
                 r.data = r.data.decode('utf8')
 
             # log response body
@@ -311,7 +303,7 @@ class ApiException(Exception):
             self.status = http_resp.status
             self.reason = http_resp.reason
             self.body = http_resp.data
-            self.headers = http_resp.getheaders()
+            self.headers = http_resp.headers
         else:
             self.status = status
             self.reason = reason

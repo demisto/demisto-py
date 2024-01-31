@@ -8,7 +8,9 @@ import json
 import urllib3
 import tempfile
 from demisto_client.demisto_api import rest
+from pathlib import Path
 
+TEST_DATA_FOLDER = Path(__file__).parent / 'tests_data'
 responses = Responses('requests.packages.urllib3')
 
 api_key = 'sample_api_key'
@@ -20,7 +22,7 @@ def assert_reset():
     assert len(responses.calls) == 0
 
 
-def get_login_mocker(mocker, num_of_http_requests_mock: int=0):
+def get_login_mocker(mocker, num_of_http_requests_mock: int = 0):
     from urllib3 import PoolManager
 
     raw_http_responses = [
@@ -269,7 +271,7 @@ def test_import_layout(mocker):
     client = demisto_client.configure(base_url=host, api_key=api_key, debug=False,
                                       verify_ssl=False)
     mocker.patch.object(client, 'import_layout_with_http_info', return_value={'test': 'test'})
-    res = client.import_layout('tests_data/layoutscontainer-test.json')
+    res = client.import_layout(str(TEST_DATA_FOLDER / 'layoutscontainer-test.json'))
     assert res.get('test') == 'test'
 
 
@@ -285,7 +287,7 @@ def test_import_layout_with_http_info_with_knowing_server_version(mocker):
     client = demisto_client.configure(base_url=host, api_key=api_key, debug=False,
                                       verify_ssl=False)
     mocker.patch.object(client.api_client, 'call_api', side_effect=[("{'demistoVersion': '6.0.0'}", 200, {'Content-type': 'application/json'}),  {'test': 'test'}])
-    res = client.import_layout('tests_data/layoutscontainer-test.json')
+    res = client.import_layout(str(TEST_DATA_FOLDER / 'layoutscontainer-test.json'))
     assert res.get('test') == 'test'
 
 
@@ -301,7 +303,7 @@ def test_import_layout_with_http_info_without_knowing_server_version(mocker):
     client = demisto_client.configure(base_url=host, api_key=api_key, debug=False,
                                       verify_ssl=False)
     mocker.patch.object(client.api_client, 'call_api', side_effect=[("{'demistoVersion': '6.0.0'}", 404, {'Content-type': 'application/json'}),  {'test': 'test'}])
-    res = client.import_layout('tests_data/layoutscontainer-test.json')
+    res = client.import_layout(str(TEST_DATA_FOLDER / 'layoutscontainer-test.json'))
     assert res.get('test') == 'test'
 
 
@@ -318,7 +320,7 @@ def test_import_layout_with_http_info_with_old_layout_format(mocker):
                                       verify_ssl=False)
 
     mocker.patch.object(client.api_client, 'call_api', side_effect=[("{'demistoVersion': '5.0.0'}", 200, {'Content-type': 'application/json'}),  {'test': 'test'}])
-    res = client.import_layout('tests_data/layout-details-test-V2.json')
+    res = client.import_layout(str(TEST_DATA_FOLDER / 'layout-details-test-V2.json'))
     assert res.get('test') == 'test'
 
 

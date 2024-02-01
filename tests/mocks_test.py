@@ -3,6 +3,8 @@ import json
 import os
 from pathlib import Path
 import tempfile
+from typing import Union, Optional
+
 import urllib3
 
 import pytest
@@ -26,8 +28,8 @@ def reset_server_configuration_env_vars(monkeypatch):
     monkeypatch.delenv('XSIAM_AUTH_ID', raising=False)
 
 
-def create_mock_response(body: dict | list | str | bytes, status: int = 200,
-                         headers: dict | None = None) -> RESTResponse:
+def create_mock_response(body: Union[dict, list, str, bytes], status: int = 200,
+                         headers: Optional[dict] = None) -> RESTResponse:
     """
     Creates a mock RESTResponse object (returned by the RESTClientObject.request method)
 

@@ -1,25 +1,67 @@
-import os
-import unittest
-import pytest
-from urllib3_mock import Responses
-import demisto_client
-from datetime import datetime
+import datetime as dt
 import json
-import urllib3
-import tempfile
-from demisto_client.demisto_api import rest
+import os
 from pathlib import Path
+import tempfile
+import urllib3
+
+import pytest
+
+import demisto_client
+from demisto_client.demisto_api.rest import ApiException, RESTClientObject, RESTResponse
+
 
 TEST_DATA_FOLDER = Path(__file__).parent / 'tests_data'
-responses = Responses('requests.packages.urllib3')
 
 api_key = 'sample_api_key'
 host = 'http://localhost:8080'
 
 
-def assert_reset():
-    assert len(responses._urls) == 0
-    assert len(responses.calls) == 0
+@pytest.fixture(autouse=True)
+def reset_server_configuration_env_vars(monkeypatch):
+    monkeypatch.delenv('DEMISTO_BASE_URL', raising=False)
+    monkeypatch.delenv('DEMISTO_API_KEY', raising=False)
+    monkeypatch.delenv('DEMISTO_USERNAME', raising=False)
+    monkeypatch.delenv('DEMISTO_PASSWORD', raising=False)
+    monkeypatch.delenv('XSIAM_AUTH_ID', raising=False)
+
+
+def create_mock_response(body: dict | list | str | bytes, status: int = 200,
+                         headers: dict | None = None) -> RESTResponse:
+    """
+    Creates a mock RESTResponse object (returned by the RESTClientObject.request method)
+
+    Args:
+        body (dict | list | str | bytes): The body of the response
+        status (int, optional): The status code of the response. Defaults to 200.
+        headers (dict, optional): The headers of the response. Defaults to None.
+
+    Returns:
+        RESTResponse: The mock RESTResponse object
+    """
+    headers = headers or {}
+
+    if isinstance(body, (dict, list)):
+        body_bytes = json.dumps(body).encode('utf-8')
+
+        if 'Content-Type' not in headers:
+            headers['Content-Type'] = 'application/json'
+
+    elif isinstance(body, str):
+        body_bytes = body
+
+        if 'Content-Type' not in headers:
+            headers['Content-Type'] = 'text/plain'
+
+    else:
+        body_bytes = body
+
+    return RESTResponse(resp=urllib3.response.HTTPResponse(
+        status=status,
+        body=body_bytes,
+        headers=headers
+        )
+    )
 
 
 def get_login_mocker(mocker, num_of_http_requests_mock: int = 0):
@@ -38,238 +80,209 @@ def get_login_mocker(mocker, num_of_http_requests_mock: int = 0):
     return mocker.patch.object(PoolManager, 'request', side_effect=raw_http_responses)
 
 
-def test_get_docker_images():
-    '''Check GET docker images.'''
+def test_get_docker_images(mocker):
+    mock_response = create_mock_response(body={
+        "images": [
+            {
+                "id": "aae7b8aaba8c",
+                "repository": "openapitools/openapi-generator-cli",
+                "tag": "latest",
+                "createdSince": "3 days ago",
+                "createdAt": "2019-08-19 13:34:22 +0300 IDT",
+                "size": "131MB",
+            }
+        ]
+    })
 
-    @responses.activate
-    def run():
-        body = '{ "images": [{"id": "aae7b8aaba8c", "repository": ' \
-               '"openapitools/openapi-generator-cli", "tag": "latest", "createdSince": "3 days ago", ' \
-               '"createdAt": "2019-08-19 13:34:22 +0300 IDT", "size": "131MB" }]}'
-        responses.add('GET', '/settings/docker-images',
-                      body=body,
-                      status=200,
-                      content_type='application/json')
+    # Create an instance of the API class
+    api_instance = demisto_client.configure(base_url=host, api_key=api_key)
+    request_mock = mocker.patch.object(api_instance.api_client.rest_client, 'request', return_value=mock_response)
 
-        # create an instance of the API class
-        api_instance = demisto_client.configure(base_url=host, api_key=api_key)
-        api_response = api_instance.get_docker_images()
+    api_response = api_instance.get_docker_images()
 
-        assert api_response.images[0].created_at == '2019-08-19 13:34:22 +0300 IDT'
-        assert api_response.images[0].id == 'aae7b8aaba8c'
-        assert api_response.images[0].repository == 'openapitools/openapi-generator-cli'
+    assert api_response.images[0].created_at == '2019-08-19 13:34:22 +0300 IDT'
+    assert api_response.images[0].id == 'aae7b8aaba8c'
+    assert api_response.images[0].repository == 'openapitools/openapi-generator-cli'
 
-        assert len(responses.calls) == 1
-        assert responses.calls[0].request.url == '/settings/docker-images'
-        assert responses.calls[0].request.host == 'localhost'
-        assert responses.calls[0].request.scheme == 'http'
-
-    run()
-    assert_reset()
+    assert request_mock.call_count == 1
+    assert request_mock.call_args[0][1] == f'{host}/settings/docker-images'
 
 
-def test_create_incident():
-    '''Check creating an incident.'''
+def test_create_incident(mocker):
+    mock_response = create_mock_response(body={
+        "name": "Test Incident",
+        "owner": "Admin",
+        "parent": "",
+        "phase": "",
+        "playbookId": "playbook0",
+        "playbook_id": "playbook0",
+        "rawCategory": "",
+        "rawCloseReason": "",
+        "rawJSON": "",
+        "rawName": "Test Incident",
+        "rawPhase": "",
+        "rawType": "Unclassified",
+        "raw_category": "",
+        "raw_close_reason": "",
+        "raw_json": "",
+        "raw_name": "Test Incident",
+        "raw_phase": "",
+        "raw_type": "Unclassified",
+        "reason": "",
+        "runStatus": "",
+        "run_status": "",
+        "severity": 0,
+        "sourceBrand": "Manual",
+        "sourceInstance": "admin",
+        "source_brand": "Manual",
+        "source_instance": "admin",
+        "status": 0,
+        "type": "Unclassified",
+        "version": 1,
+    })
 
-    @responses.activate
-    def run():
-        body = '{"name":"Test Incident","owner":"Admin","parent":"","phase":"",' \
-               '"playbookId":"playbook0","playbook_id":"playbook0","rawCategory":"",' \
-               '"rawCloseReason":"","rawJSON":"","rawName":"Test Incident","rawPhase":"",' \
-               '"rawType":"Unclassified","raw_category":"","raw_close_reason":"","raw_json":"",' \
-               '"raw_name":"Test Incident","raw_phase":"","raw_type":"Unclassified","reason":"",' \
-               '"runStatus":"","run_status":"","severity":0,"sourceBrand":"Manual",' \
-               '"sourceInstance":"admin","source_brand":"Manual","source_instance":"admin",' \
-               '"status":0,"type":"Unclassified","version":1}'
-        responses.add('POST', '/incident',
-                      body=body,
-                      status=200,
-                      content_type='application/json')
+    # Create an instance of the API class
+    api_instance = demisto_client.configure(base_url=host, api_key=api_key)
+    request_mock = mocker.patch.object(api_instance.api_client.rest_client, 'request', return_value=mock_response)
 
-        # create an instance of the API class
-        api_instance = demisto_client.configure(base_url=host, api_key=api_key)
-        create_incident_request = demisto_client.demisto_api.CreateIncidentRequest()
-        create_incident_request.name = 'Test Incident'
-        create_incident_request.type = 'Unclassified'
-        create_incident_request.owner = 'Admin'
-        create_incident_request.occurred = datetime.now()
-        api_response = api_instance.create_incident(create_incident_request=create_incident_request)
+    create_incident_request = demisto_client.demisto_api.CreateIncidentRequest()
+    create_incident_request.name = 'Test Incident'
+    create_incident_request.type = 'Unclassified'
+    create_incident_request.owner = 'Admin'
+    create_incident_request.occurred = dt.datetime.now()
+    api_response = api_instance.create_incident(create_incident_request=create_incident_request)
 
-        assert api_response.name == 'Test Incident'
-        assert api_response.type == 'Unclassified'
-        assert api_response.owner == 'Admin'
+    assert api_response.name == 'Test Incident'
+    assert api_response.type == 'Unclassified'
+    assert api_response.owner == 'Admin'
 
-        assert len(responses.calls) == 1
-        req = responses.calls[0].request
-        assert req.url == '/incident'
-        assert req.host == 'localhost'
-        assert req.scheme == 'http'
-        # veriy date field occurred according to rfc 3339
-        req_body = json.loads(req.body)
-        assert req_body['occurred'][-6] == '+' or req_body['occurred'][-6] == '-'  # end with +/- offset 
+    assert request_mock.call_count == 1
+    assert request_mock.call_args[0][1] == f'{host}/incident'
 
-    run()
-    assert_reset()
-
-
-def test_get_reports():
-    '''Testing GET all reports.'''
-
-    @responses.activate
-    def run():
-        body = '[{"created_by":"DBot","dashboard":"None","decoder":{},"description":"This report ' \
-               'generates Mean Time to Resolve by Incident type for last 2 Quarters",' \
-               '"id":"MTTRbyIncidentType2Quar","locked":false,"name":"Mean time to Resolve by ' \
-               'Incident Type (Last 2 Quarters)","orientation":"portrait","prev_name":"Mean time to ' \
-               'Resolve by Incident Type (Last 2 Quarters)","prev_type":"pdf","type":"pdf",' \
-               '"version":4}]'
-
-        responses.add('GET', '/reports',
-                      body=body,
-                      status=200,
-                      content_type='application/json')
-
-        api_instance = demisto_client.configure(base_url=host, api_key=api_key, debug=False)
-        api_response = api_instance.get_all_reports()
-
-        assert api_response[0].id == 'MTTRbyIncidentType2Quar'
-        assert api_response[
-                   0].description == 'This report generates Mean Time to Resolve by Incident type for ' \
-                                     '' \
-                                     'last 2 Quarters'
-        assert api_response[0].version == 4
-
-        assert len(responses.calls) == 1
-        assert responses.calls[0].request.url == '/reports'
-        assert responses.calls[0].request.host == 'localhost'
-        assert responses.calls[0].request.scheme == 'http'
-
-    run()
-    assert_reset()
+    # Verify date field occurred according to rfc 3339
+    req_body = request_mock.call_args[1]['body']
+    assert req_body['occurred'][-6] == '+' or req_body['occurred'][-6] == '-'  # end with +/- offset
 
 
-def test_indicators_search():
-    '''Testing search for indicator.'''
+def test_get_reports(mocker):
+    mock_response = create_mock_response(body=[{
+        "created_by": "DBot",
+        "dashboard": "None",
+        "decoder": {},
+        "description": "This report generates Mean Time to Resolve by Incident type for last 2 Quarters",
+        "id": "MTTRbyIncidentType2Quar",
+        "locked": False,
+        "name": "Mean time to Resolve by Incident Type (Last 2 Quarters)",
+        "orientation": "portrait",
+        "prev_name": "Mean time to Resolve by Incident Type (Last 2 Quarters)",
+        "prev_type": "pdf",
+        "type": "pdf",
+        "version": 4
+    }])
 
-    @responses.activate
-    def run():
-        body = r'''
-        {
-        "iocObjects": [{
-            "id": "4737",
-            "version": 1,
-            "modified": "2019-07-14T16:54:02.719044+03:00",
-            "account": "",
-            "timestamp": "2019-07-14T16:54:02.718422+03:00",
-            "indicator_type": "IP",
-            "value": "92.63.197.153",
-            "source": "Recorded Future",
-            "investigationIDs": ["1750"],
-            "lastSeen": "2019-07-14T16:54:02.718378+03:00",
-            "firstSeen": "2019-07-14T16:54:02.718378+03:00",
-            "lastSeenEntryID": "API",
-            "firstSeenEntryID": "API",
-            "score": 3,
-            "manualScore": true,
-            "setBy": "DBotWeak",
-            "manualSetTime": "0001-01-01T00:00:00Z",
-            "insightCache": null,
-            "calculatedTime": "2019-07-14T16:54:02.718378+03:00",
-            "lastReputationRun": "0001-01-01T00:00:00Z",
-            "comment": "From Recorded Future risk list, Score - 89",
-            "manuallyEditedFields": null
-        }],
+    api_instance = demisto_client.configure(base_url=host, api_key=api_key)
+    request_mock = mocker.patch.object(api_instance.api_client.rest_client, 'request', return_value=mock_response)
+
+    api_response = api_instance.get_all_reports()
+
+    assert api_response[0].id == 'MTTRbyIncidentType2Quar'
+    assert api_response[0].description == ('This report generates Mean Time to Resolve '
+                                           'by Incident type for last 2 Quarters')
+    assert api_response[0].version == 4
+
+    assert request_mock.call_count == 1
+    assert request_mock.call_args[0][1] == f'{host}/reports'
+
+
+def test_indicators_search(mocker):
+    mock_response = create_mock_response(body={
+        "iocObjects": [
+            {
+                "id": "4737",
+                "version": 1,
+                "modified": "2019-07-14T16:54:02.719044+03:00",
+                "account": "",
+                "timestamp": "2019-07-14T16:54:02.718422+03:00",
+                "indicator_type": "IP",
+                "value": "92.63.197.153",
+                "source": "Recorded Future",
+                "investigationIDs": [
+                    "1750"
+                ],
+                "lastSeen": "2019-07-14T16:54:02.718378+03:00",
+                "firstSeen": "2019-07-14T16:54:02.718378+03:00",
+                "lastSeenEntryID": "API",
+                "firstSeenEntryID": "API",
+                "score": 3,
+                "manualScore": True,
+                "setBy": "DBotWeak",
+                "manualSetTime": "0001-01-01T00:00:00Z",
+                "insightCache": None,
+                "calculatedTime": "2019-07-14T16:54:02.718378+03:00",
+                "lastReputationRun": "0001-01-01T00:00:00Z",
+                "comment": "From Recorded Future risk list, Score - 89",
+                "manuallyEditedFields": None
+            }
+        ],
         "total": 1
-    }
-    '''
+    })
 
-        responses.add('POST', '/indicators/search',
-                      body=body,
-                      status=200,
-                      content_type='application/json')
-        api_instance = demisto_client.configure(base_url=host, api_key=api_key, debug=False)
-        indicator_filter = demisto_client.demisto_api.IndicatorFilter()  # IndicatorFilter |  (optional)
-        indicator_filter.query = 'value:92.63.197.153'
-        api_response = api_instance.indicators_search(indicator_filter=indicator_filter)
+    api_instance = demisto_client.configure(base_url=host, api_key=api_key)
+    request_mock = mocker.patch.object(api_instance.api_client.rest_client, 'request', return_value=mock_response)
 
-        assert api_response.ioc_objects[0].get('comment') == 'From Recorded Future risk list, Score - 89'
-        # assert api_response.type == 'Unclassified'
-        # assert api_response.owner == 'Admin'
+    indicator_filter = demisto_client.demisto_api.IndicatorFilter()  # IndicatorFilter |  (optional)
+    indicator_filter.query = 'value:92.63.197.153'
+    api_response = api_instance.indicators_search(indicator_filter=indicator_filter)
 
-        assert len(responses.calls) == 1
-        assert responses.calls[0].request.url == '/indicators/search'
-        assert responses.calls[0].request.host == 'localhost'
-        assert responses.calls[0].request.scheme == 'http'
-
-    run()
-    assert_reset()
+    assert api_response.ioc_objects[0].get('comment') == 'From Recorded Future risk list, Score - 89'
+    assert request_mock.call_count == 1
+    assert request_mock.call_args[0][1] == f'{host}/indicators/search'
 
 
-def test_export_entry():
-    '''Testing export entry artifact.'''
+def test_export_entry(mocker):
+    mock_response = create_mock_response(body="entry_artifact_6@1770.md", headers={'Content-Type': 'application/json'})
 
-    @responses.activate
-    def run():
-        body = "entry_artifact_6@1770.md"
-        responses.add('POST', '/entry/exportArtifact',
-                      body=body,
-                      status=200,
-                      content_type='application/json')
-        api_instance = demisto_client.configure(base_url=host, api_key=api_key, debug=False)
-        download_entry = demisto_client.demisto_api.DownloadEntry()  # DownloadEntry |  (optional)
+    api_instance = demisto_client.configure(base_url=host, api_key=api_key)
+    request_mock = mocker.patch.object(api_instance.api_client.rest_client, 'request', return_value=mock_response)
 
-        download_entry.id = '6@1770'
-        download_entry.investigation_id = '1770'
+    download_entry = demisto_client.demisto_api.DownloadEntry()  # DownloadEntry |  (optional)
+    download_entry.id = '6@1770'
+    download_entry.investigation_id = '1770'
+    api_result = api_instance.entry_export_artifact(download_entry=download_entry)
 
-        api_result = api_instance.entry_export_artifact(download_entry=download_entry)
+    assert api_result == 'entry_artifact_6@1770.md'
 
-        assert api_result == 'entry_artifact_6@1770.md'
-
-        assert len(responses.calls) == 1
-        assert responses.calls[0].request.url == '/entry/exportArtifact'
-        assert responses.calls[0].request.host == 'localhost'
-        assert responses.calls[0].request.scheme == 'http'
-
-    run()
-    assert_reset()
+    assert request_mock.call_count == 1
+    assert request_mock.call_args[0][1] == f'{host}/entry/exportArtifact'
 
 
-def test_generic_request():
-    '''Testing generic requst.'''
+def test_generic_request(mocker):
+    mock_response = create_mock_response(body="All good")
 
-    @responses.activate
-    def run():
-        responses.add('POST', '/test',
-                      body="all good",
-                      status=200,
-                      content_type='text/plain')
-        api_instance = demisto_client.configure(base_url=host, api_key=api_key, debug=False)
-        (res, code, headers) = api_instance.generic_request('/test', 'POST', body="this is a test",
-                                                            content_type='text/plain', accept='text/plain')
+    api_instance = demisto_client.configure(base_url=host, api_key=api_key)
+    request_mock = mocker.patch.object(api_instance.api_client.rest_client, 'request', return_value=mock_response)
 
-        assert res == 'all good'
-        assert code == 200
+    res, code, headers = api_instance.generic_request('/test', 'POST', body="This is a test",
+                                                      content_type='text/plain', accept='text/plain')
 
-        assert len(responses.calls) == 1
-        assert responses.calls[0].request.url == '/test'
-        assert responses.calls[0].request.host == 'localhost'
-        assert responses.calls[0].request.scheme == 'http'
+    assert res == 'All good'
+    assert code == 200
+    assert headers == {'Content-Type': 'text/plain'}
 
-    run()
-    assert_reset()
+    assert request_mock.call_count == 1
+    assert request_mock.call_args[0][1] == f'{host}/test'
 
 
 def test_import_layout(mocker):
     """
     Given:
-        - Path for a layoutscontainer.
+        - Path to a layoutscontainer.
     When
         - Using client.import_layout() to upload a new layout.
     Then
         - The layout is being uploaded and getting back the layout metadata.
     """
-    client = demisto_client.configure(base_url=host, api_key=api_key, debug=False,
-                                      verify_ssl=False)
+    client = demisto_client.configure(base_url=host, api_key=api_key, verify_ssl=False)
     mocker.patch.object(client, 'import_layout_with_http_info', return_value={'test': 'test'})
     res = client.import_layout(str(TEST_DATA_FOLDER / 'layoutscontainer-test.json'))
     assert res.get('test') == 'test'
@@ -284,8 +297,7 @@ def test_import_layout_with_http_info_with_knowing_server_version(mocker):
     Then
         - The layout is being uploaded and getting back the layout metadata.
     """
-    client = demisto_client.configure(base_url=host, api_key=api_key, debug=False,
-                                      verify_ssl=False)
+    client = demisto_client.configure(base_url=host, api_key=api_key, verify_ssl=False)
     mocker.patch.object(client.api_client, 'call_api', side_effect=[("{'demistoVersion': '6.0.0'}", 200, {'Content-type': 'application/json'}),  {'test': 'test'}])
     res = client.import_layout(str(TEST_DATA_FOLDER / 'layoutscontainer-test.json'))
     assert res.get('test') == 'test'
@@ -300,8 +312,7 @@ def test_import_layout_with_http_info_without_knowing_server_version(mocker):
     Then
         - The layout is being uploaded and getting back the layout metadata.
     """
-    client = demisto_client.configure(base_url=host, api_key=api_key, debug=False,
-                                      verify_ssl=False)
+    client = demisto_client.configure(base_url=host, api_key=api_key, verify_ssl=False)
     mocker.patch.object(client.api_client, 'call_api', side_effect=[("{'demistoVersion': '6.0.0'}", 404, {'Content-type': 'application/json'}),  {'test': 'test'}])
     res = client.import_layout(str(TEST_DATA_FOLDER / 'layoutscontainer-test.json'))
     assert res.get('test') == 'test'
@@ -316,140 +327,102 @@ def test_import_layout_with_http_info_with_old_layout_format(mocker):
     Then
         - The layout is being uploaded and getting back the layout metadata.
     """
-    client = demisto_client.configure(base_url=host, api_key=api_key, debug=False,
-                                      verify_ssl=False)
+    client = demisto_client.configure(base_url=host, api_key=api_key, verify_ssl=False)
 
     mocker.patch.object(client.api_client, 'call_api', side_effect=[("{'demistoVersion': '5.0.0'}", 200, {'Content-type': 'application/json'}),  {'test': 'test'}])
     res = client.import_layout(str(TEST_DATA_FOLDER / 'layout-details-test-V2.json'))
     assert res.get('test') == 'test'
 
 
-class TestFailedGenericRequestNoEnv(unittest.TestCase):
+def test_generic_request_with_no_env(mocker):
+    """
+    Given:
+    - Request which should result in an ApiException
+    When:
+    - No environment variable has been set
+    Then:
+    - Return ApiException without the headers in the error
+    """
+    mock_response = urllib3.response.HTTPResponse(
+        status=400,
+        body=b"Error",
+        headers={'Content-Type': 'text/plain'},
+        )
 
-    def test_generic_request(self):
-        """
-        Given:
-        - Request which should result in an ApiException
-        When:
-        - No environment variable has been set
-        Then:
-        - Return ApiException without the headers in the error
-        """
-        from demisto_client.demisto_api.rest import ApiException
+    api_instance = demisto_client.configure(base_url=host, api_key=api_key)
+    request_mock = mocker.patch.object(api_instance.api_client.rest_client.pool_manager, 'request',
+                                       return_value=mock_response)
 
-        @responses.activate
-        def run():
-            responses.add('POST', '/test',
-                          body="Not good",
-                          status=400,
-                          content_type='text/plain')
-            api_instance = demisto_client.configure(base_url=host, api_key=api_key, debug=False)
+    with pytest.raises(ApiException) as e:
+        api_instance.generic_request(path='/test', method='POST', body='this is a test',
+                                     content_type='text/plain', accept='text/plain')
 
-            with self.assertRaises(ApiException) as context:
-                (_, _, _) = api_instance.generic_request('/test', 'POST',
-                                                                    body="this is a test",
-                                                                    content_type='text/plain',
-                                                                    accept='text/plain')
-            self.assertTrue('HTTP response body' in str(context.exception))
-            self.assertFalse('HTTP response headers' in str(context.exception))
-            assert len(responses.calls) == 1
-            assert responses.calls[0].request.url == '/test'
-            assert responses.calls[0].request.host == 'localhost'
-            assert responses.calls[0].request.scheme == 'http'
+    assert 'HTTP response body' in str(e.value)
+    assert 'HTTP response headers' not in str(e.value)
 
-        run()
-        assert_reset()
+    assert request_mock.call_count == 1
+    assert request_mock.call_args[0][1] == f'{host}/test'
 
 
-class TestFailedGenericRequestWithEnv(unittest.TestCase):
+def test_failed_generic_request_with_header_logging(mocker, monkeypatch):
+    """
+    Given:
+    - Request which should result in an ApiException
+    When:
+    - Environment variable DEMISTO_EXCEPTION_HEADER_LOGGING has been set to true
+    Then:
+    - Return ApiException with the headers in the error
+    """
+    monkeypatch.setenv("DEMISTO_EXCEPTION_HEADER_LOGGING", "true")
 
-    def test_generic_request(self):
-        """
-        Given:
-        - Request which should result in an ApiException
-        When:
-        - Environment variable DEMISTO_EXCEPTION_HEADER_LOGGING has been set to true
-        Then:
-        - Return ApiException with the headers in the error
-        """
-        import sys
-        # Error should be the same in both Py2 and Py3, but Py2 does not support unittest mock in
-        # the same way
-        if sys.version_info[0] > 2:
-            import os
-            from demisto_client.demisto_api.rest import ApiException
-            from unittest import mock
+    mock_response = urllib3.response.HTTPResponse(
+        status=400,
+        body=b"Error",
+        headers={'Content-Type': 'text/plain'},
+        )
 
-            @mock.patch.dict(os.environ, {"DEMISTO_EXCEPTION_HEADER_LOGGING": "true"})
-            @responses.activate
-            def run():
-                responses.add('POST', '/test',
-                              body="Not good",
-                              status=400,
-                              content_type='text/plain')
-                api_instance = demisto_client.configure(base_url=host, api_key=api_key, debug=False)
+    api_instance = demisto_client.configure(base_url=host, api_key=api_key)
+    request_mock = mocker.patch.object(api_instance.api_client.rest_client.pool_manager, 'request',
+                                       return_value=mock_response)
 
-                with self.assertRaises(ApiException) as context:
-                    (_, _, _) = api_instance.generic_request('/test', 'POST',
-                                                             body="this is a test",
-                                                             content_type='text/plain',
-                                                             accept='text/plain')
-                self.assertTrue('HTTP response body' in str(context.exception))
-                self.assertTrue('HTTP response headers' in str(context.exception))
-                assert len(responses.calls) == 1
-                assert responses.calls[0].request.url == '/test'
-                assert responses.calls[0].request.host == 'localhost'
-                assert responses.calls[0].request.scheme == 'http'
-        else:
-            def run():
-                assert 1 == 1
-        run()
-        assert_reset()
+    with pytest.raises(ApiException) as e:
+        api_instance.generic_request('/test', 'POST',
+                                     body="this is a test",
+                                     content_type='text/plain',
+                                     accept='text/plain')
+
+    assert 'HTTP response body' in str(e.value)
+    assert 'HTTP response headers' in str(e.value)
+
+    assert request_mock.call_count == 1
+    assert request_mock.call_args[0][1] == f'{host}/test'
 
 
-class TestWithProxyBasicAuthentication(unittest.TestCase):
+def test_generic_request_with_proxy_authentication(mocker, monkeypatch):
+    """
+    Given:
+    - Request which use proxy authentication
+    When:
+    - Environment variable HTTP_PROXY and HTTPS_PROXY which contains a username and password with special characters
+    Then:
+    - Ensure the request made to the correct url via correct proxy username and password. Special character should be decoded.
+    """
+    monkeypatch.setenv("HTTP_PROXY", "http://user1:pass%21%23%24%25%5E@localhost:8080")
+    monkeypatch.setenv("HTTPS_PROXY", "http://user1:pass%21%23%24%25%5E@localhost:8080")
 
-    def test_generic_request(self):
-        """
-        Given:
-        - Request which use proxy authentication
-        When:
-        - Environment variable HTTP_PROXY and HTTPS_PROXY which contains a username and password with special characters
-        Then:
-        - Ensure the request made to the correct url via correct proxy username and password. Special character should be decoded.
-        """
-        import sys
-        # Error should be the same in both Py2 and Py3, but Py2 does not support unittest mock in
-        # the same way
-        if sys.version_info[0] > 2:
-            from unittest import mock
+    mock_response = create_mock_response(body="Good")
 
-            @mock.patch.dict(os.environ, {"HTTP_PROXY": "http://user1:pass%21%23%24%25%5E@localhost:8080"})
-            @mock.patch.dict(os.environ, {"HTTPS_PROXY": "http://user1:pass%21%23%24%25%5E@localhost:8080"})
-            @responses.activate
-            def run():
-                responses.add('POST', 'http://localhost:8080/test',
-                              body="Good",
-                              status=200,
-                              content_type='text/plain')
-                api_instance = demisto_client.configure(base_url=host, api_key=api_key, debug=False)
+    api_instance = demisto_client.configure(base_url=host, api_key=api_key)
+    request_mock = mocker.patch.object(api_instance.api_client.rest_client, 'request', return_value=mock_response)
 
-                api_instance.generic_request('/test', 'POST',
-                                            body="this is a test",
-                                            content_type='text/plain',
-                                            accept='text/plain')
+    api_instance.generic_request('/test', 'POST',
+                                 body="this is a test",
+                                 content_type='text/plain',
+                                 accept='text/plain')
 
-                assert len(responses.calls) == 1
-                assert responses.calls[0].request.url == 'http://localhost:8080/test'
-                assert responses.calls[0].request.host == 'localhost'
-                assert responses.calls[0].request.scheme == 'http'
-                assert api_instance.api_client.configuration.proxy_auth == 'user1:pass!#$%^'
-                
-        else:
-            def run():
-                assert 1 == 1
-        run()
-        assert_reset()
+    assert request_mock.call_count == 1
+    assert request_mock.call_args[0][1] == f'{host}/test'
+    assert api_instance.api_client.configuration.proxy_auth == 'user1:pass!#$%^'
 
 
 def test_import_incidentfields(mocker):
@@ -462,11 +435,11 @@ def test_import_incidentfields(mocker):
         Make sure the partial error is returned.
     """
 
-    api_instance = demisto_client.configure(base_url=host, api_key=api_key, debug=False)
+    api_instance = demisto_client.configure(base_url=host, api_key=api_key)
 
     raw_http_response = urllib3.response.HTTPResponse(body=b'{"incidentFields":[{"id":"evidence_description"}],'
                                                            b'"error":"Partial Error Description"}\n', status=200)
-    mocker.patch.object(rest.RESTClientObject, 'POST', return_value=raw_http_response)
+    mocker.patch.object(RESTClientObject, 'POST', return_value=raw_http_response)
     with tempfile.NamedTemporaryFile() as tmp:
         res = api_instance.import_incident_fields(tmp.name)
     if isinstance(res, dict):

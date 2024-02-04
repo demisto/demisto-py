@@ -1172,14 +1172,14 @@ Exports an incidents batch to CSV file (returns file ID)
 ### Example
 ```python
 from __future__ import print_function
+import time
+import demisto_client
 import demisto_client.demisto_api
 from demisto_client.demisto_api.rest import ApiException
 from pprint import pprint
 
 api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
-inc_filter = demisto_client.demisto_api.IncidentFilter()
-inc_filter.query = 'status: "Active"'
-update_data_batch = demisto_client.demisto_api.UpdateDataBatch(filter=inc_filter, all=True, columns=['id', 'name', 'status'])
+update_data_batch = demisto_client.demisto_api.UpdateDataBatch() # UpdateDataBatch |  (optional)
 
 try:
     # Batch export incidents to csv

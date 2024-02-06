@@ -23,7 +23,7 @@ classifiers=[
 
 [tool.poetry.dependencies]
 python = ">=3.8,<=3.12"
-certifi = "^2023.11.17"
+certifi = "^2024.2.2"
 six = "^1.16"
 python-dateutil = "^2.7.2"
 urllib3 = "<2.1.0"  # Can't update until CIAC-9648 is resolved

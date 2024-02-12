@@ -1,9 +1,9 @@
 # Changelog
 
-[PyPI History][1]
-[1]: https://pypi.org/project/demisto-py/#history
+[PyPI History](https://pypi.org/project/demisto-py/#history)
 
-## Unreleased
+## 3.2.14
+* Added support for Python versions 3.11 and 3.12.
 
 ## 3.2.13
 * Changed package management from pip to Poetry for better dependency handling and packaging.

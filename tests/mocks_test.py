@@ -167,7 +167,7 @@ def test_create_incident(mocker: MockerFixture):
     assert api_response.owner == 'Admin'
 
     assert request_mock.call_count == 1
-    assert request_mock.call_args[0][1] == f'{HOST}/incident'
+    assert request_mock.call_args[0][1] == f'{HOST}/public/v1/incident'
 
     # Verify date field occurred according to rfc 3339
     req_body = request_mock.call_args[1]['body']

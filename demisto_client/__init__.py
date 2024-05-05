@@ -8,6 +8,7 @@ import tzlocal
 import json
 
 from demisto_client.demisto_api import ApiClient
+from demisto_client.demisto_api.rest import ApiException
 from demisto_client.demisto_api.configuration import Configuration
 from pkg_resources import get_distribution, DistributionNotFound
 from distutils.version import LooseVersion
@@ -23,7 +24,8 @@ DEMISTO_HTTP_HEADERS_REGEX_PATTERN = r'^([\w-]+=[^=,\n]+)(,[\w-]+=[^=,\n]+)*$'
 
 
 def configure(base_url=None, api_key=None, advanced_api_key=None, verify_ssl=None, proxy=None, username=None, password=None,
-              ssl_ca_cert=None, debug=False, connection_pool_maxsize=None, auth_id=None, additional_headers=None):
+              ssl_ca_cert=None, debug=False, connection_pool_maxsize=None, auth_id=None, additional_headers=None,
+              new_password=None):
     """
     This wrapper provides an easier to use method of configuring the API client. The base
     Configuration method is still exposed if you wish to further configure the API Client.
@@ -56,6 +58,7 @@ def configure(base_url=None, api_key=None, advanced_api_key=None, verify_ssl=Non
     :param connection_pool_maxsize: int - specify a connection max pool size
     :param auth_id: str - api_key_id only for the xsiam
     :param additional_headers: dict - any additional headers to send to every http request to demisto.
+    :param new_password: str - the new password to be set if the current one is expired
     :return: Returns an API client configuration identical to the Configuration() method.
     """
     base_url = base_url or os.getenv('DEMISTO_BASE_URL')
@@ -139,14 +142,14 @@ def configure(base_url=None, api_key=None, advanced_api_key=None, verify_ssl=Non
         api_instance = demisto_api.DefaultApi(api_client)
         return api_instance
     else:
-        api_instance = login(base_url=base_url, username=username, password=password,
-                             verify_ssl=verify_ssl, proxy=proxy, debug=debug, additional_headers=additional_headers)
+        api_instance = login(base_url=base_url, username=username, password=password, verify_ssl=verify_ssl,
+                             proxy=proxy, debug=debug, additional_headers=additional_headers, new_password=new_password)
         return api_instance
 
 
 def login(
-    base_url=None, username=None, password=None, verify_ssl=True, proxy=None, debug=False, additional_headers=None
-):
+    base_url=None, username=None, password=None, verify_ssl=True, proxy=None, debug=False, additional_headers=None,
+        new_password=None):
     additional_headers = additional_headers or {}
     configuration_orig = Configuration()
     configuration_orig.host = base_url or os.getenv('DEMISTO_BASE_URL', None)
@@ -192,8 +195,35 @@ def login(
     api_client.user_agent = 'demisto-py/' + __version__
     api_client.default_headers.update(additional_headers)
     mid_client = demisto_api.DefaultApi(api_client)
-    second_call = generic_request_func(self=mid_client, path='/login', method='POST', body=body,
-                                       accept='application/json', content_type='application/json')
+    try:
+        second_call = generic_request_func(self=mid_client, path='/login', method='POST', body=body,
+                                           accept='application/json', content_type='application/json')
+    except ApiException as E:
+        error_content = json.loads(E.body)
+        if 'id' not in error_content.keys() and error_content['error']['id'] == 'password_expired' and new_password is not None:
+            # We need to check if 'id' is in the array. Indeed demisto doesn't add the ['error'] sub-array when the creds are invalid
+            new_password_body = {
+                'user': username,
+                'password': password,
+                'newPassword': new_password,
+                'passwordValidator': new_password
+            }
+            update_password_call = generic_request_func(self=mid_client, path='/login', method='POST', body=body,
+                                                        accept='application/json', content_type='application/json')
+            return login(
+                base_url=base_url,
+                username=username,
+                password=new_password,
+                verify_ssl=verify_ssl,
+                proxy=proxy,
+                debug=debug,
+                additional_headers=additional_headers,
+                new_password=None
+            ) # we run the login sequence again so we end up with an authenticated session
+        else:
+            raise E
+
+
     updated_cookies = cookies + '; ' + second_call[2]['Set-Cookie']
     mid_api_client = ApiClient(configuration, header_name="X-XSRF-TOKEN", header_value=xsrf_token,
                                cookie=updated_cookies)

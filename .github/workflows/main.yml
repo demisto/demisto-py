@@ -1,12 +1,15 @@
 name: Build and Release
 
 on:
-  push:
+  push:   # This applies to all pushes
     branches:
-      - master
-    tags:
-      - 'v*.*.*'
-      
+      - '**'   # Run on all branches for push
+  pull_request:
+    branches:
+      - '**'   # Run unit tests on all PRs as well
+  tags:
+    - 'v*.*.*' # For tag pushes
+
 jobs:
   run-unit-tests:
     strategy:
@@ -44,6 +47,7 @@ jobs:
           path: test-results
 
   verify:
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code

@@ -1,6 +1,7 @@
 # Demisto Client for Python
 
 [![PyPI version](https://badge.fury.io/py/demisto-py.svg)](https://badge.fury.io/py/demisto-py)
+![Build and Release workflow](https://github.com/demisto/demisto-py/actions/workflows/main.yml/badge.svg)
 
 
 A Python library for the Demisto API.

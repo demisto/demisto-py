@@ -6,7 +6,7 @@ set -e
 # Script to run extra verifications
 
 # Verify that code-gen.sh doesn't generate a diff
-bash -x ./gen-code.sh 
+bash ./gen-code.sh  # Removed the '-x' for verbosity in CI
 # we diff only the code
 DIFF_OUT=$(git diff -- demisto_client)
 

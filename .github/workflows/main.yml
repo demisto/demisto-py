@@ -1,14 +1,11 @@
 name: Build and Release
 
 on:
-  push:   # This applies to all pushes
+  push:
     branches:
       - '**'   # Run on all branches for push
-  pull_request:
-    branches:
-      - '**'   # Run unit tests on all PRs as well
   tags:
-    - 'v*.*.*' # For tag pushes
+    - 'v*.*.*' # Run on version tags
 
 jobs:
   run-unit-tests:

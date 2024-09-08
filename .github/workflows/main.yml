@@ -1,12 +1,7 @@
 name: Build and Release
 
-on:
-  push:
-    branches:
-      - master
-    tags:
-      - 'v*.*.*'
-      
+on: pull_request
+
 jobs:
   run-unit-tests:
     strategy:
@@ -44,6 +39,7 @@ jobs:
           path: test-results
 
   verify:
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code

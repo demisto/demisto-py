@@ -1,6 +1,9 @@
 name: Build and Release
 
-on: pull_request
+on:
+  push:
+    branches:
+      - '**'   # Run on all branches for push
 
 jobs:
   run-unit-tests:

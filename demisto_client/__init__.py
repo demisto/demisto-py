@@ -335,7 +335,7 @@ def get_layouts_url_for_demisto_version(api_client, params):
     url = '/v2/layouts/import'
     server_details, status_code, response_headers = api_client.call_api('/about', 'GET', header_params={
         'Accept': 'application/json'},
-        auth_settings=['api_key'],
+        auth_settings=api_client.auth_settings,
         response_type=str,
         _preload_content=params.get(
         '_preload_content', True))

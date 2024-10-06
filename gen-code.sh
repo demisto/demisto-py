@@ -18,7 +18,9 @@ rm -rf demisto_client/demisto_api
 rm -rf docs
 mkdir -p demisto_client
 mv README.md README.md.org
+echo '##### Running Docker swaggerapi/swagger-codegen-cli:2.4.7'
 docker run --rm -u `id -u` -v `pwd`:/work -w /work swaggerapi/swagger-codegen-cli:2.4.7 generate -i /work/server_api_swagger.json -l python -o /work -c /work/swagger-config.json
+echo '##### Ran Docker swaggerapi/swagger-codegen-cli:2.4.7'
 rm -rf test
 mv demisto_client.demisto_api/*.py demisto_client/demisto_api/.
 mv demisto_client.demisto_api/api/*.py demisto_client/demisto_api/api/.

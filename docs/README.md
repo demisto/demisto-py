@@ -78,6 +78,7 @@ Method | HTTP request | Description
 [**update_entry_note**](DefaultApi.md#update_entry_note) | **POST** /entry/note | Mark entry as note
 [**update_entry_tags_op**](DefaultApi.md#update_entry_tags_op) | **POST** /entry/tags | Set entry tags
 [**upload_content_packs**](DefaultApi.md#upload_content_packs) | **POST** /contentpacks/installed/upload | Upload a Pack as zip file. The zip file maybe a single Pack or a zip containing multiple zipped Packs (a zip of zips)
+[**upload_custom_packs**](DefaultApi.md#upload_custom_packs) | **POST** /contentpacks/installed/upload/custom. | Upload a Custom Pack as zip file. The zip file maybe a single Pack or a zip containing multiple zipped Packs (a zip of zips)
 [**upload_report**](DefaultApi.md#upload_report) | **POST** /reports/upload | Upload report file to Demisto
 
 

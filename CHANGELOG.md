@@ -2,6 +2,9 @@
 
 [PyPI History](https://pypi.org/project/demisto-py/#history)
 
+## 3.2.15
+* Added `upload_custom_packs` to upload zipped custom packs to marketplace.
+
 ## 3.2.14
 * Added support for Python versions 3.11 and 3.12.
 

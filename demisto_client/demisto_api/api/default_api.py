@@ -7380,7 +7380,6 @@ class DefaultApi(object):
 
         :param async_req bool
         :param file file: file (required)
-        :param object skip_validation: if true will skip upload packs validation, use when migrating existing custom content to packs.
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -7403,13 +7402,12 @@ class DefaultApi(object):
 
         :param async_req bool
         :param file file: file (required)
-        :param object skip_validation: if true will skip upload packs validation, use when migrating existing custom content to packs.
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['file', 'skip_validation']  # noqa: E501
+        all_params = ['file']  # noqa: E501
         all_params.append('async_req')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -7441,8 +7439,6 @@ class DefaultApi(object):
         local_var_files = {}
         if 'file' in params:
             local_var_files['file'] = params['file']  # noqa: E501
-        if 'skip_validation' in params:
-            form_params.append(('skipValidation', params['skip_validation']))  # noqa: E501
 
         body_params = None
         # HTTP header `Accept`
@@ -7457,7 +7453,7 @@ class DefaultApi(object):
         auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
-            '/contentpacks/installed/upload/custom.', 'POST',
+            '/contentpacks/installed/upload/custom', 'POST',
             path_params,
             query_params,
             header_params,

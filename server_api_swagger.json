@@ -1822,7 +1822,7 @@
         }
       }
     },
-    "/contentpacks/installed/upload/custom.": {
+    "/contentpacks/installed/upload/custom": {
       "post": {
         "description": "Upload a Custom Pack to the marketplace in the Server.",
         "consumes": [
@@ -1840,11 +1840,6 @@
             "name": "file",
             "in": "formData",
             "required": true
-          },
-          {
-            "description": "if true will skip upload packs validation, use when migrating existing custom content to packs.",
-            "name": "skipValidation",
-            "in": "formData"
           }
         ],
         "responses": {

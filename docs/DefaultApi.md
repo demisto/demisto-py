@@ -78,7 +78,7 @@ Method | HTTP request | Description
 [**update_entry_note**](DefaultApi.md#update_entry_note) | **POST** /entry/note | Mark entry as note
 [**update_entry_tags_op**](DefaultApi.md#update_entry_tags_op) | **POST** /entry/tags | Set entry tags
 [**upload_content_packs**](DefaultApi.md#upload_content_packs) | **POST** /contentpacks/installed/upload | Upload a Pack as zip file. The zip file maybe a single Pack or a zip containing multiple zipped Packs (a zip of zips)
-[**upload_custom_packs**](DefaultApi.md#upload_custom_packs) | **POST** /contentpacks/installed/upload/custom. | Upload a Custom Pack as zip file. The zip file maybe a single Pack or a zip containing multiple zipped Packs (a zip of zips)
+[**upload_custom_packs**](DefaultApi.md#upload_custom_packs) | **POST** /contentpacks/installed/upload/custom | Upload a Custom Pack as zip file. The zip file maybe a single Pack or a zip containing multiple zipped Packs (a zip of zips)
 [**upload_report**](DefaultApi.md#upload_report) | **POST** /reports/upload | Upload report file to Demisto
 
 
@@ -3663,7 +3663,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **upload_custom_packs**
-> upload_custom_packs(file, skip_validation=skip_validation)
+> upload_custom_packs(file)
 
 Upload a Custom Pack as zip file. The zip file maybe a single Pack or a zip containing multiple zipped Packs (a zip of zips)
 
@@ -3680,11 +3680,10 @@ from pprint import pprint
 
 api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
 file = '/path/to/file.txt' # file | file
-skip_validation = NULL # object | if true will skip upload packs validation, use when migrating existing custom content to packs. (optional)
 
 try:
     # Upload a Custom Pack as zip file. The zip file maybe a single Pack or a zip containing multiple zipped Packs (a zip of zips)
-    api_instance.upload_custom_packs(file, skip_validation=skip_validation)
+    api_instance.upload_custom_packs(file)
 except ApiException as e:
     print("Exception when calling DefaultApi->upload_custom_packs: %s\n" % e)
 ```
@@ -3694,7 +3693,6 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **file** | **file**| file | 
- **skip_validation** | [**object**](.md)| if true will skip upload packs validation, use when migrating existing custom content to packs. | [optional] 
 
 ### Return type
 

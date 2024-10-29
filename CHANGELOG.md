@@ -2,7 +2,7 @@
 
 [PyPI History](https://pypi.org/project/demisto-py/#history)
 
-## 3.2.15
+## 3.2.16
 * Added `upload_custom_packs` to upload zipped custom packs to marketplace.
 
 ## 3.2.14

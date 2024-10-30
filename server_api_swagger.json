@@ -1787,7 +1787,7 @@
     },
     "/contentpacks/installed/upload": {
       "post": {
-        "description": "Upload a Pack to the marketplace in the Server. Can be used to upload a Pack for an offline scenario or a Pack that hasn't been released.",
+        "description": "Upload a Pack to the marketplace in the Server. Can be used to upload a Pack for an offline scenario or a Pack that hasn't been released. (will be deprecated from XSOAR 8.9 and XSIAM 2.5)",
         "consumes": [
           "multipart/form-data"
         ],

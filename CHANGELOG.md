@@ -4,7 +4,7 @@
 
 ## 3.2.16
 * Added `upload_custom_packs` to upload zipped custom packs to marketplace.
-
+  and the `upload_content_packs` will be deprecated from XSOAR 8.9 and XSIAM 2.5
 ## 3.2.14
 * Added support for Python versions 3.11 and 3.12.
 

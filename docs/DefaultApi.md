@@ -3616,7 +3616,7 @@ Name | Type | Description  | Notes
 
 Upload a Pack as zip file. The zip file maybe a single Pack or a zip containing multiple zipped Packs (a zip of zips)
 
-Upload a Pack to the marketplace in the Server. Can be used to upload a Pack for an offline scenario or a Pack that hasn't been released.
+Upload a Pack to the marketplace in the Server. Can be used to upload a Pack for an offline scenario or a Pack that hasn't been released. (will be deprecated from XSOAR 8.9 and XSIAM 2.5)
 
 ### Example
 ```python

@@ -7265,7 +7265,7 @@ class DefaultApi(object):
     def upload_content_packs(self, file, **kwargs):  # noqa: E501
         """Upload a Pack as zip file. The zip file maybe a single Pack or a zip containing multiple zipped Packs (a zip of zips)  # noqa: E501
 
-        Upload a Pack to the marketplace in the Server. Can be used to upload a Pack for an offline scenario or a Pack that hasn't been released.  # noqa: E501
+        Upload a Pack to the marketplace in the Server. Can be used to upload a Pack for an offline scenario or a Pack that hasn't been released. (will be deprecated from XSOAR 8.9 and XSIAM 2.5)  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
         >>> thread = api.upload_content_packs(file, async_req=True)
@@ -7289,7 +7289,7 @@ class DefaultApi(object):
     def upload_content_packs_with_http_info(self, file, **kwargs):  # noqa: E501
         """Upload a Pack as zip file. The zip file maybe a single Pack or a zip containing multiple zipped Packs (a zip of zips)  # noqa: E501
 
-        Upload a Pack to the marketplace in the Server. Can be used to upload a Pack for an offline scenario or a Pack that hasn't been released.  # noqa: E501
+        Upload a Pack to the marketplace in the Server. Can be used to upload a Pack for an offline scenario or a Pack that hasn't been released. (will be deprecated from XSOAR 8.9 and XSIAM 2.5)  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
         >>> thread = api.upload_content_packs_with_http_info(file, async_req=True)

@@ -31,6 +31,11 @@ jobs:
         run: |
           poetry install --no-interaction --no-ansi --no-root
 
+      - name: Check installed packages (debug)
+        run: |
+          poetry run pip list
+          poetry run pip show setuptools
+
       - uses: actions/cache@v3
         name: Define a cache for the virtual environment based on the dependencies lock file
         with:

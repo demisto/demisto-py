@@ -45,7 +45,7 @@ jobs:
       - name: Run Unit Tests
         run: |
           mkdir test-results
-          poetry run python -m pytest --junitxml=test-results/junit.xml -v tests
+          poetry run python -m pytest --junitxml=test-results/junit.xml -v tests -W ignore::DeprecationWarning
 
       - name: Upload test results
         uses: actions/upload-artifact@v4

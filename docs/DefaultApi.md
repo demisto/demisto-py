@@ -78,6 +78,7 @@ Method | HTTP request | Description
 [**update_entry_note**](DefaultApi.md#update_entry_note) | **POST** /entry/note | Mark entry as note
 [**update_entry_tags_op**](DefaultApi.md#update_entry_tags_op) | **POST** /entry/tags | Set entry tags
 [**upload_content_packs**](DefaultApi.md#upload_content_packs) | **POST** /contentpacks/installed/upload | Upload a Pack as zip file. The zip file maybe a single Pack or a zip containing multiple zipped Packs (a zip of zips)
+[**upload_custom_packs**](DefaultApi.md#upload_custom_packs) | **POST** /contentpacks/installed/upload/custom | Upload a Custom Pack as zip file. The zip file maybe a single Pack or a zip containing multiple zipped Packs (a zip of zips)
 [**upload_report**](DefaultApi.md#upload_report) | **POST** /reports/upload | Upload report file to Demisto
 
 
@@ -3615,7 +3616,7 @@ Name | Type | Description  | Notes
 
 Upload a Pack as zip file. The zip file maybe a single Pack or a zip containing multiple zipped Packs (a zip of zips)
 
-Upload a Pack to the marketplace in the Server. Can be used to upload a Pack for an offline scenario or a Pack that hasn't been released.
+Upload a Pack to the marketplace in the Server. Can be used to upload a Pack for an offline scenario or a Pack that hasn't been released. (will be deprecated from XSOAR 8.9 and XSIAM 2.5)
 
 ### Example
 ```python
@@ -3645,6 +3646,53 @@ Name | Type | Description  | Notes
  **file** | **file**| file | 
  **skip_validation** | [**object**](.md)| if true will skip upload packs validation, use when migrating existing custom content to packs. | [optional] 
  **skip_verify** | [**object**](.md)| If true will skip pack signature verification. Use when uploading a custom or dev pack | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[api_key](README.md#api_key), [csrf_token](README.md#csrf_token), [x-xdr-auth-id](README.md#x-xdr-auth-id)
+
+### HTTP request headers
+
+ - **Content-Type**: multipart/form-data
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **upload_custom_packs**
+> upload_custom_packs(file)
+
+Upload a Custom Pack as zip file. The zip file maybe a single Pack or a zip containing multiple zipped Packs (a zip of zips)
+
+Upload a Custom Pack to the marketplace in the Server.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import demisto_client
+import demisto_client.demisto_api
+from demisto_client.demisto_api.rest import ApiException
+from pprint import pprint
+
+api_instance = demisto_client.configure(base_url="https://YOUR_DEMISTO_SERVER", api_key="YOUR_API_KEY")
+file = '/path/to/file.txt' # file | file
+
+try:
+    # Upload a Custom Pack as zip file. The zip file maybe a single Pack or a zip containing multiple zipped Packs (a zip of zips)
+    api_instance.upload_custom_packs(file)
+except ApiException as e:
+    print("Exception when calling DefaultApi->upload_custom_packs: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **file** | **file**| file | 
 
 ### Return type
 

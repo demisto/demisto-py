@@ -1787,7 +1787,7 @@
     },
     "/contentpacks/installed/upload": {
       "post": {
-        "description": "Upload a Pack to the marketplace in the Server. Can be used to upload a Pack for an offline scenario or a Pack that hasn't been released.",
+        "description": "Upload a Pack to the marketplace in the Server. Can be used to upload a Pack for an offline scenario or a Pack that hasn't been released. (will be deprecated from XSOAR 8.9 and XSIAM 2.5)",
         "consumes": [
           "multipart/form-data"
         ],
@@ -1813,6 +1813,33 @@
             "description": "If true will skip pack signature verification. Use when uploading a custom or dev pack",
             "name": "skipVerify",
             "in": "formData"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The pack was successfully uploaded"
+          }
+        }
+      }
+    },
+    "/contentpacks/installed/upload/custom": {
+      "post": {
+        "description": "Upload a Custom Pack to the marketplace in the Server.",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "Upload a Custom Pack as zip file. The zip file maybe a single Pack or a zip containing multiple zipped Packs (a zip of zips)",
+        "operationId": "uploadCustomPacks",
+        "parameters": [
+          {
+            "type": "file",
+            "description": "file",
+            "name": "file",
+            "in": "formData",
+            "required": true
           }
         ],
         "responses": {

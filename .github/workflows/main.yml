@@ -12,18 +12,27 @@ jobs:
         python-version: ['3.8', '3.9', '3.10', '3.11', '3.12']
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Check out repository
         uses: actions/checkout@v3
 
-      - name: Set up Python ${{ matrix.python-version }}
+      - name: Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
 
+      - name: Prepare system for Poetry
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-venv python3-distutils python3-setuptools python3-wheel
+
+      - name: Clean old Poetry
+        run: |
+          rm -rf $HOME/.poetry
+          rm -rf $HOME/.cache/pypoetry
+
       - name: Install Poetry
         run: |
-          rm -rf $HOME/.poetry/bin/poetry
-          curl -sSL https://install.python-poetry.org | python3 -
+          curl -sSL https://install.python-poetry.org | python3 - --version 1.5.1
           poetry --version
 
       - name: Install dependencies
@@ -36,7 +45,7 @@ jobs:
           poetry run python -m pytest --junitxml=test-results/junit.xml -v tests
 
       - name: Upload test results
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: test-results
           path: test-results

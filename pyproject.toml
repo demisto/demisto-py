@@ -22,7 +22,7 @@ classifiers=[
     ]
 
 [tool.poetry.dependencies]
-python = ">=3.8,<=3.12"
+python = ">=3.9,<=3.13"
 certifi = "^2024.2.2"
 six = "^1.16"
 python-dateutil = "^2.7.2"

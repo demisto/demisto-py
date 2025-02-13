@@ -10,34 +10,29 @@ jobs:
     strategy:
       matrix:
         python-version: ['3.8', '3.9', '3.10', '3.11', '3.12']
+        poetry-version: [ "latest", "main", "1.8.4" ]
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
 
       - name: Setup Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Prepare system for Poetry
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y python3-venv python3-distutils python3-setuptools python3-wheel
-
-      - name: Clean old Poetry
-        run: |
-          rm -rf $HOME/.poetry
-          rm -rf $HOME/.cache/pypoetry
-
       - name: Install Poetry
-        run: |
-          curl -sSL https://install.python-poetry.org | python3 - --version 1.5.1
-          poetry --version
+        uses: abatilo/actions-poetry@v4
 
       - name: Install dependencies
         run: |
           poetry install --no-interaction --no-ansi --no-root
+          
+      - uses: actions/cache@v3
+        name: Define a cache for the virtual environment based on the dependencies lock file
+        with:
+          path: ./.venv
+          key: venv-${{ hashFiles('poetry.lock') }}
 
       - name: Run Unit Tests
         run: |

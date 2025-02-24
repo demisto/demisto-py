@@ -4923,7 +4923,7 @@ class DefaultApi(object):
         auth_settings = ['api_key', 'csrf_token', 'x-xdr-auth-id']  # noqa: E501
 
         return self.api_client.call_api(
-            '/entry/upload/{id}', 'POST',
+            '/incident/upload/{id}', 'POST',
             path_params,
             query_params,
             header_params,

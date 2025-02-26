@@ -272,6 +272,7 @@ def generic_request_func(self, path, method, body=None, **kwargs):
     all_params.append('accept')
     all_params.append('response_type')
     all_params.append('form_params')
+    all_params.append('files')
 
     params = locals()
     for key, val in six.iteritems(params['kwargs']):
@@ -292,7 +293,7 @@ def generic_request_func(self, path, method, body=None, **kwargs):
     header_params = {}
 
     form_params = params.get('form_params')
-    local_var_files = {}
+    local_var_files = params.get('files')
 
     body_params = body
     # HTTP header `Accept`

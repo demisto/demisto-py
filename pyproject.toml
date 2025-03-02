@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "demisto-py"
-version = "3.2.17"
+version = "3.2.18"
 description = "\"A Python library for the Demisto API\""
 authors = ["Demisto"]
 license = "Apache-2.0"
@@ -28,7 +28,7 @@ six = "^1.16"
 python-dateutil = "^2.7.2"
 urllib3 = "<2.1.0"  # Can't update until CIAC-9648 is resolved
 tzlocal = "^5.2.0"
-setuptools = "^68.0"
+setuptools = "^75.5.0"
 
 
 

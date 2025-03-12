@@ -88,10 +88,10 @@ def configure(base_url=None, api_key=None, advanced_api_key=None, verify_ssl=Non
         else:
             verify_ssl = True
     if proxy is None:
-        if base_url.lower().startswith('http'):
-            proxy = os.getenv('HTTP_PROXY')
-        elif base_url.lower().startswith('https'):
+        if base_url.lower().startswith('https'):
             proxy = os.getenv('HTTPS_PROXY')
+        elif base_url.lower().startswith('http'):
+            proxy = os.getenv('HTTP_PROXY')
     if connection_pool_maxsize is None:
         connection_pool_maxsize = os.getenv('DEMISTO_CONNECTION_POOL_MAXSIZE')
         if connection_pool_maxsize:

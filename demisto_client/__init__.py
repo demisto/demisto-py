@@ -19,7 +19,7 @@ except DistributionNotFound:
     __version__ = 'dev'
 
 
-DEMISTO_HTTP_HEADERS_REGEX_PATTERN = r'^([\w-]+=[^=,\n]+)(,[\w-]+=[^=,\n]+)*$'
+DEMISTO_HTTP_HEADERS_REGEX_PATTERN = r'^(Cookie=[^,\n]+|[\w-]+=[^=,\n]+)(,(Cookie=[^,\n]+|[\w-]+=[^=,\n]+))*$'
 
 
 def configure(base_url=None, api_key=None, advanced_api_key=None, verify_ssl=None, proxy=None, username=None, password=None,

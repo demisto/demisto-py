@@ -26,7 +26,7 @@ python = ">=3.9,<=3.13"
 certifi = "^2024.2.2"
 six = "^1.16"
 python-dateutil = "^2.7.2"
-urllib3 = "<2.1.0"  # Can't update until CIAC-9648 is resolved
+urllib3 = "<2.6.0"  # Can't update until CIAC-9648 is resolved
 tzlocal = "^5.2.0"
 setuptools = ">=80.9.0"
 

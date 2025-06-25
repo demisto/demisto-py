@@ -721,6 +721,7 @@ class TestConfigureClient:
                 "Content-type=123",
                 {'Content-type': '123'}
             ),
+            
             (
                 "  ",
                 {}

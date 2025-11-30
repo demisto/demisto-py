@@ -1,7 +1,7 @@
 variables:
-  CURRENT_BRANCH_NAME: "demisto_py_shared_ci"
+  CURRENT_BRANCH_NAME: demisto_py_shared_ci
 
 include:
   - file: "/.gitlab/ci/demisto-py/.gitlab-ci.yml"
-    ref: "demisto_py_shared_ci"
+    ref: demisto_py_shared_ci
     project: "${CI_PROJECT_NAMESPACE}/infra"

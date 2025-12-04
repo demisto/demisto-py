@@ -1,8 +1,8 @@
 variables:
-  CURRENT_BRANCH_NAME: "${INFRA_BRANCH}"
+  CURRENT_BRANCH_NAME: master
 
 
 include:
   - file: "/.gitlab/ci/demisto-py/.gitlab-ci.yml"
-    ref: "${INFRA_BRANCH}"
+    ref: master
     project: "${CI_PROJECT_NAMESPACE}/infra"

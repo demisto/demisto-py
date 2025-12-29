@@ -227,7 +227,7 @@ class RESTClientObject(object):
 
             # In the python 3, the response.data is bytes.
             # we need to decode it to string.
-            if six.PY3 and r.getheader("Content-Type") != "application/octet-stream" and r.getheader("Content-Type") != "application/gzip":
+            if six.PY3 and r.headers.get("Content-Type") != "application/octet-stream" and r.headers.get("Content-Type") != "application/gzip":
                 r.data = r.data.decode('utf8')
 
             # log response body
@@ -311,7 +311,7 @@ class ApiException(Exception):
             self.status = http_resp.status
             self.reason = http_resp.reason
             self.body = http_resp.data
-            self.headers = http_resp.getheaders()
+            self.headers = http_resp.headers
         else:
             self.status = status
             self.reason = reason

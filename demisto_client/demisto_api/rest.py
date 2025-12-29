@@ -37,7 +37,7 @@ logger = logging.getLogger(__name__)
 
 class RESTResponse(io.IOBase):
 
-    def __init__(self, resp):
+    def __init__(self, resp: urllib3.response.HTTPResponse):
         self.urllib3_response = resp
         self.status = resp.status
         self.reason = resp.reason
@@ -45,7 +45,7 @@ class RESTResponse(io.IOBase):
 
     def getheaders(self):
         """Returns a dictionary of the response headers."""
-        return self.urllib3_response.getheaders()
+        return self.urllib3_response.headers
 
     def getheader(self, name, default=None):
         """Returns a given response header."""

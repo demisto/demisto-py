@@ -191,7 +191,7 @@ class ApiClient(object):
             return (return_data)
         else:
             return (return_data, response_data.status,
-                    response_data.headers)
+                    response_data.getheaders())
 
     def sanitize_for_serialization(self, obj):
         """Builds a JSON POST object.
@@ -511,11 +511,11 @@ class ApiClient(object):
         else:
             return content_types[0]
 
-    def update_params_for_auth(self, headers, queries, auth_settings):
+    def update_params_for_auth(self, headers, querys, auth_settings):
         """Updates header and query params based on authentication setting.
 
         :param headers: Header parameters dict to be updated.
-        :param queries: Query parameters tuple list to be updated.
+        :param querys: Query parameters tuple list to be updated.
         :param auth_settings: Authentication setting identifiers list.
         """
         if not auth_settings:
@@ -529,7 +529,7 @@ class ApiClient(object):
                 elif auth_setting['in'] == 'header':
                     headers[auth_setting['key']] = auth_setting['value']
                 elif auth_setting['in'] == 'query':
-                    queries.append((auth_setting['key'], auth_setting['value']))
+                    querys.append((auth_setting['key'], auth_setting['value']))
                 else:
                     raise ValueError(
                         'Authentication token must be in `query` or `header`'
@@ -548,7 +548,7 @@ class ApiClient(object):
         os.close(fd)
         os.remove(path)
 
-        content_disposition = response.headers.get("Content-Disposition")
+        content_disposition = response.getheader("Content-Disposition")
         if content_disposition:
             filename = re.search(r'filename=[\'"]?([^\'"\s]+)[\'"]?',
                                  content_disposition).group(1)

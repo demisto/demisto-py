@@ -33,7 +33,7 @@ except ImportError:
 
 
 logger = logging.getLogger(__name__)
-
+test= ""
 
 class RESTResponse(io.IOBase):
 

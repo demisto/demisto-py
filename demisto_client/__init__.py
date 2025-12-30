@@ -6,7 +6,7 @@ import os
 import datetime
 import tzlocal
 import json
-test = ""
+
 from demisto_client.demisto_api import ApiClient
 from demisto_client.demisto_api.configuration import Configuration
 import importlib.metadata

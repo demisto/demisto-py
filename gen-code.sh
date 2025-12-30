@@ -69,6 +69,10 @@ sed -i "${INPLACE[@]}" -e 's/self.data = resp.data/self.data = resp.data\
         self.headers = resp.headers/' demisto_client/demisto_api/rest.py
 sed -i "${INPLACE[@]}" -e 's/return self.urllib3_response.getheaders()/return self.urllib3_response.headers/' demisto_client/demisto_api/rest.py
 sed -i "${INPLACE[@]}" -e 's/return self.urllib3_response.getheader(name, default)/return self.urllib3_response.headers.get(name, default)/' demisto_client/demisto_api/rest.py
+sed -i "${INPLACE[@]}" -e 's/self.headers = http_resp.getheaders()/self.headers = http_resp.headers/' demisto_client/demisto_api/rest.py
+# Fix urllib3 2.6 compatibility in api_client.py
+sed -i "${INPLACE[@]}" -e 's/response_data.getheaders()/response_data.headers/' demisto_client/demisto_api/api_client.py
+sed -i "${INPLACE[@]}" -e 's/response.getheader("Content-Disposition")/response.headers.get("Content-Disposition")/' demisto_client/demisto_api/api_client.py
 # Disable sensitive logging by default
 sed -i "${INPLACE[@]}" -e 's/import ssl/import ssl\
 import os/g' demisto_client/demisto_api/rest.py

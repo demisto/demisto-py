@@ -3,6 +3,8 @@
 [PyPI History](https://pypi.org/project/demisto-py/#history)
 
 ## Unreleased
+
+## 3.2.22
 * Updated dependencies.
 
 ## 3.2.14

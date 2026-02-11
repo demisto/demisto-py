@@ -4,6 +4,9 @@
 
 ## Unreleased
 
+## 3.2.23
+* Fix a bug where `os.path.join()` was used to create URLs, which caused issues on Windows systems.
+
 ## 3.2.22
 * Updated dependencies.
 

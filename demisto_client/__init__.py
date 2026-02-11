@@ -6,6 +6,7 @@ import os
 import datetime
 import tzlocal
 import json
+import posixpath
 
 from demisto_client.demisto_api import ApiClient
 from demisto_client.demisto_api.configuration import Configuration
@@ -119,10 +120,10 @@ def configure(base_url=None, api_key=None, advanced_api_key=None, verify_ssl=Non
         setattr(configuration, 'auth_signed_key', advanced_api_key)
     else:
         configuration.api_key['Authorization'] = api_key
-    configuration.host = os.path.join(base_url)
+    configuration.host = posixpath.join(base_url)
     if auth_id:
         configuration.api_key['x-xdr-auth-id'] = auth_id
-        configuration.host = os.path.join(configuration.host, 'xsoar')
+        configuration.host = posixpath.join(configuration.host, 'xsoar')
         if not configuration.host.startswith("https://api-"):
             configuration.host = configuration.host.replace('https://', 'https://api-')
     configuration.verify_ssl = verify_ssl

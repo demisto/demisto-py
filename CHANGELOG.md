@@ -3,6 +3,7 @@
 [PyPI History](https://pypi.org/project/demisto-py/#history)
 
 ## Unreleased
+* Deprecated support for Python versions 3.9 and 3.10.
 * Added support for Python versions 3.13 and 3.14.
 
 ## 3.2.22

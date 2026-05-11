@@ -1,7 +1,7 @@
 variables:
-  CURRENT_BRANCH_NAME: "${INFRA_BRANCH}"
+  CURRENT_BRANCH_NAME: hf-v0.1.5-python3.14
 
 include:
   - file: .gitlab/ci/demisto-py/.gitlab-ci.yml
-    ref: "${INFRA_BRANCH}"
+    ref: hf-v0.1.5-python3.14
     project: "${CI_PROJECT_NAMESPACE}/infra"

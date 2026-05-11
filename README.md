@@ -225,7 +225,6 @@ For example:
   git push origin v2.0.19
   ```
 
-* Check that the circleci build completes successfully. Once done, the release will be pushed to: <https://pypi.org/project/demisto-py/> .
 * Update GitHub releases: go to [tags page](https://github.com/demisto/demisto-py/tags) and for the relevant tag choose from the right drop down menu: `Create release`. Name the release the same as the tag. Copy the text from previous releases for the description.
 
 Congratulations! The release is now public.
